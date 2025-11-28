@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <!-- Google Tag Manager (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7DX46N0YKE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7DX46N0YKE');
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كمشكاة | Kameshkah</title>
+    
+    <!-- أيقونة الموقع في التابة (Favicon) -->
+    <link rel="icon" href="logo.png" type="image/png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Cairo', sans-serif; }
+        .hidden-section { display: none !important; }
+        .fade-in { animation: fadeIn 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(20px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+        .filter-btn.active {
+            background-color: #059669; 
+            color: white;
+            border-color: #059669;
+        }
+        .filters-container {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .filters-container::-webkit-scrollbar {
+            display: none;
+        }
+        .article-content p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            color: #374151;
+        }
+        
+        /* تأثير الزجاج القوي (Enhanced Glassmorphism) */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.65); /* شفافية أكبر */
+            backdrop-filter: blur(20px) saturate(180%); /* تمويه قوي وتشبع ألوان */
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-top: 1px solid rgba(255, 255, 255, 0.7); /* لمعة علوية */
+            border-left: 1px solid rgba(255, 255, 255, 0.7); /* لمعة جانبية */
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15); /* ظل ناعم */
+        }
+    </style>
+</head>
+<body class="text-slate-800 min-h-screen relative">
+
+    <!-- خلفية الموقع الثابتة -->
+    <div class="fixed inset-0 z-[-1]">
+        <img src="bg.jpg" alt="Background" class="w-full h-full object-cover" onerror="this.style.display='none'; document.body.classList.add('bg-slate-50')">
+        <div class="absolute inset-0 bg-slate-900/20"></div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full glass-panel z-50 text-white !bg-emerald-900/80 !border-b-emerald-800/30 !rounded-none !border-x-0 !border-t-0">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-20">
+                <div onclick="showPage('home')" class="flex items-center gap-3 cursor-pointer group select-none">
+                    <!-- تم استبدال ديف الحرف بصورة اللوجو -->
+                    <img src="logo.png" alt="شعار كمشكاة" class="w-12 h-12 object-contain transform group-hover:rotate-6 transition-transform drop-shadow-md bg-white/90 rounded-lg p-1">
+                    <span class="text-2xl font-bold tracking-wide">كمشكاة</span>
+                </div>
+
+                <div class="hidden md:flex items-center gap-2 bg-emerald-800/40 backdrop-blur p-1.5 rounded-full border border-emerald-500/30">
+                    <button onclick="showPage('home')" class="nav-btn px-5 py-2 rounded-full text-sm font-bold transition-all" data-page="home">الرئيسية</button>
+                    <button onclick="showPage('courses')" class="nav-btn px-5 py-2 rounded-full text-sm font-bold transition-all" data-page="courses">كورسات</button>
+                    <button onclick="showPage('gallery')" class="nav-btn px-5 py-2 rounded-full text-sm font-bold transition-all" data-page="gallery">تصميم كمشكاة</button>
+                    <button onclick="showPage('articles')" class="nav-btn px-5 py-2 rounded-full text-sm font-bold transition-all" data-page="articles">مقالات</button>
+                    <button onclick="showPage('contact')" class="nav-btn px-5 py-2 rounded-full text-sm font-bold transition-all" data-page="contact">تواصل معنا</button>
+                </div>
+
+                <button class="md:hidden p-2 hover:bg-emerald-800 rounded-lg transition" onclick="toggleMobileMenu()">
+                    <i data-lucide="menu" class="w-7 h-7"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden glass-panel !bg-emerald-900/95 !rounded-none border-t border-emerald-800 p-4 space-y-2 shadow-xl absolute w-full z-40">
+            <button onclick="showPage('home')" class="block w-full text-right px-4 py-3 rounded-lg hover:bg-emerald-800 transition text-emerald-50 font-bold">الرئيسية</button>
+            <button onclick="showPage('courses')" class="block w-full text-right px-4 py-3 rounded-lg hover:bg-emerald-800 transition text-emerald-50 font-bold">كورسات تعليمية</button>
+            <button onclick="showPage('gallery')" class="block w-full text-right px-4 py-3 rounded-lg hover:bg-emerald-800 transition text-emerald-50 font-bold">معرض الصور</button>
+            <button onclick="showPage('articles')" class="block w-full text-right px-4 py-3 rounded-lg hover:bg-emerald-800 transition text-emerald-50 font-bold">مقالات</button>
+            <button onclick="showPage('contact')" class="block w-full text-right px-4 py-3 rounded-lg hover:bg-emerald-800 transition text-emerald-50 font-bold">تواصل معنا</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-28 pb-12 px-4 container mx-auto max-w-7xl min-h-screen">
+
+        <!-- 1. الرئيسية -->
+        <div id="home" class="page-section fade-in">
+            <div class="glass-panel rounded-3xl p-8 md:p-20 text-center relative overflow-hidden mb-8">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-emerald-300/30 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+                <div class="absolute bottom-0 left-0 w-64 h-64 bg-teal-300/30 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
+                
+                <div class="relative z-10">
+                    <h1 class="text-4xl md:text-7xl font-black text-emerald-800 mb-6 leading-tight drop-shadow-sm tracking-tight">
+                        كمشكاة
+                    </h1>
+                    <p class="text-xl md:text-2xl text-slate-700 max-w-3xl mx-auto mb-10 leading-relaxed font-bold drop-shadow-sm">
+                        استعن بالله ولا تعجز
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center gap-4">
+                        <button onclick="showPage('courses')" class="bg-emerald-700 text-white px-10 py-4 rounded-2xl font-bold text-lg hover:bg-emerald-800 hover:-translate-y-1 transition shadow-lg shadow-emerald-900/20">شوف الكورسات</button>
+                        <button onclick="showPage('gallery')" class="glass-panel text-emerald-900 px-10 py-4 rounded-2xl font-bold text-lg hover:bg-white/80 hover:-translate-y-1 transition shadow-sm border-emerald-100">تصفح المعرض</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-panel p-8 rounded-3xl text-center transform hover:scale-105 transition-transform duration-300">
+                    <div class="text-5xl font-black text-emerald-700 mb-2 counter" data-target="846">0</div>
+                    <div class="text-slate-600 font-bold text-lg">زائر للموقع</div>
+                </div>
+                <div class="glass-panel p-8 rounded-3xl text-center transform hover:scale-105 transition-transform duration-300">
+                    <div class="text-5xl font-black text-emerald-700 mb-2 counter" data-target="264">0</div>
+                    <div class="text-slate-600 font-bold text-lg">كورس تعليمي</div>
+                </div>
+                <div class="glass-panel p-8 rounded-3xl text-center transform hover:scale-105 transition-transform duration-300">
+                    <div class="text-5xl font-black text-emerald-700 mb-2 counter" data-target="5">0</div>
+                    <div class="text-slate-600 font-bold text-lg">مقال حصري</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. الكورسات -->
+        <div id="courses" class="page-section hidden-section fade-in">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
+                <div class="flex items-center gap-4 glass-panel px-6 py-3 rounded-2xl">
+                    <div class="w-2 h-10 bg-emerald-500 rounded-full"></div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-800">الكورسات التعليمية</h2>
+                </div>
+                
+                <div class="relative w-full md:w-96">
+                    <input type="text" id="course-search-input" onkeyup="filterCourses()" placeholder="ابحث عن كورس (تصميم، برمجة...)" 
+                           class="w-full pl-4 pr-12 py-3 rounded-xl border border-white/50 bg-white/70 backdrop-blur focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all shadow-sm placeholder-slate-500">
+                    <i data-lucide="search" class="absolute right-4 top-3.5 text-slate-500 w-5 h-5"></i>
+                </div>
+            </div>
+
+            <div id="course-category-filters" class="filters-container flex overflow-x-auto pb-4 gap-3 mb-4 whitespace-nowrap">
+                <button onclick="filterCoursesByCategory('all')" class="filter-btn active px-6 py-2 rounded-full border border-white/50 bg-white/70 backdrop-blur text-slate-700 font-bold hover:bg-white transition-colors flex-shrink-0 shadow-sm">الكل</button>
+            </div>
+            
+            <div id="courses-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 min-h-[300px]"></div>
+        </div>
+
+        <!-- 3. معرض الصور -->
+        <div id="gallery" class="page-section hidden-section fade-in">
+            <div class="text-center mb-12">
+                <div class="inline-block glass-panel px-10 py-5 rounded-full shadow-lg">
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-800 mb-1">تصميم كمشكاة</h2>
+                    <p class="text-slate-600 font-medium">مكتبة إبداعية (حمل الصور بجودة عالية)</p>
+                </div>
+            </div>
+            
+            <div id="gallery-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+
+            <div class="text-center mt-12">
+                <button id="load-more-btn" onclick="loadMoreImages()" class="group glass-panel !bg-slate-800/90 text-white px-10 py-4 rounded-xl font-bold hover:!bg-slate-700 transition shadow-xl flex items-center justify-center gap-3 mx-auto disabled:opacity-50 disabled:cursor-not-allowed border-none">
+                    <span>تحميل المزيد</span>
+                    <i data-lucide="arrow-down" class="w-5 h-5 group-hover:translate-y-1 transition-transform"></i>
+                </button>
+                <p id="gallery-status" class="mt-4 text-white text-sm font-bold shadow-sm drop-shadow-md"></p>
+            </div>
+        </div>
+
+        <!-- 4. المقالات -->
+        <div id="articles" class="page-section hidden-section fade-in">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
+                <div class="flex items-center gap-4 glass-panel px-6 py-3 rounded-2xl">
+                    <div class="w-2 h-10 bg-emerald-500 rounded-full"></div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-800">أحدث المقالات</h2>
+                </div>
+                
+                <div class="relative w-full md:w-96">
+                    <input type="text" id="article-search-input" onkeyup="filterArticles()" placeholder="ابحث في المقالات (إنتاجية، تصميم...)" 
+                           class="w-full pl-4 pr-12 py-3 rounded-xl border border-white/50 bg-white/70 backdrop-blur focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all shadow-sm placeholder-slate-500">
+                    <i data-lucide="search" class="absolute right-4 top-3.5 text-slate-500 w-5 h-5"></i>
+                </div>
+            </div>
+
+            <div id="article-category-filters" class="filters-container flex overflow-x-auto pb-4 gap-3 mb-4 whitespace-nowrap">
+                <button onclick="filterArticlesByCategory('all')" class="filter-btn active px-6 py-2 rounded-full border border-white/50 bg-white/70 backdrop-blur text-slate-700 font-bold hover:bg-white transition-colors flex-shrink-0 shadow-sm">الكل</button>
+            </div>
+
+            <div id="articles-grid" class="space-y-6"></div>
+        </div>
+
+        <!-- 4.1. صفحة عرض المقال الواحد -->
+        <div id="article-view" class="page-section hidden-section fade-in">
+            <div class="max-w-4xl mx-auto">
+                <button onclick="showPage('articles')" class="mb-6 flex items-center gap-2 text-white bg-slate-800/50 backdrop-blur px-4 py-2 rounded-xl hover:bg-emerald-600 transition font-bold shadow-md hover:shadow-lg border border-white/20">
+                    <i data-lucide="arrow-right" class="w-5 h-5"></i> رجوع للمقالات
+                </button>
+                
+                <div class="glass-panel rounded-3xl overflow-hidden !border-white/60 shadow-2xl">
+                    <div class="h-64 md:h-96 w-full relative">
+                        <img id="article-view-image" src="" alt="Article Cover" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 to-transparent flex items-end">
+                            <div class="p-8 md:p-12 w-full">
+                                <span id="article-view-category" class="bg-emerald-500 text-white px-3 py-1 rounded-full text-sm font-bold mb-3 inline-block shadow-lg border border-white/20"></span>
+                                <h1 id="article-view-title" class="text-3xl md:text-5xl font-bold text-white leading-tight drop-shadow-md"></h1>
+                                <p class="text-emerald-100 text-sm mt-2 font-bold flex items-center gap-2"><i data-lucide="user" class="w-4 h-4"></i> بقلم: مصطفى كمشكاة</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-8 md:p-12">
+                        <div id="article-view-content" class="article-content text-slate-800 leading-loose text-lg"></div>
+                        
+                        <div class="mt-12 pt-8 border-t border-slate-200/50 flex justify-between items-center">
+                            <span class="text-slate-500 font-bold">هل أعجبك المقال؟</span>
+                            <div class="flex gap-2">
+                                <button class="p-3 bg-slate-100/80 rounded-full hover:bg-emerald-100 hover:text-emerald-600 transition"><i data-lucide="share-2" class="w-5 h-5"></i></button>
+                                <button class="p-3 bg-slate-100/80 rounded-full hover:bg-red-100 hover:text-red-600 transition"><i data-lucide="heart" class="w-5 h-5"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. تواصل معنا -->
+        <div id="contact" class="page-section hidden-section fade-in">
+            <div class="max-w-5xl mx-auto">
+                <div class="glass-panel rounded-3xl overflow-hidden !border-white/60 shadow-2xl">
+                    <div class="bg-gradient-to-r from-emerald-800 to-teal-900 h-48 relative">
+                        <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+                        <div class="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-white/10 to-transparent"></div>
+                    </div>
+                    
+                    <div class="p-8 md:p-12 text-center -mt-24 relative z-10">
+                        <div class="w-40 h-40 bg-white/80 backdrop-blur rounded-full mx-auto p-1.5 shadow-2xl flex items-center justify-center mb-6 relative group border border-white/50">
+                            <div class="w-full h-full bg-slate-100 rounded-full flex items-center justify-center text-emerald-800 overflow-hidden relative">
+                                <i data-lucide="user" class="w-20 h-20"></i>
+                            </div>
+                            <div class="absolute bottom-2 right-2 bg-emerald-500 text-white p-2 rounded-full border-4 border-white shadow-sm" title="Verified Creator">
+                                <i data-lucide="check" class="w-4 h-4"></i>
+                            </div>
+                        </div>
+                        
+                        <h2 class="text-4xl md:text-5xl font-bold text-slate-800 mb-2">مصطفى عبد الناصر</h2>
+                        <p class="text-emerald-600 font-bold text-xl mb-4 tracking-wide flex items-center justify-center gap-2">
+                            <i data-lucide="pen-tool" class="w-5 h-5"></i>
+                            Graphic Designer & Content Creator
+                        </p>
+                        <p class="text-slate-500 max-w-2xl mx-auto mb-10 text-lg leading-relaxed">
+                            مصطفي عبد الناصر "كمشكاة" صانع محتوي كمشكاة ومصمم جرافيك <br> كمشكاة نسأل الله التوفيق
+                        </p>
+
+                        <div class="mb-12">
+                            <h3 class="text-2xl font-bold text-slate-800 mb-6 flex items-center justify-center gap-2">
+                                <span class="w-8 h-1 bg-emerald-500 rounded-full"></span>
+                                تواصل معي (شخصي)
+                                <span class="w-8 h-1 bg-emerald-500 rounded-full"></span>
+                            </h3>
+                            <div class="flex flex-wrap justify-center gap-4">
+                                <a href="https://www.facebook.com/MostafaKmshkat" target="_blank" class="p-4 bg-blue-50/80 text-blue-700 rounded-2xl hover:bg-blue-600 hover:text-white transition-all hover:-translate-y-1 shadow-sm group glass-panel" title="Facebook">
+                                    <i data-lucide="facebook" class="w-6 h-6"></i>
+                                </a>
+                                <a href="https://www.instagram.com/mostafakmshkat/" target="_blank" class="p-4 bg-pink-50/80 text-pink-600 rounded-2xl hover:bg-pink-600 hover:text-white transition-all hover:-translate-y-1 shadow-sm group glass-panel" title="Instagram">
+                                    <i data-lucide="instagram" class="w-6 h-6"></i>
+                                </a>
+                                <a href="https://x.com/Mostafakamishka" target="_blank" class="p-4 bg-slate-50/80 text-slate-700 rounded-2xl hover:bg-black hover:text-white transition-all hover:-translate-y-1 shadow-sm group glass-panel" title="X (Twitter)">
+                                    <i data-lucide="twitter" class="w-6 h-6"></i>
+                                </a>
+                                <a href="https://www.linkedin.com/in/mostafakamishka" target="_blank" class="p-4 bg-sky-50/80 text-sky-700 rounded-2xl hover:bg-sky-700 hover:text-white transition-all hover:-translate-y-1 shadow-sm group glass-panel" title="LinkedIn">
+                                    <i data-lucide="linkedin" class="w-6 h-6"></i>
+                                </a>
+                                <a href="https://www.behance.net/mostafaabdelnasser" target="_blank" class="p-4 bg-blue-50/80 text-blue-900 rounded-2xl hover:bg-blue-900 hover:text-white transition-all hover:-translate-y-1 shadow-sm group glass-panel" title="Behance">
+                                    <span class="font-bold text-lg leading-none">Be</span>
+                                </a>
+                                <a href="https://www.tiktok.com/@mostafakamishkaa?is_from_webapp=1&sender_device=pc" target="_blank" class="p-4 bg-slate-50/80 text-black rounded-2xl hover:bg-black hover:text-white transition-all hover:-translate-y-1 shadow-sm group glass-panel" title="TikTok">
+                                    <span class="font-bold text-lg leading-none">Tik</span>
+                                </a>
+                                <a href="https://t.me/Mostafa_Kmshkat" target="_blank" class="p-4 bg-sky-50/80 text-sky-500 rounded-2xl hover:bg-sky-500 hover:text-white transition-all hover:-translate-y-1 shadow-sm group glass-panel" title="Telegram (Personal)">
+                                    <i data-lucide="send" class="w-6 h-6"></i>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="glass-panel !bg-slate-50/50 rounded-3xl p-8 border border-slate-200/50">
+                            <h3 class="text-2xl font-bold text-slate-800 mb-6 flex items-center justify-center gap-2">
+                                <i data-lucide="users" class="text-emerald-600"></i>
+                                مجتمع كمشكاة الرسمي
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto">
+                                <a href="https://t.me/Kmshkat" target="_blank" class="flex items-center gap-4 p-4 bg-white/70 rounded-2xl border border-slate-200 hover:border-sky-400 hover:shadow-md transition-all group text-right glass-panel hover:!bg-white">
+                                    <div class="bg-sky-100/80 p-3 rounded-xl text-sky-600 group-hover:bg-sky-500 group-hover:text-white transition-colors">
+                                        <i data-lucide="send" class="w-6 h-6"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-slate-800">قناة التيليجرام</h4>
+                                        <p class="text-xs text-slate-500">أحدث الأخبار والمحتوى</p>
+                                    </div>
+                                </a>
+
+                                <a href="https://t.me/Kamshka_Communtiy" target="_blank" class="flex items-center gap-4 p-4 bg-white/70 rounded-2xl border border-slate-200 hover:border-indigo-400 hover:shadow-md transition-all group text-right glass-panel hover:!bg-white">
+                                    <div class="bg-indigo-100/80 p-3 rounded-xl text-indigo-600 group-hover:bg-indigo-500 group-hover:text-white transition-colors">
+                                        <i data-lucide="messages-square" class="w-6 h-6"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-slate-800">جروب المناقشات</h4>
+                                        <p class="text-xs text-slate-500">شاركنا رأيك واستفساراتك</p>
+                                    </div>
+                                </a>
+
+                                <a href="https://www.facebook.com/profile.php?id=61583541613263&locale=ar_AR" target="_blank" class="flex items-center gap-4 p-4 bg-white/70 rounded-2xl border border-slate-200 hover:border-blue-600 hover:shadow-md transition-all group text-right glass-panel hover:!bg-white">
+                                    <div class="bg-blue-100/80 p-3 rounded-xl text-blue-700 group-hover:bg-blue-700 group-hover:text-white transition-colors">
+                                        <i data-lucide="facebook" class="w-6 h-6"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-slate-800">صفحة الفيسبوك</h4>
+                                        <p class="text-xs text-slate-500">تابعنا على فيسبوك</p>
+                                    </div>
+                                </a>
+
+                                <a href="https://www.instagram.com/kmshka.official/" target="_blank" class="flex items-center gap-4 p-4 bg-white/70 rounded-2xl border border-slate-200 hover:border-pink-500 hover:shadow-md transition-all group text-right glass-panel hover:!bg-white">
+                                    <div class="bg-pink-100/80 p-3 rounded-xl text-pink-600 group-hover:bg-pink-500 group-hover:text-white transition-colors">
+                                        <i data-lucide="instagram" class="w-6 h-6"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-slate-800">انستجرام كمشكاة</h4>
+                                        <p class="text-xs text-slate-500">كواليس وصور حصرية</p>
+                                    </div>
+                                </a>
+                                
+                                <a href="https://x.com/KmshkaOfficial" target="_blank" class="flex items-center gap-4 p-4 bg-white/70 rounded-2xl border border-slate-200 hover:border-slate-800 hover:shadow-md transition-all group text-right md:col-span-2 glass-panel hover:!bg-white">
+                                    <div class="bg-slate-100/80 p-3 rounded-xl text-slate-700 group-hover:bg-black group-hover:text-white transition-colors">
+                                        <i data-lucide="twitter" class="w-6 h-6"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-slate-800">منصة X</h4>
+                                        <p class="text-xs text-slate-500">تغريدات سريعة</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="bg-white/80 backdrop-blur border-t border-slate-200 py-10 text-center">
+        <p class="text-slate-600 font-medium">جميع الحقوق محفوظة © 2025 <span class="text-emerald-800 font-bold">مصطفى كمشكاة</span></p>
+    </footer>
+
+    <script>
+        // --- 1. بيانات الكورسات ---
+        const coursesData = [
+          {
+            "id": 1,
+            "title": "GenAI Cybersecurity Solutions",
+            "description": "استخدام الذكاء الاصطناعي التوليدي في حلول الأمن السيبراني وحماية البيانات.",
+            "image": "images/stock1_sq.jpg",
+            "category": "Artificial Intelligence",
+            "url": "https://comidoc.com/udemy/genai-cybersecurity-solutions-j?utm_source=extension&utm_medium=extension"
+          },
+          {
+            "id": 2,
+            "title": "Network Administration in Practice",
+            "description": "إدارة الشبكات الحديثة بشكل عملي: Managing Modern Networks.",
+            "image": "images/stock2_sq.jpg",
+            "category": "IT & Software",
+            "url": "https://comidoc.com/udemy/network-administration-in-practice-managing-modern-networks?utm_source=extension&utm_medium=extension"
+          },
+          {
+            "id": 3,
+            "title": "GenAI for Content Creation",
+            "description": "استخدام الذكاء الاصطناعي في صناعة المحتوى والحملات الإعلانية المتعددة الوسائط.",
+            "image": "images/stock3_sq.jpg",
+            "category": "Artificial Intelligence",
+            "url": "https://comidoc.com/udemy/genai-for-content-creation-and-multimedia-campaigns?utm_source=extension&utm_medium=extension"
+          },
+          {
+            "id": 4,
+            "title": "QuickBooks Payroll - QuickBooks Pro",
+            "description": "تعلم إدارة الرواتب باستخدام QuickBooks Desktop 2019 بشكل احترافي.",
+            "image": "images/stock4_sq.jpg",
+            "category": "Finance & Accounting",
+            "url": "https://comidoc.com/udemy/quickbooks-payroll-quickbooks-pro-desktop-2019?utm_source=extension&utm_medium=extension"
+          },
+          {
+            "id": 5,
+            "title": "CSS Complete Course For Beginners",
+            "description": "كورس شامل لتعلم CSS من الصفر للمبتدئين لتصميم مواقع الويب.",
+            "image": "images/stock5_sq.jpg",
+            "category": "Development",
+            "url": "https://comidoc.com/udemy/css-complete-course-for-beginners?utm_source=extension&utm_medium=extension"
+          },
+          {
+            "id": 6,
+            "title": "P.O.W.E.R. : Proven Interview System",
+            "description": "نظام مثبت لاجتياز المقابلات الشخصية والحصول على وظيفة أحلامك.",
+            "image": "images/stock6_sq.jpg",
+            "category": "Personal Development",
+            "url": "https://comidoc.com/udemy/ace-every-job-interview-master-blueprint-and-get-your-dream-job?utm_source=extension&utm_medium=extension"
+          },
+          {
+            "id": 7,
+            "title": "C Corporation Income Tax (Form 1120)",
+            "description": "دليل شامل لضريبة دخل الشركات وإعداد نموذج 1120.",
+            "image": "images/stock7_sq.jpg",
+            "category": "Finance & Accounting",
+            "url": "https://comidoc.com/udemy/c-corporation-income-tax-form-1120?utm_source=extension&utm_medium=extension"
+          },
+          {
+            "id": 8,
+            "title": "Partnership Income Tax (Form 1065)",
+            "description": "تعلم كيفية التعامل مع ضرائب دخل الشراكات ونموذج 1065.",
+            "image": "images/stock8_sq.jpg",
+            "category": "Finance & Accounting",
+            "url": "https://comidoc.com/udemy/partnership-income-tax-form-1065?utm_source=extension&utm_medium=extension"
+          },
+          {
+            "id": 9,
+            "title": "Introducción a Informática Forense",
+            "description": "مقدمة في التحقيقات الجنائية الرقمية (Forensics) - الأساسيات والممارسة.",
+            "image": "images/stock9_sq.jpg",
+            "category": "IT & Software",
+            "url": "https://comidoc.com/udemy/introduccion-a-informatica-forense-fundamentos-y-practica?utm_source=extension&utm_medium=extension"
+          },
+          {
+            "id": 10,
+            "title": "QuickBooks Desktop Job Costing",
+            "description": "حساب تكاليف الوظائف والمشاريع باستخدام QuickBooks Desktop.",
+            "image": "images/stock10_sq.jpg",
+            "category": "Finance & Accounting",
+            "url": "https://comidoc.com/udemy/quickbooks-desktop-job-costing?utm_source=extension&utm_medium=extension"
+          },
+          {
+            "id": 11,
+            "title": "Governmental Accounting 300",
+            "description": "المحاسبة الحكومية: صناديق الملكية والصناديق الائتمانية.",
+            "image": "images/stock11_sq.jpg",
+            "category": "Finance & Accounting",
+            "url": "https://comidoc.com/udemy/governmental-accounting-300-proprietary-fiduciary-funds?utm_source=extension&utm_medium=extension"
+          },
+          {
+            "id": 12,
+            "title": "Certified Data Management Professional",
+            "description": "شهادة محترف إدارة البيانات المعتمد - التحضير والأساسيات.",
+            "image": "images/stock12_sq.jpg",
+            "category": "IT & Software",
+            "url": "https://comidoc.com/udemy/certified-data-management-professional-l?utm_source=extension&utm_medium=extension"
+          },
+          {
+            "id": 13,
+            "title": "GUIA PMI Práctica AGILE 2025",
+            "description": "أسئلة وأجوبة عملية لمنهجية الأجايل (Agile) - دليل PMI 2025.",
+            "image": "images/stock13_sq.jpg",
+            "category": "Business",
+            "url": "https://comidoc.com/udemy/guia-pmi-practica-preguntas-y-respuestas-agile-2025?utm_source=extension&utm_medium=extension"
+          }
+        ];
+
+        // --- 2. بيانات المقالات (تم إضافة التصنيفات والمؤلف) ---
+        const articlesData = [
+          {
+            "id": 1,
+            "title": "هل الذكاء الاصطناعي هياخد مكان المصمم؟",
+            "excerpt": "في خناقة دايرة بقالها فترة بين المصممين: هل أدوات الذكاء الاصطناعي زي ميدجورني وفوتوشوب AI هتقعدنا في البيت؟",
+            "content": "في خناقة دايرة بقالها فترة بين المصممين: هل أدوات الذكاء الاصطناعي زي ميدجورني وفوتوشوب AI هتقعدنا في البيت؟ الإجابة ببساطة هي لأ، بس بشرط. الذكاء الاصطناعي هو \"أداة\" مش \"مبدع\". هو يقدر ينفذ اللي في دماغك بسرعة خرافية، بس مايقدرش \"يفكر\" في فكرة الحملة الإعلانية، ولا يحس بمشاعر العميل، ولا يفهم سيكولوجية الألوان زي ما أنت بخبرتك الـ 5 سنين فاهمها.\n\nالشطارة دلوقتي مش إنك تحارب التطور، الشطارة إنك تطوع الأدوات دي عشان تخلص شغل 5 ساعات في نص ساعة، وتفرغ دماغك للإبداع الحقيقي. اللي هيخسر شغله مش المصمم، لكن المصمم اللي مبيستخدمش الذكاء الاصطناعي.",
+            "date": "2025-11-28",
+            "image": "images/article1.jpg",
+            "category": "تصميم وذكاء اصطناعي",
+            "author": "مصطفى كمشكاة",
+            "url": "#"
+          },
+          {
+            "id": 2,
+            "title": "أهمية الـ 3 ثواني الأولى في صناعة المحتوى",
+            "excerpt": "كصناع محتوى، بنسمع كتير عن \"الخطاف\" أو الـ Hook. ليه هو مهم للدرجة دي؟ لأننا عايشين في عصر \"السكرول\" السريع.",
+            "content": "كصناع محتوى، بنسمع كتير عن \"الخطاف\" أو الـ Hook. ليه هو مهم للدرجة دي؟ لأننا عايشين في عصر \"السكرول\" السريع. المشاهد المصري والعربي صبوره قليل جداً، لو مفهمش هو هيستفيد إيه أو هيضحك أو هيتعلم حاجة في أول 3 ثواني، هيعمل سكرول ويشوف غيرك.\n\nالسر مش بس في الكلام اللي بتقوله، السر في الصورة، وتعبيرات وشك، وحركة الكاميرا، وحتى الصوت. لازم تبدأ \"سخن\". بدل ما تقول \"أنا النهاردة هتكلم عن كذا\"، ابدأ بـ \"عمرك سألت نفسك ليه التصميم ده فاشل؟\". ارمي السؤال، اخطف الانتباه، وبعدين قدم القيمة بتاعتك براحتك.",
+            "date": "2025-11-28",
+            "image": "images/article2.jpg",
+            "category": "صناعة محتوى",
+            "author": "مصطفى كمشكاة",
+            "url": "#"
+          },
+          {
+            "id": 3,
+            "title": "التغذية البصرية.. جيم المصممين",
+            "excerpt": "كتير مننا بيجيله وقت بيحس إن دماغه فاضية ومش لاقي أفكار، وده اللي بنسميه \"القفلة الإبداعية\". الحل السحري هو التغذية البصرية.",
+            "content": "كتير مننا بيجيله وقت بيحس إن دماغه فاضية ومش لاقي أفكار، وده اللي بنسميه \"القفلة الإبداعية\". الحل السحري للموضوع ده هو التغذية البصرية. زي ما الجسم محتاج أكل عشان يتحرك، عين المصمم محتاج تشوف شغل حلو عشان تبدع.\n\nبس التغذية البصرية مش إنك تفتح بنترست وتقلب وخلاص. التغذية الحقيقية إنك تتفرج وتحلل. تسأل نفسك: هو ليه اختار اللون ده؟ ليه الفونت ده بالذات؟ توزيع العناصر هنا مريح للعين ليه؟ لما تعود عينك على التحليل، مخزونك البصري بيزيد، ولما تيجي تصمم، هتلاقي الأفكار بتطلع لوحدها لأنك شحنت بطاريتك صح.",
+            "date": "2025-11-28",
+            "image": "images/article3.jpg",
+            "category": "تصميم وإلهام",
+            "author": "مصطفى كمشكاة",
+            "url": "#"
+          },
+          {
+            "id": 4,
+            "title": "البراند الشخصي.. أنت مش مجرد لوجو",
+            "excerpt": "ناس كتير فاكرة إن البراندينج هو شوية ألوان ولوجو حلو، بس الحقيقة إن البراند هو \"السمعة\". هو الناس بتقول عليك إيه لما تخرج.",
+            "content": "ناس كتير فاكرة إن البراندينج هو شوية ألوان ولوجو حلو، بس الحقيقة إن البراند هو \"السمعة\". هو الناس بتقول عليك إيه لما تخرج من الأوضة. كواحد اسمه \"كمشكاة\"، ده براند في حد ذاته.\n\nطريقة كلامك، لبسك، نوع المحتوى اللي بتقدمه، وحتى ردودك في الكومنتات، كل ده جزء من البراند بتاعك. عشان تنجح وسط الزحمة، لازم يكون ليك شخصية واضحة ومختلفة. ماتحاولش تقلد حد، لأن النسخة الأصلية دايماً أحسن من التقليد. خليك أنت، بطريقتك ومصطلحاتك، الناس هتحب \"كمشكاة\" عشان هو حقيقي، مش عشان هو شبه فلان المشهور.",
+            "date": "2025-11-28",
+            "image": "images/article4.jpg",
+            "category": "تسويق شخصي",
+            "author": "مصطفى كمشكاة",
+            "url": "#"
+          },
+          {
+            "id": 5,
+            "title": "قاعدة الـ 20 دقيقة للإنتاجية",
+            "excerpt": "مشكلتنا كفريلانسرز أو صناع محتوى إننا بنسرح في الوقت. ممكن تقعد 4 ساعات قدام الشاشة وتكتشف إنك مخلصتش غير 10% من الشغل.",
+            "content": "مشكلتنا كفريلانسرز أو صناع محتوى إننا بنسرح في الوقت. ممكن تقعد 4 ساعات قدام الشاشة وتكتشف إنك مخلصتش غير 10% من الشغل. السبب غالباً هو التشتت.\n\nفيه تقنية بسيطة جداً ممكن تضاعف إنتاجيتك، وهي إنك تقسم شغلك لجولات. اشتغل بتركيز تام لمدة 25 دقيقة (اففل نوتيفيكشن الموبايل تماماً)، وبعدين خد بريك 5 دقايق. الطريقة دي (اللي اسمها بومودورو) بتخلي مخك دايماً مصحصح ومتحفز إنه يخلص التاسك قبل الجرس ما يرن. جربها في تصميم واحد أو في كتابة سكريبت حلقة واحدة، وهتشوف الفرق في الإنجاز وتوفير الوقت.",
+            "date": "2025-11-28",
+            "image": "images/article5.jpg",
+            "category": "إنتاجية وإدارة وقت",
+            "author": "مصطفى كمشكاة",
+            "url": "#"
+          }
+        ];
+
+        // --- متغيرات الحالة ---
+        let currentCourseCategory = 'all';
+        let currentCourseSearch = '';
+        
+        let currentArticleCategory = 'all';
+        let currentArticleSearch = '';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            showPage('home'); 
+            initGallery();
+            
+            initCourses();
+            initArticles(); // دالة تهيئة المقالات الجديدة
+            
+            // بدء أنيميشن الأرقام
+            startCounterAnimation();
+        });
+
+        function showPage(pageId) {
+            document.querySelectorAll('.page-section').forEach(sec => {
+                sec.classList.add('hidden-section');
+                sec.classList.remove('fade-in');
+            });
+            const activeSec = document.getElementById(pageId);
+            if(activeSec) {
+                activeSec.classList.remove('hidden-section');
+                setTimeout(() => activeSec.classList.add('fade-in'), 10);
+            }
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                if(btn.dataset.page === pageId) {
+                    btn.classList.add('bg-emerald-100', 'text-emerald-900');
+                    btn.classList.remove('text-white', 'hover:bg-emerald-700');
+                    if(btn.parentElement.classList.contains('bg-emerald-800/40')) {
+                        btn.classList.add('bg-white/90', 'text-emerald-900');
+                        btn.classList.remove('bg-emerald-100');
+                    }
+                } else {
+                    btn.classList.remove('bg-emerald-100', 'text-emerald-900', 'bg-white/90');
+                    btn.classList.add('text-white');
+                }
+            });
+            if (pageId === 'article-view') {
+                document.querySelectorAll('.nav-btn').forEach(btn => {
+                    btn.classList.remove('bg-emerald-100', 'text-emerald-900', 'bg-white');
+                    btn.classList.add('text-white');
+                });
+            }
+            document.getElementById('mobile-menu').classList.add('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        async function downloadImage(url, filename) {
+            try {
+                const response = await fetch(url);
+                const blob = await response.blob();
+                const blobUrl = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = blobUrl;
+                link.download = filename;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                window.URL.revokeObjectURL(blobUrl);
+            } catch (error) {
+                window.open(url, '_blank');
+            }
+        }
+
+        function openArticle(id) {
+            const article = articlesData.find(a => a.id === id);
+            if (!article) return;
+
+            document.getElementById('article-view-title').innerText = article.title;
+            // عرض القسم في صفحة المقال
+            document.getElementById('article-view-category').innerText = article.category || 'عام';
+            
+            const formattedContent = article.content ? article.content.replace(/\n/g, '<br>') : article.excerpt;
+            document.getElementById('article-view-content').innerHTML = `<p>${formattedContent}</p>`;
+            
+            const imgEl = document.getElementById('article-view-image');
+            imgEl.src = article.image;
+            imgEl.onerror = function() { this.src = 'https://placehold.co/800x400/064e3b/ffffff?text=Article+Image'; };
+
+            showPage('article-view');
+        }
+
+        // --- دالة مشاركة الكورس ---
+        function shareCourse(url, title) {
+            if (navigator.share) {
+                navigator.share({
+                    title: title,
+                    text: `شوف الكورس الجامد ده: ${title}`,
+                    url: url,
+                })
+                .then(() => console.log('Successful share'))
+                .catch((error) => console.log('Error sharing', error));
+            } else {
+                navigator.clipboard.writeText(url).then(() => {
+                    alert('تم نسخ رابط الكورس! ابعته لأصحابك بقى 😉');
+                }, (err) => {
+                    console.error('Async: Could not copy text: ', err);
+                });
+            }
+        }
+
+        // --- منطق الكورسات (بحث + فلتر) ---
+        function initCourses() {
+            generateCourseCategoryButtons();
+            renderCourses(coursesData);
+        }
+
+        function generateCourseCategoryButtons() {
+            const categories = ['all', ...new Set(coursesData.map(c => c.category || 'أخرى'))];
+            const filterContainer = document.getElementById('course-category-filters');
+            filterContainer.innerHTML = '';
+            
+            categories.forEach(cat => {
+                const btn = document.createElement('button');
+                btn.className = `filter-btn ${cat==='all'?'active':''} px-6 py-2 rounded-full border border-white/50 bg-white/80 backdrop-blur text-slate-600 font-bold hover:bg-white transition-colors flex-shrink-0 shadow-sm`;
+                btn.innerText = cat === 'all' ? 'الكل' : cat;
+                btn.onclick = () => filterCoursesByCategory(cat);
+                filterContainer.appendChild(btn);
+            });
+        }
+
+        function filterCoursesByCategory(category) {
+            currentCourseCategory = category;
+            updateFilterButtons('course-category-filters', category);
+            applyCourseFilters();
+        }
+
+        function filterCourses() {
+            currentCourseSearch = document.getElementById('course-search-input').value.toLowerCase();
+            applyCourseFilters();
+        }
+
+        function applyCourseFilters() {
+            const filtered = coursesData.filter(course => {
+                const matchesCategory = currentCourseCategory === 'all' || (course.category || 'أخرى') === currentCourseCategory;
+                const matchesSearch = course.title.toLowerCase().includes(currentCourseSearch) || 
+                                      course.description.toLowerCase().includes(currentCourseSearch);
+                return matchesCategory && matchesSearch;
+            });
+            renderCourses(filtered);
+        }
+
+        function renderCourses(courses) {
+            const container = document.getElementById('courses-grid');
+            container.innerHTML = ''; 
+
+            if (courses.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-12 text-slate-400">
+                        <i data-lucide="search-x" class="w-16 h-16 mx-auto mb-4 opacity-50"></i>
+                        <p class="text-xl">مفيش كورسات بتطابق بحثك حالياً.</p>
+                    </div>`;
+                lucide.createIcons();
+                return;
+            }
+
+            courses.forEach(course => {
+                const categoryTag = course.category ? `<span class="absolute top-4 right-4 bg-emerald-600/90 text-white text-xs px-3 py-1 rounded-full shadow-sm z-10 backdrop-blur-sm">${course.category}</span>` : '';
+                
+                const html = `
+                    <div class="glass-panel rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 flex flex-col h-full group relative">
+                        ${categoryTag}
+                        <div class="h-52 overflow-hidden bg-slate-200 relative">
+                            <img src="${course.image}" alt="${course.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                 onerror="this.src='https://placehold.co/600x400/064e3b/ffffff?text=Course'">
+                        </div>
+                        <div class="p-6 flex flex-col flex-1">
+                            <h3 class="text-xl font-bold text-slate-800 mb-3 leading-snug">${course.title}</h3>
+                            <p class="text-slate-500 text-sm mb-6 flex-1 leading-relaxed">${course.description}</p>
+                            
+                            <!-- الأزرار الجديدة: اشترك + مشاركة -->
+                            <div class="flex gap-2 mt-auto">
+                                <a href="${course.url}" target="_blank" class="flex-1 bg-emerald-600 text-white py-2.5 rounded-xl font-bold text-center hover:bg-emerald-700 transition shadow-md text-sm flex items-center justify-center gap-2">
+                                    اشترك مجاناً <i data-lucide="external-link" class="w-4 h-4"></i>
+                                </a>
+                                <button onclick="shareCourse('${course.url}', '${course.title}')" class="bg-emerald-50 text-emerald-600 px-3 py-2.5 rounded-xl hover:bg-emerald-100 transition border border-emerald-100" title="مشاركة الكورس">
+                                    <i data-lucide="share-2" class="w-5 h-5"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>`;
+                container.insertAdjacentHTML('beforeend', html);
+            });
+            lucide.createIcons();
+        }
+
+        // --- منطق المقالات (بحث + فلتر) ---
+        function initArticles() {
+            generateArticleCategoryButtons();
+            renderArticles(articlesData);
+        }
+
+        function generateArticleCategoryButtons() {
+            // استخراج الأقسام من بيانات المقالات
+            const categories = ['all', ...new Set(articlesData.map(a => a.category || 'عام'))];
+            const filterContainer = document.getElementById('article-category-filters');
+            filterContainer.innerHTML = '';
+            
+            categories.forEach(cat => {
+                const btn = document.createElement('button');
+                btn.className = `filter-btn ${cat==='all'?'active':''} px-6 py-2 rounded-full border border-white/50 bg-white/80 backdrop-blur text-slate-600 font-bold hover:bg-white transition-colors flex-shrink-0 shadow-sm`;
+                btn.innerText = cat === 'all' ? 'الكل' : cat;
+                btn.onclick = () => filterArticlesByCategory(cat);
+                filterContainer.appendChild(btn);
+            });
+        }
+
+        function filterArticlesByCategory(category) {
+            currentArticleCategory = category;
+            updateFilterButtons('article-category-filters', category);
+            applyArticleFilters();
+        }
+
+        function filterArticles() {
+            currentArticleSearch = document.getElementById('article-search-input').value.toLowerCase();
+            applyArticleFilters();
+        }
+
+        function applyArticleFilters() {
+            const filtered = articlesData.filter(article => {
+                const matchesCategory = currentArticleCategory === 'all' || (article.category || 'عام') === currentArticleCategory;
+                const matchesSearch = article.title.toLowerCase().includes(currentArticleSearch) || 
+                                      article.excerpt.toLowerCase().includes(currentArticleSearch) ||
+                                      (article.author && article.author.toLowerCase().includes(currentArticleSearch));
+                return matchesCategory && matchesSearch;
+            });
+            renderArticles(filtered);
+        }
+
+        function renderArticles(articles) {
+            const container = document.getElementById('articles-grid');
+            container.innerHTML = '';
+            
+            if (articles.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-12 text-slate-400">
+                        <i data-lucide="search-x" class="w-16 h-16 mx-auto mb-4 opacity-50"></i>
+                        <p class="text-xl">مفيش مقالات بتطابق بحثك حالياً.</p>
+                    </div>`;
+                lucide.createIcons();
+                return;
+            }
+
+            articles.forEach(article => {
+                // إضافة بادج القسم
+                const categoryBadge = article.category ? `<span class="bg-emerald-100 text-emerald-800 text-xs px-2 py-1 rounded-md font-bold mb-2 inline-block">${article.category}</span>` : '';
+                
+                const html = `
+                    <div class="glass-panel p-6 rounded-3xl flex flex-col md:flex-row gap-6 items-center hover:translate-y-[-4px] transition-transform duration-300 group">
+                        <div class="w-full md:w-56 h-40 bg-slate-200 rounded-2xl overflow-hidden flex-shrink-0 relative">
+                            <img src="${article.image}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                                 onerror="this.src='https://placehold.co/400x300/064e3b/ffffff?text=Article'">
+                        </div>
+                        <div class="flex-1 text-center md:text-right">
+                            ${categoryBadge}
+                            <h3 class="text-2xl font-bold text-slate-800 mb-2 group-hover:text-emerald-700 transition-colors">${article.title}</h3>
+                            <p class="text-slate-500 leading-relaxed mb-4 text-sm md:text-base line-clamp-2">${article.excerpt}</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs text-slate-400 flex items-center gap-1"><i data-lucide="user" class="w-3 h-3"></i> ${article.author || 'مصطفى كمشكاة'}</span>
+                                <button onclick="openArticle(${article.id})" class="inline-flex items-center text-emerald-600 font-bold hover:text-emerald-800 transition gap-2 text-sm">
+                                    اقرأ المزيد <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>`;
+                container.insertAdjacentHTML('beforeend', html);
+            });
+            lucide.createIcons();
+        }
+
+        // Helper to update active button state
+        function updateFilterButtons(containerId, activeCategory) {
+            const container = document.getElementById(containerId);
+            container.querySelectorAll('.filter-btn').forEach(btn => {
+                if(btn.innerText === activeCategory || (activeCategory === 'all' && btn.innerText === 'الكل')) {
+                    btn.classList.add('active');
+                    btn.classList.remove('bg-white/80', 'text-slate-600');
+                    btn.classList.add('text-white');
+                } else {
+                    btn.classList.remove('active', 'text-white');
+                    btn.classList.add('bg-white/80', 'text-slate-600');
+                }
+            });
+        }
+
+        // --- منطق الجاليري ---
+        function initGallery() {
+            loadMoreImages();
+        }
+
+        let currentImageCount = 0;
+        const totalImages = 1000;
+        const imagesPerLoad = 20;
+
+        function loadMoreImages() {
+            const container = document.getElementById('gallery-grid');
+            const status = document.getElementById('gallery-status');
+            const btn = document.getElementById('load-more-btn');
+            
+            const nextLimit = Math.min(currentImageCount + imagesPerLoad, totalImages);
+
+            for (let i = currentImageCount + 1; i <= nextLimit; i++) {
+                const imgUrl = `images/stock${i}.jpg`;
+                const imgName = `kameshkah_design_${i}.jpg`;
+
+                const imgHTML = `
+                    <div class="glass-panel group relative overflow-hidden rounded-2xl">
+                        <div class="aspect-[4/3] overflow-hidden bg-slate-200 relative">
+                            <img src="${imgUrl}" 
+                                 alt="تصميم رقم ${i}" 
+                                 class="w-full h-full object-cover"
+                                 loading="lazy"
+                                 onerror="this.src='https://placehold.co/600x450/064e3b/ffffff?text=تصميم+${i}'">
+                            
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-3">
+                                <span class="text-white font-bold translate-y-4 group-hover:translate-y-0 transition-transform">تصميم رقم ${i}</span>
+                                <button onclick="downloadImage('${imgUrl}', '${imgName}')" class="bg-white text-emerald-800 px-6 py-2 rounded-full font-bold flex items-center gap-2 hover:bg-emerald-500 hover:text-white transition-colors transform translate-y-4 group-hover:translate-y-0 transition-all delay-75 shadow-lg">
+                                    <i data-lucide="download" class="w-4 h-4"></i> تحميل
+                                </button>
+                            </div>
+                        </div>
+                        <div class="md:hidden p-3 border-t border-slate-100 flex justify-between items-center bg-slate-50/50">
+                            <span class="text-sm font-bold text-slate-600">تصميم #${i}</span>
+                            <button onclick="downloadImage('${imgUrl}', '${imgName}')" class="text-emerald-600 bg-white p-2 rounded-lg border border-slate-200 shadow-sm">
+                                <i data-lucide="download" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', imgHTML);
+            }
+
+            currentImageCount = nextLimit;
+            status.innerText = `تم عرض ${currentImageCount} من ${totalImages} صورة`;
+
+            if (currentImageCount >= totalImages) {
+                btn.disabled = true;
+                btn.innerHTML = '<span>تم تحميل كل الصور</span>';
+                btn.classList.add('opacity-50', 'cursor-not-allowed');
+            }
+            lucide.createIcons();
+        }
+
+        // --- أنيميشن الأرقام ---
+        function startCounterAnimation() {
+            const counters = document.querySelectorAll('.counter');
+            const speed = 200; // كل ما الرقم قل، السرعة زادت
+
+            counters.forEach(counter => {
+                const animate = () => {
+                    const value = +counter.getAttribute('data-target');
+                    const data = +counter.innerText;
+                    
+                    const time = value / speed;
+                    
+                    if(data < value) {
+                        counter.innerText = Math.ceil(data + time);
+                        setTimeout(animate, 20);
+                    } else {
+                        counter.innerText = value;
+                    }
+                }
+                
+                // تشغيل الأنيميشن لما العنصر يظهر في الشاشة
+                const observer = new IntersectionObserver((entries) => {
+                    if(entries[0].isIntersecting) {
+                        animate();
+                        observer.disconnect(); // وقف المراقبة بعد التشغيل
+                    }
+                });
+                
+                observer.observe(counter);
+            });
+        }
+    </script>
+</body>
+</html>
