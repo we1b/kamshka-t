@@ -29,14 +29,22 @@
             from { opacity: 0; transform: translateY(20px); } 
             to { opacity: 1; transform: translateY(0); } 
         }
+        
+        /* أزرار الفلتر */
+        .filter-btn {
+            transition: all 0.3s ease;
+        }
         .filter-btn.active {
             background-color: #059669; 
             color: white;
             border-color: #059669;
+            box-shadow: 0 4px 6px -1px rgba(5, 150, 105, 0.3);
         }
+        
         .filters-container {
             -ms-overflow-style: none;
             scrollbar-width: none;
+            padding-bottom: 10px; /* مساحة للظل */
         }
         .filters-container::-webkit-scrollbar {
             display: none;
@@ -48,7 +56,7 @@
             color: #374151;
         }
         
-        /* تأثير الزجاج الكريستالي القوي (Ultra Glassmorphism) */
+        /* تأثير الزجاج الكريستالي القوي (للكورسات والرئيسية) */
         .glass-panel {
             background: rgba(255, 255, 255, 0.65); /* شفافية أكبر */
             backdrop-filter: blur(20px) saturate(180%); /* تمويه قوي وتشبع ألوان */
@@ -59,6 +67,13 @@
             box-shadow: 
                 0 8px 32px 0 rgba(31, 38, 135, 0.15), /* ظل خارجي عميق */
                 inset 0 0 0 1px rgba(255, 255, 255, 0.1); /* ظل داخلي لإعطاء عمق */
+        }
+
+        /* كلاس للمقالات (بدون زجاج - خلفية بيضاء صريحة) */
+        .solid-card {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
 
         /* تنسيق اللايت بوكس (تكبير الصورة) */
@@ -111,7 +126,6 @@
         <div class="max-w-7xl mx-auto px-4">
             <div class="flex justify-between items-center h-20">
                 <div onclick="showPage('home')" class="flex items-center gap-3 cursor-pointer group select-none">
-                    <!-- تم استبدال ديف الحرف بصورة اللوجو -->
                     <img src="logo.png" alt="شعار كمشكاة" class="w-12 h-12 object-contain transform group-hover:rotate-6 transition-transform drop-shadow-md bg-white/90 rounded-lg p-1">
                     <span class="text-2xl font-bold tracking-wide">كمشكاة</span>
                 </div>
@@ -188,7 +202,7 @@
                 
                 <div class="relative w-full md:w-96">
                     <input type="text" id="course-search-input" onkeyup="filterCourses()" placeholder="ابحث عن كورس (تصميم، برمجة...)" 
-                           class="w-full pl-4 pr-12 py-3 rounded-xl border border-white/50 bg-white/70 backdrop-blur focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all shadow-sm placeholder-slate-500">
+                           class="w-full pl-4 pr-12 py-3 rounded-xl border border-white/50 bg-white/70 backdrop-blur focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all shadow-sm placeholder-slate-500 text-slate-800">
                     <i data-lucide="search" class="absolute right-4 top-3.5 text-slate-500 w-5 h-5"></i>
                 </div>
             </div>
@@ -200,7 +214,7 @@
             <div id="courses-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 min-h-[300px]"></div>
         </div>
 
-        <!-- 3. معرض الصور (تعديل نظام العرض لـ Masonry) -->
+        <!-- 3. معرض الصور -->
         <div id="gallery" class="page-section hidden-section fade-in">
             <div class="text-center mb-12">
                 <div class="inline-block glass-panel px-10 py-5 rounded-full shadow-lg">
@@ -209,7 +223,6 @@
                 </div>
             </div>
             
-            <!-- استخدام columns بدلاً من grid عشان الصور تاخد راحتها في الطول -->
             <div id="gallery-grid" class="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6"></div>
 
             <div class="text-center mt-12">
@@ -224,20 +237,21 @@
         <!-- 4. المقالات -->
         <div id="articles" class="page-section hidden-section fade-in">
             <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
-                <div class="flex items-center gap-4 glass-panel px-6 py-3 rounded-2xl">
+                <!-- هيدر المقالات بدون زجاج (أبيض) -->
+                <div class="flex items-center gap-4 bg-white px-6 py-3 rounded-2xl shadow-md border border-slate-200">
                     <div class="w-2 h-10 bg-emerald-500 rounded-full"></div>
                     <h2 class="text-3xl md:text-4xl font-bold text-slate-800">أحدث المقالات</h2>
                 </div>
                 
                 <div class="relative w-full md:w-96">
-                    <input type="text" id="article-search-input" onkeyup="filterArticles()" placeholder="ابحث في المقالات (إنتاجية، تصميم...)" 
-                           class="w-full pl-4 pr-12 py-3 rounded-xl border border-white/50 bg-white/70 backdrop-blur focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all shadow-sm placeholder-slate-500">
-                    <i data-lucide="search" class="absolute right-4 top-3.5 text-slate-500 w-5 h-5"></i>
+                    <input type="text" id="article-search-input" onkeyup="filterArticles()" placeholder="ابحث في المقالات..." 
+                           class="w-full pl-4 pr-12 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all shadow-sm text-slate-800">
+                    <i data-lucide="search" class="absolute right-4 top-3.5 text-slate-400 w-5 h-5"></i>
                 </div>
             </div>
 
             <div id="article-category-filters" class="filters-container flex overflow-x-auto pb-4 gap-3 mb-4 whitespace-nowrap">
-                <button onclick="filterArticlesByCategory('all')" class="filter-btn active px-6 py-2 rounded-full border border-white/50 bg-white/70 backdrop-blur text-slate-700 font-bold hover:bg-white transition-colors flex-shrink-0 shadow-sm">الكل</button>
+                <button onclick="filterArticlesByCategory('all')" class="filter-btn active px-6 py-2 rounded-full border border-slate-200 bg-white text-slate-700 font-bold hover:bg-slate-50 transition-colors flex-shrink-0 shadow-sm">الكل</button>
             </div>
 
             <div id="articles-grid" class="space-y-6"></div>
@@ -250,12 +264,13 @@
                     <i data-lucide="arrow-right" class="w-5 h-5"></i> رجوع للمقالات
                 </button>
                 
-                <div class="glass-panel rounded-3xl overflow-hidden !border-white/60 shadow-2xl">
+                <!-- هنا هنخلي كرت المقال المفتوح أبيض (Solid) مش زجاج -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-2xl border border-slate-200">
                     <div class="h-64 md:h-96 w-full relative">
                         <img id="article-view-image" src="" alt="Article Cover" class="w-full h-full object-cover">
                         <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 to-transparent flex items-end">
                             <div class="p-8 md:p-12 w-full">
-                                <span id="article-view-category" class="bg-emerald-500 text-white px-3 py-1 rounded-full text-sm font-bold mb-3 inline-block shadow-lg border border-white/20"></span>
+                                <span id="article-view-category" class="bg-emerald-500 text-white px-3 py-1 rounded-full text-sm font-bold mb-3 inline-block shadow-lg"></span>
                                 <h1 id="article-view-title" class="text-3xl md:text-5xl font-bold text-white leading-tight drop-shadow-md"></h1>
                                 <p class="text-emerald-100 text-sm mt-2 font-bold flex items-center gap-2"><i data-lucide="user" class="w-4 h-4"></i> بقلم: مصطفى كمشكاة</p>
                             </div>
@@ -265,14 +280,13 @@
                     <div class="p-8 md:p-12">
                         <div id="article-view-content" class="article-content text-slate-800 leading-loose text-lg"></div>
                         
-                        <div class="mt-12 pt-8 border-t border-slate-200/50 flex justify-between items-center">
+                        <div class="mt-12 pt-8 border-t border-slate-200 flex justify-between items-center">
                             <span class="text-slate-500 font-bold">هل أعجبك المقال؟</span>
                             <div class="flex gap-2">
-                                <!-- أزرار التفاعل في صفحة المقال الفردية (معدلة) -->
-                                <button id="article-share-btn" class="p-3 bg-slate-100/80 rounded-full hover:bg-emerald-100 hover:text-emerald-600 transition" title="مشاركة المقال">
+                                <button id="article-share-btn" class="p-3 bg-slate-100 rounded-full hover:bg-emerald-100 hover:text-emerald-600 transition" title="مشاركة المقال">
                                     <i data-lucide="share-2" class="w-5 h-5"></i>
                                 </button>
-                                <button id="article-heart-btn" class="p-3 bg-slate-100/80 rounded-full hover:bg-red-100 hover:text-red-600 transition" title="أحببته">
+                                <button id="article-heart-btn" class="p-3 bg-slate-100 rounded-full hover:bg-red-100 hover:text-red-600 transition" title="أحببته">
                                     <i data-lucide="heart" class="w-5 h-5"></i> <span class="text-sm font-bold ml-1"></span>
                                 </button>
                             </div>
@@ -411,14 +425,14 @@
     </footer>
 
     <script>
-        // --- 1. بيانات الكورسات ---
+        // --- 1. بيانات الكورسات (تم تعريب الأقسام) ---
         const coursesData = [
           {
             "id": 1,
             "title": "Vibe Coding Camp: Github Copilot, Cursor, Lovable, Windsurf",
             "description": "تعلم أحدث أدوات الذكاء الاصطناعي في البرمجة لزيادة الإنتاجية.",
             "image": "images/stock1_sq.jpg",
-            "category": "Artificial Intelligence",
+            "category": "ذكاء اصطناعي",
             "url": "https://www.udemy.com/course/vibe-coding-camp-github-copilot-cursor-lovable-windsurf/?couponCode=28NOVEMBER2025"
           },
           {
@@ -426,7 +440,7 @@
             "title": "GenAI for Content Creation and Multimedia Campaigns",
             "description": "استخدم الذكاء الاصطناعي التوليدي لإنشاء محتوى وحملات متعددة الوسائط.",
             "image": "images/stock2_sq.jpg",
-            "category": "Artificial Intelligence",
+            "category": "ذكاء اصطناعي",
             "url": "https://www.udemy.com/course/genai-for-content-creation-and-multimedia-campaigns/?couponCode=28NOVEMBER2025"
           },
           {
@@ -434,7 +448,7 @@
             "title": "AI for Cloud Infrastructure: Automating AWS with StationOps",
             "description": "أتمتة البنية التحتية السحابية على AWS باستخدام الذكاء الاصطناعي.",
             "image": "images/stock3_sq.jpg",
-            "category": "Artificial Intelligence",
+            "category": "تكنولوجيا وشبكات",
             "url": "https://www.udemy.com/course/ai-for-cloud-infrastructure-automating-aws-with-stationops/?couponCode=28NOVEMBER2025"
           },
           {
@@ -442,7 +456,7 @@
             "title": "Lovable AI: Complete Guide for Vibe Coding",
             "description": "دليل شامل لاستخدام Lovable AI في البرمجة.",
             "image": "images/stock4_sq.jpg",
-            "category": "Artificial Intelligence",
+            "category": "ذكاء اصطناعي",
             "url": "https://www.udemy.com/course/lovable-ai-complete-guide-for-vibe-coding/?couponCode=28NOVEMBER2025"
           },
           {
@@ -450,7 +464,7 @@
             "title": "Next Level AI Skills with Google Gemini 2.5",
             "description": "ارتقِ بمهاراتك في الذكاء الاصطناعي مع أحدث إصدارات Google Gemini.",
             "image": "images/stock5_sq.jpg",
-            "category": "Artificial Intelligence",
+            "category": "ذكاء اصطناعي",
             "url": "https://www.udemy.com/course/next-level-ai-skills-with-google-gemini-25/?couponCode=28NOVEMBER2025"
           },
           {
@@ -458,7 +472,7 @@
             "title": "Brand Management with Generative AI",
             "description": "إدارة العلامات التجارية باستخدام تقنيات الذكاء الاصطناعي التوليدي.",
             "image": "images/stock6_sq.jpg",
-            "category": "Business",
+            "category": "إدارة أعمال",
             "url": "https://www.udemy.com/course/brand-management-with-generative-ai-q/?couponCode=CP251118G4V2"
           },
           {
@@ -466,7 +480,7 @@
             "title": "Vibe Coding with Vercel v0: From Idea to MVP in a Weekend",
             "description": "حوّل فكرتك إلى منتج أولي في عطلة نهاية الأسبوع باستخدام Vercel v0.",
             "image": "images/stock7_sq.jpg",
-            "category": "Development",
+            "category": "برمجة وتطوير",
             "url": "https://www.udemy.com/course/vercel-v0-no-code-mvp-build-ship-in-a-weekend/?couponCode=28NOVEMBER2025"
           },
           {
@@ -474,7 +488,7 @@
             "title": "Google Veo: AI Video — Beginner to Pro",
             "description": "احترف إنشاء الفيديو بالذكاء الاصطناعي باستخدام Google Veo.",
             "image": "images/stock8_sq.jpg",
-            "category": "Artificial Intelligence",
+            "category": "ذكاء اصطناعي",
             "url": "https://www.udemy.com/course/google-veo-ai-video-beginner-to-pro/?couponCode=28NOVEMBER2025"
           },
           {
@@ -482,7 +496,7 @@
             "title": "Photoshop AI for Creatives: Guide to Generative Tools",
             "description": "دليل المبدعين لاستخدام أدوات الذكاء الاصطناعي في فوتوشوب.",
             "image": "images/stock9_sq.jpg",
-            "category": "Design",
+            "category": "تصميم وجرافيك",
             "url": "https://www.udemy.com/course/photoshop-ai-for-creatives-guide-to-generative-tools/?couponCode=CP251118G4V2"
           },
           {
@@ -490,7 +504,7 @@
             "title": "GenAI Cybersecurity Solutions",
             "description": "حلول الأمن السيبراني باستخدام الذكاء الاصطناعي التوليدي.",
             "image": "images/stock10_sq.jpg",
-            "category": "Artificial Intelligence",
+            "category": "تكنولوجيا وشبكات",
             "url": "https://www.udemy.com/course/genai-cybersecurity-solutions-j/?couponCode=7C5856ABFED4CC319C17"
           },
           {
@@ -498,7 +512,7 @@
             "title": "Bestseller Udemy Course Creation Masterclass",
             "description": "كيف تنشئ كورس ناجح وتبيعه على يوديمي.",
             "image": "images/stock11_sq.jpg",
-            "category": "Business",
+            "category": "إدارة أعمال",
             "url": "https://www.udemy.com/course/bestseller-udemy-course-creation-masterclass-unofficial/?couponCode=3A9DC8F185FBE7A10805"
           },
           {
@@ -506,7 +520,7 @@
             "title": "Python And Django Framework For Beginners",
             "description": "كورس كامل للمبتدئين في بايثون وإطار عمل جانغو.",
             "image": "images/stock12_sq.jpg",
-            "category": "Development",
+            "category": "برمجة وتطوير",
             "url": "https://www.udemy.com/course/python-and-django-for-beginners/?couponCode=CP251118G4V2"
           },
           {
@@ -514,7 +528,7 @@
             "title": "Python Programming: A Step-by-Step Course",
             "description": "تعلم البرمجة بلغة بايثون خطوة بخطوة.",
             "image": "images/stock13_sq.jpg",
-            "category": "Development",
+            "category": "برمجة وتطوير",
             "url": "https://www.udemy.com/course/python-programming-a-step-by-step-programming-course/?couponCode=20138EABA229911E8ED6"
           },
           {
@@ -522,7 +536,7 @@
             "title": "Cursor AI for Beginners: AI Coding Crash Course",
             "description": "كورس مكثف للمبتدئين في استخدام Cursor AI للبرمجة.",
             "image": "images/stock14_sq.jpg",
-            "category": "Artificial Intelligence",
+            "category": "ذكاء اصطناعي",
             "url": "https://www.udemy.com/course/cursor-ai-for-beginners-ai-coding-crash-course/?couponCode=28NOVEMBER2025"
           },
           {
@@ -530,7 +544,7 @@
             "title": "JavaScript Fast Entry: Programming for Everyone",
             "description": "مدخل سريع لتعلم الجافاسكريبت للجميع.",
             "image": "images/stock15_sq.jpg",
-            "category": "Development",
+            "category": "برمجة وتطوير",
             "url": "https://www.udemy.com/course/javascript-fast-entry-programming-for-everyone/?couponCode=28NOVEMBER2025"
           },
           {
@@ -538,7 +552,7 @@
             "title": "Presentations with ChatGPT",
             "description": "كيفية إنشاء عروض تقديمية احترافية باستخدام ChatGPT.",
             "image": "images/stock16_sq.jpg",
-            "category": "Artificial Intelligence",
+            "category": "إنتاجية ومكاتب",
             "url": "https://www.udemy.com/course/presentations-with-chatgpt-aece/?couponCode=842C8E4E39946B09972D"
           },
           {
@@ -546,7 +560,7 @@
             "title": "Adobe Illustrator for Everyone: Design Like a Pro",
             "description": "تعلم أدوبي إليستريتور وصمم مثل المحترفين.",
             "image": "images/stock17_sq.jpg",
-            "category": "Design",
+            "category": "تصميم وجرافيك",
             "url": "https://www.udemy.com/course/adobe-illustrator-for-everyone-design-like-a-pro/?couponCode=76E6AA34C5092340AF46"
           },
           {
@@ -554,7 +568,7 @@
             "title": "Complete Figma Course: Web & Mobile Projects",
             "description": "كورس فيجما الشامل لتصميم مشاريع الويب والموبايل من الصفر.",
             "image": "images/stock18_sq.jpg",
-            "category": "Design",
+            "category": "تصميم وجرافيك",
             "url": "https://www.udemy.com/course/figma-practical-design/?couponCode=25NOVEMBER2025"
           },
           {
@@ -562,7 +576,7 @@
             "title": "Javascript For Beginners Complete Course",
             "description": "كورس الجافاسكريبت الشامل للمبتدئين.",
             "image": "images/stock19_sq.jpg",
-            "category": "Development",
+            "category": "برمجة وتطوير",
             "url": "https://www.udemy.com/course/javascript-for-beginners-complete-course/?couponCode=C6C527D884006AB3749F"
           },
           {
@@ -570,7 +584,7 @@
             "title": "Project Management Fundamentals: Beginner's Guide",
             "description": "أساسيات إدارة المشاريع: دليل للمبتدئين.",
             "image": "images/stock20_sq.jpg",
-            "category": "Business",
+            "category": "إدارة أعمال",
             "url": "https://www.udemy.com/course/project-management-fundamentals-guide/?couponCode=25NOVEMBER2025"
           },
           {
@@ -578,7 +592,7 @@
             "title": "Essential After Effects: From Beginner to Motion Master",
             "description": "احترف الأفتر إفكتس من البداية حتى الاحتراف في الموشن جرافيك.",
             "image": "images/stock1_sq.jpg", 
-            "category": "Design",
+            "category": "تصميم وجرافيك",
             "url": "https://www.udemy.com/course/essential-after-effects-from-beginner-to-motion-master/?couponCode=F7453C0FC8E9F2F7DF2F"
           }
         ];
@@ -643,10 +657,10 @@
         ];
 
         // --- متغيرات الحالة ---
-        let currentCourseCategory = 'all';
+        let currentCourseCategory = 'الكل';
         let currentCourseSearch = '';
         
-        let currentArticleCategory = 'all';
+        let currentArticleCategory = 'الكل';
         let currentArticleSearch = '';
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -874,15 +888,13 @@
 
             showPage('article-view');
             
-            // تحديث الهاش في الرابط دون إعادة تحميل الصفحة
             history.pushState(null, null, `#article-${id}`);
         }
         
-        // التعامل مع زر الرجوع في المتصفح
         window.onpopstate = function() {
              const hash = window.location.hash;
              if (!hash.startsWith('#article-')) {
-                 showPage('articles'); // العودة لقائمة المقالات
+                 showPage('articles'); 
              } else {
                  checkUrlForArticle();
              }
@@ -914,14 +926,14 @@
         }
 
         function generateCourseCategoryButtons() {
-            const categories = ['all', ...new Set(coursesData.map(c => c.category || 'أخرى'))];
+            const categories = ['الكل', ...new Set(coursesData.map(c => c.category || 'أخرى'))];
             const filterContainer = document.getElementById('course-category-filters');
             filterContainer.innerHTML = '';
             
             categories.forEach(cat => {
                 const btn = document.createElement('button');
-                btn.className = `filter-btn ${cat==='all'?'active':''} px-6 py-2 rounded-full border border-white/50 bg-white/80 backdrop-blur text-slate-600 font-bold hover:bg-white transition-colors flex-shrink-0 shadow-sm`;
-                btn.innerText = cat === 'all' ? 'الكل' : cat;
+                btn.className = `filter-btn ${cat==='الكل'?'active':''} px-6 py-2 rounded-full border border-white/50 bg-white/80 backdrop-blur text-slate-600 font-bold hover:bg-white transition-colors flex-shrink-0 shadow-sm`;
+                btn.innerText = cat;
                 btn.onclick = () => filterCoursesByCategory(cat);
                 filterContainer.appendChild(btn);
             });
@@ -940,7 +952,7 @@
 
         function applyCourseFilters() {
             const filtered = coursesData.filter(course => {
-                const matchesCategory = currentCourseCategory === 'all' || (course.category || 'أخرى') === currentCourseCategory;
+                const matchesCategory = currentCourseCategory === 'الكل' || (course.category || 'أخرى') === currentCourseCategory;
                 const matchesSearch = course.title.toLowerCase().includes(currentCourseSearch) || 
                                       course.description.toLowerCase().includes(currentCourseSearch);
                 return matchesCategory && matchesSearch;
@@ -1000,14 +1012,14 @@
 
         function generateArticleCategoryButtons() {
             // استخراج الأقسام من بيانات المقالات
-            const categories = ['all', ...new Set(articlesData.map(a => a.category || 'عام'))];
+            const categories = ['الكل', ...new Set(articlesData.map(a => a.category || 'عام'))];
             const filterContainer = document.getElementById('article-category-filters');
             filterContainer.innerHTML = '';
             
             categories.forEach(cat => {
                 const btn = document.createElement('button');
-                btn.className = `filter-btn ${cat==='all'?'active':''} px-6 py-2 rounded-full border border-white/50 bg-white/80 backdrop-blur text-slate-600 font-bold hover:bg-white transition-colors flex-shrink-0 shadow-sm`;
-                btn.innerText = cat === 'all' ? 'الكل' : cat;
+                btn.className = `filter-btn ${cat==='الكل'?'active':''} px-6 py-2 rounded-full border border-slate-200 bg-white text-slate-700 font-bold hover:bg-slate-50 transition-colors flex-shrink-0 shadow-sm`;
+                btn.innerText = cat;
                 btn.onclick = () => filterArticlesByCategory(cat);
                 filterContainer.appendChild(btn);
             });
@@ -1026,7 +1038,7 @@
 
         function applyArticleFilters() {
             const filtered = articlesData.filter(article => {
-                const matchesCategory = currentArticleCategory === 'all' || (article.category || 'عام') === currentArticleCategory;
+                const matchesCategory = currentArticleCategory === 'الكل' || (article.category || 'عام') === currentArticleCategory;
                 const matchesSearch = article.title.toLowerCase().includes(currentArticleSearch) || 
                                       article.excerpt.toLowerCase().includes(currentArticleSearch) ||
                                       (article.author && article.author.toLowerCase().includes(currentArticleSearch));
@@ -1053,8 +1065,9 @@
                 // إضافة بادج القسم
                 const categoryBadge = article.category ? `<span class="bg-emerald-100 text-emerald-800 text-xs px-2 py-1 rounded-md font-bold mb-2 inline-block">${article.category}</span>` : '';
                 
+                // تغيير الكلاس هنا لـ solid-card بدلاً من glass-panel
                 const html = `
-                    <div class="glass-panel p-6 rounded-3xl flex flex-col md:flex-row gap-6 items-center hover:translate-y-[-4px] transition-transform duration-300 group">
+                    <div class="solid-card p-6 rounded-3xl flex flex-col md:flex-row gap-6 items-center hover:translate-y-[-4px] transition-transform duration-300 group">
                         <div class="w-full md:w-56 h-40 bg-slate-200 rounded-2xl overflow-hidden flex-shrink-0 relative">
                             <img src="${article.image}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
                                  onerror="this.src='https://placehold.co/400x300/064e3b/ffffff?text=Article'">
@@ -1079,14 +1092,25 @@
         // Helper to update active button state
         function updateFilterButtons(containerId, activeCategory) {
             const container = document.getElementById(containerId);
+            const isCourses = containerId === 'course-category-filters';
+            
             container.querySelectorAll('.filter-btn').forEach(btn => {
-                if(btn.innerText === activeCategory || (activeCategory === 'all' && btn.innerText === 'الكل')) {
+                if(btn.innerText === activeCategory) {
                     btn.classList.add('active');
-                    btn.classList.remove('bg-white/80', 'text-slate-600');
+                    // إعادة ضبط الألوان بناءً على نوع القسم (كورسات: زجاجي، مقالات: أبيض)
+                    if(isCourses) {
+                        btn.classList.remove('bg-white/80', 'text-slate-700');
+                    } else {
+                        btn.classList.remove('bg-white', 'text-slate-700');
+                    }
                     btn.classList.add('text-white');
                 } else {
                     btn.classList.remove('active', 'text-white');
-                    btn.classList.add('bg-white/80', 'text-slate-600');
+                     if(isCourses) {
+                        btn.classList.add('bg-white/80', 'text-slate-700');
+                    } else {
+                        btn.classList.add('bg-white', 'text-slate-700');
+                    }
                 }
             });
         }
@@ -1111,11 +1135,6 @@
                 const imgUrl = `images/stock${i}.jpg`;
                 const imgName = `kameshkah_design_${i}.jpg`;
 
-                // استرجاع حالة اللايك من اللوكال ستورج
-                const heartCount = localStorage.getItem(`heart_count_${i}`) || "";
-                const userLiked = localStorage.getItem(`user_liked_${i}`) ? "text-red-500" : "text-white";
-                const heartIconClass = localStorage.getItem(`user_liked_${i}`) ? "heart-active" : "";
-
                 const imgHTML = `
                     <div class="glass-panel group relative overflow-hidden rounded-2xl mb-6 break-inside-avoid">
                         <div class="w-full relative cursor-pointer" onclick="openLightbox('${imgUrl}')">
@@ -1131,26 +1150,9 @@
                                     <i data-lucide="zoom-in" class="w-4 h-4"></i> تكبير
                                 </div>
                             </div>
-
-                            <!-- أزرار المشاركة والقلب -->
-                            <div class="absolute top-2 right-2 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity" onclick="event.stopPropagation()">
-                                <button onclick="toggleHeart(this, ${i})" class="bg-black/50 backdrop-blur p-2 rounded-full hover:bg-white hover:text-red-500 transition ${userLiked} shadow-md" title="أحببته">
-                                    <i data-lucide="heart" class="w-5 h-5 ${heartIconClass}"></i> <span class="text-xs font-bold ml-1">${heartCount}</span>
-                                </button>
-                                <button onclick="shareImage('${imgUrl}')" class="bg-black/50 backdrop-blur p-2 rounded-full text-white hover:bg-white hover:text-blue-500 transition shadow-md" title="مشاركة">
-                                    <i data-lucide="share-2" class="w-5 h-5"></i>
-                                </button>
-                            </div>
                         </div>
                         <div class="md:hidden p-3 border-t border-slate-100 flex justify-between items-center bg-slate-50/50">
-                            <div class="flex gap-3">
-                                 <button onclick="toggleHeart(this, ${i})" class="${userLiked} flex items-center gap-1">
-                                    <i data-lucide="heart" class="w-5 h-5 ${heartIconClass}"></i> <span class="text-xs font-bold">${heartCount}</span>
-                                </button>
-                                <button onclick="shareImage('${imgUrl}')" class="text-slate-600 hover:text-blue-500">
-                                    <i data-lucide="share-2" class="w-5 h-5"></i>
-                                </button>
-                            </div>
+                            <span class="text-sm font-bold text-slate-600">تصميم #${i}</span>
                             <button onclick="downloadImage('${imgUrl}', '${imgName}')" class="text-emerald-600 bg-white p-2 rounded-lg border border-slate-200 shadow-sm">
                                 <i data-lucide="download" class="w-5 h-5"></i>
                             </button>
