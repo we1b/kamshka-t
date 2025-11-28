@@ -268,8 +268,13 @@
                         <div class="mt-12 pt-8 border-t border-slate-200/50 flex justify-between items-center">
                             <span class="text-slate-500 font-bold">هل أعجبك المقال؟</span>
                             <div class="flex gap-2">
-                                <button class="p-3 bg-slate-100/80 rounded-full hover:bg-emerald-100 hover:text-emerald-600 transition"><i data-lucide="share-2" class="w-5 h-5"></i></button>
-                                <button class="p-3 bg-slate-100/80 rounded-full hover:bg-red-100 hover:text-red-600 transition"><i data-lucide="heart" class="w-5 h-5"></i></button>
+                                <!-- أزرار التفاعل في صفحة المقال الفردية (معدلة) -->
+                                <button id="article-share-btn" class="p-3 bg-slate-100/80 rounded-full hover:bg-emerald-100 hover:text-emerald-600 transition" title="مشاركة المقال">
+                                    <i data-lucide="share-2" class="w-5 h-5"></i>
+                                </button>
+                                <button id="article-heart-btn" class="p-3 bg-slate-100/80 rounded-full hover:bg-red-100 hover:text-red-600 transition" title="أحببته">
+                                    <i data-lucide="heart" class="w-5 h-5"></i> <span class="text-sm font-bold ml-1"></span>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -654,6 +659,9 @@
             
             // بدء أنيميشن الأرقام
             startCounterAnimation();
+            
+            // دالة Deep Linking للمقالات
+            checkUrlForArticle();
         });
 
         function showPage(pageId) {
@@ -712,30 +720,15 @@
 
         // --- دالة مشاركة الصورة ---
         async function shareImage(url) {
-            // تحويل المسار النسبي إلى رابط كامل
             const fullUrl = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, '/') + url;
             
             if (navigator.share) {
                 try {
-                    // محاولة مشاركة الصورة كملف لو المتصفح يدعم
-                    const response = await fetch(url);
-                    const blob = await response.blob();
-                    const file = new File([blob], "image.jpg", { type: "image/jpeg" });
-                    
-                    if (navigator.canShare && navigator.canShare({ files: [file] })) {
-                        await navigator.share({
-                            files: [file],
-                            title: 'تصميم من كمشكاة',
-                            text: 'شوف التصميم الجامد ده من موقع كمشكاة 😍',
-                        });
-                    } else {
-                        // مشاركة الرابط كبديل
-                        await navigator.share({
-                            title: 'تصميم من كمشكاة',
-                            text: 'شوف التصميم الجامد ده من موقع كمشكاة 😍',
-                            url: fullUrl,
-                        });
-                    }
+                    await navigator.share({
+                        title: 'تصميم من كمشكاة',
+                        text: 'شوف التصميم الجامد ده من موقع كمشكاة 😍',
+                        url: fullUrl,
+                    });
                 } catch (error) {
                     console.log('Error sharing', error);
                     copyToClipboard(fullUrl);
@@ -747,7 +740,7 @@
 
         function copyToClipboard(text) {
             navigator.clipboard.writeText(text).then(() => {
-                alert('تم نسخ رابط الصورة! شاركه براحتك 😉');
+                alert('تم نسخ الرابط! شاركه براحتك 😉');
             }, (err) => {
                 console.error('Async: Could not copy text: ', err);
             });
@@ -755,31 +748,74 @@
 
         // --- دالة القلب (Love) ---
         function toggleHeart(btn, id) {
-            // استرجاع العداد الحالي من الذاكرة المحلية أو البدء بـ 0
             let count = parseInt(localStorage.getItem(`heart_count_${id}`) || "0");
             const userLiked = localStorage.getItem(`user_liked_${id}`);
 
             if (!userLiked) {
-                // زيادة العداد
                 count++;
                 localStorage.setItem(`heart_count_${id}`, count);
                 localStorage.setItem(`user_liked_${id}`, "true");
                 
-                // تحديث الشكل
-                btn.innerHTML = `<i data-lucide="heart" class="w-5 h-5 heart-active"></i> ${count}`;
+                btn.innerHTML = `<i data-lucide="heart" class="w-5 h-5 heart-active"></i> <span class="text-xs font-bold ml-1">${count}</span>`;
                 btn.classList.add('text-red-500');
             } else {
-                // (اختياري) لو عايز تسمح بإلغاء اللايك، شيل التعليق ده:
-                /*
-                count--;
-                localStorage.setItem(`heart_count_${id}`, count);
-                localStorage.removeItem(`user_liked_${id}`);
-                btn.innerHTML = `<i data-lucide="heart" class="w-5 h-5"></i> ${count > 0 ? count : ''}`;
-                btn.classList.remove('text-red-500');
-                */
                alert("أنت عملت قلب للصورة دي قبل كده يا جميل ❤️");
             }
             lucide.createIcons();
+        }
+        
+        // --- دالة القلب للمقال ---
+        function toggleArticleHeart(btn, id) {
+             // نفس منطق الصورة بس بمفتاح مختلف في الـ LocalStorage
+            let count = parseInt(localStorage.getItem(`article_heart_count_${id}`) || "0");
+            const userLiked = localStorage.getItem(`article_user_liked_${id}`);
+
+            if (!userLiked) {
+                count++;
+                localStorage.setItem(`article_heart_count_${id}`, count);
+                localStorage.setItem(`article_user_liked_${id}`, "true");
+                
+                btn.innerHTML = `<i data-lucide="heart" class="w-5 h-5 heart-active"></i> <span class="text-sm font-bold ml-1">${count}</span>`;
+                btn.classList.add('text-red-500');
+                btn.querySelector('i').classList.add('fill-red-500');
+            } else {
+               alert("أنت أبديت إعجابك بالمقال ده قبل كده ❤️");
+            }
+            lucide.createIcons();
+        }
+
+        // --- دالة مشاركة المقال ---
+        async function shareArticle(id, title) {
+            // إنشاء رابط مباشر للمقال باستخدام الهاش
+            const articleUrl = `${window.location.origin}${window.location.pathname}#article-${id}`;
+            
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: title,
+                        text: `اقرأ المقال ده من كمشكاة: ${title}`,
+                        url: articleUrl,
+                    });
+                } catch (error) {
+                    copyToClipboard(articleUrl);
+                }
+            } else {
+                copyToClipboard(articleUrl);
+            }
+        }
+        
+        // --- فحص الرابط عند الفتح لفتح المقال مباشرة ---
+        function checkUrlForArticle() {
+            const hash = window.location.hash;
+            if (hash && hash.startsWith('#article-')) {
+                const articleId = parseInt(hash.replace('#article-', ''));
+                if (!isNaN(articleId)) {
+                    // تأخير بسيط للتأكد من تحميل البيانات
+                    setTimeout(() => {
+                        openArticle(articleId);
+                    }, 100);
+                }
+            }
         }
 
 
@@ -791,10 +827,8 @@
             
             lightboxImg.src = imgUrl;
             
-            // استخراج اسم الملف من الرابط لاستخدامه في التحميل
             const fileName = imgUrl.split('/').pop() || 'download.jpg';
             lightboxDownload.setAttribute('onclick', `downloadImage('${imgUrl}', '${fileName}')`);
-            // منع الرابط الافتراضي عشان نستخدم دالة التحميل بتاعتنا
             lightboxDownload.href = "javascript:void(0)"; 
             
             lightbox.classList.remove('hidden');
@@ -809,7 +843,6 @@
             if (!article) return;
 
             document.getElementById('article-view-title').innerText = article.title;
-            // عرض القسم في صفحة المقال
             document.getElementById('article-view-category').innerText = article.category || 'عام';
             
             const formattedContent = article.content ? article.content.replace(/\n/g, '<br>') : article.excerpt;
@@ -818,9 +851,42 @@
             const imgEl = document.getElementById('article-view-image');
             imgEl.src = article.image;
             imgEl.onerror = function() { this.src = 'https://placehold.co/800x400/064e3b/ffffff?text=Article+Image'; };
+            
+            // تحديث أزرار التفاعل للمقال الحالي
+            const shareBtn = document.getElementById('article-share-btn');
+            const heartBtn = document.getElementById('article-heart-btn');
+            
+            // إعداد زر المشاركة
+            shareBtn.onclick = () => shareArticle(article.id, article.title);
+            
+            // إعداد زر القلب (تحميل الحالة المحفوظة)
+            const heartCount = localStorage.getItem(`article_heart_count_${article.id}`) || "0";
+            const userLiked = localStorage.getItem(`article_user_liked_${article.id}`);
+            
+            heartBtn.innerHTML = `<i data-lucide="heart" class="w-5 h-5 ${userLiked ? 'heart-active fill-red-500' : ''}"></i> <span class="text-sm font-bold ml-1">${heartCount}</span>`;
+            if (userLiked) heartBtn.classList.add('text-red-500');
+            else heartBtn.classList.remove('text-red-500');
+            
+            heartBtn.onclick = () => toggleArticleHeart(heartBtn, article.id);
+            
+            // تحديث أيقونات لوسيد
+            lucide.createIcons();
 
             showPage('article-view');
+            
+            // تحديث الهاش في الرابط دون إعادة تحميل الصفحة
+            history.pushState(null, null, `#article-${id}`);
         }
+        
+        // التعامل مع زر الرجوع في المتصفح
+        window.onpopstate = function() {
+             const hash = window.location.hash;
+             if (!hash.startsWith('#article-')) {
+                 showPage('articles'); // العودة لقائمة المقالات
+             } else {
+                 checkUrlForArticle();
+             }
+        };
 
         // --- دالة مشاركة الكورس ---
         function shareCourse(url, title) {
