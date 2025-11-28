@@ -272,7 +272,10 @@
                         <img id="article-view-image" src="" alt="Article Cover" class="w-full h-full object-cover">
                         <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 to-transparent flex items-end">
                             <div class="p-8 md:p-12 w-full">
-                                <span id="article-view-category" class="bg-emerald-500 text-white px-3 py-1 rounded-full text-sm font-bold mb-3 inline-block shadow-lg"></span>
+                                <div class="flex items-center gap-3 mb-3">
+                                    <span id="article-view-category" class="bg-emerald-500 text-white px-3 py-1 rounded-full text-sm font-bold inline-block shadow-lg"></span>
+                                    <span id="article-view-date" class="bg-white/20 backdrop-blur text-white px-3 py-1 rounded-full text-sm font-bold inline-block border border-white/30"></span>
+                                </div>
                                 <h1 id="article-view-title" class="text-3xl md:text-5xl font-bold text-white leading-tight drop-shadow-md"></h1>
                                 <p class="text-emerald-100 text-sm mt-2 font-bold flex items-center gap-2"><i data-lucide="user" class="w-4 h-4"></i> بقلم: مصطفى كمشكاة</p>
                             </div>
@@ -427,7 +430,7 @@
     </footer>
 
     <script>
-        // --- 1. بيانات الكورسات (تم تعريب الأقسام) ---
+        // --- 1. بيانات الكورسات (تم تعريب الأقسام وإضافة التواريخ) ---
         const coursesData = [
           {
             "id": 1,
@@ -435,6 +438,7 @@
             "description": "تعلم أحدث أدوات الذكاء الاصطناعي في البرمجة لزيادة الإنتاجية.",
             "image": "images/stock1_sq.jpg",
             "category": "ذكاء اصطناعي",
+            "date": "28 نوفمبر 2025",
             "url": "https://www.udemy.com/course/vibe-coding-camp-github-copilot-cursor-lovable-windsurf/?couponCode=28NOVEMBER2025"
           },
           {
@@ -443,6 +447,7 @@
             "description": "استخدم الذكاء الاصطناعي التوليدي لإنشاء محتوى وحملات متعددة الوسائط.",
             "image": "images/stock2_sq.jpg",
             "category": "ذكاء اصطناعي",
+            "date": "28 نوفمبر 2025",
             "url": "https://www.udemy.com/course/genai-for-content-creation-and-multimedia-campaigns/?couponCode=28NOVEMBER2025"
           },
           {
@@ -451,6 +456,7 @@
             "description": "أتمتة البنية التحتية السحابية على AWS باستخدام الذكاء الاصطناعي.",
             "image": "images/stock3_sq.jpg",
             "category": "تكنولوجيا وشبكات",
+            "date": "28 نوفمبر 2025",
             "url": "https://www.udemy.com/course/ai-for-cloud-infrastructure-automating-aws-with-stationops/?couponCode=28NOVEMBER2025"
           },
           {
@@ -459,6 +465,7 @@
             "description": "دليل شامل لاستخدام Lovable AI في البرمجة.",
             "image": "images/stock4_sq.jpg",
             "category": "ذكاء اصطناعي",
+            "date": "28 نوفمبر 2025",
             "url": "https://www.udemy.com/course/lovable-ai-complete-guide-for-vibe-coding/?couponCode=28NOVEMBER2025"
           },
           {
@@ -467,6 +474,7 @@
             "description": "ارتقِ بمهاراتك في الذكاء الاصطناعي مع أحدث إصدارات Google Gemini.",
             "image": "images/stock5_sq.jpg",
             "category": "ذكاء اصطناعي",
+            "date": "28 نوفمبر 2025",
             "url": "https://www.udemy.com/course/next-level-ai-skills-with-google-gemini-25/?couponCode=28NOVEMBER2025"
           },
           {
@@ -475,6 +483,7 @@
             "description": "إدارة العلامات التجارية باستخدام تقنيات الذكاء الاصطناعي التوليدي.",
             "image": "images/stock6_sq.jpg",
             "category": "إدارة أعمال",
+            "date": "25 نوفمبر 2025",
             "url": "https://www.udemy.com/course/brand-management-with-generative-ai-q/?couponCode=CP251118G4V2"
           },
           {
@@ -483,6 +492,7 @@
             "description": "حوّل فكرتك إلى منتج أولي في عطلة نهاية الأسبوع باستخدام Vercel v0.",
             "image": "images/stock7_sq.jpg",
             "category": "برمجة وتطوير",
+            "date": "28 نوفمبر 2025",
             "url": "https://www.udemy.com/course/vercel-v0-no-code-mvp-build-ship-in-a-weekend/?couponCode=28NOVEMBER2025"
           },
           {
@@ -491,6 +501,7 @@
             "description": "احترف إنشاء الفيديو بالذكاء الاصطناعي باستخدام Google Veo.",
             "image": "images/stock8_sq.jpg",
             "category": "ذكاء اصطناعي",
+            "date": "28 نوفمبر 2025",
             "url": "https://www.udemy.com/course/google-veo-ai-video-beginner-to-pro/?couponCode=28NOVEMBER2025"
           },
           {
@@ -499,6 +510,7 @@
             "description": "دليل المبدعين لاستخدام أدوات الذكاء الاصطناعي في فوتوشوب.",
             "image": "images/stock9_sq.jpg",
             "category": "تصميم وجرافيك",
+            "date": "25 نوفمبر 2025",
             "url": "https://www.udemy.com/course/photoshop-ai-for-creatives-guide-to-generative-tools/?couponCode=CP251118G4V2"
           },
           {
@@ -507,6 +519,7 @@
             "description": "حلول الأمن السيبراني باستخدام الذكاء الاصطناعي التوليدي.",
             "image": "images/stock10_sq.jpg",
             "category": "تكنولوجيا وشبكات",
+            "date": "28 نوفمبر 2025",
             "url": "https://www.udemy.com/course/genai-cybersecurity-solutions-j/?couponCode=7C5856ABFED4CC319C17"
           },
           {
@@ -515,6 +528,7 @@
             "description": "كيف تنشئ كورس ناجح وتبيعه على يوديمي.",
             "image": "images/stock11_sq.jpg",
             "category": "إدارة أعمال",
+            "date": "28 نوفمبر 2025",
             "url": "https://www.udemy.com/course/bestseller-udemy-course-creation-masterclass-unofficial/?couponCode=3A9DC8F185FBE7A10805"
           },
           {
@@ -523,6 +537,7 @@
             "description": "كورس كامل للمبتدئين في بايثون وإطار عمل جانغو.",
             "image": "images/stock12_sq.jpg",
             "category": "برمجة وتطوير",
+            "date": "25 نوفمبر 2025",
             "url": "https://www.udemy.com/course/python-and-django-for-beginners/?couponCode=CP251118G4V2"
           },
           {
@@ -531,6 +546,7 @@
             "description": "تعلم البرمجة بلغة بايثون خطوة بخطوة.",
             "image": "images/stock13_sq.jpg",
             "category": "برمجة وتطوير",
+            "date": "28 نوفمبر 2025",
             "url": "https://www.udemy.com/course/python-programming-a-step-by-step-programming-course/?couponCode=20138EABA229911E8ED6"
           },
           {
@@ -539,6 +555,7 @@
             "description": "كورس مكثف للمبتدئين في استخدام Cursor AI للبرمجة.",
             "image": "images/stock14_sq.jpg",
             "category": "ذكاء اصطناعي",
+            "date": "28 نوفمبر 2025",
             "url": "https://www.udemy.com/course/cursor-ai-for-beginners-ai-coding-crash-course/?couponCode=28NOVEMBER2025"
           },
           {
@@ -547,6 +564,7 @@
             "description": "مدخل سريع لتعلم الجافاسكريبت للجميع.",
             "image": "images/stock15_sq.jpg",
             "category": "برمجة وتطوير",
+            "date": "28 نوفمبر 2025",
             "url": "https://www.udemy.com/course/javascript-fast-entry-programming-for-everyone/?couponCode=28NOVEMBER2025"
           },
           {
@@ -555,6 +573,7 @@
             "description": "كيفية إنشاء عروض تقديمية احترافية باستخدام ChatGPT.",
             "image": "images/stock16_sq.jpg",
             "category": "إنتاجية ومكاتب",
+            "date": "28 نوفمبر 2025",
             "url": "https://www.udemy.com/course/presentations-with-chatgpt-aece/?couponCode=842C8E4E39946B09972D"
           },
           {
@@ -563,6 +582,7 @@
             "description": "تعلم أدوبي إليستريتور وصمم مثل المحترفين.",
             "image": "images/stock17_sq.jpg",
             "category": "تصميم وجرافيك",
+            "date": "28 نوفمبر 2025",
             "url": "https://www.udemy.com/course/adobe-illustrator-for-everyone-design-like-a-pro/?couponCode=76E6AA34C5092340AF46"
           },
           {
@@ -571,6 +591,7 @@
             "description": "كورس فيجما الشامل لتصميم مشاريع الويب والموبايل من الصفر.",
             "image": "images/stock18_sq.jpg",
             "category": "تصميم وجرافيك",
+            "date": "25 نوفمبر 2025",
             "url": "https://www.udemy.com/course/figma-practical-design/?couponCode=25NOVEMBER2025"
           },
           {
@@ -579,6 +600,7 @@
             "description": "كورس الجافاسكريبت الشامل للمبتدئين.",
             "image": "images/stock19_sq.jpg",
             "category": "برمجة وتطوير",
+            "date": "28 نوفمبر 2025",
             "url": "https://www.udemy.com/course/javascript-for-beginners-complete-course/?couponCode=C6C527D884006AB3749F"
           },
           {
@@ -587,6 +609,7 @@
             "description": "أساسيات إدارة المشاريع: دليل للمبتدئين.",
             "image": "images/stock20_sq.jpg",
             "category": "إدارة أعمال",
+            "date": "25 نوفمبر 2025",
             "url": "https://www.udemy.com/course/project-management-fundamentals-guide/?couponCode=25NOVEMBER2025"
           },
           {
@@ -595,18 +618,19 @@
             "description": "احترف الأفتر إفكتس من البداية حتى الاحتراف في الموشن جرافيك.",
             "image": "images/stock1_sq.jpg", 
             "category": "تصميم وجرافيك",
+            "date": "28 نوفمبر 2025",
             "url": "https://www.udemy.com/course/essential-after-effects-from-beginner-to-motion-master/?couponCode=F7453C0FC8E9F2F7DF2F"
           }
         ];
 
-        // --- 2. بيانات المقالات (تم إضافة التصنيفات والمؤلف) ---
+        // --- 2. بيانات المقالات (تم إضافة التصنيفات والمؤلف والتاريخ) ---
         const articlesData = [
           {
             "id": 1,
             "title": "فكك من جو \"أنت تنين مجنح\".. وركز في اللي ينفعك 🛑",
             "excerpt": "يا صاحبي، السوشيال ميديا هرتنا كلام عن إنك لازم تكون \"سوبر مان\" وإنك \"محور الكون\". الكلام ده بينفخك ع الفاضي، ولما تيجـي ع الأرض تتصدم.",
             "content": "يا صاحبي، السوشيال ميديا هرتنا كلام عن إنك لازم تكون \"سوبر مان\" وإنك \"محور الكون\". الكلام ده بينفخك ع الفاضي، ولما تيجـي ع الأرض تتصدم.\n\nالحقيقة إننا بشر عاديين، محتاجين نشتغل على \"نفسنا\" بجد من غير منظرة.\nمشكلتنا مش إننا مش واثقين في نفسنا، مشكلتنا إننا مش عارفين نفسنا أصلاً!\nعايز تطور نفسك بجد؟\n\nنظّف: شيل من دماغك فكرة إنك لازم تعجب كل الناس، وشيل من يومك الحاجات اللي بتضيع عمرك ع الفاضي.\nعبّي: املأ وقتك ودماغك بحاجة ليها قيمة، حاجة تنفعك وتنفع غيرك.\nأنت مش محتاج تكون \"أسطورة\"، أنت محتاج تكون \"إنسان حقيقي\" وسالك من جوا.",
-            "date": "2025-11-28",
+            "date": "28 نوفمبر 2025",
             "image": "images/article1.jpg",
             "category": "تزكية وتطوير ذات",
             "author": "مصطفى كمشكاة",
@@ -617,7 +641,7 @@
             "title": "متجريش ورا \"التريند\".. شوف إيه اللي ناقص وسدّه 🧩",
             "excerpt": "كل شوية يطلع تريند \"اتعلم برمجة\"، \"اتعلم جرافيك\".. والناس تجري وخلاص. في قاعدة بلدي كده بتقول: \"الصنعة اللي تسد خانة، أحسن من مية شهادة في الدقانة\".",
             "content": "كل شوية يطلع تريند \"اتعلم برمجة\"، \"اتعلم جرافيك\".. والناس تجري وخلاص.\nفي قاعدة بلدي كده بتقول: \"الصنعة اللي تسد خانة، أحسن من مية شهادة في الدقانة\".\nبدل ما تشتت نفسك، اسأل نفسك سؤال واحد: الناس حواليا محتاجين إيه؟\n\nمحتاجين دكتور أمين؟ يبقى شطارتك في الطب هنا \"رسالة\".\nمحتاجين مهندس يبني صح؟ يبقى شغلك هنا \"أمانة\".\nمحتاجين مبرمج يعمل برامج تحمي خصوصيتهم؟ يبقى الكود بتاعك ده \"خدمة للناس\" (أهي كده في الأمان وزي الفل 😉).\nاتعلم عشان تنفع، مش عشان \"تلمع\" في الـ CV.",
-            "date": "2025-11-28",
+            "date": "28 نوفمبر 2025",
             "image": "images/article2.jpg",
             "category": "تعلم ومهارات",
             "author": "مصطفى كمشكاة",
@@ -628,7 +652,7 @@
             "title": "الوقت مش فلوس.. الوقت هو \"أنت\" ⏳",
             "excerpt": "بيقولك الوقت من ذهب.. لأ يا سيدي، الوقت أغلى، الوقت هو عمرك اللي بيعدي ومش راجع. مشكلتنا مش في \"تنظيم الوقت\" بالجداول والألوان، مشكلتنا في \"البركة\".",
             "content": "بيقولك الوقت من ذهب.. لأ يا سيدي، الوقت أغلى، الوقت هو عمرك اللي بيعدي ومش راجع.\nمشكلتنا مش في \"تنظيم الوقت\" بالجداول والألوان، مشكلتنا في \"البركة\". اليوم بيطير عشان بنضيعه في \"اللا شيء\".\nعايز تمسك وقتك صح؟\n\nابدأ بالكبير: حق ربنا، وأهلك، وشغلك.. دول \"العواميد\" اللي شايلة يومك.\nاقفل الحنفية: التيك توك والفرجة على خناقات الناس دي حنفية بتسرب عمرك وأنت مش دريان.\nركز في اللي في إيدك دلوقتي، ومطمعش تعمل كل حاجة مرة واحدة عشان متخسرش كل حاجة.",
-            "date": "2025-11-28",
+            "date": "28 نوفمبر 2025",
             "image": "images/article3.jpg",
             "category": "إنتاجية وإدارة وقت",
             "author": "مصطفى كمشكاة",
@@ -639,7 +663,7 @@
             "title": "شغّل الآلة عندك.. بس إياك تأجرلها دماغك! 🤖",
             "excerpt": "الذكاء الاصطناعي ده عامل زي \"الصنايعي الشاطر\" اللي معاك في الورشة. يساعدك، يناولك العدة، يلملك الدنيا.. ماشي. لكن المصيبة لو خليت \"الصنايعي\" هو اللي يمشيك!",
             "content": "الذكاء الاصطناعي ده عامل زي \"الصنايعي الشاطر\" اللي معاك في الورشة. يساعدك، يناولك العدة، يلملك الدنيا.. ماشي.\nلكن المصيبة لو خليت \"الصنايعي\" هو اللي يمشيك ويقولك الصح والغلط فين!\nالآلة يا بطل معندهاش \"روح\" ولا \"أخلاق\"، هي حافظة مش فاهمة.\n\nخد منها تلخيص، خد منها ترجمة، خليها توفر عليك وقت.\nبس اوعى تاخد منها رأي في دينك، أو قيمك، أو قرارات حياتك.\nأنت \"الأسطى\" وهي \"الأداة\". لو عكست الآية.. هتضيع.",
-            "date": "2025-11-28",
+            "date": "28 نوفمبر 2025",
             "image": "images/article4.jpg",
             "category": "ذكاء اصطناعي",
             "author": "مصطفى كمشكاة",
@@ -650,7 +674,7 @@
             "title": "اعقلها وتوكل.. المعادلة اللي مفيش غيرها 🤲❤️",
             "excerpt": "ناس كتير واقعة في حفرة من اتنين: يا إما قاعد مأنتخ وبيقول \"يا رب ارزقني\" وهو مبيتحركش، يا إما فاكر إنه بذكاؤه وشطارتو هيعمل كل حاجة وينسى توفيق ربنا.",
             "content": "ناس كتير واقعة في حفرة من اتنين:\nيا إما قاعد مأنتخ وبيقول \"يا رب ارزقني\" وهو مبيتحركش (وده غلط).\nيا إما فاكر إنه بذكاؤه وشطارتو هيعمل كل حاجة وينسى توفيق ربنا (وده غرور).\nالصح فين؟ الصح في كلمتين: \"استعن بالله ولا تعجز\".\n\nاشتغل: افرم نفسك شغل وسعي، خبط على كل الأبواب، اتعلم وحاول مرة واتنين.. ده اسمه \"عدم العجز\".\nسلّمها لله: خليك متأكد من جواك إن الرزق والنتيجة دي بتاعة ربنا مش شطارة منك.. دي \"الاستعانة\".\nاعمل اللي عليك ع الأرض، وخلي قلبك متعلق بالسماء.. وكده أنت في التمام.",
-            "date": "2025-11-28",
+            "date": "28 نوفمبر 2025",
             "image": "images/article5.jpg",
             "category": "تزكية وروحانيات",
             "author": "مصطفى كمشكاة",
@@ -903,6 +927,15 @@
             document.getElementById('article-view-title').innerText = article.title;
             document.getElementById('article-view-category').innerText = article.category || 'عام';
             
+            // تحديث التاريخ في صفحة العرض
+            const dateEl = document.getElementById('article-view-date');
+            if (dateEl && article.date) {
+                dateEl.innerText = article.date;
+                dateEl.style.display = 'inline-block';
+            } else if (dateEl) {
+                dateEl.style.display = 'none';
+            }
+            
             const formattedContent = article.content ? article.content.replace(/\n/g, '<br>') : article.excerpt;
             document.getElementById('article-view-content').innerHTML = `<p>${formattedContent}</p>`;
             
@@ -1027,6 +1060,8 @@
 
             courses.forEach(course => {
                 const categoryTag = course.category ? `<span class="absolute top-4 right-4 bg-emerald-600/90 text-white text-xs px-3 py-1 rounded-full shadow-sm z-10 backdrop-blur-sm">${course.category}</span>` : '';
+                // إضافة التاريخ للكورس
+                const dateTag = course.date ? `<div class="text-xs text-slate-500 mt-2 mb-1 flex items-center gap-1"><i data-lucide="calendar" class="w-3 h-3"></i> ${course.date}</div>` : '';
                 
                 const html = `
                     <div class="glass-panel rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 flex flex-col h-full group relative">
@@ -1036,6 +1071,7 @@
                                  onerror="this.src='https://placehold.co/600x400/064e3b/ffffff?text=Course'">
                         </div>
                         <div class="p-6 flex flex-col flex-1">
+                            ${dateTag}
                             <h3 class="text-xl font-bold text-slate-800 mb-3 leading-snug">${course.title}</h3>
                             <p class="text-slate-500 text-sm mb-6 flex-1 leading-relaxed">${course.description}</p>
                             
@@ -1115,7 +1151,9 @@
             articles.forEach(article => {
                 // إضافة بادج القسم
                 const categoryBadge = article.category ? `<span class="bg-emerald-100 text-emerald-800 text-xs px-2 py-1 rounded-md font-bold mb-2 inline-block">${article.category}</span>` : '';
-                
+                // إضافة التاريخ للكارت
+                const dateTag = article.date ? `<span class="text-xs text-slate-400 block mb-2">${article.date}</span>` : '';
+
                 // تغيير الكلاس هنا لـ solid-card بدلاً من glass-panel
                 const html = `
                     <div class="solid-card p-6 rounded-3xl flex flex-col md:flex-row gap-6 items-center hover:translate-y-[-4px] transition-transform duration-300 group">
@@ -1124,7 +1162,10 @@
                                  onerror="this.src='https://placehold.co/400x300/064e3b/ffffff?text=Article'">
                         </div>
                         <div class="flex-1 text-center md:text-right">
-                            ${categoryBadge}
+                            <div class="flex justify-between items-start mb-1">
+                                ${categoryBadge}
+                                ${dateTag}
+                            </div>
                             <h3 class="text-2xl font-bold text-slate-800 mb-2 group-hover:text-emerald-700 transition-colors">${article.title}</h3>
                             <p class="text-slate-500 leading-relaxed mb-4 text-sm md:text-base line-clamp-2">${article.excerpt}</p>
                             <div class="flex justify-between items-center">
@@ -1186,11 +1227,6 @@
                 const imgUrl = `images/stock${i}.jpg`;
                 const imgName = `kameshkah_design_${i}.jpg`;
 
-                // استرجاع حالة اللايك من اللوكال ستورج
-                const heartCount = localStorage.getItem(`heart_count_${i}`) || "";
-                const userLiked = localStorage.getItem(`user_liked_${i}`) ? "text-red-500" : "text-white";
-                const heartIconClass = localStorage.getItem(`user_liked_${i}`) ? "heart-active" : "";
-
                 const imgHTML = `
                     <div class="glass-panel group relative overflow-hidden rounded-2xl mb-6 break-inside-avoid">
                         <div class="w-full relative cursor-pointer" onclick="openLightbox('${imgUrl}')">
@@ -1206,26 +1242,9 @@
                                     <i data-lucide="zoom-in" class="w-4 h-4"></i> تكبير
                                 </div>
                             </div>
-
-                            <!-- أزرار المشاركة والقلب -->
-                            <div class="absolute top-2 right-2 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity" onclick="event.stopPropagation()">
-                                <button onclick="toggleHeart(this, ${i})" class="bg-black/50 backdrop-blur p-2 rounded-full hover:bg-white hover:text-red-500 transition ${userLiked} shadow-md" title="أحببته">
-                                    <i data-lucide="heart" class="w-5 h-5 ${heartIconClass}"></i> <span class="text-xs font-bold ml-1">${heartCount}</span>
-                                </button>
-                                <button onclick="shareImage('${imgUrl}', ${i})" class="bg-black/50 backdrop-blur p-2 rounded-full text-white hover:bg-white hover:text-blue-500 transition shadow-md" title="مشاركة">
-                                    <i data-lucide="share-2" class="w-5 h-5"></i>
-                                </button>
-                            </div>
                         </div>
                         <div class="md:hidden p-3 border-t border-slate-100 flex justify-between items-center bg-slate-50/50">
-                            <div class="flex gap-3">
-                                 <button onclick="toggleHeart(this, ${i})" class="${userLiked} flex items-center gap-1">
-                                    <i data-lucide="heart" class="w-5 h-5 ${heartIconClass}"></i> <span class="text-xs font-bold">${heartCount}</span>
-                                </button>
-                                <button onclick="shareImage('${imgUrl}', ${i})" class="text-slate-600 hover:text-blue-500">
-                                    <i data-lucide="share-2" class="w-5 h-5"></i>
-                                </button>
-                            </div>
+                            <span class="text-sm font-bold text-slate-600">تصميم #${i}</span>
                             <button onclick="downloadImage('${imgUrl}', '${imgName}')" class="text-emerald-600 bg-white p-2 rounded-lg border border-slate-200 shadow-sm">
                                 <i data-lucide="download" class="w-5 h-5"></i>
                             </button>
