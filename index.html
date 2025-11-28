@@ -73,6 +73,18 @@
             opacity: 1;
             pointer-events: auto;
         }
+        
+        /* أنيميشن القلب */
+        @keyframes heart-pump {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+        .heart-active {
+            color: #ef4444 !important; /* أحمر */
+            fill: #ef4444 !important;
+            animation: heart-pump 0.3s ease-in-out;
+        }
     </style>
 </head>
 <body class="text-slate-800 min-h-screen relative">
@@ -99,6 +111,7 @@
         <div class="max-w-7xl mx-auto px-4">
             <div class="flex justify-between items-center h-20">
                 <div onclick="showPage('home')" class="flex items-center gap-3 cursor-pointer group select-none">
+                    <!-- تم استبدال ديف الحرف بصورة اللوجو -->
                     <img src="logo.png" alt="شعار كمشكاة" class="w-12 h-12 object-contain transform group-hover:rotate-6 transition-transform drop-shadow-md bg-white/90 rounded-lg p-1">
                     <span class="text-2xl font-bold tracking-wide">كمشكاة</span>
                 </div>
@@ -697,6 +710,79 @@
             }
         }
 
+        // --- دالة مشاركة الصورة ---
+        async function shareImage(url) {
+            // تحويل المسار النسبي إلى رابط كامل
+            const fullUrl = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, '/') + url;
+            
+            if (navigator.share) {
+                try {
+                    // محاولة مشاركة الصورة كملف لو المتصفح يدعم
+                    const response = await fetch(url);
+                    const blob = await response.blob();
+                    const file = new File([blob], "image.jpg", { type: "image/jpeg" });
+                    
+                    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                        await navigator.share({
+                            files: [file],
+                            title: 'تصميم من كمشكاة',
+                            text: 'شوف التصميم الجامد ده من موقع كمشكاة 😍',
+                        });
+                    } else {
+                        // مشاركة الرابط كبديل
+                        await navigator.share({
+                            title: 'تصميم من كمشكاة',
+                            text: 'شوف التصميم الجامد ده من موقع كمشكاة 😍',
+                            url: fullUrl,
+                        });
+                    }
+                } catch (error) {
+                    console.log('Error sharing', error);
+                    copyToClipboard(fullUrl);
+                }
+            } else {
+                copyToClipboard(fullUrl);
+            }
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('تم نسخ رابط الصورة! شاركه براحتك 😉');
+            }, (err) => {
+                console.error('Async: Could not copy text: ', err);
+            });
+        }
+
+        // --- دالة القلب (Love) ---
+        function toggleHeart(btn, id) {
+            // استرجاع العداد الحالي من الذاكرة المحلية أو البدء بـ 0
+            let count = parseInt(localStorage.getItem(`heart_count_${id}`) || "0");
+            const userLiked = localStorage.getItem(`user_liked_${id}`);
+
+            if (!userLiked) {
+                // زيادة العداد
+                count++;
+                localStorage.setItem(`heart_count_${id}`, count);
+                localStorage.setItem(`user_liked_${id}`, "true");
+                
+                // تحديث الشكل
+                btn.innerHTML = `<i data-lucide="heart" class="w-5 h-5 heart-active"></i> ${count}`;
+                btn.classList.add('text-red-500');
+            } else {
+                // (اختياري) لو عايز تسمح بإلغاء اللايك، شيل التعليق ده:
+                /*
+                count--;
+                localStorage.setItem(`heart_count_${id}`, count);
+                localStorage.removeItem(`user_liked_${id}`);
+                btn.innerHTML = `<i data-lucide="heart" class="w-5 h-5"></i> ${count > 0 ? count : ''}`;
+                btn.classList.remove('text-red-500');
+                */
+               alert("أنت عملت قلب للصورة دي قبل كده يا جميل ❤️");
+            }
+            lucide.createIcons();
+        }
+
+
         // --- دالة اللايت بوكس (تكبير الصورة) ---
         function openLightbox(imgUrl) {
             const lightbox = document.getElementById('lightbox');
@@ -959,6 +1045,11 @@
                 const imgUrl = `images/stock${i}.jpg`;
                 const imgName = `kameshkah_design_${i}.jpg`;
 
+                // استرجاع حالة اللايك من اللوكال ستورج
+                const heartCount = localStorage.getItem(`heart_count_${i}`) || "";
+                const userLiked = localStorage.getItem(`user_liked_${i}`) ? "text-red-500" : "text-white";
+                const heartIconClass = localStorage.getItem(`user_liked_${i}`) ? "heart-active" : "";
+
                 const imgHTML = `
                     <div class="glass-panel group relative overflow-hidden rounded-2xl mb-6 break-inside-avoid">
                         <div class="w-full relative cursor-pointer" onclick="openLightbox('${imgUrl}')">
@@ -974,9 +1065,26 @@
                                     <i data-lucide="zoom-in" class="w-4 h-4"></i> تكبير
                                 </div>
                             </div>
+
+                            <!-- أزرار المشاركة والقلب -->
+                            <div class="absolute top-2 right-2 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity" onclick="event.stopPropagation()">
+                                <button onclick="toggleHeart(this, ${i})" class="bg-black/50 backdrop-blur p-2 rounded-full hover:bg-white hover:text-red-500 transition ${userLiked} shadow-md" title="أحببته">
+                                    <i data-lucide="heart" class="w-5 h-5 ${heartIconClass}"></i> <span class="text-xs font-bold ml-1">${heartCount}</span>
+                                </button>
+                                <button onclick="shareImage('${imgUrl}')" class="bg-black/50 backdrop-blur p-2 rounded-full text-white hover:bg-white hover:text-blue-500 transition shadow-md" title="مشاركة">
+                                    <i data-lucide="share-2" class="w-5 h-5"></i>
+                                </button>
+                            </div>
                         </div>
                         <div class="md:hidden p-3 border-t border-slate-100 flex justify-between items-center bg-slate-50/50">
-                            <span class="text-sm font-bold text-slate-600">تصميم #${i}</span>
+                            <div class="flex gap-3">
+                                 <button onclick="toggleHeart(this, ${i})" class="${userLiked} flex items-center gap-1">
+                                    <i data-lucide="heart" class="w-5 h-5 ${heartIconClass}"></i> <span class="text-xs font-bold">${heartCount}</span>
+                                </button>
+                                <button onclick="shareImage('${imgUrl}')" class="text-slate-600 hover:text-blue-500">
+                                    <i data-lucide="share-2" class="w-5 h-5"></i>
+                                </button>
+                            </div>
                             <button onclick="downloadImage('${imgUrl}', '${imgName}')" class="text-emerald-600 bg-white p-2 rounded-lg border border-slate-200 shadow-sm">
                                 <i data-lucide="download" class="w-5 h-5"></i>
                             </button>
