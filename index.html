@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <!-- Google Tag Manager (GA4) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7DX46N0YKE"></script>
+    <!-- Google Tag Manager (GA4) - تم التحديث للكود الجديد -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-482MR7LT23"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-7DX46N0YKE');
+    
+      gtag('config', 'G-482MR7LT23');
     </script>
+    <!-- End Google Tag Manager -->
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -676,6 +678,9 @@
             
             // دالة Deep Linking للمقالات
             checkUrlForArticle();
+            
+            // دالة Deep Linking للصور (جديد)
+            checkUrlForImage();
         });
 
         function showPage(pageId) {
@@ -733,16 +738,33 @@
         }
 
         // --- دالة مشاركة الصورة ---
-        async function shareImage(url) {
-            const fullUrl = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, '/') + url;
+        async function shareImage(url, id) {
+            // إنشاء رابط مباشر للصورة باستخدام الهاش
+            const fullUrl = `${window.location.origin}${window.location.pathname}#img-${id}`;
             
             if (navigator.share) {
                 try {
-                    await navigator.share({
-                        title: 'تصميم من كمشكاة',
-                        text: 'شوف التصميم الجامد ده من موقع كمشكاة 😍',
-                        url: fullUrl,
-                    });
+                    // محاولة مشاركة الصورة كملف لو المتصفح يدعم
+                    const response = await fetch(url);
+                    const blob = await response.blob();
+                    const file = new File([blob], "image.jpg", { type: "image/jpeg" });
+                    
+                    // نفضل مشاركة الرابط العميق في خانة URL
+                    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                        await navigator.share({
+                            files: [file],
+                            title: 'تصميم من كمشكاة',
+                            text: 'شوف التصميم الجامد ده من موقع كمشكاة 😍',
+                            url: fullUrl
+                        });
+                    } else {
+                        // مشاركة الرابط كبديل
+                        await navigator.share({
+                            title: 'تصميم من كمشكاة',
+                            text: 'شوف التصميم الجامد ده من موقع كمشكاة 😍',
+                            url: fullUrl,
+                        });
+                    }
                 } catch (error) {
                     console.log('Error sharing', error);
                     copyToClipboard(fullUrl);
@@ -754,7 +776,7 @@
 
         function copyToClipboard(text) {
             navigator.clipboard.writeText(text).then(() => {
-                alert('تم نسخ الرابط! شاركه براحتك 😉');
+                alert('تم نسخ الرابط المباشر للصورة! شاركه براحتك 😉');
             }, (err) => {
                 console.error('Async: Could not copy text: ', err);
             });
@@ -831,6 +853,24 @@
                 }
             }
         }
+        
+        // --- فحص الرابط عند الفتح لفتح الصورة مباشرة (جديد) ---
+        function checkUrlForImage() {
+            const hash = window.location.hash;
+            if (hash && hash.startsWith('#img-')) {
+                const imgId = parseInt(hash.replace('#img-', ''));
+                if (!isNaN(imgId)) {
+                    // تأكد أننا في صفحة المعرض
+                    showPage('gallery');
+                    // فتح اللايت بوكس للصورة المحددة
+                    // نفترض اسم الصورة القياسي
+                    const imgUrl = `images/stock${imgId}.jpg`;
+                    setTimeout(() => {
+                        openLightbox(imgUrl);
+                    }, 500); // تأخير لضمان تحميل الصفحة
+                }
+            }
+        }
 
 
         // --- دالة اللايت بوكس (تكبير الصورة) ---
@@ -850,6 +890,10 @@
 
         function closeLightbox() {
             document.getElementById('lightbox').classList.add('hidden');
+            // إزالة الهاش عند إغلاق الصورة (اختياري للحفاظ على نظافة الرابط)
+            if (window.location.hash.startsWith('#img-')) {
+                history.pushState("", document.title, window.location.pathname + window.location.search);
+            }
         }
 
         function openArticle(id) {
@@ -893,10 +937,17 @@
         
         window.onpopstate = function() {
              const hash = window.location.hash;
-             if (!hash.startsWith('#article-')) {
-                 showPage('articles'); 
-             } else {
+             if (hash.startsWith('#article-')) {
                  checkUrlForArticle();
+             } else if (hash.startsWith('#img-')) {
+                 checkUrlForImage();
+             } else {
+                 // العودة للصفحة الافتراضية أو القوائم حسب السياق
+                 if(document.getElementById('article-view').classList.contains('hidden-section') === false) {
+                     showPage('articles');
+                 } else {
+                    // الوضع الافتراضي
+                 }
              }
         };
 
@@ -1135,6 +1186,11 @@
                 const imgUrl = `images/stock${i}.jpg`;
                 const imgName = `kameshkah_design_${i}.jpg`;
 
+                // استرجاع حالة اللايك من اللوكال ستورج
+                const heartCount = localStorage.getItem(`heart_count_${i}`) || "";
+                const userLiked = localStorage.getItem(`user_liked_${i}`) ? "text-red-500" : "text-white";
+                const heartIconClass = localStorage.getItem(`user_liked_${i}`) ? "heart-active" : "";
+
                 const imgHTML = `
                     <div class="glass-panel group relative overflow-hidden rounded-2xl mb-6 break-inside-avoid">
                         <div class="w-full relative cursor-pointer" onclick="openLightbox('${imgUrl}')">
@@ -1150,9 +1206,26 @@
                                     <i data-lucide="zoom-in" class="w-4 h-4"></i> تكبير
                                 </div>
                             </div>
+
+                            <!-- أزرار المشاركة والقلب -->
+                            <div class="absolute top-2 right-2 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity" onclick="event.stopPropagation()">
+                                <button onclick="toggleHeart(this, ${i})" class="bg-black/50 backdrop-blur p-2 rounded-full hover:bg-white hover:text-red-500 transition ${userLiked} shadow-md" title="أحببته">
+                                    <i data-lucide="heart" class="w-5 h-5 ${heartIconClass}"></i> <span class="text-xs font-bold ml-1">${heartCount}</span>
+                                </button>
+                                <button onclick="shareImage('${imgUrl}', ${i})" class="bg-black/50 backdrop-blur p-2 rounded-full text-white hover:bg-white hover:text-blue-500 transition shadow-md" title="مشاركة">
+                                    <i data-lucide="share-2" class="w-5 h-5"></i>
+                                </button>
+                            </div>
                         </div>
                         <div class="md:hidden p-3 border-t border-slate-100 flex justify-between items-center bg-slate-50/50">
-                            <span class="text-sm font-bold text-slate-600">تصميم #${i}</span>
+                            <div class="flex gap-3">
+                                 <button onclick="toggleHeart(this, ${i})" class="${userLiked} flex items-center gap-1">
+                                    <i data-lucide="heart" class="w-5 h-5 ${heartIconClass}"></i> <span class="text-xs font-bold">${heartCount}</span>
+                                </button>
+                                <button onclick="shareImage('${imgUrl}', ${i})" class="text-slate-600 hover:text-blue-500">
+                                    <i data-lucide="share-2" class="w-5 h-5"></i>
+                                </button>
+                            </div>
                             <button onclick="downloadImage('${imgUrl}', '${imgName}')" class="text-emerald-600 bg-white p-2 rounded-lg border border-slate-200 shadow-sm">
                                 <i data-lucide="download" class="w-5 h-5"></i>
                             </button>
