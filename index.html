@@ -48,15 +48,17 @@
             color: #374151;
         }
         
-        /* تأثير الزجاج القوي (Enhanced Glassmorphism) */
+        /* تأثير الزجاج الكريستالي القوي (Ultra Glassmorphism) */
         .glass-panel {
             background: rgba(255, 255, 255, 0.65); /* شفافية أكبر */
             backdrop-filter: blur(20px) saturate(180%); /* تمويه قوي وتشبع ألوان */
             -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            border-top: 1px solid rgba(255, 255, 255, 0.7); /* لمعة علوية */
-            border-left: 1px solid rgba(255, 255, 255, 0.7); /* لمعة جانبية */
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15); /* ظل ناعم */
+            border: 1px solid rgba(255, 255, 255, 0.4); /* حدود واضحة */
+            border-top: 1px solid rgba(255, 255, 255, 0.7); /* لمعة علوية قوية */
+            border-left: 1px solid rgba(255, 255, 255, 0.7); /* لمعة جانبية قوية */
+            box-shadow: 
+                0 8px 32px 0 rgba(31, 38, 135, 0.15), /* ظل خارجي عميق */
+                inset 0 0 0 1px rgba(255, 255, 255, 0.1); /* ظل داخلي لإعطاء عمق */
         }
     </style>
 </head>
