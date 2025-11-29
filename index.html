@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <!-- Google Tag Manager (GA4) - تم التحديث للكود الجديد -->
+    <!-- Google Tag Manager (GA4) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-482MR7LT23"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -16,7 +16,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>كمشكاة | Kameshkah</title>
     
-    <!-- أيقونة الموقع في التابة (Favicon) -->
     <link rel="icon" href="logo.png" type="image/png">
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -32,10 +31,7 @@
             to { opacity: 1; transform: translateY(0); } 
         }
         
-        /* أزرار الفلتر */
-        .filter-btn {
-            transition: all 0.3s ease;
-        }
+        .filter-btn { transition: all 0.3s ease; }
         .filter-btn.active {
             background-color: #059669; 
             color: white;
@@ -46,59 +42,61 @@
         .filters-container {
             -ms-overflow-style: none;
             scrollbar-width: none;
-            padding-bottom: 10px; /* مساحة للظل */
+            padding-bottom: 10px;
         }
-        .filters-container::-webkit-scrollbar {
-            display: none;
-        }
-        .article-content p {
-            margin-bottom: 1.5rem;
-            line-height: 1.8;
-            font-size: 1.1rem;
-            color: #374151;
-        }
+        .filters-container::-webkit-scrollbar { display: none; }
         
-        /* تأثير الزجاج الكريستالي القوي (للكورسات والرئيسية) */
         .glass-panel {
-            background: rgba(255, 255, 255, 0.65); /* شفافية أكبر */
-            backdrop-filter: blur(20px) saturate(180%); /* تمويه قوي وتشبع ألوان */
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(20px) saturate(180%);
             -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.4); /* حدود واضحة */
-            border-top: 1px solid rgba(255, 255, 255, 0.7); /* لمعة علوية قوية */
-            border-left: 1px solid rgba(255, 255, 255, 0.7); /* لمعة جانبية قوية */
-            box-shadow: 
-                0 8px 32px 0 rgba(31, 38, 135, 0.15), /* ظل خارجي عميق */
-                inset 0 0 0 1px rgba(255, 255, 255, 0.1); /* ظل داخلي لإعطاء عمق */
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-top: 1px solid rgba(255, 255, 255, 0.7);
+            border-left: 1px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
         }
 
-        /* كلاس للمقالات (بدون زجاج - خلفية بيضاء صريحة) */
         .solid-card {
             background-color: #ffffff;
             border: 1px solid #e2e8f0;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
-        /* تنسيق اللايت بوكس (تكبير الصورة) */
+        /* إصلاح نهائي لمشكلة اللايت بوكس */
         #lightbox {
-            transition: opacity 0.3s ease;
-        }
-        #lightbox.hidden {
+            position: fixed;
+            inset: 0;
+            z-index: 9999; /* طبقة عالية جداً */
+            background-color: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             opacity: 0;
+            visibility: hidden;
             pointer-events: none;
+            transition: all 0.3s ease;
         }
-        #lightbox:not(.hidden) {
+        #lightbox.active {
             opacity: 1;
+            visibility: visible;
             pointer-events: auto;
         }
-        
-        /* أنيميشن القلب */
+        #lightbox img {
+            max-height: 90vh;
+            max-width: 90vw;
+            object-fit: contain;
+            border-radius: 4px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
         @keyframes heart-pump {
             0% { transform: scale(1); }
             50% { transform: scale(1.3); }
             100% { transform: scale(1); }
         }
         .heart-active {
-            color: #ef4444 !important; /* أحمر */
+            color: #ef4444 !important;
             fill: #ef4444 !important;
             animation: heart-pump 0.3s ease-in-out;
         }
@@ -106,24 +104,22 @@
 </head>
 <body class="text-slate-800 min-h-screen relative">
 
-    <!-- خلفية الموقع الثابتة -->
     <div class="fixed inset-0 z-[-1]">
         <img src="bg.jpg" alt="Background" class="w-full h-full object-cover" onerror="this.style.display='none'; document.body.classList.add('bg-slate-50')">
         <div class="absolute inset-0 bg-slate-900/20"></div>
     </div>
 
-    <!-- نافذة تكبير الصورة (Lightbox) -->
-    <div id="lightbox" class="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm hidden flex items-center justify-center p-4" onclick="closeLightbox()">
-        <button class="absolute top-4 right-4 text-white hover:text-emerald-400 transition" onclick="closeLightbox()">
-            <i data-lucide="x" class="w-10 h-10"></i>
+    <!-- Lightbox -->
+    <div id="lightbox" onclick="closeLightbox()">
+        <button class="absolute top-5 right-5 text-white/80 hover:text-white transition p-2 bg-white/10 rounded-full z-50" onclick="closeLightbox()">
+            <i data-lucide="x" class="w-8 h-8"></i>
         </button>
-        <img id="lightbox-img" src="" alt="Full View" class="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl" onclick="event.stopPropagation()">
-        <a id="lightbox-download" href="#" download class="absolute bottom-8 bg-emerald-600 text-white px-6 py-3 rounded-full font-bold flex items-center gap-2 hover:bg-emerald-700 transition shadow-lg" onclick="event.stopPropagation()">
-            <i data-lucide="download" class="w-5 h-5"></i> تحميل الصورة
+        <img id="lightbox-img" src="" alt="Full View" onclick="event.stopPropagation()">
+        <a id="lightbox-download" href="#" download class="absolute bottom-10 bg-emerald-600 text-white px-8 py-3 rounded-full font-bold flex items-center gap-3 hover:bg-emerald-700 transition shadow-2xl border border-white/20 z-50" onclick="event.stopPropagation()">
+            <i data-lucide="download" class="w-5 h-5"></i> تحميل بجودة عالية
         </a>
     </div>
 
-    <!-- Navbar -->
     <nav class="fixed top-0 w-full glass-panel z-50 text-white !bg-emerald-900/80 !border-b-emerald-800/30 !rounded-none !border-x-0 !border-t-0">
         <div class="max-w-7xl mx-auto px-4">
             <div class="flex justify-between items-center h-20">
@@ -135,9 +131,8 @@
                 <div class="hidden md:flex items-center gap-2 bg-emerald-800/40 backdrop-blur p-1.5 rounded-full border border-emerald-500/30">
                     <button onclick="showPage('home')" class="nav-btn px-4 py-2 rounded-full text-sm font-bold transition-all" data-page="home">الرئيسية</button>
                     <button onclick="showPage('courses')" class="nav-btn px-4 py-2 rounded-full text-sm font-bold transition-all" data-page="courses">كورسات</button>
-                    <button onclick="showPage('gallery')" class="nav-btn px-4 py-2 rounded-full text-sm font-bold transition-all" data-page="gallery">تصميم</button>
+                    <button onclick="showPage('gallery')" class="nav-btn px-4 py-2 rounded-full text-sm font-bold transition-all" data-page="gallery">تصميم كمشكاة</button>
                     <button onclick="showPage('articles')" class="nav-btn px-4 py-2 rounded-full text-sm font-bold transition-all" data-page="articles">مقالات</button>
-                    <!-- زر المكتبة -->
                     <button onclick="showPage('library')" class="nav-btn px-4 py-2 rounded-full text-sm font-bold transition-all" data-page="library">مكتبة</button>
                     <button onclick="showPage('contact')" class="nav-btn px-4 py-2 rounded-full text-sm font-bold transition-all" data-page="contact">تواصل</button>
                 </div>
@@ -151,14 +146,13 @@
         <div id="mobile-menu" class="hidden md:hidden glass-panel !bg-emerald-900/95 !rounded-none border-t border-emerald-800 p-4 space-y-2 shadow-xl absolute w-full z-40">
             <button onclick="showPage('home')" class="block w-full text-right px-4 py-3 rounded-lg hover:bg-emerald-800 transition text-emerald-50 font-bold">الرئيسية</button>
             <button onclick="showPage('courses')" class="block w-full text-right px-4 py-3 rounded-lg hover:bg-emerald-800 transition text-emerald-50 font-bold">كورسات تعليمية</button>
-            <button onclick="showPage('gallery')" class="block w-full text-right px-4 py-3 rounded-lg hover:bg-emerald-800 transition text-emerald-50 font-bold">معرض الصور</button>
+            <button onclick="showPage('gallery')" class="block w-full text-right px-4 py-3 rounded-lg hover:bg-emerald-800 transition text-emerald-50 font-bold">تصميم كمشكاة</button>
             <button onclick="showPage('articles')" class="block w-full text-right px-4 py-3 rounded-lg hover:bg-emerald-800 transition text-emerald-50 font-bold">مقالات</button>
             <button onclick="showPage('library')" class="block w-full text-right px-4 py-3 rounded-lg hover:bg-emerald-800 transition text-emerald-50 font-bold">مكتبة الكتب</button>
             <button onclick="showPage('contact')" class="block w-full text-right px-4 py-3 rounded-lg hover:bg-emerald-800 transition text-emerald-50 font-bold">تواصل معنا</button>
         </div>
     </nav>
 
-    <!-- Main Content -->
     <main class="pt-28 pb-12 px-4 container mx-auto max-w-7xl min-h-screen">
 
         <!-- 1. الرئيسية -->
@@ -484,7 +478,8 @@
             { "id": 23, "title": "PowerPoint Business Presentations with ChatGPT Generative AI", "description": "عروض باوربوينت للأعمال باستخدام ChatGPT والذكاء الاصطناعي التوليدي.", "image": "images/course23.jpg", "category": "ذكاء اصطناعي", "date": "29 نوفمبر 2025", "url": "https://www.udemy.com/course/powerpoint-business-presentations-with-chatgpt-generative-ai/?couponCode=4F584AB95BEB07954840" },
             { "id": 24, "title": "ChatGPT for Product Management & Innovation", "description": "استخدام ChatGPT لإدارة المنتجات والابتكار.", "image": "images/course24.jpg", "category": "ذكاء اصطناعي", "date": "29 نوفمبر 2025", "url": "https://www.udemy.com/course/chatgpt-for-product-management-innovation-aec/?couponCode=0A165635F13AA2247D93" },
             { "id": 25, "title": "Professional Diploma in Agile and Scrum", "description": "دبلوم احترافي في الأجايل وسكرام.", "image": "images/course25.jpg", "category": "إدارة أعمال", "date": "29 نوفمبر 2025", "url": "https://www.udemy.com/course/professional-diploma-in-agile-and-scrum/?couponCode=185528C9374F62C07EF3" },
-            { "id": 26, "title": "Presentation Expert: AI & GPT, Pitch Decks, Business Speech", "description": "خبير العروض التقديمية: الذكاء الاصطناعي، العروض الترويجية، وخطابات الأعمال.", "image": "images/course26.jpg", "category": "إدارة أعمال", "date": "29 نوفمبر 2025", "url": "https://www.udemy.com/course/presentation-expert-ai-gpt-pitch-decks-business-speech/?couponCode=97A17EC41F9D67E88AEE" }
+            { "id": 26, "title": "Presentation Expert: AI & GPT, Pitch Decks, Business Speech", "description": "خبير العروض التقديمية: الذكاء الاصطناعي، العروض الترويجية، وخطابات الأعمال.", "image": "images/course26.jpg", "category": "إدارة أعمال", "date": "29 نوفمبر 2025", "url": "https://www.udemy.com/course/presentation-expert-ai-gpt-pitch-decks-business-speech/?couponCode=97A17EC41F9D67E88AEE" },
+            { "id": 27, "title": "Mastering Power BI: From Data to Dashboard", "description": "إتقان Power BI: من البيانات إلى لوحة القيادة.", "image": "images/course27.jpg", "category": "ذكاء اصطناعي", "date": "29 نوفمبر 2025", "url": "https://www.udemy.com/course/mastering-power-bi-from-data-to-dashboard/?couponCode=E1E0A71AE2BEA6B1CA49" }
         ];
 
         // --- 2. بيانات المقالات ---
