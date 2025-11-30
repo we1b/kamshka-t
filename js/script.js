@@ -99,7 +99,6 @@ function renderCourses() {
     grid.innerHTML = visibleItems.map((c, index) => `
         <div class="glass-panel rounded-2xl overflow-hidden group hover:-translate-y-2 transition duration-300 flex flex-col fade-in bg-white/60" style="animation-delay: ${index * 50}ms">
             <div class="relative h-48 overflow-hidden">
-                <!-- تعديل: تغيير نص الصورة البديلة إلى Course -->
                 <img src="${c.img}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" onerror="this.src='https://placehold.co/600x400/10b981/FFF?text=Course'">
                 <div class="absolute top-2 right-2 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs text-emerald-800 font-bold shadow-sm">
                     ${getCatName(c.cat)}
@@ -133,7 +132,7 @@ function renderCourses() {
     }
 }
 
-// --- 5. منطق المقالات (بحث + فلترة) ---
+// --- 5. منطق المقالات ---
 let currentArticleCat = 'all';
 let searchArticleText = '';
 
@@ -154,7 +153,6 @@ function renderArticles() {
 
     grid.innerHTML = filtered.map(a => `
         <div class="glass-panel p-5 rounded-2xl flex flex-col md:flex-row gap-5 items-center hover:bg-white/60 transition group border border-white/60">
-            <!-- تعديل: تغيير نص الصورة البديلة إلى Article -->
             <img src="${a.img}" class="w-full md:w-48 h-32 rounded-xl object-cover shadow-sm group-hover:scale-105 transition" onerror="this.src='https://placehold.co/400x300/dcfce7/065f46?text=Article'">
             <div class="text-center md:text-right flex-1">
                 <div class="flex items-center gap-2 mb-2 justify-center md:justify-start">
@@ -180,16 +178,72 @@ function getArticleCatName(cat) {
     return names[cat] || cat;
 }
 
-// --- 6. Helper Functions ---
-// ... (نفس الدوال المساعدة السابقة) ...
+// --- 6. منطق المعرض (تعديل زرار المشاركة هنا) ---
+let visibleGalleryCount = 10;
+const totalGalleryImages = 2000;
+
+function renderGallery() {
+    const grid = document.getElementById('gallery-grid');
+    const loadMoreBtn = document.getElementById('load-more-gallery');
+    if(!grid) return;
+
+    let html = '';
+    for(let i=1; i<=visibleGalleryCount && i<=totalGalleryImages; i++) {
+        const height = [300, 400, 500][Math.floor(Math.random() * 3)]; 
+        
+        html += `
+            <div class="glass-panel rounded-2xl overflow-hidden break-inside-avoid mb-6 group relative fade-in border-0 shadow-sm">
+                <div class="relative cursor-pointer" onclick="openLightbox('images/${i}.jpg')">
+                    <img src="images/${i}.jpg" class="w-full h-auto object-cover" 
+                         loading="lazy"
+                         onerror="this.src='https://placehold.co/400x${height}/dcfce7/065f46?text=Design+${i}'">
+                    
+                    <!-- أزرار التحكم -->
+                    <div class="absolute inset-0 bg-emerald-900/40 opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col items-center justify-center gap-3">
+                        <div class="bg-white text-emerald-900 px-4 py-2 rounded-full font-bold flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition shadow-xl">
+                            <i data-lucide="zoom-in" class="w-4 h-4"></i> تكبير
+                        </div>
+                    </div>
+
+                    <!-- زرار المشاركة الجديد في الزاوية -->
+                    <div class="absolute top-3 left-3 opacity-0 group-hover:opacity-100 transition duration-300" onclick="event.stopPropagation()">
+                        <button onclick="shareContent('تصميم جامد من معرض كمشكاة', 'https://kameshkah.com/gallery?img=${i}')" class="bg-white/90 hover:bg-white text-emerald-700 p-2 rounded-full shadow-lg transition transform hover:scale-110" title="مشاركة">
+                            <i data-lucide="share-2" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+    grid.innerHTML = html;
+    lucide.createIcons();
+
+    if (loadMoreBtn) {
+        if (visibleGalleryCount >= totalGalleryImages) {
+            loadMoreBtn.style.display = 'none';
+        } else {
+            loadMoreBtn.style.display = 'inline-flex';
+            loadMoreBtn.innerHTML = `عرض المزيد (فاضل ${totalGalleryImages - visibleGalleryCount})`;
+        }
+    }
+}
+
+// --- 7. دوال مساعدة ---
 async function shareContent(title, url) {
+    const shareData = {
+        title: 'كمشكاة',
+        text: `${title} 🎨 \nشوف الإبداع ده على موقع كمشكاة: `,
+        url: url
+    };
+
     if (navigator.share) {
         try {
-            await navigator.share({ title: 'كمشكاة', text: `شوف المحتوى ده من موقع كمشكاة: ${title}`, url: url });
+            await navigator.share(shareData);
         } catch (err) { console.log('Share canceled'); }
     } else {
-        navigator.clipboard.writeText(url);
-        alert('تم نسخ الرابط! شاركه براحتك 😉');
+        // Fallback for desktop browsers that don't support Web Share API
+        navigator.clipboard.writeText(`${shareData.text} ${shareData.url}`);
+        alert('تم نسخ الرابط والوصف! شاركه براحتك 😉');
     }
 }
 
@@ -202,25 +256,6 @@ function openLightbox(src) {
 
 function closeLightbox() {
     document.getElementById('lightbox').classList.remove('active');
-}
-
-// Gallery Logic
-let visibleGalleryCount = 10;
-const totalGalleryImages = 2000;
-function renderGallery() {
-    const grid = document.getElementById('gallery-grid');
-    const loadMoreBtn = document.getElementById('load-more-gallery');
-    if(!grid) return;
-    let html = '';
-    for(let i=1; i<=visibleGalleryCount && i<=totalGalleryImages; i++) {
-        const height = [300, 400, 500][Math.floor(Math.random() * 3)]; 
-        html += `<div class="glass-panel rounded-2xl overflow-hidden break-inside-avoid mb-6 group relative fade-in border-0 shadow-sm"><div class="relative cursor-pointer" onclick="openLightbox('images/${i}.jpg')"><img src="images/${i}.jpg" class="w-full h-auto object-cover" loading="lazy" onerror="this.src='https://placehold.co/400x${height}/dcfce7/065f46?text=Design+${i}'"><div class="absolute inset-0 bg-emerald-900/40 opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col items-center justify-center gap-3"><div class="bg-white text-emerald-900 px-4 py-2 rounded-full font-bold flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition shadow-xl"><i data-lucide="zoom-in" class="w-4 h-4"></i> تكبير</div></div></div></div>`;
-    }
-    grid.innerHTML = html;
-    lucide.createIcons();
-    if (loadMoreBtn) {
-        if (visibleGalleryCount >= totalGalleryImages) { loadMoreBtn.style.display = 'none'; } else { loadMoreBtn.style.display = 'inline-flex'; loadMoreBtn.innerHTML = `عرض المزيد (فاضل ${totalGalleryImages - visibleGalleryCount})`; }
-    }
 }
 
 function animateValue(obj, start, end, duration) {
@@ -238,7 +273,6 @@ function animateValue(obj, start, end, duration) {
 document.addEventListener('DOMContentLoaded', () => {
     loadComponents();
     
-    // Courses Page Logic
     if(document.getElementById('courses-grid')) {
         renderCourses();
         document.querySelectorAll('.filter-btn').forEach(btn => {
@@ -261,10 +295,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Articles Page Logic (NEW)
     if(document.getElementById('articles-grid')) {
          renderArticles();
-         // Article Filters
          document.querySelectorAll('.article-filter-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 document.querySelectorAll('.article-filter-btn').forEach(b => b.classList.remove('active', 'bg-emerald-600', 'text-white'));
@@ -273,7 +305,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 renderArticles();
             });
          });
-         // Article Search
          document.getElementById('article-search-input')?.addEventListener('keyup', (e) => {
             searchArticleText = e.target.value;
             renderArticles();
