@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كمشكاة | الكورسات</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body data-page="courses">
+    <div class="fixed-bg"><img src="images/bg.jpg"></div>
+    <div id="header-ph"></div>
+
+    <main class="pt-32 px-4 container mx-auto min-h-screen pb-12">
+        
+        <div class="flex flex-col md:flex-row justify-between items-center gap-6 mb-10 fade-in">
+            <h1 class="text-3xl font-bold text-white border-r-4 border-emerald-500 pr-4">الكورسات التعليمية</h1>
+            
+            <div class="relative w-full md:w-96 glass-panel rounded-xl overflow-hidden">
+                <input type="text" id="search-input" placeholder="ابحث عن كورس (عربي/English)..." 
+                       class="w-full bg-transparent border-none text-white px-4 py-3 pl-10 focus:outline-none placeholder-slate-400">
+                <i data-lucide="search" class="absolute left-3 top-3 text-emerald-400 w-5 h-5"></i>
+            </div>
+        </div>
+
+        <div class="flex flex-wrap gap-3 mb-8 fade-in delay-100">
+            <button class="filter-btn active bg-emerald-600 text-white px-6 py-2 rounded-full font-bold border border-white/10" data-cat="all">الكل</button>
+            <button class="filter-btn glass-panel px-6 py-2 rounded-full font-bold hover:bg-white/10" data-cat="graphic">جرافيك</button>
+            <button class="filter-btn glass-panel px-6 py-2 rounded-full font-bold hover:bg-white/10" data-cat="programming">برمجة</button>
+            <button class="filter-btn glass-panel px-6 py-2 rounded-full font-bold hover:bg-white/10" data-cat="business">إدارة أعمال</button>
+            <button class="filter-btn glass-panel px-6 py-2 rounded-full font-bold hover:bg-white/10" data-cat="accounting">محاسبة</button>
+            <button class="filter-btn glass-panel px-6 py-2 rounded-full font-bold hover:bg-white/10" data-cat="marketing">تسويق</button>
+            <button class="filter-btn glass-panel px-6 py-2 rounded-full font-bold hover:bg-white/10" data-cat="languages">لغات</button>
+        </div>
+
+        <div id="courses-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 fade-in delay-200">
+            <!-- الكورسات بتتحمل هنا -->
+        </div>
+
+        <!-- زرار عرض المزيد -->
+        <div class="text-center mt-12 fade-in">
+            <button id="load-more-courses" class="bg-white/10 text-white px-8 py-3 rounded-full font-bold hover:bg-emerald-600 transition border border-white/20 shadow-lg items-center gap-2 hidden">
+                عرض المزيد من الكورسات <i data-lucide="arrow-down" class="w-5 h-5"></i>
+            </button>
+        </div>
+    </main>
+
+    <div id="footer-ph"></div>
+    <script src="js/script.js"></script>
+</body>
+</html>

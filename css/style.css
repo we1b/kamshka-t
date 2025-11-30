@@ -1,0 +1,100 @@
+/* المسار: css/style.css */
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
+
+body {
+    font-family: 'Cairo', sans-serif;
+    background-color: #0f172a;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* الخلفية الثابتة */
+.fixed-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+}
+.fixed-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.fixed-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.7); /* تغميق الخلفية لزيادة وضوح النصوص */
+}
+
+/* --- الزجاج الكريستالي --- */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    color: white;
+}
+
+/* --- أنيميشن الظهور (Fade Up) --- */
+.fade-in {
+    opacity: 0;
+    animation: fadeInUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* تأخير ظهور العناصر عشان يظهروا واحد ورا التاني */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+
+@keyframes fadeInUp { 
+    from { opacity: 0; transform: translateY(40px); } 
+    to { opacity: 1; transform: translateY(0); } 
+}
+
+/* --- نظام عرض الصور (Masonry) للمعرض --- */
+.masonry-grid {
+    column-count: 1;
+    column-gap: 1.5rem;
+}
+@media (min-width: 640px) {
+    .masonry-grid { column-count: 2; }
+}
+@media (min-width: 1024px) {
+    .masonry-grid { column-count: 3; }
+}
+
+/* لمنع قص الكارت بين العواميد */
+.break-inside-avoid {
+    break-inside: avoid;
+    margin-bottom: 1.5rem;
+}
+
+/* أزرار الفلتر */
+.filter-btn {
+    transition: all 0.3s ease;
+}
+.filter-btn.active {
+    background-color: #10b981; /* لون الزمرد */
+    color: white;
+    border-color: #10b981;
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+}
+
+/* اللايت بوكس (تكبير الصور) */
+#lightbox {
+    position: fixed; inset: 0; z-index: 9999;
+    background: rgba(0,0,0,0.95); backdrop-filter: blur(10px);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; visibility: hidden; transition: 0.3s;
+}
+#lightbox.active { opacity: 1; visibility: visible; }
+#lightbox img { max-height: 85vh; max-width: 90vw; border-radius: 8px; box-shadow: 0 0 50px rgba(0,0,0,0.5); }
+
+/* تحسين السكرول بار */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #0f172a; }
+::-webkit-scrollbar-thumb { background: #10b981; border-radius: 4px; }
