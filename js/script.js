@@ -1,7 +1,6 @@
-/* المسار: js/script.js */
+/* Path: js/script.js */
 
-// --- 1. بيانات الكورسات ---
-// (نفس البيانات اللي فاتت بس هنعدل طريقة العرض تحت)
+// --- 1. Courses Data ---
 const coursesData = [
     { id: 1, titleAr: "إتقان الفيديو السينمائي بالذكاء الاصطناعي", titleEn: "Cinematic AI Video Mastery (CapCut & Veo)", desc: "تعلم صناعة أفلام ومحتوى سينمائي باستخدام أدوات الذكاء الاصطناعي وكاب كات.", cat: "graphic", img: "images/c1.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/master-ai-filmmaking-with-veo3/?im_ref=wTA2JMQE0xycUoDSYrxNU05MUkpT110Vv2q8Vs0&sharedid=&irpid=2550473&utm_medium=affiliate&utm_source=impact&utm_audience=mx&utm_tactic=&utm_content=3193860&utm_campaign=2550473&irgwc=1&afsrc=1&couponCode=DCD0DD65AC674C5A2D83" },
     { id: 2, titleAr: "تدريب مايكروسوفت أوفيس الشامل", titleEn: "Master Excel, PowerPoint & Word", desc: "احترف أهم برامج الأوفيس للأعمال والدراسة من الصفر.", cat: "business", img: "images/c2.jpg", date: "29 Nov 2025", url: "https://www.udemy.com/course/microsoft-office-training-master-excel-powerpoint-word/?couponCode=BISMILLAH-22" },
@@ -21,7 +20,7 @@ const coursesData = [
     { id: 16, titleAr: "احتراف الجداول المحورية في إكسل", titleEn: "Excel Pivot Tables Mastery", desc: "تحليل البيانات باستخدام Pivot Tables والدوال.", cat: "accounting", img: "images/c16.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/microsoft-excel-pivot-tables-with-formulas-functions/?couponCode=BISMILLAH19" }
 ];
 
-// --- 2. بيانات المقالات ---
+// --- 2. Articles Data ---
 const articlesData = [
     { id: 1, title: "فكك من جو التنين المجنح", excerpt: "يا صاحبي، السوشيال ميديا هرتنا كلام عن إنك لازم تكون سوبر مان..", content: "...", img: "images/a1.jpg", cat: "تطوير ذات", date: "28 Nov 2025" },
     { id: 2, title: "الذكاء الاصطناعي والمستقبل", excerpt: "هل الـ AI هياخد مكاننا؟ تعال نشوف..", content: "...", img: "images/a2.jpg", cat: "تكنولوجيا", date: "2025/11/29" },
@@ -30,7 +29,7 @@ const articlesData = [
     { id: 5, title: "نصائح لتعلم الإنجليزية", excerpt: "بلاش تحفظ كلمات، احفظ جمل ومواقف.", content: "...", img: "images/a5.jpg", cat: "لغات", date: "02 Dec 2025" }
 ];
 
-// --- 3. تحميل الهيدر والفوتر (تحديث الألوان للفاتح) ---
+// --- 3. Load Header and Footer ---
 function loadComponents() {
     const header = `
     <nav class="fixed top-0 w-full glass-panel z-50 !bg-white/60 !border-0 !rounded-none backdrop-blur-md">
@@ -73,7 +72,7 @@ function loadComponents() {
     lucide.createIcons();
 }
 
-// --- 4. منطق الكورسات (فلترة + عرض المزيد) ---
+// --- 4. Courses Logic ---
 let currentCat = 'all';
 let searchText = '';
 let visibleCoursesCount = 10;
@@ -138,7 +137,7 @@ function getCatName(cat) {
     return names[cat] || cat;
 }
 
-// --- 5. منطق المعرض ---
+// --- 5. Gallery Logic ---
 let visibleGalleryCount = 10;
 const totalGalleryImages = 2000;
 
@@ -179,7 +178,7 @@ function renderGallery() {
     }
 }
 
-// --- 6. دوال مساعدة ---
+// --- 6. Helper Functions ---
 async function shareContent(title, url) {
     if (navigator.share) {
         try {
@@ -202,6 +201,21 @@ function closeLightbox() {
     document.getElementById('lightbox').classList.remove('active');
 }
 
+// --- Number Counter Animation ---
+function animateValue(obj, start, end, duration) {
+    let startTimestamp = null;
+    const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        obj.innerHTML = Math.floor(progress * (end - start) + start) + '+';
+        if (progress < 1) {
+            window.requestAnimationFrame(step);
+        }
+    };
+    window.requestAnimationFrame(step);
+}
+
+// Initialize
 document.addEventListener('DOMContentLoaded', () => {
     loadComponents();
     
@@ -251,6 +265,15 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('load-more-gallery')?.addEventListener('click', () => {
             visibleGalleryCount += 10;
             renderGallery();
+        });
+    }
+
+    // Trigger Number Counter Animation on Home Page
+    if (document.body.dataset.page === 'home') {
+        const counters = document.querySelectorAll('.counter-number');
+        counters.forEach(counter => {
+            const target = +counter.getAttribute('data-target');
+            animateValue(counter, 0, target, 2000); // Duration 2 seconds
         });
     }
 });
