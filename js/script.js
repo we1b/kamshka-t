@@ -1,7 +1,7 @@
 /* المسار: js/script.js */
 
 // -------------------------------------------------------------------------
-// إعدادات Firebase (الطريقة الكلاسيكية للعمل بدون سيرفر)
+// إعدادات Firebase (الطريقة الكلاسيكية)
 // -------------------------------------------------------------------------
 const firebaseConfig = {
     apiKey: "AIzaSyCTRm9XNvVgmP-h_7qHZyQy-dEAqnTIrY4",
@@ -20,14 +20,12 @@ let analytics;
 
 document.addEventListener('DOMContentLoaded', () => {
     try {
-        // التأكد من تحميل مكتبة Firebase قبل الاستخدام
         if (typeof firebase !== 'undefined') {
             firebase.initializeApp(firebaseConfig);
             db = firebase.database();
             analytics = firebase.analytics();
             console.log("Firebase Connected Successfully ✅");
             
-            // تشغيل الاستماع للايكات لو إحنا في صفحة المعرض
             if(document.getElementById('gallery-grid')) {
                 listenToLikes();
             }
@@ -40,7 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     loadComponents();
     
-    // تشغيل منطق الصفحات
     if(document.getElementById('courses-grid')) initCoursesPage();
     if(document.getElementById('articles-grid')) initArticlesPage();
     if(document.getElementById('gallery-grid')) initGalleryPage();
@@ -53,7 +50,7 @@ const coursesData = [
     { id: 2, titleAr: "تدريب مايكروسوفت أوفيس الشامل", titleEn: "Master Excel, PowerPoint & Word", desc: "احترف أهم برامج الأوفيس للأعمال والدراسة من الصفر.", cat: "business", img: "images/c2.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/microsoft-office-training-master-excel-powerpoint-word/?couponCode=BISMILLAH-22" },
     { id: 3, titleAr: "تطبيقات بايثون عملية للمبتدئين", titleEn: "Python Demonstrations For Practice", desc: "تمارين وتطبيقات عملية قوية لتعلم لغة بايثون.", cat: "programming", img: "images/c3.jpg", date: "28 Nov 2025", url: "https://www.udemy.com/course/python-for-beginners-demonstration-course/?couponCode=1C11EA262E5C5D7F7B19" },
     { id: 4, titleAr: "كورس فوتوشوب من الصفر للاحتراف", titleEn: "Essential Photoshop Course", desc: "الدليل الكامل لتعلم أدوبي فوتوشوب وتصميم الجرافيك.", cat: "graphic", img: "images/c4.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/graphics-design-videoediting-course/?couponCode=52C59BEAB3917A923178" },
-    { id: 5, titleAr: "احتراف تصميم الشعارات", titleEn: "Master Logo Design (Ps & Ai)", desc: "تعلم تصميم اللوجوهات باستخدام فوتوشوب واليستريتور.", cat: "graphic", img: "images/c5.jpg", date: "29 Nov 2025", url: "https://www.udemy.com/course/master-logo-design-with-photoshop-illustrator-zero-to-pro/?couponCode=024798D406787285E509" },
+    { id: 5, titleAr: "احتراف تصميم الشعارات", titleEn: "Master Logo Design (Ps & Ai)", desc: "تعلم تصميم اللوجوهات باستخدام فوتوشوب واليستريتور.", cat: "graphic", img: "images/c5.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/master-logo-design-with-photoshop-illustrator-zero-to-pro/?couponCode=024798D406787285E509" },
     { id: 6, titleAr: "ماستر كلاس وظائف PowerShell", titleEn: "PowerShell Functions Master Class", desc: "احترف كتابة الوظائف والسكربتات في PowerShell.", cat: "programming", img: "images/c6.jpg", date: "28 Nov 2025", url: "https://www.udemy.com/course/powershell-functions-master-class/?couponCode=FDDCAD88AAD460F08E4D" },
     { id: 7, titleAr: "أسرار النجاح الوظيفي (أفضل 1%)", titleEn: "Top 1% Career Secrets", desc: "مهارات لا تُدرس في المدارس للنجاح في الشركات.", cat: "business", img: "images/c7.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/become-a-corporate-winner/?couponCode=NOV2025FREE001" },
     { id: 8, titleAr: "الدبلومة التنفيذية في إدارة الأعمال", titleEn: "Diploma in Business Management", desc: "أساسيات الإدارة وتنظيم الأعمال بشكل احترافي.", cat: "business", img: "images/c8.jpg", date: "29 Nov 2025", url: "https://www.udemy.com/course/executive-diploma-in-business-management-and-administration/?couponCode=C3AC6D445CD3368D662E" },
@@ -336,10 +333,10 @@ function renderGallery() {
 // دالة اللايك
 window.toggleLike = function(imgId) {
     if (!db) { alert("جاري الاتصال بالسيرفر.. انتظر لحظة!"); return; }
-    const likeRef = ref(db, 'likes/' + imgId);
+    const likeRef = db.ref('likes/' + imgId);
     const isLiked = localStorage.getItem(`liked_${imgId}`);
 
-    runTransaction(likeRef, (currentLikes) => {
+    likeRef.transaction((currentLikes) => {
         if (currentLikes === null) currentLikes = 0;
         if (isLiked) {
             localStorage.removeItem(`liked_${imgId}`);
@@ -356,8 +353,8 @@ window.toggleLike = function(imgId) {
 function listenToLikes() {
     if (!db) return;
     for(let i=1; i<=visibleGalleryCount; i++) {
-        const likeRef = ref(db, 'likes/' + i);
-        onValue(likeRef, (snapshot) => {
+        const likeRef = db.ref('likes/' + i);
+        likeRef.on('value', (snapshot) => {
             const count = snapshot.val() || 0;
             const countEl = document.getElementById(`like-count-${i}`);
             if(countEl) countEl.innerText = count;

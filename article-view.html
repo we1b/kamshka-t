@@ -1,23 +1,17 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <!-- Google Tag Manager (GA4) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-482MR7LT23"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-    
       gtag('config', 'G-482MR7LT23');
     </script>
-    <!-- End Google Tag Manager -->
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>كمشكاة | قراءة</title>
-    <!-- Favicon with cache busting -->
     <link rel="icon" type="image/png" href="images/logo.png?v=2">
-
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -40,22 +34,26 @@
     </main>
 
     <div id="footer-ph"></div>
+    
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics-compat.js"></script>
     <script src="js/script.js"></script>
+    
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-             // Fallback Data
-             if (typeof articlesData === 'undefined') {
-                window.articlesData = [
-                    { id: 1, title: "فكك من جو التنين المجنح", excerpt: "..", content: "...", img: "images/a1.jpg", cat: "تطوير ذات", date: "28 Nov 2025" }
-                ];
-            }
             const id = new URLSearchParams(location.search).get('id');
-            const art = articlesData.find(a => a.id == id) || articlesData[0];
-            if(art){
-                document.getElementById('v-title').innerText = art.title;
-                document.getElementById('v-content').innerText = art.content;
-                document.getElementById('v-img').src = art.img;
-            }
+            // استدعاء البيانات من المتغير العام في script.js
+            setTimeout(() => {
+                if(typeof articlesData !== 'undefined') {
+                    const art = articlesData.find(a => a.id == id) || articlesData[0];
+                    if(art){
+                        document.getElementById('v-title').innerText = art.title;
+                        document.getElementById('v-content').innerText = art.content;
+                        document.getElementById('v-img').src = art.img;
+                    }
+                }
+            }, 500); // تأخير بسيط لضمان تحميل script.js
         });
     </script>
 </body>
