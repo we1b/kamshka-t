@@ -1,37 +1,51 @@
 /* المسار: js/script.js */
 
-// --- إعدادات Firebase والربط ---
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getDatabase, ref, runTransaction, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
-
 // -------------------------------------------------------------------------
-// بيانات مشروعك الحقيقية (كاملة وصحيحة)
+// إعدادات Firebase (الطريقة الكلاسيكية للعمل بدون سيرفر)
 // -------------------------------------------------------------------------
 const firebaseConfig = {
     apiKey: "AIzaSyCTRm9XNvVgmP-h_7qHZyQy-dEAqnTIrY4",
     authDomain: "kameshkah-8c9ed.firebaseapp.com",
-    // الرابط اللي جبناه من الصورة بتاعتك 👇
-    databaseURL: "https://kameshkah-8c9ed-default-rtdb.firebaseio.com",
     projectId: "kameshkah-8c9ed",
     storageBucket: "kameshkah-8c9ed.firebasestorage.app",
     messagingSenderId: "221923589082",
     appId: "1:221923589082:web:098b2152a227e93acbdee3",
-    measurementId: "G-199GK5EH3K"
+    measurementId: "G-199GK5EH3K",
+    databaseURL: "https://kameshkah-8c9ed-default-rtdb.firebaseio.com"
 };
-// -------------------------------------------------------------------------
 
 // تشغيل Firebase
 let db;
 let analytics;
-try {
-    const app = initializeApp(firebaseConfig);
-    db = getDatabase(app);
-    analytics = getAnalytics(app);
-    console.log("Firebase Connected Successfully ✅ - Kameshkah Project");
-} catch (e) {
-    console.error("Firebase Connection Failed ❌", e);
-}
+
+document.addEventListener('DOMContentLoaded', () => {
+    try {
+        // التأكد من تحميل مكتبة Firebase قبل الاستخدام
+        if (typeof firebase !== 'undefined') {
+            firebase.initializeApp(firebaseConfig);
+            db = firebase.database();
+            analytics = firebase.analytics();
+            console.log("Firebase Connected Successfully ✅");
+            
+            // تشغيل الاستماع للايكات لو إحنا في صفحة المعرض
+            if(document.getElementById('gallery-grid')) {
+                listenToLikes();
+            }
+        } else {
+            console.error("Firebase SDK not loaded");
+        }
+    } catch (e) {
+        console.error("Firebase Connection Failed ❌", e);
+    }
+
+    loadComponents();
+    
+    // تشغيل منطق الصفحات
+    if(document.getElementById('courses-grid')) initCoursesPage();
+    if(document.getElementById('articles-grid')) initArticlesPage();
+    if(document.getElementById('gallery-grid')) initGalleryPage();
+    if(document.body.dataset.page === 'home') initHomePage();
+});
 
 // --- 1. بيانات الكورسات (42 كورس) ---
 const coursesData = [
@@ -39,7 +53,7 @@ const coursesData = [
     { id: 2, titleAr: "تدريب مايكروسوفت أوفيس الشامل", titleEn: "Master Excel, PowerPoint & Word", desc: "احترف أهم برامج الأوفيس للأعمال والدراسة من الصفر.", cat: "business", img: "images/c2.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/microsoft-office-training-master-excel-powerpoint-word/?couponCode=BISMILLAH-22" },
     { id: 3, titleAr: "تطبيقات بايثون عملية للمبتدئين", titleEn: "Python Demonstrations For Practice", desc: "تمارين وتطبيقات عملية قوية لتعلم لغة بايثون.", cat: "programming", img: "images/c3.jpg", date: "28 Nov 2025", url: "https://www.udemy.com/course/python-for-beginners-demonstration-course/?couponCode=1C11EA262E5C5D7F7B19" },
     { id: 4, titleAr: "كورس فوتوشوب من الصفر للاحتراف", titleEn: "Essential Photoshop Course", desc: "الدليل الكامل لتعلم أدوبي فوتوشوب وتصميم الجرافيك.", cat: "graphic", img: "images/c4.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/graphics-design-videoediting-course/?couponCode=52C59BEAB3917A923178" },
-    { id: 5, titleAr: "احتراف تصميم الشعارات", titleEn: "Master Logo Design (Ps & Ai)", desc: "تعلم تصميم اللوجوهات باستخدام فوتوشوب واليستريتور.", cat: "graphic", img: "images/c5.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/master-logo-design-with-photoshop-illustrator-zero-to-pro/?couponCode=024798D406787285E509" },
+    { id: 5, titleAr: "احتراف تصميم الشعارات", titleEn: "Master Logo Design (Ps & Ai)", desc: "تعلم تصميم اللوجوهات باستخدام فوتوشوب واليستريتور.", cat: "graphic", img: "images/c5.jpg", date: "29 Nov 2025", url: "https://www.udemy.com/course/master-logo-design-with-photoshop-illustrator-zero-to-pro/?couponCode=024798D406787285E509" },
     { id: 6, titleAr: "ماستر كلاس وظائف PowerShell", titleEn: "PowerShell Functions Master Class", desc: "احترف كتابة الوظائف والسكربتات في PowerShell.", cat: "programming", img: "images/c6.jpg", date: "28 Nov 2025", url: "https://www.udemy.com/course/powershell-functions-master-class/?couponCode=FDDCAD88AAD460F08E4D" },
     { id: 7, titleAr: "أسرار النجاح الوظيفي (أفضل 1%)", titleEn: "Top 1% Career Secrets", desc: "مهارات لا تُدرس في المدارس للنجاح في الشركات.", cat: "business", img: "images/c7.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/become-a-corporate-winner/?couponCode=NOV2025FREE001" },
     { id: 8, titleAr: "الدبلومة التنفيذية في إدارة الأعمال", titleEn: "Diploma in Business Management", desc: "أساسيات الإدارة وتنظيم الأعمال بشكل احترافي.", cat: "business", img: "images/c8.jpg", date: "29 Nov 2025", url: "https://www.udemy.com/course/executive-diploma-in-business-management-and-administration/?couponCode=C3AC6D445CD3368D662E" },
@@ -136,12 +150,10 @@ let currentCat = 'all';
 let searchText = '';
 let visibleCoursesCount = 10;
 
-// دالة توليد الفلاتر تلقائياً
 function renderFilters() {
     const filterContainer = document.getElementById('course-filters');
     if (!filterContainer) return;
 
-    // استخراج الأقسام الفريدة
     const categories = ['all', ...new Set(coursesData.map(course => course.cat))];
 
     filterContainer.innerHTML = categories.map(cat => {
@@ -150,13 +162,12 @@ function renderFilters() {
         return `<button class="filter-btn px-6 py-2 rounded-full font-bold transition-all shadow-sm ${isActive}" data-cat="${cat}">${displayName}</button>`;
     }).join('');
 
-    // تفعيل الأزرار الجديدة
     filterContainer.querySelectorAll('.filter-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             currentCat = e.target.dataset.cat;
             visibleCoursesCount = 10;
-            renderFilters(); // إعادة رسم الفلاتر لتحديث الحالة النشطة
-            renderCourses(); // تحديث الكورسات
+            renderFilters();
+            renderCourses();
         });
     });
 }
@@ -303,7 +314,6 @@ function renderGallery() {
                         <button onclick="shareContent('تصميم رقم ${i} من كمشكاة', 'https://kameshkah.com/gallery?img=${i}')" class="bg-white hover:bg-emerald-50 text-emerald-800 p-2 rounded-full shadow-lg transition transform hover:scale-110"><i data-lucide="share-2" class="w-5 h-5"></i></button>
                     </div>
 
-                    <!-- زر اللايك -->
                     <div class="absolute bottom-3 right-3 z-10" onclick="event.stopPropagation()">
                         <button id="like-btn-${i}" onclick="toggleLike(${i})" class="bg-white/90 hover:bg-white text-slate-400 p-2 px-3 rounded-full shadow-lg transition flex items-center gap-1 group/like">
                             <i data-lucide="heart" class="w-5 h-5 transition-colors group-hover/like:text-red-500" id="heart-icon-${i}"></i>
@@ -316,7 +326,7 @@ function renderGallery() {
     }
     grid.innerHTML = html;
     lucide.createIcons();
-    listenToLikes(); // تفعيل استماع اللايكات
+    listenToLikes();
 
     if (loadMoreBtn) {
         if (visibleGalleryCount >= totalGalleryImages) { loadMoreBtn.style.display = 'none'; } else { loadMoreBtn.style.display = 'inline-flex'; loadMoreBtn.innerHTML = `عرض المزيد (فاضل ${totalGalleryImages - visibleGalleryCount})`; }
@@ -392,6 +402,52 @@ function closeLightbox() {
     document.getElementById('lightbox').classList.remove('active');
 }
 
+function initHomePage() {
+    const counters = document.querySelectorAll('.counter-number');
+    counters.forEach(counter => {
+        const target = +counter.getAttribute('data-target');
+        animateValue(counter, 0, target, 2000);
+    });
+}
+
+function initCoursesPage() {
+    renderFilters();
+    renderCourses();
+    document.getElementById('search-input')?.addEventListener('keyup', (e) => {
+        searchText = e.target.value;
+        visibleCoursesCount = 10;
+        renderCourses();
+    });
+    document.getElementById('load-more-courses')?.addEventListener('click', () => {
+        visibleCoursesCount += 10;
+        renderCourses();
+    });
+}
+
+function initArticlesPage() {
+    renderArticles();
+    document.querySelectorAll('.article-filter-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            document.querySelectorAll('.article-filter-btn').forEach(b => b.classList.remove('active', 'bg-emerald-600', 'text-white'));
+            e.target.classList.add('active', 'bg-emerald-600', 'text-white');
+            currentArticleCat = e.target.dataset.cat;
+            renderArticles();
+        });
+    });
+    document.getElementById('article-search-input')?.addEventListener('keyup', (e) => {
+        searchArticleText = e.target.value;
+        renderArticles();
+    });
+}
+
+function initGalleryPage() {
+    renderGallery();
+    document.getElementById('load-more-gallery')?.addEventListener('click', () => {
+        visibleGalleryCount += 10;
+        renderGallery();
+    });
+}
+
 function animateValue(obj, start, end, duration) {
     let startTimestamp = null;
     const step = (timestamp) => {
@@ -402,51 +458,3 @@ function animateValue(obj, start, end, duration) {
     };
     window.requestAnimationFrame(step);
 }
-
-// Initialize
-document.addEventListener('DOMContentLoaded', () => {
-    loadComponents();
-    
-    if(document.getElementById('courses-grid')) {
-        renderFilters();
-        renderCourses();
-        
-        document.getElementById('search-input')?.addEventListener('keyup', (e) => {
-            searchText = e.target.value;
-            visibleCoursesCount = 10;
-            renderCourses();
-        });
-        document.getElementById('load-more-courses')?.addEventListener('click', () => {
-            visibleCoursesCount += 10;
-            renderCourses();
-        });
-    }
-
-    if(document.getElementById('articles-grid')) {
-         renderArticles();
-         document.querySelectorAll('.article-filter-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                document.querySelectorAll('.article-filter-btn').forEach(b => b.classList.remove('active', 'bg-emerald-600', 'text-white'));
-                e.target.classList.add('active', 'bg-emerald-600', 'text-white');
-                currentArticleCat = e.target.dataset.cat;
-                renderArticles();
-            });
-         });
-         document.getElementById('article-search-input')?.addEventListener('keyup', (e) => {
-            searchArticleText = e.target.value;
-            renderArticles();
-         });
-    }
-
-    if(document.getElementById('gallery-grid')) {
-        renderGallery();
-        document.getElementById('load-more-gallery')?.addEventListener('click', () => {
-            visibleGalleryCount += 10;
-            renderGallery();
-        });
-    }
-
-    if (document.body.dataset.page === 'home') {
-        const counters = document.querySelectorAll('.counter-number');
-        counters.forEach(counter => {
-            const target = +counter

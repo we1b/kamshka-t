@@ -1,17 +1,17 @@
-/* المسار: css/style.css */
+/* Path: css/style.css */
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
 
 body {
     font-family: 'Cairo', sans-serif;
-    /* خلفية احتياطية فاتحة بألوان شروق الشمس */
+    /* Light gradient background */
     background: linear-gradient(135deg, #fef9c3 0%, #dcfce7 50%, #cffafe 100%);
     min-height: 100vh;
     position: relative;
     overflow-x: hidden;
-    color: #1e293b; /* لون النص الأساسي غامق */
+    color: #1e293b; /* Dark text color */
 }
 
-/* الخلفية الثابتة */
+/* Fixed Background */
 .fixed-bg {
     position: fixed;
     inset: 0;
@@ -26,23 +26,23 @@ body {
     content: '';
     position: absolute;
     inset: 0;
-    /* طبقة بيضاء خفيفة عشان تفتح الصورة وتخليها "زاهية" */
+    /* Light overlay */
     background: rgba(255, 255, 255, 0.2); 
-    backdrop-filter: blur(2px); /* تغبيش بسيط جداً للنعومة */
+    backdrop-filter: blur(2px);
 }
 
-/* --- الزجاج الكريستالي (النسخة المشرقة) --- */
+/* --- Bright Glass Panel --- */
 .glass-panel {
-    background: rgba(255, 255, 255, 0.55); /* أبيض شفاف */
+    background: rgba(255, 255, 255, 0.55); /* White transparent */
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.8); /* حدود بيضاء قوية */
+    border: 1px solid rgba(255, 255, 255, 0.8); /* Strong white border */
     border-bottom: 1px solid rgba(255, 255, 255, 0.4);
-    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.1); /* ظل ناعم */
-    color: #064e3b; /* لون النص أخضر غامق */
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    color: #064e3b; /* Dark green text */
 }
 
-/* --- أنيميشن الظهور (Fade Up) --- */
+/* --- Fade Up Animation --- */
 .fade-in {
     opacity: 0;
     animation: fadeInUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
@@ -70,7 +70,7 @@ body {
     margin-bottom: 1.5rem;
 }
 
-/* أزرار الفلتر */
+/* Filter Buttons */
 .filter-btn {
     transition: all 0.3s ease;
     border: 1px solid rgba(16, 185, 129, 0.2);
@@ -80,16 +80,16 @@ body {
     background-color: rgba(255, 255, 255, 0.8);
 }
 .filter-btn.active {
-    background-color: #059669; /* أخضر قوي */
+    background-color: #059669; /* Strong green */
     color: white;
     border-color: #059669;
     box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
 }
 
-/* اللايت بوكس */
+/* Lightbox */
 #lightbox {
     position: fixed; inset: 0; z-index: 9999;
-    background: rgba(255,255,255,0.9); /* خلفية فاتحة للتركيز */
+    background: rgba(255,255,255,0.9); /* Light background */
     backdrop-filter: blur(15px);
     display: flex; align-items: center; justify-content: center;
     opacity: 0; visibility: hidden; transition: 0.3s;
@@ -101,7 +101,7 @@ body {
     box-shadow: 0 20px 50px rgba(0,0,0,0.2); 
 }
 
-/* تحسين السكرول بار */
+/* Custom Scrollbar */
 ::-webkit-scrollbar { width: 10px; }
 ::-webkit-scrollbar-track { background: #f0fdf4; }
 ::-webkit-scrollbar-thumb { background: #34d399; border-radius: 5px; border: 2px solid #f0fdf4; }
