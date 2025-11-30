@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>كمشكاة | قراءة</title>
+    <!-- كود الأيقونة الجديد -->
+    <link rel="icon" type="image/png" href="images/logo.png?v=2">
+
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -13,12 +16,14 @@
     <div id="header-ph"></div>
 
     <main class="pt-32 px-4 container mx-auto max-w-4xl min-h-screen fade-in">
-        <a href="articles.html" class="text-white mb-4 inline-block bg-white/10 px-4 py-2 rounded-lg">رجوع</a>
-        <article class="glass-panel rounded-3xl overflow-hidden">
-            <img id="v-img" src="" class="w-full h-64 object-cover">
-            <div class="p-8">
-                <h1 id="v-title" class="text-3xl font-bold mb-4"></h1>
-                <div class="text-slate-200 leading-loose" id="v-content"></div>
+        <a href="articles.html" class="text-emerald-800 mb-4 inline-flex items-center gap-2 bg-white/60 px-4 py-2 rounded-lg font-bold hover:bg-white transition shadow-sm">
+            <i data-lucide="arrow-right"></i> رجوع للمقالات
+        </a>
+        <article class="glass-panel rounded-3xl overflow-hidden bg-white/80 border-white shadow-xl">
+            <img id="v-img" src="" class="w-full h-64 md:h-96 object-cover">
+            <div class="p-8 md:p-12">
+                <h1 id="v-title" class="text-3xl md:text-5xl font-black mb-6 text-emerald-900 leading-tight"></h1>
+                <div class="text-slate-700 leading-loose text-lg font-medium" id="v-content"></div>
             </div>
         </article>
     </main>
@@ -27,43 +32,17 @@
     <script src="js/script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-             // حل مشكلة عدم تحميل البيانات: بيانات احتياطية في حالة عدم تحميل ملف script.js
              if (typeof articlesData === 'undefined') {
-                console.warn('ملف script.js لم يتم تحميله، جاري استخدام البيانات الاحتياطية.');
                 window.articlesData = [
-                    { 
-                        id: 1, 
-                        title: "فكك من جو التنين المجنح", 
-                        excerpt: "بلاش تضغط نفسك بإنك لازم تكون خارق..", 
-                        content: "يا صاحبي، السوشيال ميديا هرتنا كلام عن إنك لازم تكون \"سوبر مان\" وإنك \"محور الكون\". الكلام ده بينفخك ع الفاضي، ولما تيجـي ع الأرض تتصدم.\n\nالحقيقة إننا بشر عاديين، محتاجين نشتغل على \"نفسنا\" بجد من غير منظرة.\nمشكلتنا مش إننا مش واثقين في نفسنا، مشكلتنا إننا مش عارفين نفسنا أصلاً!\nعايز تطور نفسك بجد؟\n\nنظّف: شيل من دماغك فكرة إنك لازم تعجب كل الناس، وشيل من يومك الحاجات اللي بتضيع عمرك ع الفاضي.\nعبّي: املأ وقتك ودماغك بحاجة ليها قيمة، حاجة تنفعك وتنفع غيرك.\nأنت مش محتاج تكون \"أسطورة\"، أنت محتاج تكون \"إنسان حقيقي\" وسالك من جوا.", 
-                        img: "images/a1.jpg", 
-                        cat: "تطوير ذات", 
-                        date: "28 Nov 2025" 
-                    },
-                    { 
-                        id: 2, 
-                        title: "الذكاء الاصطناعي والمستقبل", 
-                        excerpt: "هل الـ AI هياخد مكاننا؟ تعال نشوف..", 
-                        content: "الذكاء الاصطناعي ده عامل زي \"الصنايعي الشاطر\" اللي معاك في الورشة. يساعدك، يناولك العدة، يلملك الدنيا.. ماشي.\nلكن المصيبة لو خليت \"الصنايعي\" هو اللي يمشيك ويقولك الصح والغلط فين!\nالآلة يا بطل معندهاش \"روح\" ولا \"أخلاق\"، هي حافظة مش فاهمة.\n\nخد منها تلخيص، خد منها ترجمة، خليها توفر عليك وقت.\nبس اوعى تاخد منها رأي في دينك، أو قيمك، أو قرارات حياتك.\nأنت \"الأسطى\" وهي \"الأداة\". لو عكست الآية.. هتضيع.", 
-                        img: "images/a2.jpg", 
-                        cat: "تكنولوجيا", 
-                        date: "29 Nov 2025" 
-                    }
+                    { id: 1, title: "فكك من جو التنين المجنح", excerpt: "..", content: "...", img: "images/a1.jpg", cat: "تطوير ذات", date: "28 Nov 2025" }
                 ];
             }
-
             const id = new URLSearchParams(location.search).get('id');
-            const art = articlesData.find(a => a.id == id);
+            const art = articlesData.find(a => a.id == id) || articlesData[0];
             if(art){
                 document.getElementById('v-title').innerText = art.title;
                 document.getElementById('v-content').innerText = art.content;
                 document.getElementById('v-img').src = art.img;
-            } else if(articlesData.length > 0) {
-                 // عرض أول مقال افتراضياً لو مفيش ID
-                 const def = articlesData[0];
-                 document.getElementById('v-title').innerText = def.title;
-                 document.getElementById('v-content').innerText = def.content;
-                 document.getElementById('v-img').src = def.img;
             }
         });
     </script>
