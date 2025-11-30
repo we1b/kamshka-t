@@ -229,10 +229,35 @@ function loadComponents() {
     lucide.createIcons();
 }
 
-// --- 4. منطق الكورسات ---
+// --- 4. منطق الكورسات (ديناميكي) ---
 let currentCat = 'all';
 let searchText = '';
 let visibleCoursesCount = 10;
+
+// دالة توليد الفلاتر تلقائياً
+function renderFilters() {
+    const filterContainer = document.getElementById('course-filters');
+    if (!filterContainer) return;
+
+    // استخراج الأقسام الفريدة
+    const categories = ['all', ...new Set(coursesData.map(course => course.cat))];
+
+    filterContainer.innerHTML = categories.map(cat => {
+        const displayName = cat === 'all' ? 'الكل' : getCatName(cat);
+        const isActive = cat === currentCat ? 'active bg-emerald-600 text-white border border-white/10' : 'bg-white/60 hover:bg-white/90 text-emerald-900';
+        return `<button class="filter-btn px-6 py-2 rounded-full font-bold transition-all shadow-sm ${isActive}" data-cat="${cat}">${displayName}</button>`;
+    }).join('');
+
+    // تفعيل الأزرار الجديدة
+    filterContainer.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            currentCat = e.target.dataset.cat;
+            visibleCoursesCount = 10;
+            renderFilters(); // إعادة رسم الفلاتر لتحديث الحالة النشطة
+            renderCourses(); // تحديث الكورسات
+        });
+    });
+}
 
 function renderCourses() {
     const grid = document.getElementById('courses-grid');
@@ -297,7 +322,10 @@ function getCatName(cat) {
         'languages': 'لغات', 
         'business': 'إدارة أعمال', 
         'marketing': 'تسويق',
-        'science': 'علوم' // إضافة قسم العلوم
+        'science': 'علوم', // القسم الجديد
+        'freelance': 'عمل حر',
+        'development': 'تطوير ذات',
+        'tech': 'تكنولوجيا'
     };
     return names[cat] || cat;
 }
@@ -339,8 +367,7 @@ function renderArticles() {
 }
 
 function getArticleCatName(cat) {
-    const names = { 'development': 'تطوير ذات', 'tech': 'تكنولوجيا', 'freelance': 'عمل حر', 'marketing': 'تسويق', 'languages': 'لغات' };
-    return names[cat] || cat;
+    return getCatName(cat); // نستخدم نفس دالة الترجمة
 }
 
 // --- 6. Helper Functions ---
@@ -401,16 +428,9 @@ document.addEventListener('DOMContentLoaded', () => {
     loadComponents();
     
     if(document.getElementById('courses-grid')) {
+        renderFilters(); // توليد الفلاتر تلقائياً
         renderCourses();
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                e.target.classList.add('active');
-                currentCat = e.target.dataset.cat;
-                visibleCoursesCount = 10;
-                renderCourses();
-            });
-        });
+        
         document.getElementById('search-input')?.addEventListener('keyup', (e) => {
             searchText = e.target.value;
             visibleCoursesCount = 10;

@@ -28,6 +28,7 @@
 
     <main class="pt-32 px-4 container mx-auto min-h-screen pb-12">
         
+        <!-- الهيدر والبحث -->
         <div class="flex flex-col md:flex-row justify-between items-center gap-6 mb-10 fade-in">
             <h1 class="text-3xl font-black text-emerald-900 border-r-4 border-emerald-500 pr-4">الكورسات التعليمية</h1>
             
@@ -38,18 +39,12 @@
             </div>
         </div>
 
-        <div class="flex flex-wrap gap-3 mb-8 fade-in delay-100">
-            <button class="filter-btn active px-6 py-2 rounded-full font-bold" data-cat="all">الكل</button>
-            <button class="filter-btn bg-white/60 px-6 py-2 rounded-full font-bold" data-cat="graphic">جرافيك</button>
-            <button class="filter-btn bg-white/60 px-6 py-2 rounded-full font-bold" data-cat="programming">برمجة</button>
-            <button class="filter-btn bg-white/60 px-6 py-2 rounded-full font-bold" data-cat="business">إدارة أعمال</button>
-            <button class="filter-btn bg-white/60 px-6 py-2 rounded-full font-bold" data-cat="accounting">محاسبة</button>
-            <button class="filter-btn bg-white/60 px-6 py-2 rounded-full font-bold" data-cat="marketing">تسويق</button>
-            <button class="filter-btn bg-white/60 px-6 py-2 rounded-full font-bold" data-cat="languages">لغات</button>
-        </div>
+        <!-- مكان الفلاتر الديناميكية (سيتم ملؤه تلقائياً) -->
+        <div id="course-filters" class="flex flex-wrap gap-3 mb-8 fade-in delay-100"></div>
 
+        <!-- شبكة الكورسات -->
         <div id="courses-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 fade-in delay-200">
-            <!-- Courses loaded here -->
+            <!-- الكورسات بتتحمل هنا -->
         </div>
 
         <div class="text-center mt-12 fade-in">
