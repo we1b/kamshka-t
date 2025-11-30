@@ -26,11 +26,30 @@
     <div class="fixed-bg"><img src="images/bg.jpg"></div>
     <div id="header-ph"></div>
 
-    <main class="pt-32 px-4 container mx-auto max-w-4xl min-h-screen">
-        <div class="mb-10 text-center fade-in">
-            <h1 class="text-3xl font-black text-emerald-900 inline-block px-8 py-3 glass-panel rounded-full bg-white/70">مدونة كمشكاة</h1>
+    <main class="pt-32 px-4 container mx-auto max-w-4xl min-h-screen pb-12">
+        
+        <!-- الهيدر والبحث -->
+        <div class="flex flex-col md:flex-row justify-between items-center gap-6 mb-10 fade-in">
+            <h1 class="text-3xl font-black text-emerald-900 border-r-4 border-emerald-500 pr-4">مدونة كمشكاة</h1>
+            
+            <div class="relative w-full md:w-96 glass-panel rounded-xl overflow-hidden bg-white/70">
+                <input type="text" id="article-search-input" placeholder="ابحث في المقالات..." 
+                       class="w-full bg-transparent border-none text-slate-800 px-4 py-3 pl-10 focus:outline-none placeholder-slate-500 font-medium">
+                <i data-lucide="search" class="absolute left-3 top-3 text-emerald-600 w-5 h-5"></i>
+            </div>
         </div>
-        <div id="articles-grid" class="space-y-6 fade-in delay-100"></div>
+
+        <!-- فلاتر المقالات -->
+        <div class="flex flex-wrap gap-3 mb-8 fade-in delay-100">
+            <button class="article-filter-btn active bg-emerald-600 text-white px-5 py-2 rounded-full font-bold border border-white/10 filter-btn" data-cat="all">الكل</button>
+            <button class="article-filter-btn bg-white/60 px-5 py-2 rounded-full font-bold hover:bg-white/10 filter-btn" data-cat="development">تطوير ذات</button>
+            <button class="article-filter-btn bg-white/60 px-5 py-2 rounded-full font-bold hover:bg-white/10 filter-btn" data-cat="tech">تكنولوجيا</button>
+            <button class="article-filter-btn bg-white/60 px-5 py-2 rounded-full font-bold hover:bg-white/10 filter-btn" data-cat="freelance">عمل حر</button>
+            <button class="article-filter-btn bg-white/60 px-5 py-2 rounded-full font-bold hover:bg-white/10 filter-btn" data-cat="marketing">تسويق</button>
+            <button class="article-filter-btn bg-white/60 px-5 py-2 rounded-full font-bold hover:bg-white/10 filter-btn" data-cat="languages">لغات</button>
+        </div>
+
+        <div id="articles-grid" class="space-y-6 fade-in delay-200"></div>
     </main>
 
     <div id="footer-ph"></div>
