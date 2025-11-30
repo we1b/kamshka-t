@@ -1,179 +1,216 @@
 /* المسار: js/script.js */
 
-// --- 1. بيانات الكورسات (17 كورس) ---
+// --- 1. بيانات الكورسات (36 كورس) ---
 const coursesData = [
-    // --- المجموعة القديمة (1-12) ---
+    // --- (المجموعة القديمة 1-17) ---
+    { id: 1, titleAr: "إتقان الفيديو السينمائي بالذكاء الاصطناعي", titleEn: "Cinematic AI Video Mastery", desc: "تعلم صناعة أفلام ومحتوى سينمائي باستخدام أدوات الذكاء الاصطناعي وكاب كات.", cat: "graphic", img: "images/c1.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/master-ai-filmmaking-with-veo3/?couponCode=DCD0DD65AC674C5A2D83" },
+    { id: 2, titleAr: "تدريب مايكروسوفت أوفيس الشامل", titleEn: "Master Excel, PowerPoint & Word", desc: "احترف أهم برامج الأوفيس للأعمال والدراسة من الصفر.", cat: "business", img: "images/c2.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/microsoft-office-training-master-excel-powerpoint-word/?couponCode=BISMILLAH-22" },
+    { id: 3, titleAr: "تطبيقات بايثون عملية للمبتدئين", titleEn: "Python Demonstrations For Practice", desc: "تمارين وتطبيقات عملية قوية لتعلم لغة بايثون.", cat: "programming", img: "images/c3.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/python-for-beginners-demonstration-course/?couponCode=1C11EA262E5C5D7F7B19" },
+    { id: 4, titleAr: "كورس فوتوشوب من الصفر للاحتراف", titleEn: "Essential Photoshop Course", desc: "الدليل الكامل لتعلم أدوبي فوتوشوب وتصميم الجرافيك.", cat: "graphic", img: "images/c4.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/graphics-design-videoediting-course/?couponCode=52C59BEAB3917A923178" },
+    { id: 5, titleAr: "احتراف تصميم الشعارات", titleEn: "Master Logo Design (Ps & Ai)", desc: "تعلم تصميم اللوجوهات باستخدام فوتوشوب واليستريتور.", cat: "graphic", img: "images/c5.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/master-logo-design-with-photoshop-illustrator-zero-to-pro/?couponCode=024798D406787285E509" },
+    { id: 6, titleAr: "ماستر كلاس وظائف PowerShell", titleEn: "PowerShell Functions Master Class", desc: "احترف كتابة الوظائف والسكربتات في PowerShell.", cat: "programming", img: "images/c6.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/powershell-functions-master-class/?couponCode=FDDCAD88AAD460F08E4D" },
+    { id: 7, titleAr: "أسرار النجاح الوظيفي (أفضل 1%)", titleEn: "Top 1% Career Secrets", desc: "مهارات لا تُدرس في المدارس للنجاح في الشركات.", cat: "business", img: "images/c7.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/become-a-corporate-winner/?couponCode=NOV2025FREE001" },
+    { id: 8, titleAr: "الدبلومة التنفيذية في إدارة الأعمال", titleEn: "Diploma in Business Management", desc: "أساسيات الإدارة وتنظيم الأعمال بشكل احترافي.", cat: "business", img: "images/c8.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/executive-diploma-in-business-management-and-administration/?couponCode=C3AC6D445CD3368D662E" },
+    { id: 9, titleAr: "برنامج المدير التقني المعتمد (CTO)", titleEn: "Certified CTO Mastery Program", desc: "كيف تصبح مديراً تقنياً ناجحاً وتقود الفرق التكنولوجية.", cat: "business", img: "images/c9.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/chief-technology-officercto-mastery-program/?couponCode=AI_NOV_03" },
+    { id: 10, titleAr: "الدبلومة التنفيذية في القيادة", titleEn: "Diploma in Leadership & Management", desc: "مهارات القيادة الفعالة وإدارة الفرق.", cat: "business", img: "images/c10.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/executive-diploma-in-leadership-and-management/?couponCode=226D25F47550DE5079A8" },
+    { id: 11, titleAr: "هندسة الذكاء الاصطناعي للقادة", titleEn: "Architecting Context-Driven AI", desc: "كيفية بناء استراتيجيات ذكاء اصطناعي فعالة للقادة.", cat: "business", img: "images/c11.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/mcp-for-leaders-architecting-context-driven-ai/?couponCode=AI_NOV_03" },
+    { id: 12, titleAr: "دبلومة الإنجليزية للأعمال", titleEn: "Business English & Communications", desc: "حسن لغتك الإنجليزية للتواصل في بيئة العمل.", cat: "languages", img: "images/c12.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/professional-diploma-in-business-english-and-communications/?couponCode=C85E9532336D20D4CEDC" },
+    { id: 13, titleAr: "تمارين بايثون NumPy لعلوم البيانات", titleEn: "Numpy For Data Science", desc: "تمارين كودينج حقيقية لإتقان مكتبة NumPy.", cat: "programming", img: "images/c13.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/python-numpy-exercises/?couponCode=NUMPY_FREE_NOV28" },
+    { id: 14, titleAr: "دبلومة التسويق والكوبي رايتينج", titleEn: "Social Media Marketing Diploma", desc: "احترف التسويق عبر السوشيال ميديا وكتابة المحتوى.", cat: "marketing", img: "images/c14.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/professional-diploma-in-social-media-marketing-copywriting/?couponCode=2C44CF9853B582682E58" },
+    { id: 15, titleAr: "فهم TypeScript من البداية", titleEn: "Understanding TypeScript", desc: "دليلك الكامل لتعلم لغة TypeScript.", cat: "programming", img: "images/c15.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/understanding-typescript-for-beginner-to-advanced/?couponCode=00FEDB74B00FC5E58E74" },
+    { id: 16, titleAr: "احتراف الجداول المحورية في إكسل", titleEn: "Excel Pivot Tables Mastery", desc: "تحليل البيانات باستخدام Pivot Tables والدوال.", cat: "accounting", img: "images/c16.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/microsoft-excel-pivot-tables-with-formulas-functions/?couponCode=BISMILLAH19" },
+    { id: 17, titleAr: "علم الأحياء الدقيقة للجميع", titleEn: "Microbiology for All", desc: "فهم الخلايا، الفيروسات، المناعة والأمراض بشكل مبسط.", cat: "science", img: "images/c17.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/microbiology-for-all-cells-viruses-immunity-diseases/?couponCode=AEFE6BBE0485B7A4906C" },
+
+    // --- المجموعة الجديدة (18-36) ---
     { 
-        id: 1, 
-        titleAr: "الدبلومة التنفيذية في الإدارة الاستراتيجية", 
-        titleEn: "Executive Diploma in Strategic Management", 
-        desc: "تعلم كيفية صياغة وتنفيذ الاستراتيجيات لتحقيق أهداف المؤسسة.",
-        cat: "business", 
-        img: "images/c1.jpg", 
+        id: 18, 
+        titleAr: "هندسة الأوامر (Prompt Engineering)", 
+        titleEn: "Practical Prompt Engineering (ChatGPT & Gemini)", 
+        desc: "احترف كتابة الأوامر للذكاء الاصطناعي لتوفير الوقت والجهد.",
+        cat: "ai", // قسم جديد
+        img: "images/c18.jpg", 
         date: "30 Nov 2025",
-        url: "https://www.udemy.com/course/executive-diploma-in-strategic-management/?couponCode=83842AE81B2F0E833F60" 
+        url: "https://www.udemy.com/course/prompt-engineering-chatgpt-gemini/?couponCode=72DF3DEEB2D4FC6A3962" 
     },
     { 
-        id: 2, 
-        titleAr: "شهادة محلل أعمال أجايل وسكرام", 
-        titleEn: "Agile & Scrum Business Analyst", 
-        desc: "احترف تحليل الأعمال باستخدام منهجيات الأجايل والسكرام.",
+        id: 19, 
+        titleAr: "شهادة إدارة وتطوير المنتجات", 
+        titleEn: "Product Management & Development", 
+        desc: "تعلم كيفية إدارة دورة حياة المنتج من الفكرة للإطلاق.",
         cat: "business", 
-        img: "images/c2.jpg", 
+        img: "images/c19.jpg", 
         date: "30 Nov 2025",
-        url: "https://www.udemy.com/course/professional-certificate-of-agile-and-scrum-business-analyst/?couponCode=41AF3373F9BA222CAF3C" 
+        url: "https://www.udemy.com/course/professional-certificate-product-management-and-development/?couponCode=600EE7957B9E2228E767" 
     },
     { 
-        id: 3, 
-        titleAr: "استراتيجيات التنافس والهيمنة على السوق", 
-        titleEn: "Business Competitive Strategy Mastery", 
-        desc: "كيف تتفوق على المنافسين وتسيطر على السوق باستراتيجيات ذكية.",
+        id: 20, 
+        titleAr: "شهادة التسويق عبر السوشيال ميديا (SMM)", 
+        titleEn: "SMM Social Media Marketing", 
+        desc: "استراتيجيات احترافية للتسويق على منصات التواصل الاجتماعي.",
         cat: "marketing", 
-        img: "images/c3.jpg", 
+        img: "images/c20.jpg", 
         date: "30 Nov 2025",
-        url: "https://www.udemy.com/course/business-competitive-strategy-market-domination-mastery-course/?couponCode=0BBCB81E9BFC36CE5937" 
+        url: "https://www.udemy.com/course/professional-certificate-in-smm-social-media-marketing/?couponCode=6D3BB6F4137BEFAB75BB" 
     },
     { 
-        id: 4, 
-        titleAr: "احتراف قيادة الفرق وإدارة الأفراد", 
-        titleEn: "Mastering Team Leadership", 
-        desc: "دليل شامل لإدارة الموظفين والفرق بفعالية وقيادة ناجحة.",
-        cat: "business", 
-        img: "images/c4.jpg", 
+        id: 21, 
+        titleAr: "كورس PHP OOP للمبتدئين 2025", 
+        titleEn: "Ultimate PHP OOP Crash Course", 
+        desc: "أساسيات البرمجة كائنية التوجه (OOP) في لغة PHP.",
+        cat: "programming", 
+        img: "images/c21.jpg", 
         date: "30 Nov 2025",
-        url: "https://www.udemy.com/course/the-complete-team-management-facilitation-course/?couponCode=0EB7DE74BAE5A055D99B" 
+        url: "https://www.udemy.com/course/the-ultimate-php-oop-crash-course-for-beginners-2025/?couponCode=PHPOOPCRASH30" 
     },
     { 
-        id: 5, 
-        titleAr: "شهادة احترافية في إدارة المكاتب", 
-        titleEn: "Office Administration Management", 
-        desc: "تعلم مهارات تنظيم وإدارة المكاتب والسكرتارية التنفيذية.",
-        cat: "business", 
-        img: "images/c5.jpg", 
-        date: "30 Nov 2025",
-        url: "https://www.udemy.com/course/professional-certificate-in-office-administration-management/?couponCode=52EE47C275DDC0DE922C" 
-    },
-    { 
-        id: 6, 
-        titleAr: "شهادة احترافية في المشتريات", 
-        titleEn: "Procurement and Purchasing Cert", 
-        desc: "كل ما تحتاج معرفته عن عمليات الشراء والتوريد في الشركات.",
-        cat: "business", 
-        img: "images/c6.jpg", 
-        date: "30 Nov 2025",
-        url: "https://www.udemy.com/course/professional-certificate-in-procurement-and-purchasing/?couponCode=5CD2B54C1DF16292D8B7" 
-    },
-    { 
-        id: 7, 
-        titleAr: "شهادة الأعمال الرقمية واقتصاديات الوحدة", 
-        titleEn: "Digital Business & Unit Economics", 
-        desc: "فهم الاقتصاديات الرقمية وكيفية حساب ربحية الوحدة الواحدة.",
-        cat: "business", 
-        img: "images/c7.jpg", 
-        date: "30 Nov 2025",
-        url: "https://www.udemy.com/course/professional-certificate-digital-business-unit-economics/?couponCode=22EDD603C8A2DA452FDA" 
-    },
-    { 
-        id: 8, 
-        titleAr: "الدبلومة التنفيذية في الإدارة الهندسية", 
-        titleEn: "Engineering Management Diploma", 
-        desc: "جسر الفجوة بين الهندسة والإدارة للمهندسين والمديرين التقنيين.",
-        cat: "business", 
-        img: "images/c8.jpg", 
-        date: "30 Nov 2025",
-        url: "https://www.udemy.com/course/executive-diploma-in-engineering-management/?couponCode=4D1084A244D7FC844628" 
-    },
-    { 
-        id: 9, 
-        titleAr: "دبلومة مدير التسويق وشريك الأعمال", 
-        titleEn: "Marketing Manager Business Partner", 
-        desc: "كيف تصبح مديراً للتسويق يساهم في نمو واستراتيجية الشركة.",
+        id: 22, 
+        titleAr: "الشهادة الاحترافية في إدارة التسويق", 
+        titleEn: "Marketing & Marketing Management", 
+        desc: "شهادة شاملة في مفاهيم وإدارة التسويق الحديث.",
         cat: "marketing", 
-        img: "images/c9.jpg", 
+        img: "images/c22.jpg", 
         date: "30 Nov 2025",
-        url: "https://www.udemy.com/course/professional-diploma-of-marketing-manager-business-partner/?couponCode=D22906CF8D1AD4FB8838" 
+        url: "https://www.udemy.com/course/professional-certificate-in-marketing-and-marketing-management/?couponCode=CP251129CMG4" 
     },
     { 
-        id: 10, 
-        titleAr: "احتراف Node.js: من المبتدئ للمحترف", 
-        titleEn: "Master Node.js Full-Stack", 
-        desc: "كورس شامل لتعلم تطوير الويب الخلفي (Back-end) باستخدام Node.js.",
+        id: 23, 
+        titleAr: "أساسيات تطوير وبرمجة بايثون", 
+        titleEn: "Python Development Fundamentals", 
+        desc: "مدخل قوي لعالم البرمجة باستخدام لغة Python.",
         cat: "programming", 
-        img: "images/c10.jpg", 
+        img: "images/c23.jpg", 
         date: "30 Nov 2025",
-        url: "https://www.udemy.com/course/master-nodejs-from-beginner-to-full-stack-developer/?couponCode=0DB6950F827EDB5F2C29" 
+        url: "https://www.udemy.com/course/python-development-and-python-programming-fundamentals/?couponCode=F856FC080FE82C71EEAD" 
     },
     { 
-        id: 11, 
-        titleAr: "أساسيات ريادة الأعمال", 
-        titleEn: "Entrepreneurship Essentials", 
-        desc: "الدليل الكامل لبدء مشروعك الخاص وفهم عالم البيزنس.",
+        id: 24, 
+        titleAr: "تصميم لوحات البيانات في إكسل", 
+        titleEn: "Excel Data Visualization & Dashboard", 
+        desc: "كيفية تحويل البيانات الجامدة إلى لوحات تحكم تفاعلية.",
         cat: "business", 
-        img: "images/c11.jpg", 
+        img: "images/c24.jpg", 
         date: "30 Nov 2025",
-        url: "https://www.udemy.com/course/entrepreneurship-and-business-essentials/?couponCode=B39C7298044F86249850" 
+        url: "https://www.udemy.com/course/excel-data-visualization-and-dashboard-design-masterclass/?couponCode=70FB69AFF604F52AC49A" 
     },
     { 
-        id: 12, 
-        titleAr: "كورس CSS الكامل للمبتدئين", 
-        titleEn: "CSS Complete Course", 
-        desc: "تعلم تصميم وتنسيق صفحات الويب باستخدام CSS من الصفر.",
-        cat: "programming", 
-        img: "images/c12.jpg", 
-        date: "30 Nov 2025",
-        url: "https://www.udemy.com/course/css-complete-course-for-beginners/?couponCode=A3015B0CE9D90F1DE66C" 
-    },
-    
-    // --- المجموعة الجديدة (13-17) ---
-    { 
-        id: 13, 
-        titleAr: "من فيجما لأنجولار بالذكاء الاصطناعي", 
-        titleEn: "Figma to Angular Mastery with AI", 
-        desc: "حول تصميماتك لكود حقيقي باستخدام أدوات الذكاء الاصطناعي.",
-        cat: "programming", 
-        img: "images/c13.jpg", 
-        date: "30 Nov 2025",
-        url: "https://www.udemy.com/course/figma-to-angular-mastery-design-to-code-with-ai/?couponCode=FREE1234567890" 
-    },
-    { 
-        id: 14, 
-        titleAr: "تحكم في الأردوينو بالجافاسكريبت", 
-        titleEn: "Control Arduino with JavaScript", 
-        desc: "إطلاق العنان لقوة الجافاسكريبت للتحكم في الهاردوير والمتصفح.",
-        cat: "programming", 
-        img: "images/c14.jpg", 
-        date: "30 Nov 2025",
-        url: "https://www.udemy.com/course/arduino-control-your-browser-arduino-web-browser/?couponCode=24HFREE" 
-    },
-    { 
-        id: 15, 
-        titleAr: "احتراف Sora لصناعة الفيديو", 
-        titleEn: "Master Sora AI Video Creation", 
-        desc: "تعلم إنشاء فيديوهات احترافية وسريعة باستخدام Sora AI.",
-        cat: "graphic", 
-        img: "images/c15.jpg", 
-        date: "30 Nov 2025",
-        url: "https://www.udemy.com/course/sora-mastery-from-beginner-to-professional-hidden-gems/?couponCode=FREE1234567890" 
-    },
-    { 
-        id: 16, 
-        titleAr: "استراتيجيات الهيمنة على السوق", 
-        titleEn: "Market Domination Strategy", 
-        desc: "خطط واستراتيجيات متقدمة للسيطرة على السوق والمنافسة.",
+        id: 25, 
+        titleAr: "الشهادة التنفيذية في قيادة الأعمال", 
+        titleEn: "Executive Cert in Business Leadership", 
+        desc: "مهارات القيادة العليا وإدارة المؤسسات بفعالية.",
         cat: "business", 
-        img: "images/c16.jpg", 
+        img: "images/c25.jpg", 
         date: "30 Nov 2025",
-        url: "https://www.udemy.com/course/business-competitive-strategy-market-domination-mastery-course/?couponCode=0BBCB81E9BFC36CE5937" 
+        url: "https://www.udemy.com/course/executive-certificate-in-business-leadership/?couponCode=3B25FD400CDFD43269A6" 
     },
     { 
-        id: 17, 
-        titleAr: "علم الأحياء الدقيقة للجميع", 
-        titleEn: "Microbiology for All", 
-        desc: "فهم الخلايا، الفيروسات، المناعة والأمراض بشكل مبسط وشامل.",
-        cat: "science", 
-        img: "images/c17.jpg", 
+        id: 26, 
+        titleAr: "أسئلة امتحان Azure AI Fundamentals", 
+        titleEn: "AI-900 Azure AI Practice Exam", 
+        desc: "تحضير شامل لامتحان مايكروسوفت للذكاء الاصطناعي AI-900.",
+        cat: "ai", 
+        img: "images/c26.jpg", 
         date: "30 Nov 2025",
-        url: "https://www.udemy.com/course/microbiology-for-all-cells-viruses-immunity-diseases/?couponCode=AEFE6BBE0485B7A4906C" 
+        url: "https://www.udemy.com/course/ai-900-azure-ai-fundamentals-exam/?couponCode=F5428B1E90150726578E" 
+    },
+    { 
+        id: 27, 
+        titleAr: "منهجيات البحث في الاستراتيجية", 
+        titleEn: "Research Methodologies in Strategy", 
+        desc: "طرق البحث العلمي لتطوير المنتجات وبناء الاستراتيجيات.",
+        cat: "business", 
+        img: "images/c27.jpg", 
+        date: "30 Nov 2025",
+        url: "https://www.udemy.com/course/research-methodologies-in-strategy-and-product-development/?couponCode=FB8BE3278173BCD23D1B" 
+    },
+    { 
+        id: 28, 
+        titleAr: "دبلومة استراتيجيات الموارد البشرية", 
+        titleEn: "HR Strategy Executive Diploma", 
+        desc: "تخطيط وإدارة الموارد البشرية بشكل استراتيجي.",
+        cat: "business", 
+        img: "images/c28.jpg", 
+        date: "30 Nov 2025",
+        url: "https://www.udemy.com/course/executive-diploma-in-human-resources-strategy/?couponCode=890F2F84E998248813A9" 
+    },
+    { 
+        id: 29, 
+        titleAr: "كورس الويب الشامل (CSS, JS, PHP)", 
+        titleEn: "Full Stack Web Course", 
+        desc: "تعلم تطوير المواقع بالكامل باستخدام Bootstrap و PHP.",
+        cat: "programming", 
+        img: "images/c29.jpg", 
+        date: "30 Nov 2025",
+        url: "https://www.udemy.com/course/css-bootstrap-javascript-and-php-stack-complete-course/?couponCode=525D195D744266D4105B" 
+    },
+    { 
+        id: 30, 
+        titleAr: "الشهادة الاحترافية للسكرتارية", 
+        titleEn: "Professional Certificate of Secretary", 
+        desc: "المهارات الأساسية والمتقدمة لوظيفة السكرتارية.",
+        cat: "business", 
+        img: "images/c30.jpg", 
+        date: "30 Nov 2025",
+        url: "https://www.udemy.com/course/professional-certificate-of-secretary/?couponCode=048BAE1B5C5AF721F9BD" 
+    },
+    { 
+        id: 31, 
+        titleAr: "تحليل البيانات بالإكسل (شامل)", 
+        titleEn: "Excel Data Analysis Basic to Advanced", 
+        desc: "من الأساسيات إلى الاحتراف في تحليل البيانات بـ Excel.",
+        cat: "business", 
+        img: "images/c31.jpg", 
+        date: "30 Nov 2025",
+        url: "https://www.udemy.com/course/the-complete-microsoft-excel-data-analysis-basic-to-advanced/?couponCode=FE1975778A6665ED717D" 
+    },
+    { 
+        id: 32, 
+        titleAr: "كورس إكسل الكامل: من المبتدئ للخبير", 
+        titleEn: "Complete Microsoft Excel Course", 
+        desc: "احترف الإكسل بكل تفاصيله وأدواته.",
+        cat: "business", 
+        img: "images/c32.jpg", 
+        date: "30 Nov 2025",
+        url: "https://www.udemy.com/course/the-complete-microsoft-excel-course-beginner-to-expert/?couponCode=CP251129CMG4" 
+    },
+    { 
+        id: 33, 
+        titleAr: "باوربوينت من الصفر للاحتراف", 
+        titleEn: "Microsoft PowerPoint Presentation Pro", 
+        desc: "تصميم عروض تقديمية احترافية ومؤثرة.",
+        cat: "business", 
+        img: "images/c33.jpg", 
+        date: "30 Nov 2025",
+        url: "https://www.udemy.com/course/microsoft-powerpoint-from-beginner-to-presentation-pro/?couponCode=AA18E6A6986395E97F2B" 
+    },
+    { 
+        id: 34, 
+        titleAr: "الكوتشينج والتوجيه المهني", 
+        titleEn: "Certificate in Career Coaching", 
+        desc: "كيف تصبح موجهاً مهنياً وتساعد الآخرين في مسارهم.",
+        cat: "development", 
+        img: "images/c34.jpg", 
+        date: "30 Nov 2025",
+        url: "https://www.udemy.com/course/professional-certificate-in-career-coaching/?couponCode=BF21BF47EB52BF4032F2" 
+    },
+    { 
+        id: 35, 
+        titleAr: "تأمين مواقع ووردبريس للمبتدئين", 
+        titleEn: "Secure Your Wordpress Website", 
+        desc: "خطوات عملية لحماية موقعك الووردبريس من الاختراق.",
+        cat: "programming", 
+        img: "images/c35.jpg", 
+        date: "30 Nov 2025",
+        url: "https://www.udemy.com/course/secure-your-wordpress-website-for-beginners/?couponCode=CP251129CMG4" 
+    },
+    { 
+        id: 36, 
+        titleAr: "تدريب التعليق الصوتي (فويس أوفر)", 
+        titleEn: "Voice-Over Artist Training", 
+        desc: "تعلم التعليق الصوتي للكتب الصوتية والإعلانات.",
+        cat: "development", // مهارة
+        img: "images/c36.jpg", 
+        date: "30 Nov 2025",
+        url: "https://www.udemy.com/course/voice-over-artist-training-for-audiobook-courses-and-promos/?couponCode=9522535FCDC5FD23997F" 
     }
 ];
 
@@ -229,7 +266,7 @@ function loadComponents() {
     lucide.createIcons();
 }
 
-// --- 4. منطق الكورسات (ديناميكي) ---
+// --- 4. منطق الكورسات (فلترة + عرض المزيد) ---
 let currentCat = 'all';
 let searchText = '';
 let visibleCoursesCount = 10;
@@ -253,8 +290,8 @@ function renderFilters() {
         btn.addEventListener('click', (e) => {
             currentCat = e.target.dataset.cat;
             visibleCoursesCount = 10;
-            renderFilters(); // إعادة رسم الفلاتر لتحديث الحالة النشطة
-            renderCourses(); // تحديث الكورسات
+            renderFilters();
+            renderCourses();
         });
     });
 }
@@ -322,10 +359,11 @@ function getCatName(cat) {
         'languages': 'لغات', 
         'business': 'إدارة أعمال', 
         'marketing': 'تسويق',
-        'science': 'علوم', // القسم الجديد
+        'science': 'علوم',
         'freelance': 'عمل حر',
         'development': 'تطوير ذات',
-        'tech': 'تكنولوجيا'
+        'tech': 'تكنولوجيا',
+        'ai': 'ذكاء اصطناعي'
     };
     return names[cat] || cat;
 }
@@ -367,7 +405,7 @@ function renderArticles() {
 }
 
 function getArticleCatName(cat) {
-    return getCatName(cat); // نستخدم نفس دالة الترجمة
+    return getCatName(cat);
 }
 
 // --- 6. Helper Functions ---
@@ -428,7 +466,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadComponents();
     
     if(document.getElementById('courses-grid')) {
-        renderFilters(); // توليد الفلاتر تلقائياً
+        renderFilters();
         renderCourses();
         
         document.getElementById('search-input')?.addEventListener('keyup', (e) => {
