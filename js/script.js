@@ -1,23 +1,180 @@
 /* المسار: js/script.js */
 
-// --- 1. بيانات الكورسات ---
+// --- 1. بيانات الكورسات (17 كورس) ---
 const coursesData = [
-    { id: 1, titleAr: "إتقان الفيديو السينمائي بالذكاء الاصطناعي", titleEn: "Cinematic AI Video Mastery (CapCut & Veo)", desc: "تعلم صناعة أفلام ومحتوى سينمائي باستخدام أدوات الذكاء الاصطناعي وكاب كات.", cat: "graphic", img: "images/c1.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/master-ai-filmmaking-with-veo3/?im_ref=wTA2JMQE0xycUoDSYrxNU05MUkpT110Vv2q8Vs0&sharedid=&irpid=2550473&utm_medium=affiliate&utm_source=impact&utm_audience=mx&utm_tactic=&utm_content=3193860&utm_campaign=2550473&irgwc=1&afsrc=1&couponCode=DCD0DD65AC674C5A2D83" },
-    { id: 2, titleAr: "تدريب مايكروسوفت أوفيس الشامل", titleEn: "Master Excel, PowerPoint & Word", desc: "احترف أهم برامج الأوفيس للأعمال والدراسة من الصفر.", cat: "business", img: "images/c2.jpg", date: "29 Nov 2025", url: "https://www.udemy.com/course/microsoft-office-training-master-excel-powerpoint-word/?couponCode=BISMILLAH-22" },
-    { id: 3, titleAr: "تطبيقات بايثون عملية للمبتدئين", titleEn: "Python Demonstrations For Practice", desc: "تمارين وتطبيقات عملية قوية لتعلم لغة بايثون.", cat: "programming", img: "images/c3.jpg", date: "28 Nov 2025", url: "https://www.udemy.com/course/python-for-beginners-demonstration-course/?sharedid=&irpid=2550473&utm_medium=affiliate&utm_source=impact&utm_audience=mx&utm_tactic=&utm_content=3193860&utm_campaign=2550473&irgwc=1&afsrc=1&im_ref=wTA2JMQE0xycUoDSYrxNU05MUkpT1121v2q8Vs0&couponCode=1C11EA262E5C5D7F7B19" },
-    { id: 4, titleAr: "كورس فوتوشوب من الصفر للاحتراف", titleEn: "Essential Photoshop Course", desc: "الدليل الكامل لتعلم أدوبي فوتوشوب وتصميم الجرافيك.", cat: "graphic", img: "images/c4.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/graphics-design-videoediting-course/?im_ref=wTA2JMQE0xycUoDSYrxNU05MUkpT11zBv2q8Vs0&sharedid=&irpid=2550473&utm_medium=affiliate&utm_source=impact&utm_audience=mx&utm_tactic=&utm_content=3193860&utm_campaign=2550473&irgwc=1&afsrc=1&couponCode=52C59BEAB3917A923178" },
-    { id: 5, titleAr: "احتراف تصميم الشعارات", titleEn: "Master Logo Design (Ps & Ai)", desc: "تعلم تصميم اللوجوهات باستخدام فوتوشوب واليستريتور.", cat: "graphic", img: "images/c5.jpg", date: "29 Nov 2025", url: "https://www.udemy.com/course/master-logo-design-with-photoshop-illustrator-zero-to-pro/?im_ref=wTA2JMQE0xycUoDSYrxNU05MUkpT11zNv2q8Vs0&sharedid=&irpid=2550473&utm_medium=affiliate&utm_source=impact&utm_audience=mx&utm_tactic=&utm_content=3193860&utm_campaign=2550473&irgwc=1&afsrc=1&couponCode=024798D406787285E509" },
-    { id: 6, titleAr: "ماستر كلاس وظائف PowerShell", titleEn: "PowerShell Functions Master Class", desc: "احترف كتابة الوظائف والسكربتات في PowerShell.", cat: "programming", img: "images/c6.jpg", date: "28 Nov 2025", url: "https://www.udemy.com/course/powershell-functions-master-class/?im_ref=wTA2JMQE0xycUoDSYrxNU05MUkpT1wRlv2q8Vs0&sharedid=&irpid=2550473&utm_medium=affiliate&utm_source=impact&utm_audience=mx&utm_tactic=&utm_content=3193860&utm_campaign=2550473&irgwc=1&afsrc=1&couponCode=FDDCAD88AAD460F08E4D" },
-    { id: 7, titleAr: "أسرار النجاح الوظيفي (أفضل 1%)", titleEn: "Top 1% Career Secrets", desc: "مهارات لا تُدرس في المدارس للنجاح في الشركات.", cat: "business", img: "images/c7.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/become-a-corporate-winner/?couponCode=NOV2025FREE001" },
-    { id: 8, titleAr: "الدبلومة التنفيذية في إدارة الأعمال", titleEn: "Diploma in Business Management", desc: "أساسيات الإدارة وتنظيم الأعمال بشكل احترافي.", cat: "business", img: "images/c8.jpg", date: "29 Nov 2025", url: "https://www.udemy.com/course/executive-diploma-in-business-management-and-administration/?couponCode=C3AC6D445CD3368D662E" },
-    { id: 9, titleAr: "برنامج المدير التقني المعتمد (CTO)", titleEn: "Certified CTO Mastery Program", desc: "كيف تصبح مديراً تقنياً ناجحاً وتقود الفرق التكنولوجية.", cat: "business", img: "images/c9.jpg", date: "28 Nov 2025", url: "https://www.udemy.com/course/chief-technology-officercto-mastery-program/?couponCode=AI_NOV_03" },
-    { id: 10, titleAr: "الدبلومة التنفيذية في القيادة", titleEn: "Diploma in Leadership & Management", desc: "مهارات القيادة الفعالة وإدارة الفرق.", cat: "business", img: "images/c10.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/executive-diploma-in-leadership-and-management/?couponCode=226D25F47550DE5079A8" },
-    { id: 11, titleAr: "هندسة الذكاء الاصطناعي للقادة", titleEn: "Architecting Context-Driven AI", desc: "كيفية بناء استراتيجيات ذكاء اصطناعي فعالة للقادة.", cat: "business", img: "images/c11.jpg", date: "29 Nov 2025", url: "https://www.udemy.com/course/mcp-for-leaders-architecting-context-driven-ai/?couponCode=AI_NOV_03" },
-    { id: 12, titleAr: "دبلومة الإنجليزية للأعمال", titleEn: "Business English & Communications", desc: "حسن لغتك الإنجليزية للتواصل في بيئة العمل.", cat: "languages", img: "images/c12.jpg", date: "28 Nov 2025", url: "https://www.udemy.com/course/professional-diploma-in-business-english-and-communications/?couponCode=C85E9532336D20D4CEDC" },
-    { id: 13, titleAr: "تمارين بايثون NumPy لعلوم البيانات", titleEn: "Numpy For Data Science", desc: "تمارين كودينج حقيقية لإتقان مكتبة NumPy.", cat: "programming", img: "images/c13.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/python-numpy-exercises/?couponCode=NUMPY_FREE_NOV28" },
-    { id: 14, titleAr: "دبلومة التسويق والكوبي رايتينج", titleEn: "Social Media Marketing Diploma", desc: "احترف التسويق عبر السوشيال ميديا وكتابة المحتوى.", cat: "marketing", img: "images/c14.jpg", date: "29 Nov 2025", url: "https://www.udemy.com/course/professional-diploma-in-social-media-marketing-copywriting/?couponCode=2C44CF9853B582682E58" },
-    { id: 15, titleAr: "فهم TypeScript من البداية", titleEn: "Understanding TypeScript", desc: "دليلك الكامل لتعلم لغة TypeScript.", cat: "programming", img: "images/c15.jpg", date: "28 Nov 2025", url: "https://www.udemy.com/course/understanding-typescript-for-beginner-to-advanced/?couponCode=00FEDB74B00FC5E58E74" },
-    { id: 16, titleAr: "احتراف الجداول المحورية في إكسل", titleEn: "Excel Pivot Tables Mastery", desc: "تحليل البيانات باستخدام Pivot Tables والدوال.", cat: "accounting", img: "images/c16.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/microsoft-excel-pivot-tables-with-formulas-functions/?couponCode=BISMILLAH19" }
+    // --- المجموعة القديمة (1-12) ---
+    { 
+        id: 1, 
+        titleAr: "الدبلومة التنفيذية في الإدارة الاستراتيجية", 
+        titleEn: "Executive Diploma in Strategic Management", 
+        desc: "تعلم كيفية صياغة وتنفيذ الاستراتيجيات لتحقيق أهداف المؤسسة.",
+        cat: "business", 
+        img: "images/c1.jpg", 
+        date: "30 Nov 2025",
+        url: "https://www.udemy.com/course/executive-diploma-in-strategic-management/?couponCode=83842AE81B2F0E833F60" 
+    },
+    { 
+        id: 2, 
+        titleAr: "شهادة محلل أعمال أجايل وسكرام", 
+        titleEn: "Agile & Scrum Business Analyst", 
+        desc: "احترف تحليل الأعمال باستخدام منهجيات الأجايل والسكرام.",
+        cat: "business", 
+        img: "images/c2.jpg", 
+        date: "30 Nov 2025",
+        url: "https://www.udemy.com/course/professional-certificate-of-agile-and-scrum-business-analyst/?couponCode=41AF3373F9BA222CAF3C" 
+    },
+    { 
+        id: 3, 
+        titleAr: "استراتيجيات التنافس والهيمنة على السوق", 
+        titleEn: "Business Competitive Strategy Mastery", 
+        desc: "كيف تتفوق على المنافسين وتسيطر على السوق باستراتيجيات ذكية.",
+        cat: "marketing", 
+        img: "images/c3.jpg", 
+        date: "30 Nov 2025",
+        url: "https://www.udemy.com/course/business-competitive-strategy-market-domination-mastery-course/?couponCode=0BBCB81E9BFC36CE5937" 
+    },
+    { 
+        id: 4, 
+        titleAr: "احتراف قيادة الفرق وإدارة الأفراد", 
+        titleEn: "Mastering Team Leadership", 
+        desc: "دليل شامل لإدارة الموظفين والفرق بفعالية وقيادة ناجحة.",
+        cat: "business", 
+        img: "images/c4.jpg", 
+        date: "30 Nov 2025",
+        url: "https://www.udemy.com/course/the-complete-team-management-facilitation-course/?couponCode=0EB7DE74BAE5A055D99B" 
+    },
+    { 
+        id: 5, 
+        titleAr: "شهادة احترافية في إدارة المكاتب", 
+        titleEn: "Office Administration Management", 
+        desc: "تعلم مهارات تنظيم وإدارة المكاتب والسكرتارية التنفيذية.",
+        cat: "business", 
+        img: "images/c5.jpg", 
+        date: "30 Nov 2025",
+        url: "https://www.udemy.com/course/professional-certificate-in-office-administration-management/?couponCode=52EE47C275DDC0DE922C" 
+    },
+    { 
+        id: 6, 
+        titleAr: "شهادة احترافية في المشتريات", 
+        titleEn: "Procurement and Purchasing Cert", 
+        desc: "كل ما تحتاج معرفته عن عمليات الشراء والتوريد في الشركات.",
+        cat: "business", 
+        img: "images/c6.jpg", 
+        date: "30 Nov 2025",
+        url: "https://www.udemy.com/course/professional-certificate-in-procurement-and-purchasing/?couponCode=5CD2B54C1DF16292D8B7" 
+    },
+    { 
+        id: 7, 
+        titleAr: "شهادة الأعمال الرقمية واقتصاديات الوحدة", 
+        titleEn: "Digital Business & Unit Economics", 
+        desc: "فهم الاقتصاديات الرقمية وكيفية حساب ربحية الوحدة الواحدة.",
+        cat: "business", 
+        img: "images/c7.jpg", 
+        date: "30 Nov 2025",
+        url: "https://www.udemy.com/course/professional-certificate-digital-business-unit-economics/?couponCode=22EDD603C8A2DA452FDA" 
+    },
+    { 
+        id: 8, 
+        titleAr: "الدبلومة التنفيذية في الإدارة الهندسية", 
+        titleEn: "Engineering Management Diploma", 
+        desc: "جسر الفجوة بين الهندسة والإدارة للمهندسين والمديرين التقنيين.",
+        cat: "business", 
+        img: "images/c8.jpg", 
+        date: "30 Nov 2025",
+        url: "https://www.udemy.com/course/executive-diploma-in-engineering-management/?couponCode=4D1084A244D7FC844628" 
+    },
+    { 
+        id: 9, 
+        titleAr: "دبلومة مدير التسويق وشريك الأعمال", 
+        titleEn: "Marketing Manager Business Partner", 
+        desc: "كيف تصبح مديراً للتسويق يساهم في نمو واستراتيجية الشركة.",
+        cat: "marketing", 
+        img: "images/c9.jpg", 
+        date: "30 Nov 2025",
+        url: "https://www.udemy.com/course/professional-diploma-of-marketing-manager-business-partner/?couponCode=D22906CF8D1AD4FB8838" 
+    },
+    { 
+        id: 10, 
+        titleAr: "احتراف Node.js: من المبتدئ للمحترف", 
+        titleEn: "Master Node.js Full-Stack", 
+        desc: "كورس شامل لتعلم تطوير الويب الخلفي (Back-end) باستخدام Node.js.",
+        cat: "programming", 
+        img: "images/c10.jpg", 
+        date: "30 Nov 2025",
+        url: "https://www.udemy.com/course/master-nodejs-from-beginner-to-full-stack-developer/?couponCode=0DB6950F827EDB5F2C29" 
+    },
+    { 
+        id: 11, 
+        titleAr: "أساسيات ريادة الأعمال", 
+        titleEn: "Entrepreneurship Essentials", 
+        desc: "الدليل الكامل لبدء مشروعك الخاص وفهم عالم البيزنس.",
+        cat: "business", 
+        img: "images/c11.jpg", 
+        date: "30 Nov 2025",
+        url: "https://www.udemy.com/course/entrepreneurship-and-business-essentials/?couponCode=B39C7298044F86249850" 
+    },
+    { 
+        id: 12, 
+        titleAr: "كورس CSS الكامل للمبتدئين", 
+        titleEn: "CSS Complete Course", 
+        desc: "تعلم تصميم وتنسيق صفحات الويب باستخدام CSS من الصفر.",
+        cat: "programming", 
+        img: "images/c12.jpg", 
+        date: "30 Nov 2025",
+        url: "https://www.udemy.com/course/css-complete-course-for-beginners/?couponCode=A3015B0CE9D90F1DE66C" 
+    },
+    
+    // --- المجموعة الجديدة (13-17) ---
+    { 
+        id: 13, 
+        titleAr: "من فيجما لأنجولار بالذكاء الاصطناعي", 
+        titleEn: "Figma to Angular Mastery with AI", 
+        desc: "حول تصميماتك لكود حقيقي باستخدام أدوات الذكاء الاصطناعي.",
+        cat: "programming", 
+        img: "images/c13.jpg", 
+        date: "30 Nov 2025",
+        url: "https://www.udemy.com/course/figma-to-angular-mastery-design-to-code-with-ai/?couponCode=FREE1234567890" 
+    },
+    { 
+        id: 14, 
+        titleAr: "تحكم في الأردوينو بالجافاسكريبت", 
+        titleEn: "Control Arduino with JavaScript", 
+        desc: "إطلاق العنان لقوة الجافاسكريبت للتحكم في الهاردوير والمتصفح.",
+        cat: "programming", 
+        img: "images/c14.jpg", 
+        date: "30 Nov 2025",
+        url: "https://www.udemy.com/course/arduino-control-your-browser-arduino-web-browser/?couponCode=24HFREE" 
+    },
+    { 
+        id: 15, 
+        titleAr: "احتراف Sora لصناعة الفيديو", 
+        titleEn: "Master Sora AI Video Creation", 
+        desc: "تعلم إنشاء فيديوهات احترافية وسريعة باستخدام Sora AI.",
+        cat: "graphic", 
+        img: "images/c15.jpg", 
+        date: "30 Nov 2025",
+        url: "https://www.udemy.com/course/sora-mastery-from-beginner-to-professional-hidden-gems/?couponCode=FREE1234567890" 
+    },
+    { 
+        id: 16, 
+        titleAr: "استراتيجيات الهيمنة على السوق", 
+        titleEn: "Market Domination Strategy", 
+        desc: "خطط واستراتيجيات متقدمة للسيطرة على السوق والمنافسة.",
+        cat: "business", 
+        img: "images/c16.jpg", 
+        date: "30 Nov 2025",
+        url: "https://www.udemy.com/course/business-competitive-strategy-market-domination-mastery-course/?couponCode=0BBCB81E9BFC36CE5937" 
+    },
+    { 
+        id: 17, 
+        titleAr: "علم الأحياء الدقيقة للجميع", 
+        titleEn: "Microbiology for All", 
+        desc: "فهم الخلايا، الفيروسات، المناعة والأمراض بشكل مبسط وشامل.",
+        cat: "science", 
+        img: "images/c17.jpg", 
+        date: "30 Nov 2025",
+        url: "https://www.udemy.com/course/microbiology-for-all-cells-viruses-immunity-diseases/?couponCode=AEFE6BBE0485B7A4906C" 
+    }
 ];
 
 // --- 2. بيانات المقالات ---
@@ -99,7 +256,7 @@ function renderCourses() {
     grid.innerHTML = visibleItems.map((c, index) => `
         <div class="glass-panel rounded-2xl overflow-hidden group hover:-translate-y-2 transition duration-300 flex flex-col fade-in bg-white/60" style="animation-delay: ${index * 50}ms">
             <div class="relative h-48 overflow-hidden">
-                <img src="${c.img}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" onerror="this.src='https://placehold.co/600x400/10b981/FFF?text=Course'">
+                <img src="${c.img}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" onerror="this.src='https://placehold.co/600x400/10b981/FFF?text=Kameshkah+Course'">
                 <div class="absolute top-2 right-2 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs text-emerald-800 font-bold shadow-sm">
                     ${getCatName(c.cat)}
                 </div>
@@ -130,6 +287,19 @@ function renderCourses() {
             loadMoreBtn.style.display = 'inline-flex';
         }
     }
+}
+
+function getCatName(cat) {
+    const names = { 
+        'graphic': 'جرافيك', 
+        'programming': 'برمجة', 
+        'accounting': 'محاسبة', 
+        'languages': 'لغات', 
+        'business': 'إدارة أعمال', 
+        'marketing': 'تسويق',
+        'science': 'علوم' // إضافة قسم العلوم
+    };
+    return names[cat] || cat;
 }
 
 // --- 5. منطق المقالات ---
@@ -168,82 +338,20 @@ function renderArticles() {
     lucide.createIcons();
 }
 
-function getCatName(cat) {
-    const names = { 'graphic': 'جرافيك', 'programming': 'برمجة', 'accounting': 'محاسبة', 'languages': 'لغات', 'business': 'إدارة أعمال', 'marketing': 'تسويق' };
-    return names[cat] || cat;
-}
-
 function getArticleCatName(cat) {
     const names = { 'development': 'تطوير ذات', 'tech': 'تكنولوجيا', 'freelance': 'عمل حر', 'marketing': 'تسويق', 'languages': 'لغات' };
     return names[cat] || cat;
 }
 
-// --- 6. منطق المعرض (تعديل زرار المشاركة هنا) ---
-let visibleGalleryCount = 10;
-const totalGalleryImages = 2000;
-
-function renderGallery() {
-    const grid = document.getElementById('gallery-grid');
-    const loadMoreBtn = document.getElementById('load-more-gallery');
-    if(!grid) return;
-
-    let html = '';
-    for(let i=1; i<=visibleGalleryCount && i<=totalGalleryImages; i++) {
-        const height = [300, 400, 500][Math.floor(Math.random() * 3)]; 
-        
-        html += `
-            <div class="glass-panel rounded-2xl overflow-hidden break-inside-avoid mb-6 group relative fade-in border-0 shadow-sm">
-                <div class="relative cursor-pointer" onclick="openLightbox('images/${i}.jpg')">
-                    <img src="images/${i}.jpg" class="w-full h-auto object-cover" 
-                         loading="lazy"
-                         onerror="this.src='https://placehold.co/400x${height}/dcfce7/065f46?text=Design+${i}'">
-                    
-                    <!-- أزرار التحكم -->
-                    <div class="absolute inset-0 bg-emerald-900/40 opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col items-center justify-center gap-3">
-                        <div class="bg-white text-emerald-900 px-4 py-2 rounded-full font-bold flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition shadow-xl">
-                            <i data-lucide="zoom-in" class="w-4 h-4"></i> تكبير
-                        </div>
-                    </div>
-
-                    <!-- زرار المشاركة الجديد في الزاوية -->
-                    <div class="absolute top-3 left-3 opacity-0 group-hover:opacity-100 transition duration-300" onclick="event.stopPropagation()">
-                        <button onclick="shareContent('تصميم جامد من معرض كمشكاة', 'https://kameshkah.com/gallery?img=${i}')" class="bg-white/90 hover:bg-white text-emerald-700 p-2 rounded-full shadow-lg transition transform hover:scale-110" title="مشاركة">
-                            <i data-lucide="share-2" class="w-5 h-5"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        `;
-    }
-    grid.innerHTML = html;
-    lucide.createIcons();
-
-    if (loadMoreBtn) {
-        if (visibleGalleryCount >= totalGalleryImages) {
-            loadMoreBtn.style.display = 'none';
-        } else {
-            loadMoreBtn.style.display = 'inline-flex';
-            loadMoreBtn.innerHTML = `عرض المزيد (فاضل ${totalGalleryImages - visibleGalleryCount})`;
-        }
-    }
-}
-
-// --- 7. دوال مساعدة ---
+// --- 6. Helper Functions ---
 async function shareContent(title, url) {
-    const shareData = {
-        title: 'كمشكاة',
-        text: `${title} 🎨 \nشوف الإبداع ده على موقع كمشكاة: `,
-        url: url
-    };
-
     if (navigator.share) {
         try {
-            await navigator.share(shareData);
+            await navigator.share({ title: 'كمشكاة', text: `شوف المحتوى ده من موقع كمشكاة: ${title}`, url: url });
         } catch (err) { console.log('Share canceled'); }
     } else {
-        // Fallback for desktop browsers that don't support Web Share API
-        navigator.clipboard.writeText(`${shareData.text} ${shareData.url}`);
-        alert('تم نسخ الرابط والوصف! شاركه براحتك 😉');
+        navigator.clipboard.writeText(url);
+        alert('تم نسخ الرابط! شاركه براحتك 😉');
     }
 }
 
@@ -256,6 +364,25 @@ function openLightbox(src) {
 
 function closeLightbox() {
     document.getElementById('lightbox').classList.remove('active');
+}
+
+// Gallery Logic
+let visibleGalleryCount = 10;
+const totalGalleryImages = 2000;
+function renderGallery() {
+    const grid = document.getElementById('gallery-grid');
+    const loadMoreBtn = document.getElementById('load-more-gallery');
+    if(!grid) return;
+    let html = '';
+    for(let i=1; i<=visibleGalleryCount && i<=totalGalleryImages; i++) {
+        const height = [300, 400, 500][Math.floor(Math.random() * 3)]; 
+        html += `<div class="glass-panel rounded-2xl overflow-hidden break-inside-avoid mb-6 group relative fade-in border-0 shadow-sm"><div class="relative cursor-pointer" onclick="openLightbox('images/${i}.jpg')"><img src="images/${i}.jpg" class="w-full h-auto object-cover" loading="lazy" onerror="this.src='https://placehold.co/400x${height}/dcfce7/065f46?text=Design+${i}'"><div class="absolute inset-0 bg-emerald-900/40 opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col items-center justify-center gap-3"><div class="bg-white text-emerald-900 px-4 py-2 rounded-full font-bold flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition shadow-xl"><i data-lucide="zoom-in" class="w-4 h-4"></i> تكبير</div></div></div><!-- زر المشاركة المضاف --><div class="absolute top-3 left-3 opacity-0 group-hover:opacity-100 transition duration-300 z-10" onclick="event.stopPropagation()"><button onclick="shareContent('تصميم رقم ${i} من كمشكاة', 'https://kameshkah.com/gallery?img=${i}')" class="bg-white hover:bg-emerald-50 text-emerald-800 p-2 rounded-full shadow-lg transition transform hover:scale-110"><i data-lucide="share-2" class="w-5 h-5"></i></button></div></div>`;
+    }
+    grid.innerHTML = html;
+    lucide.createIcons();
+    if (loadMoreBtn) {
+        if (visibleGalleryCount >= totalGalleryImages) { loadMoreBtn.style.display = 'none'; } else { loadMoreBtn.style.display = 'inline-flex'; loadMoreBtn.innerHTML = `عرض المزيد (فاضل ${totalGalleryImages - visibleGalleryCount})`; }
+    }
 }
 
 function animateValue(obj, start, end, duration) {
