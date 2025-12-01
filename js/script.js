@@ -1,8 +1,6 @@
 /* المسار: js/script.js */
 
-// -------------------------------------------------------------------------
-// إعدادات Firebase (بيانات مشروعك الحقيقية)
-// -------------------------------------------------------------------------
+// إعدادات Firebase (تعمل مباشرة بدون Modules)
 const firebaseConfig = {
     apiKey: "AIzaSyCTRm9XNvVgmP-h_7qHZyQy-dEAqnTIrY4",
     authDomain: "kameshkah-8c9ed.firebaseapp.com",
@@ -14,11 +12,13 @@ const firebaseConfig = {
     databaseURL: "https://kameshkah-8c9ed-default-rtdb.firebaseio.com"
 };
 
-// تشغيل Firebase
+// متغيرات عامة
 let db;
 let analytics;
 
+// عند تحميل الصفحة
 document.addEventListener('DOMContentLoaded', () => {
+    // محاولة تشغيل Firebase
     try {
         if (typeof firebase !== 'undefined') {
             firebase.initializeApp(firebaseConfig);
@@ -26,228 +26,28 @@ document.addEventListener('DOMContentLoaded', () => {
             analytics = firebase.analytics();
             console.log("Firebase Connected Successfully ✅");
             
+            // تشغيل عداد اللايكات لو إحنا في المعرض
             if(document.getElementById('gallery-grid')) {
                 listenToLikes();
             }
         } else {
-            console.error("Firebase SDK not loaded");
+            console.warn("Firebase SDK not loaded via HTML scripts.");
         }
     } catch (e) {
-        console.error("Firebase Connection Failed ❌", e);
+        console.error("Firebase Error:", e);
     }
 
+    // تشغيل مكونات الموقع الأساسية
     loadComponents();
     
+    // تشغيل منطق كل صفحة حسب الموجود فيها
     if(document.getElementById('courses-grid')) initCoursesPage();
     if(document.getElementById('articles-grid')) initArticlesPage();
     if(document.getElementById('gallery-grid')) initGalleryPage();
     if(document.body.dataset.page === 'home') initHomePage();
 });
 
-// --- 1. بيانات الكورسات (تحديث 1 ديسمبر - 19 كورس) ---
-const coursesData = [
-    { 
-        id: 1, 
-        titleAr: "التسويق القائم على الحسابات (ABM) للشركات", 
-        titleEn: "Account-Based Marketing - ABM B2B", 
-        desc: "تعلم استراتيجيات التسويق الموجه للشركات لزيادة الكفاءة والأرباح.",
-        cat: "marketing", 
-        img: "images/c1.jpg", 
-        date: "01 Dec 2025", 
-        url: "https://www.udemy.com/course/account-based-marketing-increase-your-b2b-efficiency/?couponCode=01DECEMBER2025" 
-    },
-    { 
-        id: 2, 
-        titleAr: "إنشاء حملات التواصل المثالية على لينكد إن", 
-        titleEn: "Perfect LinkedIn Outreach Campaign", 
-        desc: "كيفية الوصول للعملاء والشركات وبناء شبكة علاقات قوية على LinkedIn.",
-        cat: "marketing", 
-        img: "images/c2.jpg", 
-        date: "01 Dec 2025", 
-        url: "https://www.udemy.com/course/how-to-create-your-perfect-linkedin-outreach-campaign/?couponCode=01DECEMBER2025" 
-    },
-    { 
-        id: 3, 
-        titleAr: "الدليل الشامل لزيادة مبيعات متجر Etsy", 
-        titleEn: "Etsy: Guide to Boosting Business", 
-        desc: "أسرار وطرق الترويج لمنتجاتك وزيادة مبيعاتك على منصة إتسي.",
-        cat: "business", 
-        img: "images/c3.jpg", 
-        date: "01 Dec 2025", 
-        url: "https://www.udemy.com/course/etsy-promotion/?couponCode=01DECEMBER2025" 
-    },
-    { 
-        id: 4, 
-        titleAr: "إعلانات جوجل 2025: زيادة المبيعات بالنقرات", 
-        titleEn: "Google Ads 2025: Drive Sales With PPC", 
-        desc: "تعلم كيفية إنشاء وإدارة حملات إعلانية ناجحة على جوجل.",
-        cat: "marketing", 
-        img: "images/c4.jpg", 
-        date: "01 Dec 2025", 
-        url: "https://www.udemy.com/course/google-ads-for-beginners-how-to-drive-sales-with-ppc/?couponCode=01DECEMBER2025" 
-    },
-    { 
-        id: 5, 
-        titleAr: "نظرة عامة على إطار عمل SAFe أجايل", 
-        titleEn: "SAFe (Scaled Agile Framework) Overview", 
-        desc: "فهم مبادئ العمل المرن (Agile) على مستوى المؤسسات الكبيرة.",
-        cat: "business", 
-        img: "images/c5.jpg", 
-        date: "01 Dec 2025", 
-        url: "https://www.udemy.com/course/safe-scaled-agile-framework/?couponCode=2025DECEMBERFIRST" 
-    },
-    { 
-        id: 6, 
-        titleAr: "شهادة مالك المنتج (Product Owner)", 
-        titleEn: "Product Owner Certification", 
-        desc: "دليل شامل لتصبح Product Owner معتمد وناجح في إدارة المنتجات.",
-        cat: "business", 
-        img: "images/c6.jpg", 
-        date: "01 Dec 2025", 
-        url: "https://www.udemy.com/course/a-csm-advanced-certified-scrum-master/?couponCode=2025DECEMBERFIRST" 
-    },
-    { 
-        id: 7, 
-        titleAr: "احتراف الأمن السيبراني: المعرفة والتقنيات", 
-        titleEn: "Mastering Cybersecurity Essentials", 
-        desc: "المعارف الأساسية والتقنيات الضرورية لحماية الأنظمة والبيانات.",
-        cat: "tech", 
-        img: "images/c7.jpg", 
-        date: "01 Dec 2025", 
-        url: "https://www.udemy.com/course/mastering-cybersecurity-essential-knowledge-and-techniques/?couponCode=2025DECEMBERFIRST" 
-    },
-    { 
-        id: 8, 
-        titleAr: "اختبارات سطر أوامر لينكس (+90 أمر)", 
-        titleEn: "Linux Commands Line Certification Test", 
-        desc: "تدريب عملي واختبارات لإتقان سطر الأوامر في نظام Linux.",
-        cat: "programming", 
-        img: "images/c8.jpg", 
-        date: "01 Dec 2025", 
-        url: "https://www.udemy.com/course/linux-commands-line-certification-prac-test-90-commands/?couponCode=NOV27FREE" 
-    },
-    { 
-        id: 9, 
-        titleAr: "ماستر كلاس تعديل الصور بـ لايت روم موبايل", 
-        titleEn: "Adobe Lightroom Mobile Masterclass", 
-        desc: "احترف تعديل الصور الفوتوغرافية باستخدام هاتفك وتطبيق لايت روم.",
-        cat: "graphic", 
-        img: "images/c9.jpg", 
-        date: "01 Dec 2025", 
-        url: "https://www.udemy.com/course/lightroom-mobile-course/?couponCode=9E15D948A610675D1A79" 
-    },
-    { 
-        id: 10, 
-        titleAr: "احتراف Claude Pro للأعمال والتسويق", 
-        titleEn: "Claude Pro Mastery: AI for Business", 
-        desc: "استخدام الذكاء الاصطناعي Claude Pro في التسويق والأتمتة.",
-        cat: "ai", 
-        img: "images/c10.jpg", 
-        date: "01 Dec 2025", 
-        url: "https://www.udemy.com/course/claude-pro-mastery-ai-for-business-marketing-automation/?couponCode=01DECEMBER2025" 
-    },
-    { 
-        id: 11, 
-        titleAr: "كورس البرمجة الشامل (HTML, CSS, Java)", 
-        titleEn: "Full Stack Programming Course", 
-        desc: "تعلم أساسيات الويب والبرمجة باستخدام Java و JavaScript.",
-        cat: "programming", 
-        img: "images/c11.jpg", 
-        date: "01 Dec 2025", 
-        url: "https://www.udemy.com/course/html-css-java-javascript-full-stack-programming-course/?couponCode=2C530EFECD00848D3F84" 
-    },
-    { 
-        id: 12, 
-        titleAr: "البرمجة كائنية التوجه C++ ومقابلات العمل", 
-        titleEn: "OOP in C++ & Interview Prep", 
-        desc: "إتقان مفاهيم OOP بلغة C++ والتحضير للأسئلة التقنية في المقابلات.",
-        cat: "programming", 
-        img: "images/c12.jpg", 
-        date: "01 Dec 2025", 
-        url: "https://www.udemy.com/course/cracking-cpp-interview/?couponCode=D3F99F70C58797AC5864" 
-    },
-    { 
-        id: 13, 
-        titleAr: "معسكر بايثون الكامل من الصفر للاحتراف", 
-        titleEn: "The Complete Python Bootcamp", 
-        desc: "ابدأ رحلتك في تعلم لغة بايثون من الأساسيات حتى المستوى المتقدم.",
-        cat: "programming", 
-        img: "images/c13.jpg", 
-        date: "01 Dec 2025", 
-        url: "https://www.udemy.com/course/the-complete-python-bootcamp-from-zero-to-expert/?couponCode=6BAFE17DEF20BEBDDE73" 
-    },
-    { 
-        id: 14, 
-        titleAr: "كورس قواعد البيانات الشامل (SQL & NoSQL)", 
-        titleEn: "SQL, MYSQL, POSTGRESQL & MONGODB", 
-        desc: "تعلم إدارة قواعد البيانات المختلفة في كورس واحد شامل.",
-        cat: "programming", 
-        img: "images/c14.jpg", 
-        date: "01 Dec 2025", 
-        url: "https://www.udemy.com/course/sql-mysql-postgresql-mongodb-all-in-one-database-course/?couponCode=370F0C34BF8BBC4672E9" 
-    },
-    { 
-        id: 15, 
-        titleAr: "برمجة بايثون: الكورس الكامل للنجاح", 
-        titleEn: "Python Programming: Complete Course", 
-        desc: "شرح وافي وعملي للغة بايثون وتطبيقاتها المختلفة.",
-        cat: "programming", 
-        img: "images/c15.jpg", 
-        date: "01 Dec 2025", 
-        url: "https://www.udemy.com/course/python-programming-the-complete-course-for-success/?couponCode=0D7303A8F49D6D25DBF9" 
-    },
-    { 
-        id: 16, 
-        titleAr: "معسكر تحليل البيانات باستخدام إكسل", 
-        titleEn: "Excel Data Analysis Bootcamp", 
-        desc: "تعلم كيفية تحليل البيانات الضخمة واستخراج النتائج باستخدام Excel.",
-        cat: "business", 
-        img: "images/c16.jpg", 
-        date: "01 Dec 2025", 
-        url: "https://www.udemy.com/course/the-complete-microsoft-excel-data-analysis-bootcamp/?couponCode=9962B5F78821BCE50159" 
-    },
-    { 
-        id: 17, 
-        titleAr: "خبير تحليل البيانات ببرنامج إكسل", 
-        titleEn: "Become a Data Analysis Expert", 
-        desc: "خطوات عملية لتصبح خبيراً في التعامل مع البيانات في مايكروسوفت إكسل.",
-        cat: "business", 
-        img: "images/c17.jpg", 
-        date: "01 Dec 2025", 
-        url: "https://www.udemy.com/course/microsoft-excel-data-analysis-become-a-data-analysis-expert/?couponCode=940C7B87F04BFBBD3F0A" 
-    },
-    { 
-        id: 18, 
-        titleAr: "لغة البرمجة R من المبتدئ للمحترف", 
-        titleEn: "R Programming Language Pro", 
-        desc: "تعلم لغة R المستخدمة بقوة في الإحصاء وتحليل البيانات.",
-        cat: "programming", 
-        img: "images/c18.jpg", 
-        date: "01 Dec 2025", 
-        url: "https://www.udemy.com/course/r-programming-r-programming-language-beginners-to-pro/?couponCode=B85F222239ECDB367519" 
-    },
-    { 
-        id: 19, 
-        titleAr: "إتقان تحليل بيانات إكسل بالدوال", 
-        titleEn: "Mastering Excel Analysis with Functions", 
-        desc: "استخدام الدوال والمعادلات المتقدمة لتحليل البيانات بدقة.",
-        cat: "business", 
-        img: "images/c19.jpg", 
-        date: "01 Dec 2025", 
-        url: "https://www.udemy.com/course/mastering-microsoft-excel-data-analysis-with-functions/?couponCode=0D58CDD4105F4CC23868" 
-    }
-];
-
-// --- 2. بيانات المقالات ---
-const articlesData = [
-    { id: 1, title: "فكك من جو التنين المجنح", excerpt: "يا صاحبي، السوشيال ميديا هرتنا كلام عن إنك لازم تكون سوبر مان..", content: "...", img: "images/a1.jpg", cat: "development", date: "28 Nov 2025" },
-    { id: 2, title: "الذكاء الاصطناعي والمستقبل", excerpt: "هل الـ AI هياخد مكاننا؟ تعال نشوف..", content: "...", img: "images/a2.jpg", cat: "tech", date: "2025/11/29" },
-    { id: 3, title: "إزاي تبدأ فري لانس صح؟", excerpt: "خطوات عملية عشان تبدأ شغلك الحر من غير تشتت.", content: "...", img: "images/a3.jpg", cat: "freelance", date: "30 Nov 2025" },
-    { id: 4, title: "أهمية البراندينج الشخصي", excerpt: "أنت براند ماشي على الأرض، استغل ده لصالحك.", content: "...", img: "images/a4.jpg", cat: "marketing", date: "01 Dec 2025" },
-    { id: 5, title: "نصائح لتعلم الإنجليزية", excerpt: "بلاش تحفظ كلمات، احفظ جمل ومواقف.", content: "...", img: "images/a5.jpg", cat: "languages", date: "02 Dec 2025" }
-];
-
-// --- 3. تحميل الهيدر والفوتر ---
+// --- دوال الهيدر والفوتر ---
 function loadComponents() {
     const header = `
     <nav class="fixed top-0 w-full glass-panel z-50 !bg-white/60 !border-0 !rounded-none backdrop-blur-md">
@@ -255,7 +55,6 @@ function loadComponents() {
             <a href="index.html" class="flex items-center gap-3 font-bold text-2xl text-emerald-800 hover:text-emerald-600 transition group">
                 <img src="images/logo.png" class="w-10 h-10 bg-white rounded-lg p-1 shadow-sm group-hover:rotate-12 transition" alt="L"> كمشكاة
             </a>
-            
             <div class="hidden md:flex gap-1 bg-white/40 p-1 rounded-full border border-white/60 shadow-sm">
                 <a href="index.html" class="px-5 py-2 rounded-full hover:bg-white text-slate-700 hover:text-emerald-700 transition text-sm font-bold" data-page="home">الرئيسية</a>
                 <a href="courses.html" class="px-5 py-2 rounded-full hover:bg-white text-slate-700 hover:text-emerald-700 transition text-sm font-bold" data-page="courses">كورسات</a>
@@ -264,7 +63,6 @@ function loadComponents() {
                 <a href="library.html" class="px-5 py-2 rounded-full hover:bg-white text-slate-700 hover:text-emerald-700 transition text-sm font-bold" data-page="library">مكتبة</a>
                 <a href="contact.html" class="px-5 py-2 rounded-full hover:bg-white text-slate-700 hover:text-emerald-700 transition text-sm font-bold" data-page="contact">تواصل</a>
             </div>
-
             <button class="md:hidden text-emerald-800 p-2" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
                 <i data-lucide="menu" class="w-7 h-7"></i>
             </button>
@@ -285,16 +83,71 @@ function loadComponents() {
     if(document.getElementById('header-ph')) document.getElementById('header-ph').innerHTML = header;
     if(document.getElementById('footer-ph')) document.getElementById('footer-ph').innerHTML = footer;
 
+    // تفعيل الزر النشط
     const page = document.body.dataset.page;
     if(page) document.querySelector(`[data-page="${page}"]`)?.classList.add('!bg-emerald-500', '!text-white', 'shadow-md');
-    lucide.createIcons();
+    
+    // تشغيل الأيقونات
+    if(typeof lucide !== 'undefined') lucide.createIcons();
 }
 
-// --- 4. منطق الكورسات (ديناميكي) ---
-let currentCat = 'all';
-let searchText = '';
-let visibleCoursesCount = 10;
 
+// --- بيانات الكورسات ---
+const coursesData = [
+    { id: 1, titleAr: "إتقان الفيديو السينمائي بالذكاء الاصطناعي", titleEn: "Cinematic AI Video Mastery", desc: "تعلم صناعة أفلام ومحتوى سينمائي باستخدام أدوات الذكاء الاصطناعي وكاب كات.", cat: "graphic", img: "images/c1.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/master-ai-filmmaking-with-veo3/?couponCode=DCD0DD65AC674C5A2D83" },
+    { id: 2, titleAr: "تدريب مايكروسوفت أوفيس الشامل", titleEn: "Master Excel, PowerPoint & Word", desc: "احترف أهم برامج الأوفيس للأعمال والدراسة من الصفر.", cat: "business", img: "images/c2.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/microsoft-office-training-master-excel-powerpoint-word/?couponCode=BISMILLAH-22" },
+    { id: 3, titleAr: "تطبيقات بايثون عملية للمبتدئين", titleEn: "Python Demonstrations For Practice", desc: "تمارين وتطبيقات عملية قوية لتعلم لغة بايثون.", cat: "programming", img: "images/c3.jpg", date: "28 Nov 2025", url: "https://www.udemy.com/course/python-for-beginners-demonstration-course/?couponCode=1C11EA262E5C5D7F7B19" },
+    { id: 4, titleAr: "كورس فوتوشوب من الصفر للاحتراف", titleEn: "Essential Photoshop Course", desc: "الدليل الكامل لتعلم أدوبي فوتوشوب وتصميم الجرافيك.", cat: "graphic", img: "images/c4.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/graphics-design-videoediting-course/?couponCode=52C59BEAB3917A923178" },
+    { id: 5, titleAr: "احتراف تصميم الشعارات", titleEn: "Master Logo Design (Ps & Ai)", desc: "تعلم تصميم اللوجوهات باستخدام فوتوشوب واليستريتور.", cat: "graphic", img: "images/c5.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/master-logo-design-with-photoshop-illustrator-zero-to-pro/?couponCode=024798D406787285E509" },
+    { id: 6, titleAr: "ماستر كلاس وظائف PowerShell", titleEn: "PowerShell Functions Master Class", desc: "احترف كتابة الوظائف والسكربتات في PowerShell.", cat: "programming", img: "images/c6.jpg", date: "28 Nov 2025", url: "https://www.udemy.com/course/powershell-functions-master-class/?couponCode=FDDCAD88AAD460F08E4D" },
+    { id: 7, titleAr: "أسرار النجاح الوظيفي (أفضل 1%)", titleEn: "Top 1% Career Secrets", desc: "مهارات لا تُدرس في المدارس للنجاح في الشركات.", cat: "business", img: "images/c7.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/become-a-corporate-winner/?couponCode=NOV2025FREE001" },
+    { id: 8, titleAr: "الدبلومة التنفيذية في إدارة الأعمال", titleEn: "Diploma in Business Management", desc: "أساسيات الإدارة وتنظيم الأعمال بشكل احترافي.", cat: "business", img: "images/c8.jpg", date: "29 Nov 2025", url: "https://www.udemy.com/course/executive-diploma-in-business-management-and-administration/?couponCode=C3AC6D445CD3368D662E" },
+    { id: 9, titleAr: "برنامج المدير التقني المعتمد (CTO)", titleEn: "Certified CTO Mastery Program", desc: "كيف تصبح مديراً تقنياً ناجحاً وتقود الفرق التكنولوجية.", cat: "business", img: "images/c9.jpg", date: "28 Nov 2025", url: "https://www.udemy.com/course/chief-technology-officercto-mastery-program/?couponCode=AI_NOV_03" },
+    { id: 10, titleAr: "الدبلومة التنفيذية في القيادة", titleEn: "Diploma in Leadership & Management", desc: "مهارات القيادة الفعالة وإدارة الفرق.", cat: "business", img: "images/c10.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/executive-diploma-in-leadership-and-management/?couponCode=226D25F47550DE5079A8" },
+    { id: 11, titleAr: "هندسة الذكاء الاصطناعي للقادة", titleEn: "Architecting Context-Driven AI", desc: "كيفية بناء استراتيجيات ذكاء اصطناعي فعالة للقادة.", cat: "business", img: "images/c11.jpg", date: "29 Nov 2025", url: "https://www.udemy.com/course/mcp-for-leaders-architecting-context-driven-ai/?couponCode=AI_NOV_03" },
+    { id: 12, titleAr: "دبلومة الإنجليزية للأعمال", titleEn: "Business English & Communications", desc: "حسن لغتك الإنجليزية للتواصل في بيئة العمل.", cat: "languages", img: "images/c12.jpg", date: "28 Nov 2025", url: "https://www.udemy.com/course/professional-diploma-in-business-english-and-communications/?couponCode=C85E9532336D20D4CEDC" },
+    { id: 13, titleAr: "تمارين بايثون NumPy لعلوم البيانات", titleEn: "Numpy For Data Science", desc: "تمارين كودينج حقيقية لإتقان مكتبة NumPy.", cat: "programming", img: "images/c13.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/python-numpy-exercises/?couponCode=NUMPY_FREE_NOV28" },
+    { id: 14, titleAr: "دبلومة التسويق والكوبي رايتينج", titleEn: "Social Media Marketing Diploma", desc: "احترف التسويق عبر السوشيال ميديا وكتابة المحتوى.", cat: "marketing", img: "images/c14.jpg", date: "29 Nov 2025", url: "https://www.udemy.com/course/professional-diploma-in-social-media-marketing-copywriting/?couponCode=2C44CF9853B582682E58" },
+    { id: 15, titleAr: "فهم TypeScript من البداية", titleEn: "Understanding TypeScript", desc: "دليلك الكامل لتعلم لغة TypeScript.", cat: "programming", img: "images/c15.jpg", date: "28 Nov 2025", url: "https://www.udemy.com/course/understanding-typescript-for-beginner-to-advanced/?couponCode=00FEDB74B00FC5E58E74" },
+    { id: 16, titleAr: "احتراف الجداول المحورية في إكسل", titleEn: "Excel Pivot Tables Mastery", desc: "تحليل البيانات باستخدام Pivot Tables والدوال.", cat: "accounting", img: "images/c16.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/microsoft-excel-pivot-tables-with-formulas-functions/?couponCode=BISMILLAH19" },
+    { id: 17, titleAr: "علم الأحياء الدقيقة للجميع", titleEn: "Microbiology for All", desc: "فهم الخلايا، الفيروسات، المناعة والأمراض بشكل مبسط.", cat: "science", img: "images/c17.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/microbiology-for-all-cells-viruses-immunity-diseases/?couponCode=AEFE6BBE0485B7A4906C" },
+    { id: 18, titleAr: "هندسة الأوامر (Prompt Engineering)", titleEn: "Practical Prompt Engineering", desc: "احترف كتابة الأوامر للذكاء الاصطناعي لتوفير الوقت والجهد.", cat: "ai", img: "images/c18.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/prompt-engineering-chatgpt-gemini/?couponCode=72DF3DEEB2D4FC6A3962" },
+    { id: 19, titleAr: "شهادة إدارة وتطوير المنتجات", titleEn: "Product Management & Development", desc: "تعلم كيفية إدارة دورة حياة المنتج من الفكرة للإطلاق.", cat: "business", img: "images/c19.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/professional-certificate-product-management-and-development/?couponCode=600EE7957B9E2228E767" },
+    { id: 20, titleAr: "شهادة التسويق عبر السوشيال ميديا (SMM)", titleEn: "SMM Social Media Marketing", desc: "استراتيجيات احترافية للتسويق على منصات التواصل الاجتماعي.", cat: "marketing", img: "images/c20.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/professional-certificate-in-smm-social-media-marketing/?couponCode=6D3BB6F4137BEFAB75BB" },
+    { id: 21, titleAr: "كورس PHP OOP للمبتدئين 2025", titleEn: "Ultimate PHP OOP Crash Course", desc: "أساسيات البرمجة كائنية التوجه (OOP) في لغة PHP.", cat: "programming", img: "images/c21.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/the-ultimate-php-oop-crash-course-for-beginners-2025/?couponCode=PHPOOPCRASH30" },
+    { id: 22, titleAr: "الشهادة الاحترافية في إدارة التسويق", titleEn: "Marketing & Marketing Management", desc: "شهادة شاملة في مفاهيم وإدارة التسويق الحديث.", cat: "marketing", img: "images/c22.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/professional-certificate-in-marketing-and-marketing-management/?couponCode=CP251129CMG4" },
+    { id: 23, titleAr: "أساسيات تطوير وبرمجة بايثون", titleEn: "Python Development Fundamentals", desc: "مدخل قوي لعالم البرمجة باستخدام لغة Python.", cat: "programming", img: "images/c23.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/python-development-and-python-programming-fundamentals/?couponCode=F856FC080FE82C71EEAD" },
+    { id: 24, titleAr: "تصميم لوحات البيانات في إكسل", titleEn: "Excel Data Visualization & Dashboard", desc: "كيفية تحويل البيانات الجامدة إلى لوحات تحكم تفاعلية.", cat: "business", img: "images/c24.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/excel-data-visualization-and-dashboard-design-masterclass/?couponCode=70FB69AFF604F52AC49A" },
+    { id: 25, titleAr: "الشهادة التنفيذية في قيادة الأعمال", titleEn: "Executive Cert in Business Leadership", desc: "مهارات القيادة العليا وإدارة المؤسسات بفعالية.", cat: "business", img: "images/c25.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/executive-certificate-in-business-leadership/?couponCode=3B25FD400CDFD43269A6" },
+    { id: 26, titleAr: "أسئلة امتحان Azure AI Fundamentals", titleEn: "AI-900 Azure AI Practice Exam", desc: "تحضير شامل لامتحان مايكروسوفت للذكاء الاصطناعي AI-900.", cat: "ai", img: "images/c26.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/ai-900-azure-ai-fundamentals-exam/?couponCode=F5428B1E90150726578E" },
+    { id: 27, titleAr: "منهجيات البحث في الاستراتيجية", titleEn: "Research Methodologies in Strategy", desc: "طرق البحث العلمي لتطوير المنتجات وبناء الاستراتيجيات.", cat: "business", img: "images/c27.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/research-methodologies-in-strategy-and-product-development/?couponCode=FB8BE3278173BCD23D1B" },
+    { id: 28, titleAr: "دبلومة استراتيجيات الموارد البشرية", titleEn: "HR Strategy Executive Diploma", desc: "تخطيط وإدارة الموارد البشرية بشكل استراتيجي.", cat: "business", img: "images/c28.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/executive-diploma-in-human-resources-strategy/?couponCode=890F2F84E998248813A9" },
+    { id: 29, titleAr: "كورس الويب الشامل (CSS, JS, PHP)", titleEn: "Full Stack Web Course", desc: "تعلم تطوير المواقع بالكامل باستخدام Bootstrap و PHP.", cat: "programming", img: "images/c29.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/css-bootstrap-javascript-and-php-stack-complete-course/?couponCode=525D195D744266D4105B" },
+    { id: 30, titleAr: "الشهادة الاحترافية للسكرتارية", titleEn: "Professional Certificate of Secretary", desc: "المهارات الأساسية والمتقدمة لوظيفة السكرتارية.", cat: "business", img: "images/c30.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/professional-certificate-of-secretary/?couponCode=048BAE1B5C5AF721F9BD" },
+    { id: 31, titleAr: "تحليل البيانات بالإكسل (شامل)", titleEn: "Excel Data Analysis Basic to Advanced", desc: "من الأساسيات إلى الاحتراف في تحليل البيانات بـ Excel.", cat: "business", img: "images/c31.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/the-complete-microsoft-excel-data-analysis-basic-to-advanced/?couponCode=FE1975778A6665ED717D" },
+    { id: 32, titleAr: "كورس إكسل الكامل: من المبتدئ للخبير", titleEn: "Complete Microsoft Excel Course", desc: "احترف الإكسل بكل تفاصيله وأدواته.", cat: "business", img: "images/c32.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/the-complete-microsoft-excel-course-beginner-to-expert/?couponCode=CP251129CMG4" },
+    { id: 33, titleAr: "باوربوينت من الصفر للاحتراف", titleEn: "Microsoft PowerPoint Presentation Pro", desc: "تصميم عروض تقديمية احترافية ومؤثرة.", cat: "business", img: "images/c33.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/microsoft-powerpoint-from-beginner-to-presentation-pro/?couponCode=AA18E6A6986395E97F2B" },
+    { id: 34, titleAr: "الكوتشينج والتوجيه المهني", titleEn: "Certificate in Career Coaching", desc: "كيف تصبح موجهاً مهنياً وتساعد الآخرين في مسارهم.", cat: "development", img: "images/c34.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/professional-certificate-in-career-coaching/?couponCode=BF21BF47EB52BF4032F2" },
+    { id: 35, titleAr: "تأمين مواقع ووردبريس للمبتدئين", titleEn: "Secure Your Wordpress Website", desc: "خطوات عملية لحماية موقعك الووردبريس من الاختراق.", cat: "programming", img: "images/c35.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/secure-your-wordpress-website-for-beginners/?couponCode=CP251129CMG4" },
+    { id: 36, titleAr: "تدريب التعليق الصوتي (فويس أوفر)", titleEn: "Voice-Over Artist Training", desc: "تعلم التعليق الصوتي للكتب الصوتية والإعلانات.", cat: "development", img: "images/c36.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/voice-over-artist-training-for-audiobook-courses-and-promos/?couponCode=9522535FCDC5FD23997F" },
+    { id: 37, titleAr: "إتقان معادلات ورسوم إكسل البيانية", titleEn: "Excel Data Mastery: Formulas & Charts", desc: "تمكن من أهم دوال الإكسل وإنشاء الرسوم البيانية المتقدمة.", cat: "business", img: "images/c37.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/excel-data-mastery-formulas-functions-charts-and-graphs/?couponCode=A2E4AC5BFD9907C054D7" },
+    { id: 38, titleAr: "الماستر كلاس في تحليل بيانات إكسل", titleEn: "Excel Data Analysis Masterclass", desc: "كورس تحليلي شامل لاستخدام الإكسل في البيزنس.", cat: "business", img: "images/c38.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/excel-data-analysis-the-complete-analysis-masterclass/?couponCode=827F78F6B54CADF2EA33" },
+    { id: 39, titleAr: "معسكر C# لبناء تطبيقات الويب", titleEn: "Ultimate C# Bootcamp & API", desc: "تعلم لغة C# وابنِ تطبيقات ويب وواجهات API حديثة.", cat: "programming", img: "images/c39.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/the-ultimate-c-bootcamp-build-modern-web-api-apps/?couponCode=A61C381BD13757B4B901" },
+    { id: 40, titleAr: "شهادة إدارة العلاقات العامة والاتصال", titleEn: "Public Relations & Communication", desc: "فنون إدارة العلاقات العامة والتواصل المؤسسي الفعال.", cat: "business", img: "images/c40.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/certificate-in-public-relations-and-communication-management/?couponCode=0B1616E5ABAD96D5717D" },
+    { id: 41, titleAr: "كورس لغة C الكامل من البداية", titleEn: "Complete C Programming Course", desc: "تعلم أساسيات البرمجة بلغة C من الصفر حتى الاحتراف.", cat: "programming", img: "images/c41.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/the-complete-c-programming-course-for-basic-to-expert/?couponCode=C42CFBB91BC3FB88DE6D" },
+    { id: 42, titleAr: "تعلم تعلم الآلة مع بايثون", titleEn: "Machine Learning with Python A-Z", desc: "دليل شامل لتعلم الـ Machine Learning وتطبيقاته ببايثون.", cat: "ai", img: "images/c42.jpg", date: "30 Nov 2025", url: "https://www.udemy.com/course/learn-machine-learning-course-with-python-ml/?couponCode=6390AE52CBFAFD6054BF" }
+];
+
+// --- بيانات المقالات ---
+const articlesData = [
+    { id: 1, title: "فكك من جو التنين المجنح", excerpt: "يا صاحبي، السوشيال ميديا هرتنا كلام عن إنك لازم تكون سوبر مان..", content: "...", img: "images/a1.jpg", cat: "development", date: "28 Nov 2025" },
+    { id: 2, title: "الذكاء الاصطناعي والمستقبل", excerpt: "هل الـ AI هياخد مكاننا؟ تعال نشوف..", content: "...", img: "images/a2.jpg", cat: "tech", date: "2025/11/29" },
+    { id: 3, title: "إزاي تبدأ فري لانس صح؟", excerpt: "خطوات عملية عشان تبدأ شغلك الحر من غير تشتت.", content: "...", img: "images/a3.jpg", cat: "freelance", date: "30 Nov 2025" },
+    { id: 4, title: "أهمية البراندينج الشخصي", excerpt: "أنت براند ماشي على الأرض، استغل ده لصالحك.", content: "...", img: "images/a4.jpg", cat: "marketing", date: "01 Dec 2025" },
+    { id: 5, title: "نصائح لتعلم الإنجليزية", excerpt: "بلاش تحفظ كلمات، احفظ جمل ومواقف.", content: "...", img: "images/a5.jpg", cat: "languages", date: "02 Dec 2025" }
+];
+
+// --- دوال الصفحات ---
 function renderFilters() {
     const filterContainer = document.getElementById('course-filters');
     if (!filterContainer) return;
@@ -372,6 +225,7 @@ function renderCourses() {
     }
 }
 
+// دوال مساعدة
 function getCatName(cat) {
     const names = { 
         'graphic': 'جرافيك', 
@@ -389,31 +243,56 @@ function getCatName(cat) {
     return names[cat] || cat;
 }
 
-// --- 5. منطق المقالات ---
-let currentArticleCat = 'all';
-let searchArticleText = '';
+let currentCat = 'all';
+let searchText = '';
+let visibleCoursesCount = 10;
+
+function initCoursesPage() {
+    renderFilters();
+    renderCourses();
+    document.getElementById('search-input')?.addEventListener('keyup', (e) => {
+        searchText = e.target.value;
+        visibleCoursesCount = 10;
+        renderCourses();
+    });
+    document.getElementById('load-more-courses')?.addEventListener('click', () => {
+        visibleCoursesCount += 10;
+        renderCourses();
+    });
+}
+
+function initArticlesPage() {
+    renderArticles();
+    document.querySelectorAll('.article-filter-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            document.querySelectorAll('.article-filter-btn').forEach(b => b.classList.remove('active', 'bg-emerald-600', 'text-white'));
+            e.target.classList.add('active', 'bg-emerald-600', 'text-white');
+            currentArticleCat = e.target.dataset.cat;
+            renderArticles();
+        });
+    });
+    document.getElementById('article-search-input')?.addEventListener('keyup', (e) => {
+        searchArticleText = e.target.value;
+        renderArticles();
+    });
+}
 
 function renderArticles() {
     const grid = document.getElementById('articles-grid');
     if(!grid) return;
-
-    const filtered = articlesData.filter(a => {
+    // ... نفس كود المقالات السابق ...
+     const filtered = articlesData.filter(a => {
         const matchCat = currentArticleCat === 'all' || a.cat === currentArticleCat;
         const matchSearch = a.title.includes(searchArticleText) || a.excerpt.includes(searchArticleText);
         return matchCat && matchSearch;
     });
-
-    if(filtered.length === 0) {
-        grid.innerHTML = `<div class="text-center py-10 text-slate-500 font-bold">مفيش مقالات بالاسم ده يا فنان 🤷‍♂️</div>`;
-        return;
-    }
-
+    if(filtered.length === 0) { grid.innerHTML = `<div class="text-center py-10 text-slate-500 font-bold">مفيش مقالات بالاسم ده يا فنان 🤷‍♂️</div>`; return; }
     grid.innerHTML = filtered.map(a => `
         <div class="glass-panel p-5 rounded-2xl flex flex-col md:flex-row gap-5 items-center hover:bg-white/60 transition group border border-white/60">
             <img src="${a.img}" class="w-full md:w-48 h-32 rounded-xl object-cover shadow-sm group-hover:scale-105 transition" onerror="this.src='https://placehold.co/400x300/dcfce7/065f46?text=Article'">
             <div class="text-center md:text-right flex-1">
                 <div class="flex items-center gap-2 mb-2 justify-center md:justify-start">
-                    <span class="bg-emerald-100 text-emerald-800 text-xs px-2 py-1 rounded-full font-bold">${getArticleCatName(a.cat)}</span>
+                    <span class="bg-emerald-100 text-emerald-800 text-xs px-2 py-1 rounded-full font-bold">${getCatName(a.cat)}</span>
                     <span class="text-slate-500 text-xs font-semibold">${a.date}</span>
                 </div>
                 <h3 class="text-xl font-bold mb-2 text-emerald-950">${a.title}</h3>
@@ -425,13 +304,22 @@ function renderArticles() {
     lucide.createIcons();
 }
 
-function getArticleCatName(cat) {
-    return getCatName(cat);
-}
+// متغيرات المقالات
+let currentArticleCat = 'all';
+let searchArticleText = '';
 
-// --- 6. منطق المعرض (اللايكات الحقيقية) ---
+
+// --- منطق المعرض واللايكات ---
 let visibleGalleryCount = 10;
 const totalGalleryImages = 2000;
+
+function initGalleryPage() {
+    renderGallery();
+    document.getElementById('load-more-gallery')?.addEventListener('click', () => {
+        visibleGalleryCount += 10;
+        renderGallery();
+    });
+}
 
 function renderGallery() {
     const grid = document.getElementById('gallery-grid');
@@ -441,24 +329,20 @@ function renderGallery() {
     let html = '';
     for(let i=1; i<=visibleGalleryCount && i<=totalGalleryImages; i++) {
         const height = [300, 400, 500][Math.floor(Math.random() * 3)]; 
-        
         html += `
             <div class="glass-panel rounded-2xl overflow-hidden break-inside-avoid mb-6 group relative fade-in border-0 shadow-sm">
                 <div class="relative cursor-pointer" onclick="openLightbox('images/${i}.jpg')">
                     <img src="images/${i}.jpg" class="w-full h-auto object-cover" 
                          loading="lazy"
                          onerror="this.src='https://placehold.co/400x${height}/dcfce7/065f46?text=Design+${i}'">
-                    
                     <div class="absolute inset-0 bg-emerald-900/40 opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col items-center justify-center gap-3">
                         <div class="bg-white text-emerald-900 px-4 py-2 rounded-full font-bold flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition shadow-xl">
                             <i data-lucide="zoom-in" class="w-4 h-4"></i> تكبير
                         </div>
                     </div>
-
                     <div class="absolute top-3 left-3 opacity-0 group-hover:opacity-100 transition duration-300 z-10" onclick="event.stopPropagation()">
                         <button onclick="shareContent('تصميم رقم ${i} من كمشكاة', 'https://kameshkah.com/gallery?img=${i}')" class="bg-white hover:bg-emerald-50 text-emerald-800 p-2 rounded-full shadow-lg transition transform hover:scale-110"><i data-lucide="share-2" class="w-5 h-5"></i></button>
                     </div>
-
                     <div class="absolute bottom-3 right-3 z-10" onclick="event.stopPropagation()">
                         <button id="like-btn-${i}" onclick="toggleLike(${i})" class="bg-white/90 hover:bg-white text-slate-400 p-2 px-3 rounded-full shadow-lg transition flex items-center gap-1 group/like">
                             <i data-lucide="heart" class="w-5 h-5 transition-colors group-hover/like:text-red-500" id="heart-icon-${i}"></i>
@@ -471,16 +355,17 @@ function renderGallery() {
     }
     grid.innerHTML = html;
     lucide.createIcons();
-    listenToLikes();
+    
+    // تفعيل استماع اللايكات لو Firebase شغال
+    if(db) listenToLikes();
 
     if (loadMoreBtn) {
         if (visibleGalleryCount >= totalGalleryImages) { loadMoreBtn.style.display = 'none'; } else { loadMoreBtn.style.display = 'inline-flex'; loadMoreBtn.innerHTML = `عرض المزيد (فاضل ${totalGalleryImages - visibleGalleryCount})`; }
     }
 }
 
-// دالة اللايك
 window.toggleLike = function(imgId) {
-    if (!db) { alert("جاري الاتصال بالسيرفر.. انتظر لحظة!"); return; }
+    if (!db) { alert("جاري الاتصال بالسيرفر.. تأكد من الإنترنت!"); return; }
     const likeRef = db.ref('likes/' + imgId);
     const isLiked = localStorage.getItem(`liked_${imgId}`);
 
@@ -524,12 +409,11 @@ function updateHeartUI(imgId, isLiked) {
     }
 }
 
-// --- 7. Helper Functions ---
+// --- دوال عامة ---
 async function shareContent(title, url) {
     if (navigator.share) {
-        try {
-            await navigator.share({ title: 'كمشكاة', text: `شوف المحتوى ده من موقع كمشكاة: ${title}`, url: url });
-        } catch (err) { console.log('Share canceled'); }
+        try { await navigator.share({ title: 'كمشكاة', text: `شوف المحتوى ده: ${title}`, url: url }); } 
+        catch (err) { console.log('Share canceled'); }
     } else {
         navigator.clipboard.writeText(url);
         alert('تم نسخ الرابط! شاركه براحتك 😉');
@@ -542,10 +426,7 @@ function openLightbox(src) {
     document.getElementById('lightbox-download').href = src;
     lb.classList.add('active');
 }
-
-function closeLightbox() {
-    document.getElementById('lightbox').classList.remove('active');
-}
+function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); }
 
 function initHomePage() {
     const counters = document.querySelectorAll('.counter-number');
@@ -554,45 +435,6 @@ function initHomePage() {
         animateValue(counter, 0, target, 2000);
     });
 }
-
-function initCoursesPage() {
-    renderFilters();
-    renderCourses();
-    document.getElementById('search-input')?.addEventListener('keyup', (e) => {
-        searchText = e.target.value;
-        visibleCoursesCount = 10;
-        renderCourses();
-    });
-    document.getElementById('load-more-courses')?.addEventListener('click', () => {
-        visibleCoursesCount += 10;
-        renderCourses();
-    });
-}
-
-function initArticlesPage() {
-    renderArticles();
-    document.querySelectorAll('.article-filter-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            document.querySelectorAll('.article-filter-btn').forEach(b => b.classList.remove('active', 'bg-emerald-600', 'text-white'));
-            e.target.classList.add('active', 'bg-emerald-600', 'text-white');
-            currentArticleCat = e.target.dataset.cat;
-            renderArticles();
-        });
-    });
-    document.getElementById('article-search-input')?.addEventListener('keyup', (e) => {
-        searchArticleText = e.target.value;
-        renderArticles();
-    });
-}
-
-function initGalleryPage() {
-    renderGallery();
-    document.getElementById('load-more-gallery')?.addEventListener('click', () => {
-        visibleGalleryCount += 10;
-        renderGallery();
-    });
-}
-
 function animateValue(obj, start, end, duration) {
     let startTimestamp = null;
     const step = (timestamp) => {
