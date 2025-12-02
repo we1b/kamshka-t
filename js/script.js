@@ -44,9 +44,91 @@ document.addEventListener('DOMContentLoaded', () => {
     if(document.body.dataset.page === 'home') initHomePage();
 });
 
-// --- 1. بيانات الكورسات (تحديث: 14 كورس جديد في البداية + القديم) ---
+// --- 1. بيانات الكورسات (تحديث: 8 جداد في الأول + 50 قديم) ---
 const coursesData = [
-    // --- الكورسات الجديدة (14 كورس) ---
+    // --- الكورسات الجديدة (أحدث 8) ---
+    { 
+        id: 201, 
+        titleAr: "دليل التحضير الكامل لامتحان Github Copilot", 
+        titleEn: "Github Copilot Exam Preparation Guide", 
+        desc: "دليل شامل لاجتياز امتحان GH-300 واحتراف استخدام مساعد البرمجة بالذكاء الاصطناعي.",
+        cat: "ai", 
+        img: "images/c201.jpg", 
+        date: "02 Dec 2025", 
+        url: "https://www.udemy.com/course/gh-300-github-copilot-exam-preparation/?couponCode=SKILLS2026" 
+    },
+    { 
+        id: 202, 
+        titleAr: "تحليل الأعمال للمديرين باستخدام Microsoft Copilot", 
+        titleEn: "Business Analysis with Microsoft Copilot", 
+        desc: "كيف تستخدم الذكاء الاصطناعي لتحليل البيانات واتخاذ قرارات إدارية ذكية.",
+        cat: "business", 
+        img: "images/c202.jpg", 
+        date: "02 Dec 2025", 
+        url: "https://www.udemy.com/course/business-analysis-for-executives-with-microsoft-copilot/?couponCode=SKILLS2026" 
+    },
+    { 
+        id: 203, 
+        titleAr: "مقدمة في كتابة المحتوى المتوافق مع السيو (SEO)", 
+        titleEn: "Introduction To SEO Based Content Writing", 
+        desc: "تعلم أساسيات كتابة المحتوى الذي يتصدر نتائج البحث ويجذب الزوار.",
+        cat: "marketing", 
+        img: "images/c203.jpg", 
+        date: "02 Dec 2025", 
+        url: "https://www.udemy.com/course/seo-based-content-writing/?couponCode=01DEC25" 
+    },
+    { 
+        id: 204, 
+        titleAr: "كورس مطور مواقع ووردبريس الكامل", 
+        titleEn: "Complete Wordpress Website Developer Course", 
+        desc: "تعلم تطوير وبناء مواقع ووردبريس احترافية من الألف إلى الياء.",
+        cat: "programming", 
+        img: "images/c204.jpg", 
+        date: "02 Dec 2025", 
+        url: "https://www.udemy.com/course/the-complete-wordpress-developer-course-w/?couponCode=600D67A32D0C50BBC246" 
+    },
+    { 
+        id: 205, 
+        titleAr: "إنشاء موقع ووردبريس باستخدام Elementor", 
+        titleEn: "Make a WordPress Website with Elementor", 
+        desc: "تصميم مواقع ووردبريس جذابة بسهولة باستخدام أداة Elementor.",
+        cat: "programming", 
+        img: "images/c205.jpg", 
+        date: "02 Dec 2025", 
+        url: "https://www.udemy.com/course/make-a-wordpress-website-with-elementor/?couponCode=02DECEMBER2025" 
+    },
+    { 
+        id: 206, 
+        titleAr: "البحث عن الكلمات المفتاحية من الصفر (SEO)", 
+        titleEn: "Keyword Research From Scratch", 
+        desc: "كيفية إيجاد الكلمات المفتاحية المربحة لفتح فرص جديدة في السيو.",
+        cat: "marketing", 
+        img: "images/c206.jpg", 
+        date: "02 Dec 2025", 
+        url: "https://www.udemy.com/course/keyword_research/?couponCode=02DECEMBER2025" 
+    },
+    { 
+        id: 207, 
+        titleAr: "مايكروسوفت إكسل 101: من المبتدئ للمتقدم", 
+        titleEn: "Microsoft Excel 101: Beginners to Advanced", 
+        desc: "كورس شامل في الإكسل يغطي كل الأساسيات والتقنيات المتقدمة.",
+        cat: "business", 
+        img: "images/c207.jpg", 
+        date: "02 Dec 2025", 
+        url: "https://www.udemy.com/course/microsoft-excel-101-excel-from-beginners-to-advanced/?couponCode=22DCF8EDF4EFA3D3D1FD" 
+    },
+    { 
+        id: 208, 
+        titleAr: "نقل موقع ووردبريس إلى Cloudways 2025", 
+        titleEn: "Migrate WordPress Website to Cloudways", 
+        desc: "خطوات عملية لنقل موقعك الووردبريس إلى استضافة Cloudways السريعة.",
+        cat: "programming", 
+        img: "images/c208.jpg", 
+        date: "02 Dec 2025", 
+        url: "https://www.udemy.com/course/como-migrar-un-sitio-web-wordpress-a-cloudways/?couponCode=MIG-CLO19" 
+    },
+
+    // --- الكورسات السابقة (101-114) ---
     { 
         id: 101, 
         titleAr: "بناء 3 تطبيقات أندرويد من الصفر بجافا", 
@@ -188,7 +270,7 @@ const coursesData = [
         url: "https://www.udemy.com/course/mastering-javascript-and-jquery-course-beginners-to-advanced/?couponCode=DA2615EA661119B527D0" 
     },
 
-    // --- الكورسات القديمة (36 كورس) ---
+    // --- الكورسات القديمة (1-36) ---
     { 
         id: 1, 
         titleAr: "ChatGPT لإدارة المنتجات والابتكار", 
@@ -390,194 +472,64 @@ const coursesData = [
         url: "https://www.udemy.com/course/ultimate-microsoft-excel-with-data-analysis-vba-macros/?couponCode=C0F6B592241BC16B7821" 
     },
     { 
-        id: 21, 
-        titleAr: "التسويق القائم على الحسابات (ABM) للشركات", 
-        titleEn: "Account-Based Marketing - ABM B2B", 
-        desc: "تعلم استراتيجيات التسويق الموجه للشركات لزيادة الكفاءة والأرباح.",
-        cat: "marketing", 
-        img: "images/c21.jpg", 
-        date: "01 Dec 2025", 
-        url: "https://www.udemy.com/course/account-based-marketing-increase-your-b2b-efficiency/?couponCode=01DECEMBER2025" 
-    },
-    { 
-        id: 22, 
-        titleAr: "إنشاء حملات التواصل المثالية على لينكد إن", 
-        titleEn: "Perfect LinkedIn Outreach Campaign", 
-        desc: "كيفية الوصول للعملاء والشركات وبناء شبكة علاقات قوية على LinkedIn.",
-        cat: "marketing", 
-        img: "images/c22.jpg", 
-        date: "01 Dec 2025", 
-        url: "https://www.udemy.com/course/how-to-create-your-perfect-linkedin-outreach-campaign/?couponCode=01DECEMBER2025" 
-    },
-    { 
-        id: 23, 
-        titleAr: "الدليل الشامل لزيادة مبيعات متجر Etsy", 
-        titleEn: "Etsy: Guide to Boosting Business", 
-        desc: "أسرار وطرق الترويج لمنتجاتك وزيادة مبيعاتك على منصة إتسي.",
-        cat: "business", 
-        img: "images/c23.jpg", 
-        date: "01 Dec 2025", 
-        url: "https://www.udemy.com/course/etsy-promotion/?couponCode=01DECEMBER2025" 
-    },
-    { 
-        id: 24, 
-        titleAr: "إعلانات جوجل 2025: زيادة المبيعات بالنقرات", 
-        titleEn: "Google Ads 2025: Drive Sales With PPC", 
-        desc: "تعلم كيفية إنشاء وإدارة حملات إعلانية ناجحة على جوجل.",
-        cat: "marketing", 
-        img: "images/c24.jpg", 
-        date: "01 Dec 2025", 
-        url: "https://www.udemy.com/course/google-ads-for-beginners-how-to-drive-sales-with-ppc/?couponCode=01DECEMBER2025" 
-    },
-    { 
-        id: 25, 
-        titleAr: "نظرة عامة على إطار عمل SAFe أجايل", 
-        titleEn: "SAFe (Scaled Agile Framework) Overview", 
-        desc: "فهم مبادئ العمل المرن (Agile) على مستوى المؤسسات الكبيرة.",
-        cat: "business", 
-        img: "images/c25.jpg", 
-        date: "01 Dec 2025", 
-        url: "https://www.udemy.com/course/safe-scaled-agile-framework/?couponCode=2025DECEMBERFIRST" 
-    },
-    { 
-        id: 26, 
-        titleAr: "شهادة مالك المنتج (Product Owner)", 
-        titleEn: "Product Owner Certification", 
-        desc: "دليل شامل لتصبح Product Owner معتمد وناجح في إدارة المنتجات.",
-        cat: "business", 
-        img: "images/c26.jpg", 
-        date: "01 Dec 2025", 
-        url: "https://www.udemy.com/course/a-csm-advanced-certified-scrum-master/?couponCode=2025DECEMBERFIRST" 
-    },
-    { 
-        id: 27, 
-        titleAr: "احتراف الأمن السيبراني: المعرفة والتقنيات", 
-        titleEn: "Mastering Cybersecurity Essentials", 
-        desc: "المعارف الأساسية والتقنيات الضرورية لحماية الأنظمة والبيانات.",
-        cat: "tech", 
-        img: "images/c27.jpg", 
-        date: "01 Dec 2025", 
-        url: "https://www.udemy.com/course/mastering-cybersecurity-essential-knowledge-and-techniques/?couponCode=2025DECEMBERFIRST" 
-    },
-    { 
-        id: 28, 
-        titleAr: "اختبارات سطر أوامر لينكس (+90 أمر)", 
-        titleEn: "Linux Commands Line Certification Test", 
-        desc: "تدريب عملي واختبارات لإتقان سطر الأوامر في نظام Linux.",
-        cat: "programming", 
-        img: "images/c28.jpg", 
-        date: "01 Dec 2025", 
-        url: "https://www.udemy.com/course/linux-commands-line-certification-prac-test-90-commands/?couponCode=NOV27FREE" 
-    },
-    { 
-        id: 29, 
-        titleAr: "ماستر كلاس تعديل الصور بـ لايت روم موبايل", 
-        titleEn: "Adobe Lightroom Mobile Masterclass", 
-        desc: "احترف تعديل الصور الفوتوغرافية باستخدام هاتفك وتطبيق لايت روم.",
-        cat: "graphic", 
-        img: "images/c29.jpg", 
-        date: "01 Dec 2025", 
-        url: "https://www.udemy.com/course/lightroom-mobile-course/?couponCode=9E15D948A610675D1A79" 
-    },
-    { 
-        id: 30, 
-        titleAr: "احتراف Claude Pro للأعمال والتسويق", 
-        titleEn: "Claude Pro Mastery: AI for Business", 
-        desc: "استخدام الذكاء الاصطناعي Claude Pro في التسويق والأتمتة.",
-        cat: "ai", 
-        img: "images/c30.jpg", 
-        date: "01 Dec 2025", 
-        url: "https://www.udemy.com/course/claude-pro-mastery-ai-for-business-marketing-automation/?couponCode=01DECEMBER2025" 
-    },
-    { 
-        id: 31, 
-        titleAr: "كورس البرمجة الشامل (HTML, CSS, Java)", 
-        titleEn: "Full Stack Programming Course", 
-        desc: "تعلم أساسيات الويب والبرمجة باستخدام Java و JavaScript.",
-        cat: "programming", 
-        img: "images/c31.jpg", 
-        date: "01 Dec 2025", 
-        url: "https://www.udemy.com/course/html-css-java-javascript-full-stack-programming-course/?couponCode=2C530EFECD00848D3F84" 
-    },
-    { 
-        id: 32, 
-        titleAr: "البرمجة كائنية التوجه C++ ومقابلات العمل", 
-        titleEn: "OOP in C++ & Interview Prep", 
-        desc: "إتقان مفاهيم OOP بلغة C++ والتحضير للأسئلة التقنية في المقابلات.",
-        cat: "programming", 
-        img: "images/c32.jpg", 
-        date: "01 Dec 2025", 
-        url: "https://www.udemy.com/course/cracking-cpp-interview/?couponCode=D3F99F70C58797AC5864" 
-    },
-    { 
-        id: 33, 
-        titleAr: "معسكر بايثون الكامل من الصفر للاحتراف", 
-        titleEn: "The Complete Python Bootcamp", 
-        desc: "ابدأ رحلتك في تعلم لغة بايثون من الأساسيات حتى المستوى المتقدم.",
-        cat: "programming", 
-        img: "images/c33.jpg", 
-        date: "01 Dec 2025", 
-        url: "https://www.udemy.com/course/the-complete-python-bootcamp-from-zero-to-expert/?couponCode=6BAFE17DEF20BEBDDE73" 
-    },
-    { 
-        id: 34, 
-        titleAr: "كورس قواعد البيانات الشامل (SQL & NoSQL)", 
-        titleEn: "SQL, MYSQL, POSTGRESQL & MONGODB", 
-        desc: "تعلم إدارة قواعد البيانات المختلفة في كورس واحد شامل.",
-        cat: "programming", 
-        img: "images/c34.jpg", 
-        date: "01 Dec 2025", 
-        url: "https://www.udemy.com/course/sql-mysql-postgresql-mongodb-all-in-one-database-course/?couponCode=370F0C34BF8BBC4672E9" 
-    },
-    { 
-        id: 35, 
-        titleAr: "برمجة بايثون: الكورس الكامل للنجاح", 
-        titleEn: "Python Programming: Complete Course", 
-        desc: "شرح وافي وعملي للغة بايثون وتطبيقاتها المختلفة.",
-        cat: "programming", 
-        img: "images/c35.jpg", 
-        date: "01 Dec 2025", 
-        url: "https://www.udemy.com/course/python-programming-the-complete-course-for-success/?couponCode=0D7303A8F49D6D25DBF9" 
-    },
-    { 
-        id: 36, 
-        titleAr: "معسكر تحليل البيانات باستخدام إكسل", 
-        titleEn: "Excel Data Analysis Bootcamp", 
-        desc: "تعلم كيفية تحليل البيانات الضخمة واستخراج النتائج باستخدام Excel.",
-        cat: "business", 
-        img: "images/c36.jpg", 
-        date: "01 Dec 2025", 
-        url: "https://www.udemy.com/course/the-complete-microsoft-excel-data-analysis-bootcamp/?couponCode=9962B5F78821BCE50159" 
-    },
-    { 
         id: 37, 
-        titleAr: "خبير تحليل البيانات ببرنامج إكسل", 
-        titleEn: "Become a Data Analysis Expert", 
-        desc: "خطوات عملية لتصبح خبيراً في التعامل مع البيانات في مايكروسوفت إكسل.",
+        titleAr: "إتقان معادلات ورسوم إكسل البيانية", 
+        titleEn: "Excel Data Mastery: Formulas & Charts", 
+        desc: "تمكن من أهم دوال الإكسل وإنشاء الرسوم البيانية المتقدمة.",
         cat: "business", 
         img: "images/c37.jpg", 
-        date: "01 Dec 2025", 
-        url: "https://www.udemy.com/course/microsoft-excel-data-analysis-become-a-data-analysis-expert/?couponCode=940C7B87F04BFBBD3F0A" 
+        date: "30 Nov 2025",
+        url: "https://www.udemy.com/course/excel-data-mastery-formulas-functions-charts-and-graphs/?couponCode=A2E4AC5BFD9907C054D7" 
     },
     { 
         id: 38, 
-        titleAr: "لغة البرمجة R من المبتدئ للمحترف", 
-        titleEn: "R Programming Language Pro", 
-        desc: "تعلم لغة R المستخدمة بقوة في الإحصاء وتحليل البيانات.",
-        cat: "programming", 
+        titleAr: "الماستر كلاس في تحليل بيانات إكسل", 
+        titleEn: "Excel Data Analysis Masterclass", 
+        desc: "كورس تحليلي شامل لاستخدام الإكسل في البيزنس.",
+        cat: "business", 
         img: "images/c38.jpg", 
-        date: "01 Dec 2025", 
-        url: "https://www.udemy.com/course/r-programming-r-programming-language-beginners-to-pro/?couponCode=B85F222239ECDB367519" 
+        date: "30 Nov 2025",
+        url: "https://www.udemy.com/course/excel-data-analysis-the-complete-analysis-masterclass/?couponCode=827F78F6B54CADF2EA33" 
     },
     { 
         id: 39, 
-        titleAr: "إتقان تحليل بيانات إكسل بالدوال", 
-        titleEn: "Mastering Excel Analysis with Functions", 
-        desc: "استخدام الدوال والمعادلات المتقدمة لتحليل البيانات بدقة.",
-        cat: "business", 
+        titleAr: "معسكر C# لبناء تطبيقات الويب", 
+        titleEn: "Ultimate C# Bootcamp & API", 
+        desc: "تعلم لغة C# وابنِ تطبيقات ويب وواجهات API حديثة.",
+        cat: "programming", 
         img: "images/c39.jpg", 
-        date: "01 Dec 2025", 
-        url: "https://www.udemy.com/course/mastering-microsoft-excel-data-analysis-with-functions/?couponCode=0D58CDD4105F4CC23868" 
+        date: "30 Nov 2025",
+        url: "https://www.udemy.com/course/the-ultimate-c-bootcamp-build-modern-web-api-apps/?couponCode=A61C381BD13757B4B901" 
+    },
+    { 
+        id: 40, 
+        titleAr: "شهادة إدارة العلاقات العامة والاتصال", 
+        titleEn: "Public Relations & Communication", 
+        desc: "فنون إدارة العلاقات العامة والتواصل المؤسسي الفعال.",
+        cat: "business", 
+        img: "images/c40.jpg", 
+        date: "30 Nov 2025",
+        url: "https://www.udemy.com/course/certificate-in-public-relations-and-communication-management/?couponCode=0B1616E5ABAD96D5717D" 
+    },
+    { 
+        id: 41, 
+        titleAr: "كورس لغة C الكامل من البداية", 
+        titleEn: "Complete C Programming Course", 
+        desc: "تعلم أساسيات البرمجة بلغة C من الصفر حتى الاحتراف.",
+        cat: "programming", 
+        img: "images/c41.jpg", 
+        date: "30 Nov 2025",
+        url: "https://www.udemy.com/course/the-complete-c-programming-course-for-basic-to-expert/?couponCode=C42CFBB91BC3FB88DE6D" 
+    },
+    { 
+        id: 42, 
+        titleAr: "تعلم تعلم الآلة مع بايثون", 
+        titleEn: "Machine Learning with Python A-Z", 
+        desc: "دليل شامل لتعلم الـ Machine Learning وتطبيقاته ببايثون.",
+        cat: "ai", 
+        img: "images/c42.jpg", 
+        date: "30 Nov 2025", 
+        url: "https://www.udemy.com/course/learn-machine-learning-course-with-python-ml/?couponCode=6390AE52CBFAFD6054BF" 
     }
 ];
 
@@ -638,10 +590,12 @@ let currentCat = 'all';
 let searchText = '';
 let visibleCoursesCount = 10;
 
+// دالة توليد الفلاتر تلقائياً
 function renderFilters() {
     const filterContainer = document.getElementById('course-filters');
     if (!filterContainer) return;
 
+    // استخراج الأقسام الفريدة
     const categories = ['all', ...new Set(coursesData.map(course => course.cat))];
 
     filterContainer.innerHTML = categories.map(cat => {
@@ -650,12 +604,13 @@ function renderFilters() {
         return `<button class="filter-btn px-6 py-2 rounded-full font-bold transition-all shadow-sm ${isActive}" data-cat="${cat}">${displayName}</button>`;
     }).join('');
 
+    // تفعيل الأزرار الجديدة
     filterContainer.querySelectorAll('.filter-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             currentCat = e.target.dataset.cat;
             visibleCoursesCount = 10;
-            renderFilters();
-            renderCourses();
+            renderFilters(); // إعادة رسم الفلاتر لتحديث الحالة النشطة
+            renderCourses(); // تحديث الكورسات
         });
     });
 }
