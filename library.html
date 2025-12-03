@@ -20,21 +20,25 @@
     <div class="fixed-bg"><img src="images/bg.jpg"></div>
     <div id="header-ph"></div>
 
-    <main class="pt-32 px-4 container mx-auto min-h-screen flex items-center justify-center">
-        <div class="glass-panel p-12 rounded-3xl text-center fade-in bg-white/70 shadow-2xl max-w-lg border-white">
-            <div class="bg-emerald-100 p-6 rounded-full inline-block mb-6">
-                <i data-lucide="library" class="w-16 h-16 text-emerald-600"></i>
-            </div>
-            <h1 class="text-4xl font-black mb-4 text-emerald-900">مكتبة كمشكاة</h1>
-            <p class="text-slate-600 text-lg font-medium mb-8">جاري رفع الكتب والملفات.. انتظرونا قريباً!</p>
-            <div class="bg-emerald-50 text-emerald-700 px-4 py-2 rounded-lg font-bold border border-emerald-100 inline-block">
-                قريباً جداً 🚀
-            </div>
+    <main class="pt-32 px-4 container mx-auto min-h-screen pb-12">
+        <div class="text-center mb-10 fade-in">
+            <h1 class="text-3xl font-black text-emerald-900 inline-block px-8 py-3 glass-panel rounded-full bg-white/70">مكتبة كمشكاة</h1>
+            <p class="mt-4 text-slate-600 font-medium">كتب ومصادر مختارة بعناية لتطويرك</p>
         </div>
+        
+        <!-- البحث في الكتب -->
+        <div class="relative w-full max-w-lg mx-auto mb-10 glass-panel rounded-xl overflow-hidden bg-white/70">
+            <input type="text" id="book-search-input" placeholder="ابحث عن كتاب أو مؤلف..." class="w-full bg-transparent border-none text-slate-800 px-4 py-3 pl-10 focus:outline-none placeholder-slate-500 font-medium">
+            <i data-lucide="search" class="absolute left-3 top-3 text-emerald-600 w-5 h-5"></i>
+        </div>
+
+        <!-- شبكة الكتب (بتتملي من الجافاسكريبت) -->
+        <div id="library-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 fade-in delay-100"></div>
     </main>
 
     <div id="footer-ph"></div>
     
+    <!-- مكتبات Firebase و Script -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics-compat.js"></script>
