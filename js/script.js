@@ -18,6 +18,17 @@ let db;
 let analytics;
 
 // -------------------------------------------------------------------------
+// إعدادات العرض (Pagination)
+// -------------------------------------------------------------------------
+// هنا بتحدد عدد الصور اللي تظهر في الأول، وأقصى عدد صور عندك في الفولدر
+const GALLERY_INITIAL_COUNT = 10; 
+const GALLERY_INCREMENT = 6;      // كل ضغطة تزود كام صورة
+const MAX_GALLERY_IMAGES = 100;   // حط هنا رقم تقريبي لأقصى عدد صور عندك في الفولدر
+
+let visibleCoursesCount = 6;      // عدد الكورسات اللي بتظهر في الأول
+const COURSES_INCREMENT = 6;      // كل ضغطة تزود كام كورس
+
+// -------------------------------------------------------------------------
 // قاموس الترجمة (عربي / إنجليزي)
 // -------------------------------------------------------------------------
 const translations = {
@@ -30,7 +41,6 @@ const translations = {
         nav_contact: "تواصل",
         footer_rights: "جميع الحقوق محفوظة © مصطفى كمشكاة 2025",
         
-        // الصفحة الرئيسية
         home_welcome: "كمشكاة",
         home_slogan: "\"استعن بالله ولا تعجز\"",
         btn_start_learning: "ابدأ رحلة التعلم",
@@ -39,7 +49,6 @@ const translations = {
         stat_courses: "كورس احترافي",
         stat_ambition: "طموح بلا حدود",
 
-        // صفحة الكورسات
         courses_title: "الكورسات التعليمية",
         search_placeholder: "ابحث عن كورس...",
         filter_all: "الكل",
@@ -47,24 +56,20 @@ const translations = {
         btn_subscribe: "اشتراك",
         no_courses: "مفيش كورسات بالاسم ده 🤷‍♂️",
 
-        // صفحة المعرض
         gallery_title: "معرض التصميمات",
         gallery_subtitle: "إبداع متجدد . لمسة فنية",
         btn_download: "تحميل الصورة",
         btn_zoom: "تكبير",
 
-        // صفحة المكتبة
         library_title: "مكتبة كمشكاة",
         library_subtitle: "جاري رفع الكتب والملفات.. انتظرونا قريباً!",
         btn_download_book: "تحميل الكتاب",
         search_book_placeholder: "ابحث عن كتاب...",
 
-        // صفحة المقالات
         articles_title: "مدونة كمشكاة",
         search_article_placeholder: "ابحث في المقالات...",
         read_more: "اقرأ المزيد",
         
-        // صفحة التواصل
         contact_me_name: "مصطفى عبد الناصر",
         contact_role_gd: "Graphic Designer",
         contact_role_cc: "Content Creator",
@@ -72,7 +77,6 @@ const translations = {
         contact_community_title: "كمشكاة",
         contact_community_desc: "المجتمع الرسمي والمحتوى الحصري",
         
-        // تصنيفات
         cat_graphic: "جرافيك",
         cat_programming: "برمجة",
         cat_business: "أعمال",
@@ -148,7 +152,6 @@ let currentLang = localStorage.getItem('kamshkat_lang') || 'ar';
 // التشغيل الرئيسي
 // -------------------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
-    // تفعيل اللغة المحفوظة
     setLanguage(currentLang);
 
     try {
@@ -174,14 +177,12 @@ function toggleLanguage() {
     currentLang = currentLang === 'ar' ? 'en' : 'ar';
     localStorage.setItem('kamshkat_lang', currentLang);
     setLanguage(currentLang);
-    location.reload(); // إعادة تحميل عشان التحديثات تسمع في كل مكان
+    location.reload();
 }
 
 function setLanguage(lang) {
     document.documentElement.lang = lang;
     document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-    
-    // تحديث النصوص الثابتة
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.dataset.i18n;
         if(translations[lang][key]) {
@@ -191,19 +192,16 @@ function setLanguage(lang) {
     });
 }
 
-function t(key) {
-    return translations[currentLang][key] || key;
-}
+function t(key) { return translations[currentLang][key] || key; }
 
 // -------------------------------------------------------------------------
-// بيانات الكورسات (نفس البيانات القديمة + الترجمة)
+// بيانات الكورسات
 // -------------------------------------------------------------------------
 const coursesData = [
-    // الكورسات الجديدة والقديمة كما هي..
     { id: 101, titleAr: "بناء 3 تطبيقات أندرويد من الصفر بجافا", titleEn: "Android: Build 3 Apps from Scratch with Java", desc: "كورس عملي لتعلم برمجة تطبيقات الأندرويد.", cat: "programming", img: "images/c101.jpg", date: "02 Dec 2025", url: "https://www.udemy.com/course/android-course-build-3-applications-from-scratch-with-java/?couponCode=9139A2FB926F1B55432C" },
     { id: 102, titleAr: "معسكر PostgreSQL من المبتدئ للمتقدم", titleEn: "PostgreSQL Bootcamp: Beginner to Advanced", desc: "احترف قواعد البيانات PostgreSQL.", cat: "programming", img: "images/c102.jpg", date: "02 Dec 2025", url: "https://www.udemy.com/course/postgresql-bootcamp-complete-beginner-to-advanced-course/?couponCode=A84C9E26F61196AC0782" },
-    // ... (تأكد من وجود باقي الكورسات هنا زي الملف اللي فات)
     { id: 1, titleAr: "ChatGPT لإدارة المنتجات", titleEn: "ChatGPT for Product Management", desc: "استخدام AI في إدارة المنتجات.", cat: "ai", img: "images/c1.jpg", date: "02 Dec 2025", url: "https://www.udemy.com/course/chatgpt-for-product-management/?couponCode=2025DECEMBERFIRST" }
+    // ضيف باقي كورساتك هنا
 ];
 
 const booksData = [
@@ -216,7 +214,7 @@ const articlesData = [
     { id: 1, title: "فكك من جو التنين المجنح", excerpt: "يا صاحبي، السوشيال ميديا هرتنا كلام..", content: "...", img: "images/a1.jpg", cat: "development", date: "28 Nov 2025" }
 ];
 
-// --- المكونات (الهيدر والفوتر) ---
+// --- المكونات ---
 function loadComponents() {
     const btnText = currentLang === 'ar' ? 'English' : 'عربي';
     const btnIcon = currentLang === 'ar' ? 'En' : 'ع';
@@ -273,20 +271,26 @@ function loadComponents() {
     lucide.createIcons();
 }
 
-// --- 4. منطق الكورسات (محدث للترجمة) ---
+// -------------------------------------------------------------------------
+// صفحة الكورسات (Courses Logic)
+// -------------------------------------------------------------------------
 let currentCat = 'all';
 let searchText = '';
-let visibleCoursesCount = 10;
 
 function initCoursesPage() {
     renderFilters();
     renderCourses();
+    
+    // البحث
     document.getElementById('search-input')?.addEventListener('keyup', (e) => {
         searchText = e.target.value;
+        visibleCoursesCount = COURSES_INCREMENT; // إعادة تعيين العدد عند البحث
         renderCourses();
     });
+
+    // زرار عرض المزيد
     document.getElementById('load-more-courses')?.addEventListener('click', () => {
-        visibleCoursesCount += 10;
+        visibleCoursesCount += COURSES_INCREMENT;
         renderCourses();
     });
 }
@@ -302,6 +306,7 @@ function renderFilters() {
     }).join('');
     filterContainer.querySelectorAll('.filter-btn').forEach(btn => btn.addEventListener('click', (e) => {
         currentCat = e.target.dataset.cat;
+        visibleCoursesCount = COURSES_INCREMENT; // ريست عند تغيير الفلتر
         renderFilters();
         renderCourses();
     }));
@@ -325,7 +330,10 @@ function renderCourses() {
         return;
     }
 
-    grid.innerHTML = filtered.slice(0, visibleCoursesCount).map((c, i) => {
+    // عرض جزء فقط من الكورسات بناءً على العداد
+    const coursesToShow = filtered.slice(0, visibleCoursesCount);
+
+    grid.innerHTML = coursesToShow.map((c, i) => {
         const title = currentLang === 'ar' ? c.titleAr : c.titleEn;
         const subTitle = currentLang === 'ar' ? c.titleEn : c.titleAr;
         const catName = t('cat_' + c.cat);
@@ -347,13 +355,17 @@ function renderCourses() {
     }).join('');
     
     lucide.createIcons();
-    if(loadMoreBtn) loadMoreBtn.style.display = visibleCoursesCount >= filtered.length ? 'none' : 'inline-flex';
+
+    // إخفاء الزر لو عرضنا كل الكورسات المتاحة
+    if(loadMoreBtn) {
+        loadMoreBtn.style.display = visibleCoursesCount >= filtered.length ? 'none' : 'inline-flex';
+    }
 }
 
-// باقي الدوال بنفس الطريقة (تم تحديثها لدعم الترجمة)
-function initLibraryPage() {
-    renderBooks();
-}
+// -------------------------------------------------------------------------
+// صفحة المكتبة (Library)
+// -------------------------------------------------------------------------
+function initLibraryPage() { renderBooks(); }
 function renderBooks(search = '') {
     const grid = document.getElementById('library-grid');
     if(!grid) return;
@@ -370,19 +382,43 @@ function renderBooks(search = '') {
     `).join('');
 }
 
-function initGalleryPage() { renderGallery(); }
+// -------------------------------------------------------------------------
+// صفحة المعرض (Gallery Logic - معدلة)
+// -------------------------------------------------------------------------
+function initGalleryPage() { 
+    // تعيين القيمة الابتدائية لو مش موجودة
+    if (typeof window.visibleGalleryCount === 'undefined') {
+        window.visibleGalleryCount = GALLERY_INITIAL_COUNT;
+    }
+    
+    renderGallery(); 
+
+    // إضافة مستمع الحدث لزرار المعرض
+    const loadMoreBtn = document.getElementById('load-more-gallery');
+    if(loadMoreBtn) {
+        loadMoreBtn.addEventListener('click', () => {
+            window.visibleGalleryCount += GALLERY_INCREMENT;
+            renderGallery();
+        });
+    }
+}
+
 function renderGallery() {
     const grid = document.getElementById('gallery-grid');
+    const loadMoreBtn = document.getElementById('load-more-gallery');
     if(!grid) return;
+
     let html = '';
-    // استخدمنا visibleGalleryCount عشان اللايكات
-    if (typeof window.visibleGalleryCount === 'undefined') window.visibleGalleryCount = 10;
     
-    for(let i=1; i<=window.visibleGalleryCount; i++) {
+    // حلقة تكرار تعرض الصور لحد العدد المسموح بيه حالياً
+    // بنعمل check بسيط إننا منعديش الحد الأقصى المتوقع للصور
+    const limit = Math.min(window.visibleGalleryCount, MAX_GALLERY_IMAGES);
+
+    for(let i=1; i<=limit; i++) {
         html += `
         <div class="glass-panel rounded-2xl overflow-hidden break-inside-avoid mb-6 group relative fade-in border-0 shadow-sm">
             <div class="relative cursor-pointer" onclick="openLightbox('images/${i}.jpg')">
-                <img src="images/${i}.jpg" class="w-full h-auto object-cover" loading="lazy" onerror="this.src='https://placehold.co/400x500/dcfce7/065f46?text=Design+${i}'">
+                <img src="images/${i}.jpg" class="w-full h-auto object-cover" loading="lazy" onerror="this.parentElement.parentElement.style.display='none'"> 
                 <div class="absolute inset-0 bg-emerald-900/40 opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col items-center justify-center">
                     <div class="bg-white text-emerald-900 px-4 py-2 rounded-full font-bold flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition shadow-xl">
                         <i data-lucide="zoom-in" class="w-4 h-4"></i> ${t('btn_zoom')}
@@ -400,13 +436,25 @@ function renderGallery() {
     grid.innerHTML = html;
     lucide.createIcons();
     listenToLikes();
+
+    // التحكم في ظهور الزرار
+    if(loadMoreBtn) {
+        // لو وصلنا للحد الأقصى نخفي الزرار
+        if (window.visibleGalleryCount >= MAX_GALLERY_IMAGES) {
+            loadMoreBtn.style.display = 'none';
+        } else {
+            loadMoreBtn.style.display = 'inline-flex';
+        }
+    }
 }
 
+// -------------------------------------------------------------------------
+// الصفحة الرئيسية (Home)
+// -------------------------------------------------------------------------
 function initHomePage() {
     document.querySelectorAll('.counter-number').forEach(c => animateValue(c, 0, +c.dataset.target, 2000));
 }
-// باقي دوال اللايكات والمشاركة زي ما هي في الملف القديم (انسخهم لو نقصوا)
-// ... (animateValue, toggleLike, listenToLikes, shareContent, openLightbox) ...
+
 function animateValue(obj, start, end, duration) {
     let startTimestamp = null;
     const step = (timestamp) => {
@@ -417,7 +465,10 @@ function animateValue(obj, start, end, duration) {
     };
     window.requestAnimationFrame(step);
 }
-// دوال اللايكات واللايت بوكس (نفس القديم)
+
+// -------------------------------------------------------------------------
+// وظائف اللايكات (Likes) واللايت بوكس (Lightbox)
+// -------------------------------------------------------------------------
 window.toggleLike = function(imgId) {
     if (!db) return;
     const likeRef = db.ref('likes/' + imgId);
@@ -435,10 +486,12 @@ window.toggleLike = function(imgId) {
         }
     });
 };
+
 function listenToLikes() {
     if (!db) return;
-    if (typeof window.visibleGalleryCount === 'undefined') window.visibleGalleryCount = 10;
-    for(let i=1; i<=window.visibleGalleryCount; i++) {
+    // بنسمع للايكات لكل الصور اللي ظاهرة دلوقتي
+    const limit = Math.min(window.visibleGalleryCount || GALLERY_INITIAL_COUNT, MAX_GALLERY_IMAGES);
+    for(let i=1; i<=limit; i++) {
         db.ref('likes/' + i).on('value', (s) => {
             const count = document.getElementById(`like-count-${i}`);
             if(count) count.innerText = s.val() || 0;
@@ -446,6 +499,7 @@ function listenToLikes() {
         });
     }
 }
+
 function updateHeartUI(id, liked) {
     const icon = document.getElementById(`heart-icon-${id}`);
     if(icon) {
@@ -453,7 +507,28 @@ function updateHeartUI(id, liked) {
         else { icon.classList.remove('fill-red-500', 'text-red-500'); icon.classList.add('text-slate-400'); }
     }
 }
-function openLightbox(src) { document.getElementById('lightbox').classList.add('active'); document.getElementById('lightbox-img').src = src; }
-function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); }
+
+function openLightbox(src) { 
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lightbox-img');
+    const dlBtn = document.getElementById('lightbox-download');
+    
+    if(lb && lbImg) {
+        lb.classList.add('active'); 
+        lbImg.src = src;
+        if(dlBtn) dlBtn.href = src; // تحديث رابط التحميل
+    }
+}
+
+function closeLightbox() { 
+    document.getElementById('lightbox')?.classList.remove('active'); 
+}
+
+// -------------------------------------------------------------------------
+// المقالات (Articles)
+// -------------------------------------------------------------------------
 function initArticlesPage() { renderArticles(); }
-function renderArticles() { /* كود المقالات */ }
+function renderArticles() { 
+    // كود عرض المقالات هنا (بناءً على طلبك، الكود ده مكانش كامل في النسخة اللي فاتت، بس الهيكل جاهز)
+    // ممكن تزود هنا render زي الكورسات
+}
