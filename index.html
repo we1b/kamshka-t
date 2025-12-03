@@ -4,19 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- SEO الأساسي -->
-    <title>مصطفي كمشكاة | مصمم جرافيك وصانع محتوى إبداعي</title>
-    <meta name="description" content="الموقع الرسمي لمصطفي عبد الناصر (كمشكاة). مصمم جرافيك بخبرة 5 سنوات وصانع محتوى يقدم قيمة حقيقية في عالم التصميم وتطوير الذات.">
-    <meta name="keywords" content="كمشكاة, مصطفي كمشكاة, مصطفي عبد الناصر, جرافيك ديزاين, تصميم جرافيك, صناعة محتوى, Kamshkat">
+    <!-- =========================================
+         SEO & Meta Tags - إعدادات السيو والبحث
+    ========================================== -->
+    <!-- العنوان: أهم عامل في البحث، لازم يحتوي على اسم البراند والمهنة -->
+    <title>مصطفي كمشكاة | مصمم جرافيك وصانع محتوى إبداعي - Kamshkat</title>
+    
+    <!-- الوصف: اللي بيظهر تحت العنوان في جوجل -->
+    <meta name="description" content="الموقع الرسمي لمصطفي عبد الناصر (كمشكاة). مصمم جرافيك محترف وصانع محتوى يقدم قيمة حقيقية في عالم التصميم، البراندينج، وتطوير الذات.">
+    
+    <!-- الكلمات المفتاحية: ركزنا هنا على اسمك بكل الطرق -->
+    <meta name="keywords" content="كمشكاة, Kamshkat, مصطفي كمشكاة, مصطفي عبد الناصر, جرافيك ديزاين, تصميم شعارات, صناعة محتوى, تعلم التصميم, هوية بصرية">
+    
     <meta name="author" content="مصطفي كمشكاة">
+    <meta name="robots" content="index, follow"> <!-- أمر لمحركات البحث بأرشفة الموقع -->
 
-    <!-- Open Graph -->
+    <!-- Open Graph (عشان لما تشير الموقع فيس بوك أو لينكدان يظهر بشكل حلو) -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="مصطفي كمشكاة | إبداع ومحتوى هادف">
-    <meta property="og:description" content="أهلاً بك في مساحة كمشكاة. هنا بنشارك الفن، التصميم، والمحتوى اللي يضيف لك.">
-    <meta property="og:image" content="https://placehold.co/1200x630/4f46e5/ffffff?text=Kamshkat">
+    <meta property="og:site_name" content="كمشكاة - Kamshkat">
+    <meta property="og:title" content="مصطفي كمشكاة | رحلة بين التصميم والمحتوى">
+    <meta property="og:description" content="أهلاً بك في عالم كمشكاة. المكان اللي بيجمع بين فن الجرافيك ديزاين وصناعة المحتوى الهادف.">
+    <meta property="og:image" content="https://placehold.co/1200x630/0ea5e9/ffffff?text=Kamshkat+Brand">
+    <meta property="og:url" content="https://kamshkat.com">
 
-    <!-- Fonts -->
+    <!-- Schema Markup (JSON-LD) - ده أهم كود عشان جوجل يعرف إن كمشكاة شخص مش مجرد كلمة -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "مصطفي عبد الناصر",
+      "alternateName": ["كمشكاة", "Kamshkat", "Mostafa Abdelnasser"],
+      "url": "https://kamshkat.com",
+      "image": "https://placehold.co/400x400",
+      "jobTitle": "Graphic Designer & Content Creator",
+      "description": "مصمم جرافيك وصانع محتوى مصري، مؤسس براند كمشكاة.",
+      "sameAs": [
+        "https://www.facebook.com/kamshkat",
+        "https://www.instagram.com/kamshkat",
+        "https://www.linkedin.com/in/kamshkat",
+        "https://www.youtube.com/@kamshkat"
+      ],
+      "knowsAbout": ["Graphic Design", "Content Creation", "Branding", "Adobe Photoshop", "Illustrator"]
+    }
+    </script>
+
+    <!-- Google Fonts (خط كايرو - عربي ومميز) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
@@ -26,7 +58,6 @@
     
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
@@ -36,7 +67,7 @@
                         brand: {
                             50: '#f0f9ff',
                             100: '#e0f2fe',
-                            500: '#0ea5e9',
+                            500: '#0ea5e9', // الأزرق الأساسي
                             600: '#0284c7',
                             700: '#0369a1',
                             900: '#0c4a6e',
@@ -47,8 +78,8 @@
         }
     </script>
 
-    <!-- Styles for Animation & Form -->
     <style>
+        /* انيميشن بسيط وخفيف ميتقلش الموقع */
         .fade-in-up {
             animation: fadeInUp 0.8s ease-out forwards;
             opacity: 0;
@@ -60,12 +91,9 @@
         .delay-100 { animation-delay: 0.1s; }
         .delay-200 { animation-delay: 0.2s; }
         .delay-300 { animation-delay: 0.3s; }
-
-        /* تغيير اتجاه أيقونة اللغة */
-        [dir="ltr"] .arrow-icon { transform: rotate(180deg); }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans antialiased overflow-x-hidden transition-colors duration-300">
+<body class="bg-slate-50 text-slate-800 font-sans antialiased overflow-x-hidden">
 
     <!-- Header / Navbar -->
     <header class="fixed w-full z-50 bg-white/90 backdrop-blur-md shadow-sm transition-all duration-300" id="navbar">
@@ -73,36 +101,23 @@
             <div class="flex justify-between items-center h-20">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
-                    <a href="#" class="text-3xl font-black text-brand-700 tracking-tighter">
-                        <span data-translate="logo_text">كمشكاة</span><span class="text-brand-500">.</span>
+                    <a href="#" class="text-3xl font-black text-brand-700 tracking-tighter hover:text-brand-600 transition">
+                        كمشكاة<span class="text-brand-500">.</span>
                     </a>
                 </div>
                 
                 <!-- Desktop Menu -->
-                <nav class="hidden md:flex items-center space-x-reverse space-x-8 rtl:space-x-reverse ltr:space-x-4">
-                    <a href="#hero" class="text-slate-600 hover:text-brand-600 font-bold transition" data-translate="nav_home">الرئيسية</a>
-                    <a href="#about" class="text-slate-600 hover:text-brand-600 font-bold transition" data-translate="nav_about">مين كمشكاة؟</a>
-                    <a href="#services" class="text-slate-600 hover:text-brand-600 font-bold transition" data-translate="nav_services">خدماتي</a>
-                    <a href="#content" class="text-slate-600 hover:text-brand-600 font-bold transition" data-translate="nav_content">المحتوى</a>
-                    <a href="#contact" class="px-5 py-2 rounded-full bg-brand-600 text-white font-bold hover:bg-brand-700 transition shadow-lg shadow-brand-500/30" data-translate="nav_contact">تواصل معي</a>
-                    
-                    <!-- Language Switcher Button -->
-                    <button onclick="toggleLanguage()" class="flex items-center gap-1 text-sm font-bold text-slate-500 hover:text-brand-600 border border-slate-200 px-3 py-1 rounded-lg transition">
-                        <span id="lang-text">English</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
-                        </svg>
-                    </button>
+                <nav class="hidden md:flex space-x-reverse space-x-8">
+                    <a href="#hero" class="text-slate-600 hover:text-brand-600 font-bold transition">الرئيسية</a>
+                    <a href="#about" class="text-slate-600 hover:text-brand-600 font-bold transition">مين كمشكاة؟</a>
+                    <a href="#services" class="text-slate-600 hover:text-brand-600 font-bold transition">خدماتي</a>
+                    <a href="#content" class="text-slate-600 hover:text-brand-600 font-bold transition">المحتوى</a>
+                    <a href="#contact" class="px-5 py-2 rounded-full bg-brand-600 text-white font-bold hover:bg-brand-700 transition shadow-lg shadow-brand-500/30">تواصل معي</a>
                 </nav>
 
                 <!-- Mobile Menu Button -->
-                <div class="md:hidden flex items-center gap-4">
-                     <!-- Language Switcher Mobile -->
-                     <button onclick="toggleLanguage()" class="text-sm font-bold text-slate-500">
-                        <span id="lang-text-mobile">EN</span>
-                    </button>
-
-                    <button id="mobile-menu-btn" class="text-slate-600 hover:text-brand-600 focus:outline-none">
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-slate-600 hover:text-brand-600 focus:outline-none p-2">
                         <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
@@ -112,12 +127,12 @@
         </div>
         
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-100 transition-all">
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-100">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center">
-                <a href="#hero" class="block px-3 py-2 text-slate-600 hover:text-brand-600 font-bold" data-translate="nav_home">الرئيسية</a>
-                <a href="#about" class="block px-3 py-2 text-slate-600 hover:text-brand-600 font-bold" data-translate="nav_about">مين كمشكاة؟</a>
-                <a href="#services" class="block px-3 py-2 text-slate-600 hover:text-brand-600 font-bold" data-translate="nav_services">خدماتي</a>
-                <a href="#contact" class="block px-3 py-2 text-brand-600 font-bold" data-translate="nav_contact">تواصل معي</a>
+                <a href="#hero" class="block px-3 py-2 text-slate-600 hover:text-brand-600 font-bold">الرئيسية</a>
+                <a href="#about" class="block px-3 py-2 text-slate-600 hover:text-brand-600 font-bold">مين كمشكاة؟</a>
+                <a href="#services" class="block px-3 py-2 text-slate-600 hover:text-brand-600 font-bold">خدماتي</a>
+                <a href="#contact" class="block px-3 py-2 text-brand-600 font-bold">تواصل معي</a>
             </div>
         </div>
     </header>
@@ -133,18 +148,23 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
             <div class="text-center max-w-3xl mx-auto">
                 <h1 class="text-4xl sm:text-5xl lg:text-7xl font-black text-slate-900 mb-6 leading-tight fade-in-up">
-                    <span data-translate="hero_welcome">أهلاً بك في عالم</span> <br>
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-purple-600" data-translate="hero_brand">كمشكاة</span>
+                    أهلاً بك في عالم <br>
+                    <!-- استخدام H1 يحتوي على اسم البراند للـ SEO -->
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-purple-600">كمشكاة</span>
                 </h1>
-                <p class="text-xl text-slate-600 mb-10 leading-relaxed fade-in-up delay-100" data-translate="hero_desc">
-                    أنا مصطفي عبد الناصر، وهنا بنخلط التصميم الجرافيكي بصناعة المحتوى المفيد. مساحة للإبداع وتطوير الذات.
+                <p class="text-xl text-slate-600 mb-10 leading-relaxed fade-in-up delay-100">
+                    أنا <strong>مصطفي عبد الناصر</strong>، وهنا بنخلط 
+                    <span class="font-bold text-slate-800">التصميم الجرافيكي</span> 
+                    بصناعة 
+                    <span class="font-bold text-slate-800">المحتوى المفيد</span>.
+                    مساحة للإبداع وتطوير الذات.
                 </p>
                 <div class="flex flex-col sm:flex-row justify-center gap-4 fade-in-up delay-200">
                     <a href="#content" class="px-8 py-4 rounded-xl bg-brand-600 text-white font-bold text-lg hover:bg-brand-700 transition shadow-xl shadow-brand-500/20 flex items-center justify-center gap-2">
-                        <span data-translate="hero_cta_content">تصفح المحتوى</span>
+                        تصفح المحتوى
                     </a>
                     <a href="#about" class="px-8 py-4 rounded-xl bg-white text-slate-700 font-bold text-lg border border-slate-200 hover:border-brand-300 hover:text-brand-600 transition flex items-center justify-center">
-                        <span data-translate="hero_cta_about">اعرف أكتر عني</span>
+                        اعرف أكتر عني
                     </a>
                 </div>
             </div>
@@ -157,60 +177,96 @@
             <div class="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
                 <div class="mb-12 lg:mb-0">
                     <div class="relative">
-                        <div class="aspect-square rounded-2xl bg-slate-100 overflow-hidden relative z-10 flex items-center justify-center bg-slate-200 text-slate-500">
-                             [صورة مصطفي عبد الناصر]
+                        <div class="aspect-square rounded-2xl bg-slate-100 overflow-hidden relative z-10 flex items-center justify-center bg-slate-200 text-slate-500 shadow-lg">
+                             <!-- مكان صورة البروفايل -->
+                             <span class="text-6xl opacity-20">📷</span>
                         </div>
                         <div class="absolute inset-0 translate-x-4 translate-y-4 border-2 border-brand-500 rounded-2xl z-0"></div>
                     </div>
                 </div>
                 
                 <div>
-                    <h2 class="text-brand-600 font-bold tracking-wide uppercase text-sm mb-2" data-translate="about_subtitle">عن كمشكاة</h2>
-                    <h3 class="text-3xl sm:text-4xl font-black text-slate-900 mb-6" data-translate="about_title">شغف بالتصميم والمحتوى</h3>
-                    <div class="prose prose-lg text-slate-600 leading-relaxed mb-8" data-translate="about_text">
-                        أنا مصطفي عبد الناصر (كمشكاة). مصمم جرافيك مصري بخبرة تزيد عن 5 سنوات. مؤمن إن المحتوى المفيد هو اللي بيسيب أثر، عشان كدة كمشكاة هي مزيج بين الفن ونشر المعرفة.
+                    <h2 class="text-brand-600 font-bold tracking-wide uppercase text-sm mb-2">عن كمشكاة</h2>
+                    <h3 class="text-3xl sm:text-4xl font-black text-slate-900 mb-6">مصطفي عبد الناصر.. شغف بالتصميم والمحتوى</h3>
+                    <div class="prose prose-lg text-slate-600 leading-relaxed mb-8">
+                        <p>
+                            أنا <strong class="text-slate-800">مصطفي عبد الناصر</strong>، المعروف بـ "<strong class="text-brand-600">كمشكاة</strong>". مصمم جرافيك مصري بخبرة تزيد عن <span class="font-bold">5 سنوات</span> في تحويل الأفكار لتصاميم بصرية بتخطف العين.
+                        </p>
+                        <p class="mt-4">
+                            مش بس بصمم، أنا مؤمن إن <strong class="text-slate-800">المحتوى المفيد</strong> هو اللي بيسيب أثر. عشان كدة، "كمشكاة" مش مجرد اسم، ده براند بيجمع بين فن الجرافيك وبين نشر المعرفة.
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Services -->
+    <!-- Services Section -->
     <section id="services" class="py-24 bg-slate-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-2xl mx-auto mb-16">
-                <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mb-4" data-translate="services_title">ماذا يقدم كمشكاة؟</h2>
-                <p class="text-lg text-slate-600" data-translate="services_desc">حلول متكاملة بين التصميم والمحتوى.</p>
+                <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mb-4">ماذا يقدم كمشكاة؟</h2>
+                <p class="text-lg text-slate-600">أجمع بين مهارات التصميم التقنية ورؤية صانع المحتوى لتقديم حلول متكاملة.</p>
             </div>
 
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Service 1 -->
-                <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition duration-300 border border-slate-100">
-                    <h3 class="text-xl font-bold text-slate-900 mb-3" data-translate="service_1_title">تصميم جرافيك</h3>
-                    <p class="text-slate-600" data-translate="service_1_desc">تصميم هويات بصرية وشعارات وسوشيال ميديا.</p>
+                <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition duration-300 border border-slate-100 group">
+                    <div class="w-14 h-14 bg-brand-50 rounded-xl flex items-center justify-center text-brand-600 mb-6 group-hover:bg-brand-600 group-hover:text-white transition">
+                        <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">تصميم جرافيك (Graphic Design)</h3>
+                    <p class="text-slate-600">تصميم هويات بصرية، شعارات، وتصاميم سوشيال ميديا بتعبر عن فكرتك بذكاء.</p>
                 </div>
+
                 <!-- Service 2 -->
-                <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition duration-300 border border-slate-100">
-                    <h3 class="text-xl font-bold text-slate-900 mb-3" data-translate="service_2_title">صناعة المحتوى</h3>
-                    <p class="text-slate-600" data-translate="service_2_desc">كتابة وإنتاج محتوى مفيد وجذاب.</p>
+                <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition duration-300 border border-slate-100 group">
+                    <div class="w-14 h-14 bg-brand-50 rounded-xl flex items-center justify-center text-brand-600 mb-6 group-hover:bg-brand-600 group-hover:text-white transition">
+                        <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">صناعة المحتوى (Content)</h3>
+                    <p class="text-slate-600">كتابة وإنتاج محتوى مفيد وجذاب يناسب منصات التواصل المختلفة.</p>
                 </div>
+
                 <!-- Service 3 -->
-                <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition duration-300 border border-slate-100">
-                    <h3 class="text-xl font-bold text-slate-900 mb-3" data-translate="service_3_title">تطوير الهوية</h3>
-                    <p class="text-slate-600" data-translate="service_3_desc">بناء هوية قوية لعلامتك الشخصية.</p>
+                <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition duration-300 border border-slate-100 group">
+                    <div class="w-14 h-14 bg-brand-50 rounded-xl flex items-center justify-center text-brand-600 mb-6 group-hover:bg-brand-600 group-hover:text-white transition">
+                        <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">تطوير الهوية (Branding)</h3>
+                    <p class="text-slate-600">بناء هوية قوية لعلامتك الشخصية أو التجارية عشان تبرز وسط الزحمة.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section (NEW - Added based on request) -->
-    <section id="contact" class="py-24 bg-white border-t border-slate-100">
+    <!-- Content Placeholder -->
+    <section id="content" class="py-24 bg-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <span class="inline-block py-1 px-3 rounded-full bg-brand-100 text-brand-700 text-sm font-bold mb-4">قريباً جداً</span>
+            <h2 class="text-3xl sm:text-5xl font-black text-slate-900 mb-6">محتوى مفيد بيطبخ على نار هادية</h2>
+            <p class="text-xl text-slate-600 max-w-2xl mx-auto mb-10">
+                المقالات، الكورسات، والدروس التعليمية بتتجهز دلوقتي عشان تطلع بأحسن جودة. تابعني عشان يوصلك كل جديد من كمشكاة.
+            </p>
+        </div>
+        
+        <!-- خلفية زخرفية -->
+        <div class="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
+            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                <defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" stroke-width="1" /></pattern></defs>
+                <rect width="100%" height="100%" fill="url(#grid)" />
+            </svg>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-slate-50 border-t border-slate-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid lg:grid-cols-2 gap-16">
                 <!-- Contact Info -->
                 <div>
-                    <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mb-6" data-translate="contact_title">تواصل معي</h2>
-                    <p class="text-xl text-slate-600 mb-8" data-translate="contact_desc">
+                    <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mb-6">تواصل معي</h2>
+                    <p class="text-xl text-slate-600 mb-8">
                         عندك مشروع جديد؟ فكرة عايز تنفذها؟ أو حتى عايز تقول سلام؟ أنا موجود دايماً للرد عليك.
                     </p>
                     
@@ -220,39 +276,29 @@
                                 <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                             </div>
                             <div>
-                                <h4 class="font-bold text-slate-900" data-translate="contact_email_label">البريد الإلكتروني</h4>
-                                <a href="mailto:hello@kamshkat.com" class="text-brand-600 hover:text-brand-700 dir-ltr">hello@kamshkat.com</a>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 rounded-full bg-brand-100 flex items-center justify-center text-brand-600">
-                                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-slate-900" data-translate="contact_loc_label">المكان</h4>
-                                <span class="text-slate-600" data-translate="contact_loc_val">القاهرة، مصر</span>
+                                <h4 class="font-bold text-slate-900">البريد الإلكتروني</h4>
+                                <a href="mailto:hello@kamshkat.com" class="text-brand-600 hover:text-brand-700 dir-ltr font-sans">hello@kamshkat.com</a>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Contact Form -->
-                <div class="bg-slate-50 p-8 rounded-2xl shadow-inner">
-                    <form onsubmit="event.preventDefault(); alert('تم إرسال رسالتك بنجاح! هرد عليك قريب.');" class="space-y-6">
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+                    <form onsubmit="event.preventDefault(); alert('تم استلام رسالتك يا درش!');" class="space-y-6">
                         <div>
-                            <label class="block text-sm font-bold text-slate-700 mb-2" data-translate="form_name">الاسم</label>
+                            <label class="block text-sm font-bold text-slate-700 mb-2">الاسم</label>
                             <input type="text" class="w-full px-4 py-3 rounded-lg border border-slate-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-200 outline-none transition" required>
                         </div>
                         <div>
-                            <label class="block text-sm font-bold text-slate-700 mb-2" data-translate="form_email">البريد الإلكتروني</label>
+                            <label class="block text-sm font-bold text-slate-700 mb-2">البريد الإلكتروني</label>
                             <input type="email" class="w-full px-4 py-3 rounded-lg border border-slate-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-200 outline-none transition" required>
                         </div>
                         <div>
-                            <label class="block text-sm font-bold text-slate-700 mb-2" data-translate="form_msg">الرسالة</label>
+                            <label class="block text-sm font-bold text-slate-700 mb-2">الرسالة</label>
                             <textarea rows="4" class="w-full px-4 py-3 rounded-lg border border-slate-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-200 outline-none transition" required></textarea>
                         </div>
-                        <button type="submit" class="w-full bg-brand-600 text-white font-bold py-4 rounded-lg hover:bg-brand-700 transition shadow-lg shadow-brand-500/20" data-translate="form_btn">
+                        <button type="submit" class="w-full bg-brand-600 text-white font-bold py-4 rounded-lg hover:bg-brand-700 transition shadow-lg shadow-brand-500/20">
                             إرسال الرسالة
                         </button>
                     </form>
@@ -261,145 +307,37 @@
         </div>
     </section>
 
-    <!-- Content Placeholder -->
-    <section id="content" class="py-24 bg-white relative overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <span class="inline-block py-1 px-3 rounded-full bg-brand-100 text-brand-700 text-sm font-bold mb-4" data-translate="coming_soon">قريباً جداً</span>
-            <h2 class="text-3xl sm:text-5xl font-black text-slate-900 mb-6" data-translate="content_title">محتوى مفيد بيطبخ على نار هادية</h2>
-        </div>
-    </section>
-
     <!-- Footer -->
     <footer class="bg-slate-900 text-white py-12 border-t border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-2xl font-black mb-2"><span data-translate="logo_text">كمشكاة</span><span class="text-brand-500">.</span></h2>
-            <p class="text-slate-400 text-sm" data-translate="footer_rights">جميع الحقوق محفوظة © 2024 مصطفي عبد الناصر</p>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-8 md:mb-0 text-center md:text-right">
+                    <h2 class="text-2xl font-black mb-2">كمشكاة<span class="text-brand-500">.</span></h2>
+                    <p class="text-slate-400 text-sm">جميع الحقوق محفوظة © 2024 مصطفي عبد الناصر</p>
+                </div>
+                
+                <div class="flex space-x-reverse space-x-6">
+                    <a href="#" class="text-slate-400 hover:text-white transition">
+                        <span class="sr-only">Facebook</span>
+                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd"/></svg>
+                    </a>
+                </div>
+            </div>
         </div>
     </footer>
 
-    <!-- Translation Logic & Interactions -->
     <script>
-        // Translations Dictionary
-        const translations = {
-            ar: {
-                nav_home: "الرئيسية",
-                nav_about: "مين كمشكاة؟",
-                nav_services: "خدماتي",
-                nav_content: "المحتوى",
-                nav_contact: "تواصل معي",
-                logo_text: "كمشكاة",
-                hero_welcome: "أهلاً بك في عالم",
-                hero_brand: "كمشكاة",
-                hero_desc: "أنا مصطفي عبد الناصر، وهنا بنخلط التصميم الجرافيكي بصناعة المحتوى المفيد. مساحة للإبداع وتطوير الذات.",
-                hero_cta_content: "تصفح المحتوى",
-                hero_cta_about: "اعرف أكتر عني",
-                about_subtitle: "عن كمشكاة",
-                about_title: "مصطفي عبد الناصر.. شغف بالتصميم والمحتوى",
-                about_text: "أنا مصطفي عبد الناصر، المعروف بـ 'كمشكاة'. مصمم جرافيك مصري بخبرة تزيد عن 5 سنوات في تحويل الأفكار لتصاميم بصرية بتخطف العين. مؤمن إن المحتوى المفيد هو اللي بيسيب أثر.",
-                services_title: "ماذا يقدم كمشكاة؟",
-                services_desc: "أجمع بين مهارات التصميم التقنية ورؤية صانع المحتوى لتقديم حلول متكاملة.",
-                service_1_title: "تصميم جرافيك (Graphic Design)",
-                service_1_desc: "تصميم هويات بصرية، شعارات، وتصاميم سوشيال ميديا بتعبر عن فكرتك بذكاء واحترافية.",
-                service_2_title: "صناعة المحتوى (Content Creation)",
-                service_2_desc: "كتابة وإنتاج محتوى مفيد وجذاب يناسب منصات التواصل المختلفة ويحقق تفاعل حقيقي.",
-                service_3_title: "تطوير الهوية (Branding)",
-                service_3_desc: "بناء هوية قوية لعلامتك الشخصية أو التجارية عشان تبرز وسط الزحمة.",
-                contact_title: "تواصل معي",
-                contact_desc: "عندك مشروع جديد؟ فكرة عايز تنفذها؟ أو حتى عايز تقول سلام؟ أنا موجود دايماً للرد عليك.",
-                contact_email_label: "البريد الإلكتروني",
-                contact_loc_label: "المكان",
-                contact_loc_val: "القاهرة، مصر",
-                form_name: "الاسم",
-                form_email: "البريد الإلكتروني",
-                form_msg: "الرسالة",
-                form_btn: "إرسال الرسالة",
-                coming_soon: "قريباً جداً",
-                content_title: "محتوى مفيد بيطبخ على نار هادية",
-                footer_rights: "جميع الحقوق محفوظة © 2024 مصطفي عبد الناصر"
-            },
-            en: {
-                nav_home: "Home",
-                nav_about: "Who is Kamshkat?",
-                nav_services: "Services",
-                nav_content: "Content",
-                nav_contact: "Contact Me",
-                logo_text: "Kamshkat",
-                hero_welcome: "Welcome to the world of",
-                hero_brand: "Kamshkat",
-                hero_desc: "I am Mostafa Abdelnasser. Here, we blend Graphic Design with creating valuable content. A space for creativity and self-development.",
-                hero_cta_content: "Explore Content",
-                hero_cta_about: "Know More About Me",
-                about_subtitle: "About Kamshkat",
-                about_title: "Mostafa Abdelnasser.. Passion for Design & Content",
-                about_text: "I am Mostafa Abdelnasser, known as 'Kamshkat'. An Egyptian Graphic Designer with over 5 years of experience in turning ideas into eye-catching visuals. I believe valuable content is what leaves a mark.",
-                services_title: "What does Kamshkat offer?",
-                services_desc: "Combining technical design skills with a content creator's vision to provide integrated solutions.",
-                service_1_title: "Graphic Design",
-                service_1_desc: "Designing visual identities, logos, and social media designs that express your idea intelligently and professionally.",
-                service_2_title: "Content Creation",
-                service_2_desc: "Writing and producing useful and attractive content that suits various platforms and achieves real engagement.",
-                service_3_title: "Branding",
-                service_3_desc: "Building a strong identity for your personal or commercial brand to stand out in the crowd.",
-                contact_title: "Contact Me",
-                contact_desc: "Have a new project? An idea you want to execute? Or just want to say hi? I'm always here to reply.",
-                contact_email_label: "Email",
-                contact_loc_label: "Location",
-                contact_loc_val: "Cairo, Egypt",
-                form_name: "Name",
-                form_email: "Email",
-                form_msg: "Message",
-                form_btn: "Send Message",
-                coming_soon: "Coming Soon",
-                content_title: "Valuable content is cooking on low heat",
-                footer_rights: "All rights reserved © 2024 Mostafa Abdelnasser"
-            }
-        };
-
-        // Mobile Menu Toggle
+        // كود بسيط لفتح وغلق القائمة في الموبايل (نضيف وسريع)
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
 
-        // Language Switch Logic
-        let currentLang = 'ar';
-
-        function toggleLanguage() {
-            currentLang = currentLang === 'ar' ? 'en' : 'ar';
-            const htmlTag = document.documentElement;
-            const langText = document.getElementById('lang-text');
-            const langTextMobile = document.getElementById('lang-text-mobile');
-            
-            // 1. Change Direction
-            if (currentLang === 'ar') {
-                htmlTag.setAttribute('dir', 'rtl');
-                htmlTag.setAttribute('lang', 'ar');
-                langText.textContent = 'English';
-                langTextMobile.textContent = 'EN';
-            } else {
-                htmlTag.setAttribute('dir', 'ltr');
-                htmlTag.setAttribute('lang', 'en');
-                langText.textContent = 'عربي';
-                langTextMobile.textContent = 'AR';
-            }
-
-            // 2. Change Text Content
-            const elements = document.querySelectorAll('[data-translate]');
-            elements.forEach(el => {
-                const key = el.getAttribute('data-translate');
-                if (translations[currentLang][key]) {
-                    el.textContent = translations[currentLang][key];
-                }
+        if(mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
             });
-
-            // 3. Close mobile menu if open
-            if(!mobileMenu.classList.contains('hidden')) {
-                mobileMenu.classList.add('hidden');
-            }
         }
 
-        // Navbar Scroll Effect
+        // تغيير لون النافبار عند السكرول
         window.addEventListener('scroll', () => {
             const navbar = document.getElementById('navbar');
             if (window.scrollY > 20) {
