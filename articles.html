@@ -10,36 +10,47 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>كمشكاة | المقالات</title>
+    
+    <!-- SEO Meta Tags -->
+    <title>كمشكاة | المقالات - قريباً</title>
+    <meta name="description" content="انتظروا قريباً مدونة كمشكاة. مقالات حصرية ومحتوى تعليمي في الجرافيك ديزاين، البرمجة، وتطوير الذات.">
+    <meta name="keywords" content="مدونة كمشكاة, مقالات تعليمية, جرافيك ديزاين, برمجة, تطوير ذات, قريبا">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="كمشكاة | المقالات - قريباً">
+    <meta property="og:description" content="جاري العمل على تجهيز محتوى قوي يفيدك. انتظرونا!">
+    <meta property="og:image" content="https://kameshkah.com/images/logo.png">
+    <meta property="og:type" content="website">
+    
     <link rel="icon" type="image/png" href="images/logo.png?v=2">
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body data-page="articles">
-    <div class="fixed-bg"><img src="images/bg.jpg"></div>
+    <div class="fixed-bg"><img src="images/bg.jpg" alt="خلفية"></div>
     <div id="header-ph"></div>
 
-    <main class="pt-32 px-4 container mx-auto max-w-4xl min-h-screen">
-        <div class="mb-10 text-center fade-in">
-            <h1 class="text-3xl font-black text-emerald-900 inline-block px-8 py-3 glass-panel rounded-full bg-white/70">مدونة كمشكاة</h1>
-        </div>
-        
-        <div class="relative w-full max-w-lg mx-auto mb-8 glass-panel rounded-xl overflow-hidden bg-white/70">
-            <input type="text" id="article-search-input" placeholder="ابحث في المقالات..." class="w-full bg-transparent border-none text-slate-800 px-4 py-3 pl-10 focus:outline-none placeholder-slate-500 font-medium">
-            <i data-lucide="search" class="absolute left-3 top-3 text-emerald-600 w-5 h-5"></i>
-        </div>
+    <main class="pt-32 px-4 container mx-auto min-h-screen flex items-center justify-center pb-20">
+        <div class="glass-panel p-12 rounded-3xl text-center max-w-2xl mx-auto bg-white/60 border-emerald-100 fade-in">
+            <div class="bg-emerald-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner">
+                <i data-lucide="pen-tool" class="w-12 h-12 text-emerald-600"></i>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-black text-emerald-900 mb-4">مدونة كمشكاة</h1>
+            <div class="h-1 w-32 bg-emerald-500 mx-auto rounded-full mb-8"></div>
+            
+            <h2 class="text-2xl font-bold text-slate-700 mb-4">قريباً جداً... 🔥</h2>
+            <p class="text-slate-600 text-lg leading-relaxed mb-8 font-medium">
+                شغالين دلوقتي على تجهيز مقالات دسمة، نسأل الله التوفيق.
+                <br>
+                المحتوى اللي جاي هيفرق معاك جداً، خليك متابع!
+            </p>
 
-        <div class="flex flex-wrap justify-center gap-3 mb-8 fade-in delay-100">
-            <button class="article-filter-btn active bg-emerald-600 text-white px-5 py-2 rounded-full font-bold border border-white/10 filter-btn" data-cat="all">الكل</button>
-            <button class="article-filter-btn bg-white/60 px-5 py-2 rounded-full font-bold hover:bg-white/10 filter-btn" data-cat="development">تطوير ذات</button>
-            <button class="article-filter-btn bg-white/60 px-5 py-2 rounded-full font-bold hover:bg-white/10 filter-btn" data-cat="tech">تكنولوجيا</button>
-            <button class="article-filter-btn bg-white/60 px-5 py-2 rounded-full font-bold hover:bg-white/10 filter-btn" data-cat="freelance">عمل حر</button>
-            <button class="article-filter-btn bg-white/60 px-5 py-2 rounded-full font-bold hover:bg-white/10 filter-btn" data-cat="marketing">تسويق</button>
-            <button class="article-filter-btn bg-white/60 px-5 py-2 rounded-full font-bold hover:bg-white/10 filter-btn" data-cat="languages">لغات</button>
+            <a href="index.html" class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-3 rounded-xl font-bold transition shadow-lg shadow-emerald-200">
+                <i data-lucide="home"></i> رجوع للرئيسية
+            </a>
         </div>
-
-        <div id="articles-grid" class="space-y-6 fade-in delay-200"></div>
     </main>
 
     <div id="footer-ph"></div>
