@@ -209,7 +209,7 @@ function t(key) { return translations[currentLang][key] || key; }
 // بيانات الكورسات
 // -------------------------------------------------------------------------
 const coursesData = [
-    // --- المجموعة الأولى (الذكاء الاصطناعي والبيزنس) ---
+    // --- المجموعة الأولى ---
     { 
         id: 201, 
         titleAr: "الذكاء الاصطناعي Full-Stack باستخدام Ollama", 
@@ -301,7 +301,7 @@ const coursesData = [
         url: "https://www.udemy.com/course/logisticsmanagement/?couponCode=3E8A13C71DFF705DFA8E" 
     },
 
-    // --- المجموعة الثانية (الدفعة الجديدة) ---
+    // --- المجموعة الثانية ---
     { 
         id: 210, 
         titleAr: "دورة شاملة في برمجة JavaScript و PHP", 
@@ -451,6 +451,218 @@ const coursesData = [
         img: "images/c224.jpg", 
         date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
         url: "https://www.udemy.com/course/java-masterclass-for-absolute-beginners/?couponCode=DEC-FREE" 
+    },
+
+    // --- المجموعة الثالثة (الأخيرة) ---
+    { 
+        id: 225, 
+        titleAr: "إدارة مخاطر الطرف الثالث للأمن السيبراني", 
+        titleEn: "Third‑Party Risk Management for Cybersecurity & Compliance", 
+        desc: "تعلم كيفية إدارة مخاطر الأمن السيبراني المتعلقة بالجهات الخارجية.", 
+        cat: "tech", 
+        img: "images/c225.jpg", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/thirdparty-risk-management-for-cybersecurity-compliance/?couponCode=B0770D203D3544A3681F" 
+    },
+    { 
+        id: 226, 
+        titleAr: "احتراف تقنيات البحث المتقدم في جوجل", 
+        titleEn: "Google Search - Mastering Google Advance Search Techniques", 
+        desc: "أسرار وتقنيات البحث المتقدم في جوجل للوصول لأي معلومة.", 
+        cat: "tech", 
+        img: "images/c226.jpg", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/google-search-mastering-google-advance-search-techniques/?couponCode=51A76F3C1E8299C71E53" 
+    },
+    { 
+        id: 227, 
+        titleAr: "دوال ومعادلات إكسل للمبتدئين", 
+        titleEn: "Excel - Microsoft Excel Formulas and Functions For Beginners", 
+        desc: "تعلم أهم دوال ومعادلات إكسل من البداية.", 
+        cat: "business", 
+        img: "images/c227.jpg", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/excel-microsoft-excel-formulas-and-functions-for-beginners/?couponCode=9F55AD5D7D53C9807E06" 
+    },
+    { 
+        id: 228, 
+        titleAr: "هندسة الخدمات المصغرة: Temporal و Spring", 
+        titleEn: "Microservices Architecture: Temporal Orchestration + Spring", 
+        desc: "بناء أنظمة Microservices متقدمة باستخدام Spring و Temporal.", 
+        cat: "programming", 
+        img: "images/c228.jpg", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/microservices-architecture-temporal-orchestration-spring/?couponCode=5739BF69A3E59DBDF3A6" 
+    },
+    { 
+        id: 229, 
+        titleAr: "من مدير إلى قائد: برنامج التحول القيادي", 
+        titleEn: "From Manager to Leader: Leadership Transformation Program", 
+        desc: "طور مهاراتك القيادية وانتقل من مجرد مدير إلى قائد ملهم.", 
+        cat: "business", 
+        img: "images/c229.jpg", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/from-manager-to-leader-leadership-transformation-program/?couponCode=207EDC3840D144A26F6F" 
+    },
+    { 
+        id: 230, 
+        titleAr: "احتراف Git و Github و Jenkins لمختبري البرمجيات", 
+        titleEn: "Mastering Git, Github & Jenkins for Software Testers", 
+        desc: "أدوات التحكم في الإصدار والنشر المستمر (CI/CD) للتيسترز.", 
+        cat: "programming", 
+        img: "images/c230.jpg", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/mastering-git-github-jenkins-for-software-testers/?couponCode=9DED4E307C83067F5B6A" 
+    },
+    { 
+        id: 231, 
+        titleAr: "PHP مع MySQL: بناء 5 مشاريع كاملة", 
+        titleEn: "PHP with MySQL: Build 5 PHP and MySQL Projects", 
+        desc: "تطبيق عملي لبناء 5 مشاريع حقيقية باستخدام PHP وقواعد البيانات.", 
+        cat: "programming", 
+        img: "images/c231.jpg", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/php-with-mysql-2022-build-5-php-and-mysql-projects/?couponCode=PHPWITHMYSQL72" 
+    },
+    { 
+        id: 232, 
+        titleAr: "كورس TensorFlow: من الأساسيات للشبكات العصبية المتقدمة", 
+        titleEn: "TensorFlow Course: Basic to Advanced Neural Network & Beyond", 
+        desc: "تعلم مكتبة TensorFlow للذكاء الاصطناعي وبناء الشبكات العصبية.", 
+        cat: "ai", 
+        img: "images/c232.jpg", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/tensorflow-course-basic-to-advanced-neural-network-beyond/?couponCode=71DD1DE8B4F70AFBB2F0" 
+    },
+    { 
+        id: 233, 
+        titleAr: "تحليل وتصور البيانات باستخدام إكسل", 
+        titleEn: "Excel Data Analysis Visualization with Management Technique", 
+        desc: "تحليل البيانات وإنشاء لوحات معلومات (Dashboards) باستخدام إكسل.", 
+        cat: "business", 
+        img: "images/c233.jpg", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/microsoft-excel-data-visualization-with-management-technique/?couponCode=97F084CBE477E468EE0F" 
+    },
+    { 
+        id: 234, 
+        titleAr: "كورس مطور بايثون الشامل: تعلم خطوة بخطوة", 
+        titleEn: "The Ultimate Python Developer Course: Learn Step by Step", 
+        desc: "المسار الكامل لتصبح مطور بايثون محترف.", 
+        cat: "programming", 
+        img: "images/c234.jpg", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/the-ultimate-python-developer-course-learn-step-by-step/?couponCode=0AA338F7F0A7F5E62AA9" 
+    },
+    { 
+        id: 235, 
+        titleAr: "استراتيجية فوركس PUMPING STATION + برنامج تداول", 
+        titleEn: "Forex Strategy PUMPING STATION + Trading Software as a Gift", 
+        desc: "استراتيجية تداول فوركس قوية مع أدوات مساعدة.", 
+        cat: "business", 
+        img: "images/c235.jpg", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/forex-strategy-pumping-station/?couponCode=EEDA1795CB14B069C6B1" 
+    },
+    { 
+        id: 236, 
+        titleAr: "مضاربة الفوركس (Scalping) على M15", 
+        titleEn: "Forex scalping on M15. Grabber Trading + software as a gift", 
+        desc: "تعلم استراتيجيات السكالبينج السريعة في سوق الفوركس.", 
+        cat: "business", 
+        img: "images/c236.jpg", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/forex-scalping-on-m15-grabber-trading-software-as-a-gift/?couponCode=99744107F25C95481117" 
+    },
+    { 
+        id: 237, 
+        titleAr: "شرح كل نماذج التعلم العميق للمبتدئين", 
+        titleEn: "DEEP LEARNING ALL MODELS EXPLAINED FOR BEGINNERS", 
+        desc: "فهم شامل لكل أنواع نماذج الـ Deep Learning.", 
+        cat: "ai", 
+        img: "images/c237.jpg", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/deep-learning-all-models-explained-for-beginners/?couponCode=949EF31BB4E1348F419A" 
+    },
+    { 
+        id: 238, 
+        titleAr: "كورس SQLite الشامل 2025: من الصفر للاحتراف", 
+        titleEn: "SQLite Ultimate Course 2025 : From Zero to SQL Expert", 
+        desc: "إتقان قواعد البيانات SQLite واستخدامها في التطبيقات.", 
+        cat: "programming", 
+        img: "images/c238.jpg", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/complete-sqlite-crash-course-from-zero-to-hero/?couponCode=42FF323A8284D9E8C1C3" 
+    },
+    { 
+        id: 239, 
+        titleAr: "أساسيات CSS: تدريب شامل لمطوري الويب", 
+        titleEn: "CSS Fundamentals: Comprehensive Training for Web Developers", 
+        desc: "أساسيات تصميم وتنسيق المواقع باستخدام CSS.", 
+        cat: "programming", 
+        img: "images/c239.jpg", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/css-fundamentals-comprehensive-training-for-web-developers/?couponCode=70FD0830C29C97DE5794" 
+    },
+    { 
+        id: 240, 
+        titleAr: "التداول الآلي على MT5 خطوة بخطوة", 
+        titleEn: "Automated trading on MT5. Step by step", 
+        desc: "كيفية إنشاء واستخدام بوتات التداول الآلي على منصة ميتاتريدر 5.", 
+        cat: "business", 
+        img: "images/c240.jpg", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/automated-trading-on-mt5-step-by-step/?couponCode=50FA091D65FABED0DBC9" 
+    },
+    { 
+        id: 241, 
+        titleAr: "كورس مايكروسوفت وورد الكامل", 
+        titleEn: "The Complete Microsoft Word Course: Learn Word Step by Step", 
+        desc: "احتراف برنامج الكتابة الشهير مايكروسوفت وورد.", 
+        cat: "business", 
+        img: "images/c241.jpg", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/the-complete-microsoft-word-course-learn-word-step-by-step/?couponCode=DFBFC1F0E9091FD263CC" 
+    },
+    { 
+        id: 242, 
+        titleAr: "كورس مايكروسوفت إكسل الكامل من المبتدئ للخبير", 
+        titleEn: "The Complete Microsoft Excel From Beginners to Expert", 
+        desc: "الدليل الشامل لاحتراف إكسل في جميع المستويات.", 
+        cat: "business", 
+        img: "images/c242.jpg", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/the-complete-microsoft-excel-from-beginners-to-expert/?couponCode=0154E9FA71C876716ABF" 
+    },
+    { 
+        id: 243, 
+        titleAr: "احتراف جافاسكريبت من الأساسيات للمتقدم 2025", 
+        titleEn: "JavaScript Mastery From Basics to Advanced 2025", 
+        desc: "كورس حديث لتعلم جافاسكريبت بكل تحديثاتها الجديدة.", 
+        cat: "programming", 
+        img: "images/c243.jpg", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/javascript-mastery-from-basics-to-advanced/?couponCode=6548B475618CCD43C938" 
+    },
+    { 
+        id: 244, 
+        titleAr: "استراتيجية تداول الفوركس (Divergence) + برنامج هدية", 
+        titleEn: "Divergence Forex Trading Strategy + software as a gift", 
+        desc: "احتراف التداول باستخدام الدايفرجنس في سوق العملات.", 
+        cat: "business", 
+        img: "images/c244.jpg", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/divergence-bomber/?couponCode=3FB1E0DEAF84E720CD01" 
+    },
+    { 
+        id: 245, 
+        titleAr: "كورس SQL الكامل: من الصفر لمحلل بيانات", 
+        titleEn: "The Complete SQL Course: From Zero to Data Analyst", 
+        desc: "تعلم SQL وقواعد البيانات لتصبح محلل بيانات محترف.", 
+        cat: "programming", 
+        img: "images/c245.jpg", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/the-complete-sql-course-from-zero-to-data-analyst/?couponCode=071B376D99B325F28003" 
     }
 ];
 
