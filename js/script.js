@@ -20,13 +20,12 @@ let analytics;
 // -------------------------------------------------------------------------
 // إعدادات العرض (Pagination)
 // -------------------------------------------------------------------------
-// هنا بتحدد عدد الصور اللي تظهر في الأول، وأقصى عدد صور عندك في الفولدر
 const GALLERY_INITIAL_COUNT = 10; 
-const GALLERY_INCREMENT = 6;      // كل ضغطة تزود كام صورة
-const MAX_GALLERY_IMAGES = 100;   // حط هنا رقم تقريبي لأقصى عدد صور عندك في الفولدر
+const GALLERY_INCREMENT = 6;      
+const MAX_GALLERY_IMAGES = 100;   
 
-let visibleCoursesCount = 6;      // عدد الكورسات اللي بتظهر في الأول
-const COURSES_INCREMENT = 6;      // كل ضغطة تزود كام كورس
+let visibleCoursesCount = 6;      
+const COURSES_INCREMENT = 6;      
 
 // -------------------------------------------------------------------------
 // قاموس الترجمة (عربي / إنجليزي)
@@ -198,10 +197,102 @@ function t(key) { return translations[currentLang][key] || key; }
 // بيانات الكورسات
 // -------------------------------------------------------------------------
 const coursesData = [
+    // الكورسات القديمة
     { id: 101, titleAr: "بناء 3 تطبيقات أندرويد من الصفر بجافا", titleEn: "Android: Build 3 Apps from Scratch with Java", desc: "كورس عملي لتعلم برمجة تطبيقات الأندرويد.", cat: "programming", img: "images/c101.jpg", date: "02 Dec 2025", url: "https://www.udemy.com/course/android-course-build-3-applications-from-scratch-with-java/?couponCode=9139A2FB926F1B55432C" },
     { id: 102, titleAr: "معسكر PostgreSQL من المبتدئ للمتقدم", titleEn: "PostgreSQL Bootcamp: Beginner to Advanced", desc: "احترف قواعد البيانات PostgreSQL.", cat: "programming", img: "images/c102.jpg", date: "02 Dec 2025", url: "https://www.udemy.com/course/postgresql-bootcamp-complete-beginner-to-advanced-course/?couponCode=A84C9E26F61196AC0782" },
-    { id: 1, titleAr: "ChatGPT لإدارة المنتجات", titleEn: "ChatGPT for Product Management", desc: "استخدام AI في إدارة المنتجات.", cat: "ai", img: "images/c1.jpg", date: "02 Dec 2025", url: "https://www.udemy.com/course/chatgpt-for-product-management/?couponCode=2025DECEMBERFIRST" }
-    // ضيف باقي كورساتك هنا
+    { id: 1, titleAr: "ChatGPT لإدارة المنتجات", titleEn: "ChatGPT for Product Management", desc: "استخدام AI في إدارة المنتجات.", cat: "ai", img: "images/c1.jpg", date: "02 Dec 2025", url: "https://www.udemy.com/course/chatgpt-for-product-management/?couponCode=2025DECEMBERFIRST" },
+    
+    // الكورسات الجديدة (بالتاريخ العربي والهجري)
+    { 
+        id: 201, 
+        titleAr: "الذكاء الاصطناعي Full-Stack باستخدام Ollama", 
+        titleEn: "[FR] IA Full-Stack avec Ollama: Llama, Deepseek, Mistral", 
+        desc: "تعلم بناء تطبيقات ذكاء اصطناعي كاملة باستخدام نماذج Llama و Deepseek.", 
+        cat: "ai", 
+        img: "images/c201.jpg", 
+        date: "03 ديسمبر 2025 | 12 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/ia-full-stack-avec-ollama-llama-deepseek-mistral-qwq/?couponCode=AI_NOV_03" 
+    },
+    { 
+        id: 202, 
+        titleAr: "الذكاء الاصطناعي في العمل: الاستخدام القانوني والأخلاقي", 
+        titleEn: "AI in the Workplace: Legal & Ethical Use", 
+        desc: "دليل شامل للاستخدام الأخلاقي والقانوني للذكاء الاصطناعي في بيئة العمل.", 
+        cat: "ai", 
+        img: "images/c202.jpg", 
+        date: "03 ديسمبر 2025 | 12 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/ai-in-the-workplace-legal-ethical-use/?couponCode=F610DF605FF2CB4E3CA0" 
+    },
+    { 
+        id: 203, 
+        titleAr: "إطار عمل اقتصاد الدونات (Doughnut Economics)", 
+        titleEn: "The Doughnut Economics Framework", 
+        desc: "فهم إطار عمل الاقتصاد المستدام ونموذج الدونات.", 
+        cat: "business", 
+        img: "images/c203.jpg", 
+        date: "03 ديسمبر 2025 | 12 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/doughnut-economics-framework/?couponCode=E571A56ACB2064F8443F" 
+    },
+    { 
+        id: 204, 
+        titleAr: "قوة التسويق عبر الاختبارات (Quiz Marketing)", 
+        titleEn: "Quiz Marketing Power: Generate Leads", 
+        desc: "كيفية توليد عملاء محتملين (Leads) بقوة باستخدام مسابقات التسويق.", 
+        cat: "marketing", 
+        img: "images/c204.jpg", 
+        date: "03 ديسمبر 2025 | 12 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/quiz-marketing-power-generate-leads-with-boosting-lead/?couponCode=03DECEMBER2025" 
+    },
+    { 
+        id: 205, 
+        titleAr: "بداية تطوير تطبيقات iOS باستخدام SwiftUI", 
+        titleEn: "iOS Development Kickstart: Craft Your First App With SwiftUI", 
+        desc: "ابدأ رحلتك في برمجة تطبيقات الآيفون باستخدام SwiftUI.", 
+        cat: "programming", 
+        img: "images/c205.jpg", 
+        date: "03 ديسمبر 2025 | 12 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/ios-development-craft-your-first-app-with-swiftui/?couponCode=03DECEMBER2025" 
+    },
+    { 
+        id: 206, 
+        titleAr: "تحسين إعلانات فيسبوك: اجعل إعلاناتك مذهلة", 
+        titleEn: "Facebook Ads Improvement: Make Your Ads Breathtaking", 
+        desc: "استراتيجيات عملية لتحسين أداء إعلانات فيسبوك وزيادة النتائج.", 
+        cat: "marketing", 
+        img: "images/c206.jpg", 
+        date: "03 ديسمبر 2025 | 12 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/facebook-ads-improvement-make-your-ads-breathtaking/?couponCode=03DECEMBER2025" 
+    },
+    { 
+        id: 207, 
+        titleAr: "خطة الإنقاذ الرقمي: مواجهة الهجمات السيبرانية", 
+        titleEn: "Plan de Rescate Digital: Cómo Actuar Frente a un Ciberataque", 
+        desc: "كيف تتصرف وتنقذ بياناتك في حالة التعرض لهجوم سيبراني.", 
+        cat: "tech", 
+        img: "images/c207.jpg", 
+        date: "03 ديسمبر 2025 | 12 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/plan-de-rescate-digital-como-actuar-frente-a-un-ciberataque/?couponCode=UPGRADE02223" 
+    },
+    { 
+        id: 208, 
+        titleAr: "أساسيات C#: من الصفر حتى أول تطبيق", 
+        titleEn: "C# Basics: From Zero to First Applications", 
+        desc: "تعلم أساسيات لغة C# وابني تطبيقاتك الأولى.", 
+        cat: "programming", 
+        img: "images/c208.jpg", 
+        date: "03 ديسمبر 2025 | 12 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/c-basics-from-zero-to-first-applications/?couponCode=03DECEMBER2025" 
+    },
+    { 
+        id: 209, 
+        titleAr: "الدبلومة المهنية في إدارة اللوجستيات", 
+        titleEn: "Professional Diploma in Logistics Management", 
+        desc: "دبلومة شاملة في إدارة اللوجستيات وسلاسل الإمداد.", 
+        cat: "business", 
+        img: "images/c209.jpg", 
+        date: "03 ديسمبر 2025 | 12 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/logisticsmanagement/?couponCode=3E8A13C71DFF705DFA8E" 
+    }
 ];
 
 const booksData = [
