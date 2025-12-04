@@ -197,12 +197,7 @@ function t(key) { return translations[currentLang][key] || key; }
 // بيانات الكورسات
 // -------------------------------------------------------------------------
 const coursesData = [
-    // الكورسات القديمة
-    { id: 101, titleAr: "بناء 3 تطبيقات أندرويد من الصفر بجافا", titleEn: "Android: Build 3 Apps from Scratch with Java", desc: "كورس عملي لتعلم برمجة تطبيقات الأندرويد.", cat: "programming", img: "images/c101.jpg", date: "02 Dec 2025", url: "https://www.udemy.com/course/android-course-build-3-applications-from-scratch-with-java/?couponCode=9139A2FB926F1B55432C" },
-    { id: 102, titleAr: "معسكر PostgreSQL من المبتدئ للمتقدم", titleEn: "PostgreSQL Bootcamp: Beginner to Advanced", desc: "احترف قواعد البيانات PostgreSQL.", cat: "programming", img: "images/c102.jpg", date: "02 Dec 2025", url: "https://www.udemy.com/course/postgresql-bootcamp-complete-beginner-to-advanced-course/?couponCode=A84C9E26F61196AC0782" },
-    { id: 1, titleAr: "ChatGPT لإدارة المنتجات", titleEn: "ChatGPT for Product Management", desc: "استخدام AI في إدارة المنتجات.", cat: "ai", img: "images/c1.jpg", date: "02 Dec 2025", url: "https://www.udemy.com/course/chatgpt-for-product-management/?couponCode=2025DECEMBERFIRST" },
-    
-    // الكورسات الجديدة (بالتاريخ العربي والهجري)
+    // كورسات اليوم (03 ديسمبر 2025) فقط
     { 
         id: 201, 
         titleAr: "الذكاء الاصطناعي Full-Stack باستخدام Ollama", 
