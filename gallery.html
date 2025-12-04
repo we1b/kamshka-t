@@ -10,33 +10,46 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>كمشكاة | المعرض</title>
+    
+    <!-- SEO Meta Tags -->
+    <title>كمشكاة | معرض التصميمات والإبداع</title>
+    <meta name="description" content="تصفح معرض أعمال مصطفى كمشكاة في الجرافيك ديزاين. تصميمات سوشيال ميديا، هويات بصرية، ودمج (Manipulation) بإبداع ولمسة فنية.">
+    <meta name="keywords" content="معرض أعمال جرافيك, بورتفوليو مصمم, تصميمات سوشيال ميديا, Graphic Design Portfolio, Manipulation, Behance">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="كمشكاة | معرض التصميمات">
+    <meta property="og:description" content="شوف الإبداع في معرض تصميمات كمشكاة.">
+    <meta property="og:image" content="https://kameshkah.com/images/1.jpg">
+    <meta property="og:type" content="website">
+
     <link rel="icon" type="image/png" href="images/logo.png?v=2">
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body data-page="gallery">
-    <div class="fixed-bg"><img src="images/bg.jpg"></div>
+    <div class="fixed-bg"><img src="images/bg.jpg" alt="خلفية"></div>
     <div id="header-ph"></div>
 
     <div id="lightbox" onclick="closeLightbox()">
         <button class="absolute top-5 right-5 text-slate-800 bg-white p-2 rounded-full hover:bg-red-100 hover:text-red-500 transition z-50 shadow-lg"><i data-lucide="x"></i></button>
-        <img id="lightbox-img" src="" onclick="event.stopPropagation()">
-        <a id="lightbox-download" href="#" download class="absolute bottom-8 bg-white text-emerald-800 px-8 py-3 rounded-full font-bold shadow-2xl flex gap-2 hover:bg-emerald-50 transition" onclick="event.stopPropagation()"><i data-lucide="download"></i> تحميل الصورة</a>
+        <img id="lightbox-img" src="" alt="عرض التصميم" onclick="event.stopPropagation()">
+        <a id="lightbox-download" href="#" download class="absolute bottom-8 bg-white text-emerald-800 px-8 py-3 rounded-full font-bold shadow-2xl flex gap-2 hover:bg-emerald-50 transition" onclick="event.stopPropagation()">
+            <i data-lucide="download"></i> <span data-i18n="btn_download">تحميل الصورة</span>
+        </a>
     </div>
 
     <main class="pt-32 px-4 container mx-auto min-h-screen pb-12">
         <div class="text-center mb-12 fade-in">
-            <h1 class="text-4xl font-black text-emerald-900 mb-2">معرض التصميمات</h1>
-            <p class="text-slate-600 font-bold text-lg">إبداع متجدد . لمسة فنية</p>
+            <h1 class="text-4xl font-black text-emerald-900 mb-2" data-i18n="gallery_title">معرض التصميمات</h1>
+            <p class="text-slate-600 font-bold text-lg" data-i18n="gallery_subtitle">إبداع متجدد . لمسة فنية</p>
         </div>
 
         <div id="gallery-grid" class="masonry-grid fade-in delay-100"></div>
 
         <div class="text-center mt-12 fade-in">
-            <button id="load-more-gallery" class="bg-white text-emerald-800 px-8 py-3 rounded-full font-bold hover:bg-emerald-50 transition border border-emerald-200 shadow-md items-center gap-2 hidden">
-                عرض المزيد من التصميمات <i data-lucide="arrow-down" class="w-5 h-5"></i>
+            <button id="load-more-gallery" class="bg-white text-emerald-800 px-8 py-3 rounded-full font-bold hover:bg-emerald-50 transition border border-emerald-200 shadow-md inline-flex items-center gap-2">
+                <span data-i18n="btn_load_more_gallery">عرض المزيد من التصميمات</span> <i data-lucide="arrow-down" class="w-5 h-5"></i>
             </button>
         </div>
     </main>

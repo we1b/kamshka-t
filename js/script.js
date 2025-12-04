@@ -55,19 +55,25 @@ const translations = {
         btn_subscribe: "اشتراك",
         no_courses: "مفيش كورسات بالاسم ده 🤷‍♂️",
 
+        // ترجمات المعرض
         gallery_title: "معرض التصميمات",
         gallery_subtitle: "إبداع متجدد . لمسة فنية",
         btn_download: "تحميل الصورة",
         btn_zoom: "تكبير",
+        btn_load_more_gallery: "عرض المزيد من التصميمات",
 
+        // ترجمات صفحة المكتبة (قريباً)
         library_title: "مكتبة كمشكاة",
-        library_subtitle: "جاري رفع الكتب والملفات.. انتظرونا قريباً!",
-        btn_download_book: "تحميل الكتاب",
-        search_book_placeholder: "ابحث عن كتاب...",
+        library_soon_title: "بنرص الكتب في الرفوف... 📚",
+        library_soon_desc: "جاري تجميع ورفع أفضل الكتب والمصادر المجانية اللي هتساعدك تطور من نفسك ومهاراتك.\nالمكتبة هتكون متاحة قريباً جداً.",
+        btn_check_courses: "شوف الكورسات عقبال ما نخلص",
+        btn_home: "الرئيسية",
 
+        // ترجمات صفحة المقالات (قريباً)
         articles_title: "مدونة كمشكاة",
-        search_article_placeholder: "ابحث في المقالات...",
-        read_more: "اقرأ المزيد",
+        articles_soon_title: "قريباً جداً... 🔥",
+        articles_soon_desc: "شغالين دلوقتي على تجهيز مقالات دسمة، نسأل الله التوفيق.\nالمحتوى اللي جاي هيفرق معاك جداً، خليك متابع!",
+        btn_back_home: "رجوع للرئيسية",
         
         contact_me_name: "مصطفى عبد الناصر",
         contact_role_gd: "Graphic Designer",
@@ -111,19 +117,25 @@ const translations = {
         btn_subscribe: "Enroll",
         no_courses: "No courses found 🤷‍♂️",
 
+        // Gallery Translations
         gallery_title: "Design Gallery",
         gallery_subtitle: "Renewed Creativity . Artistic Touch",
         btn_download: "Download",
         btn_zoom: "Zoom",
+        btn_load_more_gallery: "Load More Designs",
 
+        // Library Page (Coming Soon)
         library_title: "Kamshkat Library",
-        library_subtitle: "Uploading books soon.. Stay tuned!",
-        btn_download_book: "Download",
-        search_book_placeholder: "Search for a book...",
+        library_soon_title: "Stocking the shelves... 📚",
+        library_soon_desc: "We are currently gathering and uploading the best free books and resources to help you develop your skills.\nThe library will be available very soon.",
+        btn_check_courses: "Check Courses Meanwhile",
+        btn_home: "Home",
 
+        // Articles Page (Coming Soon)
         articles_title: "Kamshkat Blog",
-        search_article_placeholder: "Search articles...",
-        read_more: "Read More",
+        articles_soon_title: "Coming Very Soon... 🔥",
+        articles_soon_desc: "We are working on preparing rich articles, we ask Allah for success.\nThe upcoming content will make a difference, stay tuned!",
+        btn_back_home: "Back to Home",
 
         contact_me_name: "Mostafa Abdelnasser",
         contact_role_gd: "Graphic Designer",
@@ -290,16 +302,6 @@ const coursesData = [
     }
 ];
 
-const booksData = [
-    { id: 1, title: "أبي غني أبي فقير", author: "روبرت كيوساكي", cat: "finance", img: "images/b1.jpg", url: "#" },
-    { id: 2, title: "العادات الذرية", author: "جيمس كلير", cat: "self", img: "images/b2.jpg", url: "#" },
-    { id: 3, title: "فن اللامبالاة", author: "مارك مانسون", cat: "self", img: "images/b3.jpg", url: "#" }
-];
-
-const articlesData = [
-    { id: 1, title: "فكك من جو التنين المجنح", excerpt: "يا صاحبي، السوشيال ميديا هرتنا كلام..", content: "...", img: "images/a1.jpg", cat: "development", date: "28 Nov 2025" }
-];
-
 // --- المكونات ---
 function loadComponents() {
     const btnText = currentLang === 'ar' ? 'English' : 'عربي';
@@ -453,19 +455,7 @@ function renderCourses() {
 // -------------------------------------------------------------------------
 function initLibraryPage() { renderBooks(); }
 function renderBooks(search = '') {
-    const grid = document.getElementById('library-grid');
-    if(!grid) return;
-    const filtered = booksData.filter(b => b.title.includes(search));
-    grid.innerHTML = filtered.map(b => `
-        <div class="glass-panel p-4 rounded-2xl flex gap-4 hover:bg-white/60 transition group border border-white/60 text-start">
-            <img src="${b.img}" class="w-24 h-32 rounded-lg object-cover shadow-md" onerror="this.src='https://placehold.co/300x400/10b981/FFF?text=Book'">
-            <div class="flex-1">
-                <h3 class="text-lg font-bold text-emerald-900 mb-1">${b.title}</h3>
-                <p class="text-sm text-emerald-600 font-semibold mb-2">${b.author}</p>
-                <a href="${b.url}" class="text-xs bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full font-bold hover:bg-emerald-200 transition">${t('btn_download_book')}</a>
-            </div>
-        </div>
-    `).join('');
+    // الكود القديم هنا مش محتاجينه لأن الصفحة بقت "قريباً" وثابتة
 }
 
 // -------------------------------------------------------------------------
@@ -602,8 +592,12 @@ function openLightbox(src) {
     if(lb && lbImg) {
         lb.classList.add('active'); 
         lbImg.src = src;
-        if(dlBtn) dlBtn.href = src; // تحديث رابط التحميل
+        if(dlBtn) {
+            dlBtn.href = src;
+            dlBtn.innerHTML = `<i data-lucide="download"></i> ${t('btn_download')}`;
+        }
     }
+    lucide.createIcons();
 }
 
 function closeLightbox() { 
