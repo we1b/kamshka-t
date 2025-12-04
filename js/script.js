@@ -22,7 +22,7 @@ let analytics;
 // -------------------------------------------------------------------------
 const GALLERY_INITIAL_COUNT = 10; 
 const GALLERY_INCREMENT = 6;      
-const MAX_GALLERY_IMAGES = 100;   
+const MAX_GALLERY_IMAGES = 2000;   
 
 let visibleCoursesCount = 6;      
 const COURSES_INCREMENT = 6;      
@@ -209,7 +209,7 @@ function t(key) { return translations[currentLang][key] || key; }
 // بيانات الكورسات
 // -------------------------------------------------------------------------
 const coursesData = [
-    // كورسات اليوم (03 ديسمبر 2025) فقط
+    // --- المجموعة الأولى (الذكاء الاصطناعي والبيزنس) ---
     { 
         id: 201, 
         titleAr: "الذكاء الاصطناعي Full-Stack باستخدام Ollama", 
@@ -217,7 +217,7 @@ const coursesData = [
         desc: "تعلم بناء تطبيقات ذكاء اصطناعي كاملة باستخدام نماذج Llama و Deepseek.", 
         cat: "ai", 
         img: "images/c201.jpg", 
-        date: "03 ديسمبر 2025 | 12 جمادى الآخرة 1447", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
         url: "https://www.udemy.com/course/ia-full-stack-avec-ollama-llama-deepseek-mistral-qwq/?couponCode=AI_NOV_03" 
     },
     { 
@@ -227,7 +227,7 @@ const coursesData = [
         desc: "دليل شامل للاستخدام الأخلاقي والقانوني للذكاء الاصطناعي في بيئة العمل.", 
         cat: "ai", 
         img: "images/c202.jpg", 
-        date: "03 ديسمبر 2025 | 12 جمادى الآخرة 1447", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
         url: "https://www.udemy.com/course/ai-in-the-workplace-legal-ethical-use/?couponCode=F610DF605FF2CB4E3CA0" 
     },
     { 
@@ -237,7 +237,7 @@ const coursesData = [
         desc: "فهم إطار عمل الاقتصاد المستدام ونموذج الدونات.", 
         cat: "business", 
         img: "images/c203.jpg", 
-        date: "03 ديسمبر 2025 | 12 جمادى الآخرة 1447", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
         url: "https://www.udemy.com/course/doughnut-economics-framework/?couponCode=E571A56ACB2064F8443F" 
     },
     { 
@@ -247,7 +247,7 @@ const coursesData = [
         desc: "كيفية توليد عملاء محتملين (Leads) بقوة باستخدام مسابقات التسويق.", 
         cat: "marketing", 
         img: "images/c204.jpg", 
-        date: "03 ديسمبر 2025 | 12 جمادى الآخرة 1447", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
         url: "https://www.udemy.com/course/quiz-marketing-power-generate-leads-with-boosting-lead/?couponCode=03DECEMBER2025" 
     },
     { 
@@ -257,7 +257,7 @@ const coursesData = [
         desc: "ابدأ رحلتك في برمجة تطبيقات الآيفون باستخدام SwiftUI.", 
         cat: "programming", 
         img: "images/c205.jpg", 
-        date: "03 ديسمبر 2025 | 12 جمادى الآخرة 1447", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
         url: "https://www.udemy.com/course/ios-development-craft-your-first-app-with-swiftui/?couponCode=03DECEMBER2025" 
     },
     { 
@@ -267,7 +267,7 @@ const coursesData = [
         desc: "استراتيجيات عملية لتحسين أداء إعلانات فيسبوك وزيادة النتائج.", 
         cat: "marketing", 
         img: "images/c206.jpg", 
-        date: "03 ديسمبر 2025 | 12 جمادى الآخرة 1447", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
         url: "https://www.udemy.com/course/facebook-ads-improvement-make-your-ads-breathtaking/?couponCode=03DECEMBER2025" 
     },
     { 
@@ -277,7 +277,7 @@ const coursesData = [
         desc: "كيف تتصرف وتنقذ بياناتك في حالة التعرض لهجوم سيبراني.", 
         cat: "tech", 
         img: "images/c207.jpg", 
-        date: "03 ديسمبر 2025 | 12 جمادى الآخرة 1447", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
         url: "https://www.udemy.com/course/plan-de-rescate-digital-como-actuar-frente-a-un-ciberataque/?couponCode=UPGRADE02223" 
     },
     { 
@@ -287,7 +287,7 @@ const coursesData = [
         desc: "تعلم أساسيات لغة C# وابني تطبيقاتك الأولى.", 
         cat: "programming", 
         img: "images/c208.jpg", 
-        date: "03 ديسمبر 2025 | 12 جمادى الآخرة 1447", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
         url: "https://www.udemy.com/course/c-basics-from-zero-to-first-applications/?couponCode=03DECEMBER2025" 
     },
     { 
@@ -297,8 +297,160 @@ const coursesData = [
         desc: "دبلومة شاملة في إدارة اللوجستيات وسلاسل الإمداد.", 
         cat: "business", 
         img: "images/c209.jpg", 
-        date: "03 ديسمبر 2025 | 12 جمادى الآخرة 1447", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
         url: "https://www.udemy.com/course/logisticsmanagement/?couponCode=3E8A13C71DFF705DFA8E" 
+    },
+
+    // --- المجموعة الثانية (الدفعة الجديدة) ---
+    { 
+        id: 210, 
+        titleAr: "دورة شاملة في برمجة JavaScript و PHP", 
+        titleEn: "JavaScript And PHP Programming Complete Course", 
+        desc: "تعلم لغات الويب الأساسية JavaScript و PHP في كورس واحد شامل.", 
+        cat: "programming", 
+        img: "images/c210.jpg", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/javascript-and-php-programming-complete-course/?couponCode=154E96DD4DC2C8AADA3A" 
+    },
+    { 
+        id: 211, 
+        titleAr: "ماستر كلاس إعلانات LinkedIn 2025", 
+        titleEn: "LinkedIn Ads MasterClass 2025 - All Campaigns & Features", 
+        desc: "احترف إعلانات لينكد إن وتعلم كل أنواع الحملات الإعلانية.", 
+        cat: "marketing", 
+        img: "images/c211.jpg", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/linkedin-ads-masterclass-2023-all-campaigns-features/?couponCode=E958EDAF04C3CAEA59A4" 
+    },
+    { 
+        id: 212, 
+        titleAr: "مايكروسوفت بوربوينت من البداية للاحتراف", 
+        titleEn: "PowerPoint - Microsoft PowerPoint From Basic to Advanced", 
+        desc: "تعلم تصميم عروض تقديمية احترافية باستخدام بوربوينت.", 
+        cat: "business", 
+        img: "images/c212.jpg", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/powerpoint-microsoft-powerpoint-from-basic-to-advanced/?couponCode=EB3630BABE05CAF4BE51" 
+    },
+    { 
+        id: 213, 
+        titleAr: "احتراف نظام Linux: إعداد لشهادة LPIC-1", 
+        titleEn: "Linux Mastery: LPIC-1 (101-500 and 102-500) Ultimate Prep", 
+        desc: "دورة شاملة لتعلم نظام لينكس والتحضير لشهادة LPIC-1.", 
+        cat: "tech", 
+        img: "images/c213.jpg", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/lpic-1-ultimate-prep/?couponCode=413CEE0A0B1F0A9C93C5" 
+    },
+    { 
+        id: 214, 
+        titleAr: "احتراف بروتوكول IPv6: نشر وإعداد وترحيل", 
+        titleEn: "IPv6 Mastery: Deploy, Configure & Migrate with Confidence", 
+        desc: "فهم عميق لبروتوكول IPv6 وكيفية التعامل معه في الشبكات.", 
+        cat: "tech", 
+        img: "images/c214.jpg", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/ipv6-mastery/?couponCode=3DE6E59D900812F4DAC0" 
+    },
+    { 
+        id: 215, 
+        titleAr: "الدورة الكاملة لتعلم Google Sheets", 
+        titleEn: "Google Sheets - The Complete Google Sheets Course", 
+        desc: "احترف جداول بيانات جوجل (Google Sheets) من الصفر.", 
+        cat: "business", 
+        img: "images/c215.jpg", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/google-sheets-the-complete-google-sheets-course/?couponCode=77F25401BDDE72A9DAA8" 
+    },
+    { 
+        id: 216, 
+        titleAr: "احتراف الذكاء الاصطناعي التوليدي مع Adobe Firefly", 
+        titleEn: "Adobe Firefly - Master Generative AI Art Content Creation", 
+        desc: "تعلم إنشاء صور وتصميمات مذهلة باستخدام أدوبي فايرفلاي.", 
+        cat: "ai", 
+        img: "images/c216.jpg", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/master-generative-ai-with-adobe-firefly-genai/?couponCode=9714287C16673675CBFB" 
+    },
+    { 
+        id: 217, 
+        titleAr: "احتراف نماذج جوجل Google Forms", 
+        titleEn: "The Complete Google Forms Course - Mastering Google Forms", 
+        desc: "كل ما تحتاج معرفته لإنشاء وإدارة النماذج والاستبيانات.", 
+        cat: "business", 
+        img: "images/c217.jpg", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/the-complete-google-forms-course-mastering-google-forms/?couponCode=3E403E3545A55933596D" 
+    },
+    { 
+        id: 218, 
+        titleAr: "البرمجة كائنية التوجه (OOP) في بايثون", 
+        titleEn: "Python OOP: A Complete Course in Object Oriented Programming", 
+        desc: "فهم وتطبيق مفاهيم الـ OOP باستخدام لغة بايثون.", 
+        cat: "programming", 
+        img: "images/c218.jpg", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/python-oop-a-complete-course-in-object-oriented-programming/?couponCode=535F90F6AA3B3CA172E8" 
+    },
+    { 
+        id: 219, 
+        titleAr: "الدليل الكامل لتعلم CSS للمبتدئين", 
+        titleEn: "CSS - The Complete Guide to CSS for Beginners", 
+        desc: "تعلم تنسيق صفحات الويب باستخدام CSS من الصفر.", 
+        cat: "programming", 
+        img: "images/c219.jpg", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/css-the-complete-guide-to-css-zero-to-hero/?couponCode=82C830F6867A73183D3B" 
+    },
+    { 
+        id: 220, 
+        titleAr: "دورة بايثون للمبتدئين بتعمق", 
+        titleEn: "Python For Beginners Course In-Depth", 
+        desc: "دورة تأسيسية قوية لتعلم لغة البرمجة بايثون.", 
+        cat: "programming", 
+        img: "images/c220.jpg", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/python-for-beginners-course-in-depth/?couponCode=30CE6DC6706A3E2730D6" 
+    },
+    { 
+        id: 221, 
+        titleAr: "احتراف لغة Kotlin: دورة كاملة لتطوير الويب", 
+        titleEn: "Kotlin Mastering: Complete Kotlin Web Development Course", 
+        desc: "تعلم لغة كوتلن واستخدامها في مشاريع تطوير الويب.", 
+        cat: "programming", 
+        img: "images/c221.jpg", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/kotlin-mastering-complete-kotlin-web-development-course/?couponCode=17ED1E10AC12F5447788" 
+    },
+    { 
+        id: 222, 
+        titleAr: "استراتيجيات تداول Ichimoku المتقدمة للأسهم والفوركس", 
+        titleEn: "Advanced Ichimoku Trading Strategies for Stocks & Forex", 
+        desc: "تعلم التداول باستخدام استراتيجيات إيشيموكو المتقدمة.", 
+        cat: "business", 
+        img: "images/c222.jpg", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/ichimoku-trading/?couponCode=1DEC25" 
+    },
+    { 
+        id: 223, 
+        titleAr: "إتقان التقدير واستشارات الأعمال (Guesstimate)", 
+        titleEn: "Master Guesstimate & Business Consulting Case interview", 
+        desc: "دورة متخصصة في حل قضايا الأعمال ومقابلات الاستشارات.", 
+        cat: "business", 
+        img: "images/c223.jpg", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/guesstimates-and-case-interviews-excellence/?couponCode=ABC9D910ACE26A7A268B" 
+    },
+    { 
+        id: 224, 
+        titleAr: "ماستر كلاس جافا للمبتدئين تماماً", 
+        titleEn: "Java Masterclass for Absolute Beginners", 
+        desc: "ابدأ تعلم لغة جافا من الصفر بهذه الدورة الشاملة.", 
+        cat: "programming", 
+        img: "images/c224.jpg", 
+        date: "04 ديسمبر 2025 | 13 جمادى الآخرة 1447", 
+        url: "https://www.udemy.com/course/java-masterclass-for-absolute-beginners/?couponCode=DEC-FREE" 
     }
 ];
 
@@ -515,6 +667,9 @@ function renderGallery() {
 
     // التحكم في ظهور الزرار
     if(loadMoreBtn) {
+        // تحديث نص الزر
+        loadMoreBtn.innerHTML = `<span>${t('btn_load_more_gallery')}</span> <i data-lucide="arrow-down" class="w-5 h-5"></i>`;
+        
         // لو وصلنا للحد الأقصى نخفي الزرار
         if (window.visibleGalleryCount >= MAX_GALLERY_IMAGES) {
             loadMoreBtn.style.display = 'none';
