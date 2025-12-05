@@ -55,21 +55,18 @@ const translations = {
         btn_subscribe: "اشتراك",
         no_courses: "مفيش كورسات بالاسم ده 🤷‍♂️",
 
-        // ترجمات المعرض
         gallery_title: "معرض التصميمات",
         gallery_subtitle: "إبداع متجدد . لمسة فنية",
         btn_download: "تحميل الصورة",
         btn_zoom: "تكبير",
         btn_load_more_gallery: "عرض المزيد من التصميمات",
 
-        // ترجمات صفحة المكتبة (قريباً)
         library_title: "مكتبة كمشكاة",
         library_soon_title: "بنرص الكتب في الرفوف... 📚",
         library_soon_desc: "جاري تجميع ورفع أفضل الكتب والمصادر المجانية اللي هتساعدك تطور من نفسك ومهاراتك.\nالمكتبة هتكون متاحة قريباً جداً.",
         btn_check_courses: "شوف الكورسات عقبال ما نخلص",
         btn_home: "الرئيسية",
 
-        // ترجمات صفحة المقالات (قريباً)
         articles_title: "مدونة كمشكاة",
         articles_soon_title: "قريباً جداً... 🔥",
         articles_soon_desc: "شغالين دلوقتي على تجهيز مقالات دسمة، نسأل الله التوفيق.\nالمحتوى اللي جاي هيفرق معاك جداً، خليك متابع!",
@@ -117,21 +114,18 @@ const translations = {
         btn_subscribe: "Enroll",
         no_courses: "No courses found 🤷‍♂️",
 
-        // Gallery Translations
         gallery_title: "Design Gallery",
         gallery_subtitle: "Renewed Creativity . Artistic Touch",
         btn_download: "Download",
         btn_zoom: "Zoom",
         btn_load_more_gallery: "Load More Designs",
 
-        // Library Page (Coming Soon)
         library_title: "Kamshkat Library",
         library_soon_title: "Stocking the shelves... 📚",
         library_soon_desc: "We are currently gathering and uploading the best free books and resources to help you develop your skills.\nThe library will be available very soon.",
         btn_check_courses: "Check Courses Meanwhile",
         btn_home: "Home",
 
-        // Articles Page (Coming Soon)
         articles_title: "Kamshkat Blog",
         articles_soon_title: "Coming Very Soon... 🔥",
         articles_soon_desc: "We are working on preparing rich articles, we ask Allah for success.\nThe upcoming content will make a difference, stay tuned!",
@@ -979,3 +973,8 @@ function renderArticles() {
     // كود عرض المقالات هنا (بناءً على طلبك، الكود ده مكانش كامل في النسخة اللي فاتت، بس الهيكل جاهز)
     // ممكن تزود هنا render زي الكورسات
 }
+
+// -------------------------------------------------------------------------
+// Chatbase Script
+// -------------------------------------------------------------------------
+(function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="pzJqEYo1jgjQMK7rX1iuu";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
