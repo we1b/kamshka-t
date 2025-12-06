@@ -330,7 +330,6 @@ const coursesData = [
 
 // --- المكونات ---
 function loadComponents() {
-    // ... (نفس كود الهيدر والفوتر القديم) ...
     const btnText = currentLang === 'ar' ? 'English' : 'عربي';
     const btnIcon = currentLang === 'ar' ? 'En' : 'ع';
 
@@ -553,8 +552,8 @@ function renderGallery() {
                     src="images/${i}.jpg?v=${cacheBuster}" 
                     class="w-full h-auto object-cover rounded-2xl"
                     loading="lazy" 
-                    onload="this.parentElement.parentElement.classList.remove('animate-pulse')"
-                    onerror="this.onerror=null; this.src='https://placehold.co/${dim}/e2e8f0/1e293b?text=Coming+Soon'; this.parentElement.parentElement.classList.add('animate-pulse');"
+                    onload="this.parentElement.parentElement.classList.remove('animate-pulse'); this.parentElement.parentElement.style.display='block';"
+                    onerror="this.parentElement.parentElement.style.display='none'"
                 >
                 <div class="absolute inset-0 bg-emerald-900/40 opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col items-center justify-center">
                     <div class="bg-white text-emerald-900 px-4 py-2 rounded-full font-bold flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition shadow-xl">
