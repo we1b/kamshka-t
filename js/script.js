@@ -22,7 +22,7 @@ let analytics;
 // -------------------------------------------------------------------------
 const GALLERY_INITIAL_COUNT = 10; 
 const GALLERY_INCREMENT = 6;      
-const MAX_GALLERY_IMAGES = 2000;   
+const MAX_GALLERY_IMAGES = 1000;   // الحد الأقصى للصور (1000 صورة)
 
 let visibleCoursesCount = 6;      
 const COURSES_INCREMENT = 6;      
@@ -223,7 +223,6 @@ function t(key) { return translations[currentLang][key] || key; }
 // بيانات الكورسات
 // -------------------------------------------------------------------------
 const coursesData = [
-    // --- كورسات الدفعة الأولى (06 ديسمبر 2025) ---
     { 
         id: 246, 
         titleAr: "احتراف Power Automate Desktop: من الصفر للخبير (ج2)", 
@@ -493,194 +492,11 @@ const coursesData = [
         img: "images/c272.jpg", 
         date: "06 ديسمبر 2025 | 15 جمادى الآخرة 1447", 
         url: "https://www.udemy.com/course/mastering-trade-based-money-laundering-tbml/?couponCode=D22C7691C70A9F421FC8" 
-    },
-
-    // --- كورسات الدفعة الثانية (الإضافية) ---
-    { 
-        id: 273, 
-        titleAr: "الاختراق الأخلاقي بلغة بايثون", 
-        titleEn: "Python Ethical Hacking Pentest for Hackers Scripting Basics", 
-        desc: "تعلم أساسيات السكريبتينج للاختراق الأخلاقي ببايثون.", 
-        cat: "tech", 
-        img: "images/c273.jpg", 
-        date: "06 ديسمبر 2025 | 15 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/python-ethical-hacking-pentest-for-hackers-scripting-basics/?couponCode=86D9ADB0B4753928FAA8" 
-    },
-    { 
-        id: 274, 
-        titleAr: "الدبلومة التنفيذية في إدارة الأعمال", 
-        titleEn: "Executive Diploma in Business Management and Administration", 
-        desc: "دبلومة شاملة للمديرين والمسؤولين التنفيذيين.", 
-        cat: "business", 
-        img: "images/c274.jpg", 
-        date: "06 ديسمبر 2025 | 15 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/executive-diploma-in-business-management-and-administration/?couponCode=3B6B6395B4AB003BAF71" 
-    },
-    { 
-        id: 275, 
-        titleAr: "HTML و CSS للمبتدئين: من الأساسيات للمتقدم", 
-        titleEn: "HTML and CSS for Beginners From Basic to Advance", 
-        desc: "ابني مواقع الويب من الصفر باستخدام HTML و CSS.", 
-        cat: "programming", 
-        img: "images/c275.jpg", 
-        date: "06 ديسمبر 2025 | 15 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/html-and-css-for-beginners-from-basic-to-advance/?couponCode=EE916B96276976B66264" 
-    },
-    { 
-        id: 276, 
-        titleAr: "احتراف Tableau Desktop: من الأساسيات للمتقدم", 
-        titleEn: "Master Tableau Desktop - From Basics to Advanced", 
-        desc: "تعلم تحليل البيانات وتصورها باستخدام تابلوه.", 
-        cat: "business", 
-        img: "images/c276.jpg", 
-        date: "06 ديسمبر 2025 | 15 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/master-tableau-desktop/?couponCode=15800BDC4991D7F0424F" 
-    },
-    { 
-        id: 277, 
-        titleAr: "جافاسكريبت: 10 مشاريع في 10 أيام", 
-        titleEn: "JavaScript 10 Projects in 10 Days Course for Beginners", 
-        desc: "تطبيق عملي مكثف لتعلم جافاسكريبت عبر المشاريع.", 
-        cat: "programming", 
-        img: "images/c277.jpg", 
-        date: "06 ديسمبر 2025 | 15 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/javascript-10-projects-in-10-days-course-for-beginners-w/?couponCode=3B6077152793CDF02031" 
-    },
-    { 
-        id: 278, 
-        titleAr: "الدبلومة المهنية في الكوتشينج والإرشاد", 
-        titleEn: "Professional Diploma in Life Coaching & Business Mentorship", 
-        desc: "كيف تصبح لايف كوتش وموجه أعمال محترف.", 
-        cat: "development", 
-        img: "images/c278.jpg", 
-        date: "06 ديسمبر 2025 | 15 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/professional-diploma-in-life-coaching-business-mentorship/?couponCode=A47C63693B1613F8942E" 
-    },
-    { 
-        id: 279, 
-        titleAr: "إتقان مسابقات الابتكار والهاكاثون", 
-        titleEn: "Mastering Innovation Competitions, Hackathon & Crowdsourcing", 
-        desc: "دليل شامل للمشاركة والفوز في مسابقات الابتكار.", 
-        cat: "business", 
-        img: "images/c279.jpg", 
-        date: "06 ديسمبر 2025 | 15 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/mastering-innovation-competitions-hackathon-crowdsourcing/?couponCode=D3B612E370AF75025A53" 
-    },
-    { 
-        id: 280, 
-        titleAr: "نمو الأعمال الاستشارية: احصل على عملاء أكثر", 
-        titleEn: "Consulting Business Growth with Dekker: Get More Clients!", 
-        desc: "استراتيجيات لزيادة مبيعات وعملاء شركتك الاستشارية.", 
-        cat: "business", 
-        img: "images/c280.jpg", 
-        date: "06 ديسمبر 2025 | 15 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/consulting-business/?couponCode=2A7C49892A91C19CCD13" 
-    },
-    { 
-        id: 281, 
-        titleAr: "كورس بايثون الكامل مع Flask و HTML", 
-        titleEn: "Python Complete Course And Flask Framework, HTML Essentials", 
-        desc: "تعلم بايثون وإطار عمل Flask لتطوير الويب.", 
-        cat: "programming", 
-        img: "images/c281.jpg", 
-        date: "06 ديسمبر 2025 | 15 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/python-complete-course-and-flask-framework-html-2024-edition/?couponCode=8983E1647A67D6E3B28E" 
-    },
-    { 
-        id: 282, 
-        titleAr: "نجاح مقابلات جافاسكريبت: دليل شامل", 
-        titleEn: "JavaScript Interview Success: Comprehensive Practice Guide", 
-        desc: "تحضير قوي لأسئلة مقابلات العمل لمطوري جافاسكريبت.", 
-        cat: "programming", 
-        img: "images/c282.jpg", 
-        date: "06 ديسمبر 2025 | 15 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/javascript-interview-success/?couponCode=DISCUDEMY.COM" 
-    },
-    { 
-        id: 283, 
-        titleAr: "الذكاء الاصطناعي التوليدي لإنتاج المحتوى", 
-        titleEn: "Generative AI for Content Production & Multimedia Campaigns", 
-        desc: "استخدام الـ GenAI في صناعة المحتوى والحملات الإعلانية.", 
-        cat: "ai", 
-        img: "images/c283.jpg", 
-        date: "06 ديسمبر 2025 | 15 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/best-generative-ai/?couponCode=021225_FREE" 
-    },
-    { 
-        id: 284, 
-        titleAr: "كورس CSS و JavaScript و PHP للمبتدئين", 
-        titleEn: "CSS, JavaScript And PHP Complete Course For Beginners", 
-        desc: "دورة تأسيسية في أهم لغات الويب.", 
-        cat: "programming", 
-        img: "images/c284.jpg", 
-        date: "06 ديسمبر 2025 | 15 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/css-javascript-and-php-complete-course-for-beginners/?couponCode=7C5613FD0507A04EE93A" 
-    },
-    { 
-        id: 285, 
-        titleAr: "ChatGPT لإدارة المنتجات والابتكار", 
-        titleEn: "ChatGPT for Product Management & Innovation", 
-        desc: "كيف تستخدم ChatGPT في إدارة المنتجات وتوليد الأفكار.", 
-        cat: "ai", 
-        img: "images/c285.jpg", 
-        date: "06 ديسمبر 2025 | 15 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/chatgpt-for-product-management-innovation-aec/?couponCode=7D9A80174B028EAF71C2" 
-    },
-    { 
-        id: 286, 
-        titleAr: "Active Directory: المواقع والنسخ المتماثل", 
-        titleEn: "Active Directory: Sites and Replication with a Lab", 
-        desc: "شرح عملي لإدارة الـ Active Directory في الشبكات.", 
-        cat: "tech", 
-        img: "images/c286.jpg", 
-        date: "06 ديسمبر 2025 | 15 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/active-directory-sites-and-replication/?couponCode=268C470A1C4EAB4EE0B3" 
-    },
-    { 
-        id: 287, 
-        titleAr: "مايكروسوفت بوربوينت: من المدرسة للشركات", 
-        titleEn: "Microsoft PowerPoint School to Corporate : Basic to Advance", 
-        desc: "انتقل بمهارات العروض التقديمية من المستوى الدراسي للمهني.", 
-        cat: "business", 
-        img: "images/c287.jpg", 
-        date: "06 ديسمبر 2025 | 15 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/microsoft-powerpoint-from-beginner-to-advanced-with-project/?couponCode=14A7D47CE5F966E7D4BA" 
-    },
-    { 
-        id: 288, 
-        titleAr: "شهادة PCEP بايثون للمبتدئين", 
-        titleEn: "Complete PCEP Python Certification Course Beginner Friendly", 
-        desc: "كورس تحضيري لشهادة بايثون PCEP للمبتدئين.", 
-        cat: "programming", 
-        img: "images/c288.jpg", 
-        date: "06 ديسمبر 2025 | 15 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/complete-pcep-python-certification-course-beginner-friendly/?couponCode=C9C449C5C2533D6A73B8" 
-    },
-    { 
-        id: 289, 
-        titleAr: "ماستر كلاس تطوير الألعاب والتطبيقات ببايثون", 
-        titleEn: "Python Game Development and App Programming Masterclass", 
-        desc: "تعلم برمجة الألعاب والتطبيقات باستخدام بايثون.", 
-        cat: "programming", 
-        img: "images/c289.jpg", 
-        date: "06 ديسمبر 2025 | 15 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/python-game-development-and-app-programming-masterclass/?couponCode=8EEA1F1520502EA23E9E" 
-    },
-    { 
-        id: 290, 
-        titleAr: "أتمتة إكسل باستخدام بايثون", 
-        titleEn: "Excel Automation with Python From Basics to Advanced Tasks", 
-        desc: "كيف تستخدم بايثون لأتمتة مهام إكسل المملة.", 
-        cat: "programming", 
-        img: "images/c290.jpg", 
-        date: "06 ديسمبر 2025 | 15 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/excel-automation-with-python-from-basics-to-advanced-tasks/?couponCode=7F34337C8FEF2033B0E9" 
     }
 ];
 
 // --- المكونات ---
 function loadComponents() {
-    // ... (نفس كود الهيدر والفوتر القديم) ...
     const btnText = currentLang === 'ar' ? 'English' : 'عربي';
     const btnIcon = currentLang === 'ar' ? 'En' : 'ع';
 
@@ -739,7 +555,9 @@ function loadComponents() {
 // -------------------------------------------------------------------------
 // صفحة الكورسات (Courses Logic)
 // -------------------------------------------------------------------------
-// ... (نفس كود الكورسات السابق) ...
+let currentCat = 'all';
+let searchText = '';
+
 function initCoursesPage() {
     renderFilters();
     renderCourses();
@@ -892,6 +710,11 @@ function renderGallery() {
     // بدل ما يعتمد على ذاكرته القديمة اللي بتقول إن الصورة مش موجودة
     const cacheBuster = new Date().getTime(); 
 
+    // بنحاول نعرض لحد العدد المطلوب (visibleGalleryCount)
+    // وممكن نزود شوية في اللوب عشان لو فيه صور في النص مش موجودة، العداد يكمل لحد ما يلاقي صور
+    // بس الأمان إننا نمشي برقم visibleGalleryCount
+    // ملحوظة: بنستخدم onerror عشان نخفي الصورة لو مش موجودة
+    
     for(let i=1; i <= window.visibleGalleryCount; i++) {
         html += `
         <div class="glass-panel rounded-2xl overflow-hidden break-inside-avoid mb-6 group relative fade-in border-0 shadow-sm" id="img-container-${i}">
@@ -928,7 +751,13 @@ function renderGallery() {
     const btn = document.getElementById('load-more-gallery');
     if(btn) {
         btn.innerHTML = `<span>${t('btn_load_more_gallery')}</span> <i data-lucide="arrow-down" class="w-5 h-5"></i>`;
-        btn.style.display = 'inline-flex'; // دايماً ظاهر عشان يحاول يحمل الجديد
+        
+        // لو وصلنا للحد الأقصى (1000) نخفي الزرار
+        if (window.visibleGalleryCount >= MAX_GALLERY_IMAGES) {
+            btn.style.display = 'none';
+        } else {
+            btn.style.display = 'inline-flex';
+        }
     }
 }
 
@@ -1020,3 +849,8 @@ function renderArticles() {
     // كود عرض المقالات هنا (بناءً على طلبك، الكود ده مكانش كامل في النسخة اللي فاتت، بس الهيكل جاهز)
     // ممكن تزود هنا render زي الكورسات
 }
+
+// -------------------------------------------------------------------------
+// Chatbase Script
+// -------------------------------------------------------------------------
+(function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="pzJqEYo1jgjQMK7rX1iuu";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
