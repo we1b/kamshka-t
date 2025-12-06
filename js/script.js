@@ -489,9 +489,15 @@ function renderGallery() {
 
     let html = '';
     const cacheBuster = new Date().getTime(); 
+    
+    // تعريف 3 مقاسات مختلفة للصور (placeholder) عشان الشكل يبقى متنوع
+    // 600x400 (مستطيل عرضي), 600x800 (طويل/بوستر), 600x600 (مربع)
+    const placeHolders = ['600x400', '600x800', '600x600'];
 
-    // عرض الصور حسب العداد الحالي
     for(let i=1; i <= window.visibleGalleryCount; i++) {
+        // اختيار مقاس بالدور (0, 1, 2, 0, 1, 2...)
+        const dim = placeHolders[i % 3];
+
         html += `
         <div class="glass-panel rounded-2xl overflow-hidden break-inside-avoid mb-6 group relative fade-in border-0 shadow-sm" id="img-container-${i}">
             <div class="relative cursor-pointer" onclick="openLightbox('images/${i}.jpg')">
@@ -500,7 +506,7 @@ function renderGallery() {
                     class="w-full h-auto object-cover" 
                     loading="lazy" 
                     onload="this.parentElement.parentElement.classList.remove('loading-placeholder')"
-                    onerror="this.src='https://placehold.co/600x400/e2e8f0/1e293b?text=Coming+Soon'; this.parentElement.parentElement.classList.add('loading-placeholder');"
+                    onerror="this.src='https://placehold.co/${dim}/e2e8f0/1e293b?text=Coming+Soon'; this.parentElement.parentElement.classList.add('loading-placeholder');"
                 >
                 <div class="absolute inset-0 bg-emerald-900/40 opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col items-center justify-center">
                     <div class="bg-white text-emerald-900 px-4 py-2 rounded-full font-bold flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition shadow-xl">
