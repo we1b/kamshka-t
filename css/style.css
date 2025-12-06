@@ -9,6 +9,11 @@ body {
     position: relative;
     overflow-x: hidden;
     color: #1e293b; /* Dark text color */
+    
+    /* --- Anti-Copy Protection (New) --- */
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
 }
 
 /* Fixed Background */
