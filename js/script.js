@@ -240,591 +240,79 @@ function setLanguage(lang) {
 function t(key) { return translations[currentLang][key] || key; }
 
 // -------------------------------------------------------------------------
-// بيانات الكورسات (58 كورس بتاريخ 08 ديسمبر)
+// بيانات الكورسات (67 كورس بتاريخ 09 ديسمبر 2025)
 // -------------------------------------------------------------------------
 const coursesData = [
-    // --- المجموعة الأولى ---
-    { 
-        id: 501, 
-        titleAr: "الاختراق الأخلاقي بلغة بايثون", 
-        titleEn: "Python Ethical Hacking Pentest for Hackers Scripting Basics", 
-        desc: "تعلم أساسيات السكريبتينج للاختراق الأخلاقي ببايثون.", 
-        cat: "tech", 
-        img: "images/c501.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/python-ethical-hacking-pentest-for-hackers-scripting-basics/?couponCode=86D9ADB0B4753928FAA8" 
-    },
-    { 
-        id: 502, 
-        titleAr: "الدبلومة التنفيذية في إدارة الأعمال", 
-        titleEn: "Executive Diploma in Business Management and Administration", 
-        desc: "دبلومة شاملة للمديرين والمسؤولين التنفيذيين.", 
-        cat: "business", 
-        img: "images/c502.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/executive-diploma-in-business-management-and-administration/?couponCode=3B6B6395B4AB003BAF71" 
-    },
-    { 
-        id: 503, 
-        titleAr: "HTML و CSS للمبتدئين: من الأساسيات للمتقدم", 
-        titleEn: "HTML and CSS for Beginners From Basic to Advance", 
-        desc: "ابني مواقع الويب من الصفر باستخدام HTML و CSS.", 
-        cat: "programming", 
-        img: "images/c503.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/html-and-css-for-beginners-from-basic-to-advance/?couponCode=EE916B96276976B66264" 
-    },
-    { 
-        id: 504, 
-        titleAr: "احتراف Tableau Desktop: من الأساسيات للمتقدم", 
-        titleEn: "Master Tableau Desktop - From Basics to Advanced", 
-        desc: "تعلم تحليل البيانات وتصورها باستخدام تابلوه.", 
-        cat: "business", 
-        img: "images/c504.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/master-tableau-desktop/?couponCode=15800BDC4991D7F0424F" 
-    },
-    { 
-        id: 505, 
-        titleAr: "جافاسكريبت: 10 مشاريع في 10 أيام", 
-        titleEn: "JavaScript 10 Projects in 10 Days Course for Beginners", 
-        desc: "تطبيق عملي مكثف لتعلم جافاسكريبت عبر المشاريع.", 
-        cat: "programming", 
-        img: "images/c505.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/javascript-10-projects-in-10-days-course-for-beginners-w/?couponCode=3B6077152793CDF02031" 
-    },
-    { 
-        id: 506, 
-        titleAr: "دورة شاملة في Java و C++ و PHP للمبتدئين", 
-        titleEn: "Java And C++ And PHP Crash Course All in One For Beginners", 
-        desc: "تعلم 3 لغات برمجة قوية في كورس واحد مكثف.", 
-        cat: "programming", 
-        img: "images/c506.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/java-and-c-and-php-crash-course-for-beginners/?couponCode=77B2AC89A5EBBD8DD7D4" 
-    },
-    { 
-        id: 507, 
-        titleAr: "الدبلومة المهنية في الكوتشينج والإرشاد", 
-        titleEn: "Professional Diploma in Life Coaching & Business Mentorship", 
-        desc: "كيف تصبح لايف كوتش وموجه أعمال محترف.", 
-        cat: "development", 
-        img: "images/c507.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/professional-diploma-in-life-coaching-business-mentorship/?couponCode=A47C63693B1613F8942E" 
-    },
-    { 
-        id: 508, 
-        titleAr: "إتقان مسابقات الابتكار والهاكاثون", 
-        titleEn: "Mastering Innovation Competitions, Hackathon & Crowdsourcing", 
-        desc: "دليل شامل للمشاركة والفوز في مسابقات الابتكار.", 
-        cat: "business", 
-        img: "images/c508.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/mastering-innovation-competitions-hackathon-crowdsourcing/?couponCode=D3B612E370AF75025A53" 
-    },
-    { 
-        id: 509, 
-        titleAr: "نمو الأعمال الاستشارية: احصل على عملاء أكثر", 
-        titleEn: "Consulting Business Growth with Dekker: Get More Clients!", 
-        desc: "استراتيجيات لزيادة مبيعات وعملاء شركتك الاستشارية.", 
-        cat: "business", 
-        img: "images/c509.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/consulting-business/?couponCode=2A7C49892A91C19CCD13" 
-    },
-    { 
-        id: 510, 
-        titleAr: "كورس بايثون الكامل مع Flask و HTML", 
-        titleEn: "Python Complete Course And Flask Framework, HTML Essentials", 
-        desc: "تعلم بايثون وإطار عمل Flask لتطوير الويب.", 
-        cat: "programming", 
-        img: "images/c510.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/python-complete-course-and-flask-framework-html-2024-edition/?couponCode=8983E1647A67D6E3B28E" 
-    },
-    { 
-        id: 511, 
-        titleAr: "نجاح مقابلات جافاسكريبت: دليل شامل", 
-        titleEn: "JavaScript Interview Success: Comprehensive Practice Guide", 
-        desc: "تحضير قوي لأسئلة مقابلات العمل لمطوري جافاسكريبت.", 
-        cat: "programming", 
-        img: "images/c511.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/javascript-interview-success/?couponCode=DISCUDEMY.COM" 
-    },
-    { 
-        id: 512, 
-        titleAr: "الذكاء الاصطناعي التوليدي لإنتاج المحتوى", 
-        titleEn: "Generative AI for Content Production & Multimedia Campaigns", 
-        desc: "استخدام الـ GenAI في صناعة المحتوى والحملات الإعلانية.", 
-        cat: "ai", 
-        img: "images/c512.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/best-generative-ai/?couponCode=021225_FREE" 
-    },
-    { 
-        id: 513, 
-        titleAr: "كورس CSS و JavaScript و PHP للمبتدئين", 
-        titleEn: "CSS, JavaScript And PHP Complete Course For Beginners", 
-        desc: "دورة تأسيسية في أهم لغات الويب.", 
-        cat: "programming", 
-        img: "images/c513.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/css-javascript-and-php-complete-course-for-beginners/?couponCode=7C5613FD0507A04EE93A" },
-    { 
-        id: 514, 
-        titleAr: "ChatGPT لإدارة المنتجات والابتكار", 
-        titleEn: "ChatGPT for Product Management & Innovation", 
-        desc: "كيف تستخدم ChatGPT في إدارة المنتجات وتوليد الأفكار.", 
-        cat: "ai", 
-        img: "images/c514.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/chatgpt-for-product-management-innovation-aec/?couponCode=7D9A80174B028EAF71C2" 
-    },
-    { 
-        id: 515, 
-        titleAr: "Active Directory: المواقع والنسخ المتماثل", 
-        titleEn: "Active Directory: Sites and Replication with a Lab", 
-        desc: "شرح عملي لإدارة الـ Active Directory في الشبكات.", 
-        cat: "tech", 
-        img: "images/c515.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/active-directory-sites-and-replication/?couponCode=268C470A1C4EAB4EE0B3" 
-    },
-    { 
-        id: 516, 
-        titleAr: "مايكروسوفت بوربوينت: من المدرسة للشركات", 
-        titleEn: "Microsoft PowerPoint School to Corporate : Basic to Advance", 
-        desc: "انتقل بمهارات العروض التقديمية من المستوى الدراسي للمهني.", 
-        cat: "business", 
-        img: "images/c516.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/microsoft-powerpoint-from-beginner-to-advanced-with-project/?couponCode=14A7D47CE5F966E7D4BA" 
-    },
-    { 
-        id: 517, 
-        titleAr: "شهادة PCEP بايثون للمبتدئين", 
-        titleEn: "Complete PCEP Python Certification Course Beginner Friendly", 
-        desc: "كورس تحضيري لشهادة بايثون PCEP للمبتدئين.", 
-        cat: "programming", 
-        img: "images/c517.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/complete-pcep-python-certification-course-beginner-friendly/?couponCode=C9C449C5C2533D6A73B8" 
-    },
-    { 
-        id: 518, 
-        titleAr: "ماستر كلاس تطوير الألعاب والتطبيقات ببايثون", 
-        titleEn: "Python Game Development and App Programming Masterclass", 
-        desc: "تعلم برمجة الألعاب والتطبيقات باستخدام بايثون.", 
-        cat: "programming", 
-        img: "images/c518.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/python-game-development-and-app-programming-masterclass/?couponCode=8EEA1F1520502EA23E9E" 
-    },
-    { 
-        id: 519, 
-        titleAr: "أتمتة إكسل باستخدام بايثون", 
-        titleEn: "Excel Automation with Python From Basics to Advanced Tasks", 
-        desc: "كيف تستخدم بايثون لأتمتة مهام إكسل المملة.", 
-        cat: "programming", 
-        img: "images/c519.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/excel-automation-with-python-from-basics-to-advanced-tasks/?couponCode=7F34337C8FEF2033B0E9" 
-    },
-
-    // --- المجموعة الثانية ---
-    { 
-        id: 520, 
-        titleAr: "معادلات ودوال إكسل: من الأساسيات للخبير", 
-        titleEn: "Microsoft Excel Formulas and Functions For Basic to Expert", 
-        desc: "احتراف دوال إكسل من البداية وحتى المستوى المتقدم.", 
-        cat: "business", 
-        img: "images/c520.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/microsoft-excel-formulas-and-functions-for-basic-to-expert/?couponCode=75E949C1C30BFB11BF41" 
-    },
-    { 
-        id: 521, 
-        titleAr: "تحليل البيانات بـ Microsoft Copilot", 
-        titleEn: "Data Analysis and Data Visualization with Microsoft Copilot", 
-        desc: "استخدام الذكاء الاصطناعي Copilot في تحليل البيانات.", 
-        cat: "ai", 
-        img: "images/c521.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/data-analysis-and-data-visualization-with-microsoft-copilot/?couponCode=08DECEMBER2025" 
-    },
-    { 
-        id: 522, 
-        titleAr: "الشهادة المهنية في التسويق والإعلان", 
-        titleEn: "Professional Certificate in Marketing and Advertising", 
-        desc: "دورة شاملة لاحتراف مجال التسويق والإعلانات.", 
-        cat: "marketing", 
-        img: "images/c522.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/professional-certificate-in-marketing-and-advertising/?couponCode=FEA25181F164F03DFBFC" 
-    },
-    { 
-        id: 523, 
-        titleAr: "الأمن السيبراني ومخاطر الذكاء الاصطناعي", 
-        titleEn: "Cyber security and Artificial Intelligence Risk Course", 
-        desc: "فهم المخاطر الأمنية المتعلقة بالذكاء الاصطناعي.", 
-        cat: "tech", 
-        img: "images/c523.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/cyber-security-and-artificial-intelligence-risk-course/?couponCode=CHRISTMASSALE" 
-    },
-    { 
-        id: 524, 
-        titleAr: "PHP للمبتدئين: الدورة الكاملة مع MySQL و PDO", 
-        titleEn: "PHP for Beginners: The Complete PHP MySQL PDO Course", 
-        desc: "تعلم PHP من الصفر حتى بناء قواعد البيانات.", 
-        cat: "programming", 
-        img: "images/c524.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/php-for-beginners-2021-the-complete-php-mysql-pdo-course/?couponCode=FULLSTACK116" 
-    },
-    { 
-        id: 525, 
-        titleAr: "احتراف تصور البيانات في إكسل (Charts & Graphs)", 
-        titleEn: "Mastering Excel Data Visualization with Design Chart & Graph", 
-        desc: "تصميم رسوم بيانية احترافية لعرض البيانات في إكسل.", 
-        cat: "business", 
-        img: "images/c525.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/mastering-excel-data-visualization-with-design-chart-graph/?couponCode=D73AD49558BDC7ADB552" 
-    },
-    { 
-        id: 526, 
-        titleAr: "مايكروسوفت بوربوينت: من مبتدئ لمحترف", 
-        titleEn: "Microsoft PowerPoint: From Beginner to Presentation Pro", 
-        desc: "تعلم تصميم عروض تقديمية احترافية ببرنامج بوربوينت.", 
-        cat: "business", 
-        img: "images/c526.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/microsoft-powerpoint-from-beginner-to-presentation-pro/?couponCode=AE66F65734D0038B57AB" 
-    },
-    { 
-        id: 527, 
-        titleAr: "أوتوكاد للتصميم الميكانيكي: مشاريع عملية", 
-        titleEn: "AutoCAD for Mechanical Design– Quick & Practical Projects", 
-        desc: "تطبيق عملي على الأوتوكاد من خلال مشاريع ميكانيكية.", 
-        cat: "graphic", 
-        img: "images/c527.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/autocad-2d-for-mechanical-design-20-quick-projects/?couponCode=138892EAADB757BD6435" 
-    },
-    { 
-        id: 528, 
-        titleAr: "كورس قواعد البيانات الشامل: SQL, MySQL, Mongo", 
-        titleEn: "SQL, MYSQL, POSTGRESQL & MONGODB: All-in-One Database Course", 
-        desc: "تعلم كل أنواع قواعد البيانات في كورس واحد.", 
-        cat: "programming", 
-        img: "images/c528.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/sql-mysql-postgresql-mongodb-all-in-one-database-course/?couponCode=A5464974D595B364D473" 
-    },
-    { 
-        id: 529, 
-        titleAr: "أدوبي إليستريتور: من الصفر للبطل", 
-        titleEn: "Adobe Illustrator Complete Course: From Zero to Hero", 
-        desc: "احتراف تصميم الفيكتور والرسومات باستخدام إليستريتور.", 
-        cat: "graphic", 
-        img: "images/c529.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/adobe-illustrator-cc-masterclass-zero-to-hero-full-course/?couponCode=8F21788BF24419BA9433" 
-    },
-    { 
-        id: 530, 
-        titleAr: "كورس إكسل الكامل: من المبتدئ للمتقدم", 
-        titleEn: "The Complete Microsoft Excel Course: Beginner to Advanced", 
-        desc: "الدليل الشامل لتعلم كل خبايا مايكروسوفت إكسل.", 
-        cat: "business", 
-        img: "images/c530.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/the-complete-microsoft-excel-course-beginner-to-advanced/?couponCode=AF0E36FD9328D501E29C" 
-    },
-    { 
-        id: 531, 
-        titleAr: "ماستر كلاس كتابة السيرة الذاتية (CV)", 
-        titleEn: "The Complete CV Writing & Tailoring Masterclass", 
-        desc: "كيف تكتب سيرة ذاتية احترافية تضمن لك الوظيفة.", 
-        cat: "development", 
-        img: "images/c531.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/the-complete-cv-writing-tailoring-masterclass/?couponCode=620651AF8FE98EDB7295" 
-    },
-    { 
-        id: 532, 
-        titleAr: "اكتب كل يوم: بناء عادة الكتابة في 2025", 
-        titleEn: "Write Every Day: Building a Consistent Writing Habit in 2025", 
-        desc: "كيف تلتزم بعادة الكتابة اليومية وتطور مهاراتك.", 
-        cat: "development", 
-        img: "images/c532.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/write-every-day-building-a-consistent-writing-habit/?couponCode=1B1B9857638ACDC4C96E" 
-    },
-    { 
-        id: 533, 
-        titleAr: "بوت كامب برمجة الجافا الكامل", 
-        titleEn: "Complete Java Programming Bootcamp: Learn to Code in Java", 
-        desc: "معسكر تدريبي مكثف لتعلم لغة البرمجة جافا.", 
-        cat: "programming", 
-        img: "images/c533.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/complete-java-programming-bootcamp-learn-to-code-in-java/?couponCode=3EDAA2DF2F360CC146C7" 
-    },
-    { 
-        id: 534, 
-        titleAr: "الذكاء الاصطناعي للبنية التحتية السحابية (AWS)", 
-        titleEn: "AI for Cloud Infrastructure: Automating AWS with StationOps", 
-        desc: "أتمتة خدمات أمازون السحابية باستخدام الذكاء الاصطناعي.", 
-        cat: "tech", 
-        img: "images/c534.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/ai-for-cloud-infrastructure-automating-aws-with-stationops/?couponCode=08DECEMBER2025" 
-    },
-    { 
-        id: 535, 
-        titleAr: "كورس Vue.JS الكامل للمبتدئين", 
-        titleEn: "The Complete Vue.JS Course for Beginners: Zero to Mastery", 
-        desc: "تعلم إطار عمل Vue.JS لتطوير واجهات المستخدم.", 
-        cat: "programming", 
-        img: "images/c535.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/the-complete-vuejs-course-for-beginners-zero-to-mastery/?couponCode=FROSTED-FUN-2025" 
-    },
-    { 
-        id: 536, 
-        titleAr: "برمجة Full Stack: HTML, CSS, Java, JS", 
-        titleEn: "HTML, CSS, Java, & JavaScript: Full Stack Programming Course", 
-        desc: "دورة شاملة لتصبح مطور ويب Full Stack.", 
-        cat: "programming", 
-        img: "images/c536.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/html-css-java-javascript-full-stack-programming-course/?couponCode=486DB506F96486098458" 
-    },
-    { 
-        id: 537, 
-        titleAr: "إكسل للمبتدئين: للاستخدام اليومي", 
-        titleEn: "Microsoft Excel for Beginners: Excel for Everyday Use", 
-        desc: "أساسيات إكسل للاستخدامات اليومية البسيطة.", 
-        cat: "business", 
-        img: "images/c537.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/microsoft-excel-for-beginners-excel-for-everyday-use/?couponCode=992B1B4C00340BC913FD" 
-    },
-    { 
-        id: 538, 
-        titleAr: "دليل تحليل البيانات ببايثون (مشاريع حقيقية)", 
-        titleEn: "Complete Guide to Python Data Analysis with Real Datasets", 
-        desc: "تطبيق عملي لتحليل البيانات باستخدام لغة بايثون.", 
-        cat: "programming", 
-        img: "images/c538.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/complete-guide-to-python-data-analysis-with-real-datasets/?couponCode=B83FEF2D1C57C125C487" 
-    },
-    { 
-        id: 539, 
-        titleAr: "تحضير امتحان AZ-900 السريع", 
-        titleEn: "NEW! AZ-900 Lightning Exam Prep Course", 
-        desc: "كورس مكثف للتحضير لشهادة مايكروسوفت أزور AZ-900.", 
-        cat: "tech", 
-        img: "images/c539.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/az-900-lightning-exam-prep-course/?couponCode=CAE73316333033ABC4E8" 
-    },
-    { 
-        id: 540, 
-        titleAr: "إنشاء المواقع الإلكترونية من البداية", 
-        titleEn: "Website Creation - Start learning from the beginning", 
-        desc: "كيف تبدأ في إنشاء موقعك الإلكتروني الخاص.", 
-        cat: "programming", 
-        img: "images/c540.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/website-creation-start-learning-from-the-beginning/?couponCode=MYRRHMASTER" 
-    },
-    { 
-        id: 541, 
-        titleAr: "لغة R: من المبتدئ للمحترف", 
-        titleEn: "R Programming - R Programming Language Beginners to Pro", 
-        desc: "تعلم لغة البرمجة R المستخدمة في التحليل الإحصائي.", 
-        cat: "programming", 
-        img: "images/c541.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/r-programming-r-programming-language-beginners-to-pro/?couponCode=B014F62EA94DFCDA97CD" 
-    },
-    { 
-        id: 542, 
-        titleAr: "بوت كامب بايثون الكامل: من الصفر للخبير", 
-        titleEn: "The Complete Python Bootcamp from Zero to Expert", 
-        desc: "الدورة الأقوى لتعلم بايثون بالكامل.", 
-        cat: "programming", 
-        img: "images/c542.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/the-complete-python-bootcamp-from-zero-to-expert/?couponCode=CCDDA771F09B2709E958" 
-    },
-    { 
-        id: 543, 
-        titleAr: "دليل شامل لمعادلات ودوال إكسل", 
-        titleEn: "Microsoft Excel Formulas and Functions: Comprehensive Guide", 
-        desc: "كل ما يخص معادلات إكسل في كورس واحد.", 
-        cat: "business", 
-        img: "images/c543.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/microsoft-excel-formulas-and-functions-comprehensive-guide/?couponCode=01CDEBC8A1CB00783707" 
-    },
-    { 
-        id: 544, 
-        titleAr: "كورس مايكروسوفت وورد الكامل", 
-        titleEn: "The Complete Microsoft Word Course: Learn Word Step by Step", 
-        desc: "احتراف برنامج الكتابة وورد خطوة بخطوة.", 
-        cat: "business", 
-        img: "images/c544.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/the-complete-microsoft-word-course-learn-word-step-by-step/?couponCode=33E707C6313EE35AB588" 
-    },
-    { 
-        id: 545, 
-        titleAr: "تحليل البيانات بـ Excel (الكورس الكامل)", 
-        titleEn: "Microsoft Excel - The Complete Excel Data Analysis Course", 
-        desc: "استخدام إكسل كأداة قوية لتحليل البيانات.", 
-        cat: "business", 
-        img: "images/c545.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/microsoft-excel-the-complete-excel-data-analysis-course/?couponCode=BISMILLAH-23" 
-    },
-    { 
-        id: 546, 
-        titleAr: "تصور بيانات التسويق ولوحات التحكم", 
-        titleEn: "Master Marketing Data Visualization & Insights Dashboard", 
-        desc: "إنشاء لوحات تحكم تسويقية احترافية.", 
-        cat: "marketing", 
-        img: "images/c546.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/data-visualization-for-marketing-insights-digital-marketing/?couponCode=AKS-DEV-1205" 
-    },
-    { 
-        id: 547, 
-        titleAr: "تعلم برمجة بايثون 3 في 2025", 
-        titleEn: "Learn Python Programming Masterclass: Python 3 in 2025", 
-        desc: "أحدث دورة لتعلم بايثون 3.", 
-        cat: "programming", 
-        img: "images/c547.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/learn-python-programming-quick-beginner/?couponCode=TIDINGS2025" 
-    },
-    { 
-        id: 548, 
-        titleAr: "التجميع والتعلم غير الخاضع للإشراف ببايثون", 
-        titleEn: "Clustering & Unsupervised Learning in Python", 
-        desc: "تقنيات متقدمة في الذكاء الاصطناعي وتعلم الآلة.", 
-        cat: "ai", 
-        img: "images/c548.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/clustering-unsupervised-learning-in-python/?couponCode=JINGLE-CODE-1205" 
-    },
-    { 
-        id: 549, 
-        titleAr: "نشر نماذج ML بـ FastAPI و Docker", 
-        titleEn: "Deploy ML Model in Production with FastAPI and Docker", 
-        desc: "كيفية نشر نماذج الذكاء الاصطناعي وجعلها متاحة للاستخدام.", 
-        cat: "ai", 
-        img: "images/c549.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/deploy-ml-model-in-production-with-fastapi-and-docker/?couponCode=WINTER-WONDER-25" 
-    },
-    { 
-        id: 550, 
-        titleAr: "أدوبي بريمير برو: مونتاج الفيديو من الصفر", 
-        titleEn: "Adobe Premiere Pro CC Essential Video Editing Zero To Hero", 
-        desc: "تعلم مونتاج الفيديو باحترافية.", 
-        cat: "graphic", 
-        img: "images/c550.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/adobe-premiere-pro-cc-essential-video-editing-zero-to-hero/?couponCode=D85B851D6461F0461C20" 
-    },
-    { 
-        id: 551, 
-        titleAr: "فوتوشوب ماستر كلاس: من الأساسيات للمتقدم", 
-        titleEn: "Ultimate Adobe Photoshop CC Masterclass Basics To Advanced", 
-        desc: "الكورس الشامل لاحتراف الفوتوشوب.", 
-        cat: "graphic", 
-        img: "images/c551.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/ultimate-adobe-photoshop-cc-masterclass-basics-to-advanced/?couponCode=9DDD48709735E77DF525" 
-    },
-    { 
-        id: 552, 
-        titleAr: "دليل المبتدئين لأدوبي بريمير برو", 
-        titleEn: "The Beginner's Guide to Adobe Premiere Pro: Edit Like a Pro", 
-        desc: "أساسيات المونتاج ببريمير برو.", 
-        cat: "graphic", 
-        img: "images/c552.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/the-beginners-guide-to-adobe-premiere-pro-edit-like-a-pro/?couponCode=4695C90BF96186938EFC" 
-    },
-    { 
-        id: 553, 
-        titleAr: "تحرير الفيديو الاحترافي (بريمير برو - برتغالي)", 
-        titleEn: "Adobe Premiere Pro: Edição de Vídeo Profissional Completa", 
-        desc: "كورس مونتاج شامل (باللغة البرتغالية).", 
-        cat: "graphic", 
-        img: "images/c553.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/adobe-premiere-edicao-de-video/?couponCode=KEEPLEARNING" 
-    },
-    { 
-        id: 554, 
-        titleAr: "كورس فوتوشوب الاحترافي مع تدريب متقدم", 
-        titleEn: "Professional Adobe Photoshop CC Course With Advance Training", 
-        desc: "تقنيات متقدمة في الفوتوشوب.", 
-        cat: "graphic", 
-        img: "images/c554.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/professional-adobe-photoshop-cc-course-with-advance-training/?couponCode=12031C0AF9C94B7B88F0" 
-    },
-    { 
-        id: 555, 
-        titleAr: "أساسيات أدوبي فوتوشوب", 
-        titleEn: "Adobe Photoshop CC Fundamentals and Essentials Training", 
-        desc: "تعلم الأدوات الأساسية في فوتوشوب.", 
-        cat: "graphic", 
-        img: "images/c555.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/adobe-photoshop-cc-principal-essential-course-for-beginners/?couponCode=8DFC8543D3547DE5FE52" 
-    },
-    { 
-        id: 556, 
-        titleAr: "مشاريع إليستريتور: ابنِ معرض أعمالك", 
-        titleEn: "Mastering Adobe Illustrator Projects: Build Your Portfolio", 
-        desc: "مشاريع عملية في إليستريتور لبناء بورتفوليو قوي.", 
-        cat: "graphic", 
-        img: "images/c556.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/mastering-adobe-illustrator-projects-build-your-portfolio/?couponCode=84EF4DCF5685ECDEE062" 
-    },
-    { 
-        id: 557, 
-        titleAr: "كورس فيجما الكامل: تصميم ويب وموبايل من الصفر", 
-        titleEn: "Complete Figma Course: Web & Mobile Projects from Scratch", 
-        desc: "تعلم تصميم واجهات المستخدم باستخدام Figma.", 
-        cat: "graphic", 
-        img: "images/c557.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/figma-practical-design/?couponCode=05DECEMBER2025" 
-    },
-    { 
-        id: 558, 
-        titleAr: "Perplexity AI: حول طريقة بحثك وكتابتك", 
-        titleEn: "Perplexity AI: Transform Your Research and Writing Workflow", 
-        desc: "استخدام أداة Perplexity AI للبحث والكتابة الأكاديمية.", 
-        cat: "ai", 
-        img: "images/c558.jpg", 
-        date: "08 ديسمبر 2025 | 17 جمادى الآخرة 1447", 
-        url: "https://www.udemy.com/course/perplexity-ai-transform-your-research-and-writing-workflow/?couponCode=2FF334C5992867A2BC9F" 
-    }
+    // --- دفعة 1 ---
+    { id: 601, titleAr: "معادلات ودوال إكسل من الأساسيات للخبير", titleEn: "Microsoft Excel Formulas and Functions For Basic to Expert", desc: "دورة شاملة لاحتراف دوال إكسل.", cat: "business", img: "images/c601.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/microsoft-excel-formulas-and-functions-for-basic-to-expert/?couponCode=75E949C1C30BFB11BF41" },
+    { id: 602, titleAr: "تحليل وتصور البيانات مع Microsoft Copilot", titleEn: "Data Analysis and Data Visualization with Microsoft Copilot", desc: "استخدام الذكاء الاصطناعي في تحليل البيانات.", cat: "ai", img: "images/c602.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/data-analysis-and-data-visualization-with-microsoft-copilot/?couponCode=08DECEMBER2025" },
+    { id: 603, titleAr: "الشهادة المهنية في التسويق والإعلان", titleEn: "Professional Certificate in Marketing and Advertising", desc: "كورس كامل في التسويق والإعلانات.", cat: "marketing", img: "images/c603.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/professional-certificate-in-marketing-and-advertising/?couponCode=FEA25181F164F03DFBFC" },
+    { id: 604, titleAr: "الأمن السيبراني ومخاطر الذكاء الاصطناعي", titleEn: "Cyber security and Artificial Intelligence Risk Course", desc: "تعلم حماية الأنظمة من مخاطر الـ AI.", cat: "tech", img: "images/c604.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/cyber-security-and-artificial-intelligence-risk-course/?couponCode=CHRISTMASSALE" },
+    { id: 605, titleAr: "PHP للمبتدئين: الدورة الكاملة مع MySQL", titleEn: "PHP for Beginners: The Complete PHP MySQL PDO Course", desc: "برمجة المواقع باستخدام PHP وقواعد البيانات.", cat: "programming", img: "images/c605.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/php-for-beginners-2021-the-complete-php-mysql-pdo-course/?couponCode=FULLSTACK116" },
+    { id: 606, titleAr: "احتراف تصور البيانات في إكسل (Charts)", titleEn: "Mastering Excel Data Visualization with Design Chart & Graph", desc: "إنشاء رسوم بيانية احترافية في إكسل.", cat: "business", img: "images/c606.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/mastering-excel-data-visualization-with-design-chart-graph/?couponCode=D73AD49558BDC7ADB552" },
+    { id: 607, titleAr: "مايكروسوفت بوربوينت: من المبتدئ للمحترف", titleEn: "Microsoft PowerPoint: From Beginner to Presentation Pro", desc: "تصميم عروض تقديمية مبهرة.", cat: "business", img: "images/c607.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/microsoft-powerpoint-from-beginner-to-presentation-pro/?couponCode=AE66F65734D0038B57AB" },
+    { id: 608, titleAr: "أوتوكاد للتصميم الميكانيكي: مشاريع عملية", titleEn: "AutoCAD for Mechanical Design– Quick & Practical Projects", desc: "تعلم الرسم الهندسي الميكانيكي ببرنامج أوتوكاد.", cat: "graphic", img: "images/c608.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/autocad-2d-for-mechanical-design-20-quick-projects/?couponCode=138892EAADB757BD6435" },
+    { id: 609, titleAr: "قواعد البيانات الشاملة: SQL, MySQL, Mongo", titleEn: "SQL, MYSQL, POSTGRESQL & MONGODB: All-in-One Database Course", desc: "تعلم أهم قواعد البيانات في كورس واحد.", cat: "programming", img: "images/c609.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/sql-mysql-postgresql-mongodb-all-in-one-database-course/?couponCode=A5464974D595B364D473" },
+    { id: 610, titleAr: "أدوبي إليستريتور: من الصفر للبطل", titleEn: "Adobe Illustrator Complete Course: From Zero to Hero", desc: "احتراف التصميم والفيكتور.", cat: "graphic", img: "images/c610.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/adobe-illustrator-cc-masterclass-zero-to-hero-full-course/?couponCode=8F21788BF24419BA9433" },
+    { id: 611, titleAr: "كورس إكسل الكامل: من المبتدئ للمتقدم", titleEn: "The Complete Microsoft Excel Course: Beginner to Advanced", desc: "دليلك الشامل لتعلم إكسل.", cat: "business", img: "images/c611.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/the-complete-microsoft-excel-course-beginner-to-advanced/?couponCode=AF0E36FD9328D501E29C" },
+    { id: 612, titleAr: "ماستر كلاس كتابة السيرة الذاتية (CV)", titleEn: "The Complete CV Writing & Tailoring Masterclass", desc: "كيف تكتب CV احترافي.", cat: "development", img: "images/c612.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/the-complete-cv-writing-tailoring-masterclass/?couponCode=620651AF8FE98EDB7295" },
+    { id: 613, titleAr: "اكتب كل يوم: بناء عادة الكتابة", titleEn: "Write Every Day: Building a Consistent Writing Habit in 2025", desc: "تطوير مهارة الكتابة اليومية.", cat: "development", img: "images/c613.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/write-every-day-building-a-consistent-writing-habit/?couponCode=1B1B9857638ACDC4C96E" },
+    { id: 614, titleAr: "بوت كامب برمجة الجافا الكامل", titleEn: "Complete Java Programming Bootcamp: Learn to Code in Java", desc: "تعلم لغة جافا من الصفر.", cat: "programming", img: "images/c614.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/complete-java-programming-bootcamp-learn-to-code-in-java/?couponCode=3EDAA2DF2F360CC146C7" },
+    { id: 615, titleAr: "الذكاء الاصطناعي للبنية التحتية السحابية", titleEn: "AI for Cloud Infrastructure: Automating AWS with StationOps", desc: "أتمتة AWS باستخدام AI.", cat: "tech", img: "images/c615.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/ai-for-cloud-infrastructure-automating-aws-with-stationops/?couponCode=08DECEMBER2025" },
+    { id: 616, titleAr: "كورس Vue.JS الكامل للمبتدئين", titleEn: "The Complete Vue.JS Course for Beginners: Zero to Mastery", desc: "تعلم إطار عمل Vue.js.", cat: "programming", img: "images/c616.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/the-complete-vuejs-course-for-beginners-zero-to-mastery/?couponCode=FROSTED-FUN-2025" },
+    { id: 617, titleAr: "برمجة Full Stack: HTML, CSS, Java, JS", titleEn: "HTML, CSS, Java, & JavaScript: Full Stack Programming Course", desc: "مسار مطور الويب المتكامل.", cat: "programming", img: "images/c617.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/html-css-java-javascript-full-stack-programming-course/?couponCode=486DB506F96486098458" },
+    { id: 618, titleAr: "إكسل للمبتدئين: للاستخدام اليومي", titleEn: "Microsoft Excel for Beginners: Excel for Everyday Use", desc: "أساسيات إكسل.", cat: "business", img: "images/c618.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/microsoft-excel-for-beginners-excel-for-everyday-use/?couponCode=992B1B4C00340BC913FD" },
+    { id: 619, titleAr: "تحليل البيانات ببايثون (مشاريع حقيقية)", titleEn: "Complete Guide to Python Data Analysis with Real Datasets", desc: "تحليل البيانات باستخدام بايثون.", cat: "programming", img: "images/c619.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/complete-guide-to-python-data-analysis-with-real-datasets/?couponCode=B83FEF2D1C57C125C487" },
+    { id: 620, titleAr: "تحضير امتحان AZ-900 السريع", titleEn: "NEW! AZ-900 Lightning Exam Prep Course", desc: "التحضير لشهادة مايكروسوفت أزور.", cat: "tech", img: "images/c620.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/az-900-lightning-exam-prep-course/?couponCode=CAE73316333033ABC4E8" },
+    { id: 621, titleAr: "إنشاء المواقع الإلكترونية من البداية", titleEn: "Website Creation - Start learning from the beginning", desc: "كيف تبدأ موقعك الخاص.", cat: "programming", img: "images/c621.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/website-creation-start-learning-from-the-beginning/?couponCode=MYRRHMASTER" },
+    { id: 622, titleAr: "لغة R: من المبتدئ للمحترف", titleEn: "R Programming - R Programming Language Beginners to Pro", desc: "تعلم لغة R للتحليل الإحصائي.", cat: "programming", img: "images/c622.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/r-programming-r-programming-language-beginners-to-pro/?couponCode=B014F62EA94DFCDA97CD" },
+    { id: 623, titleAr: "بوت كامب بايثون الكامل", titleEn: "The Complete Python Bootcamp from Zero to Expert", desc: "كورس بايثون شامل.", cat: "programming", img: "images/c623.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/the-complete-python-bootcamp-from-zero-to-expert/?couponCode=CCDDA771F09B2709E958" },
+    { id: 624, titleAr: "دليل شامل لمعادلات إكسل", titleEn: "Microsoft Excel Formulas and Functions: Comprehensive Guide", desc: "احتراف معادلات إكسل.", cat: "business", img: "images/c624.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/microsoft-excel-formulas-and-functions-comprehensive-guide/?couponCode=01CDEBC8A1CB00783707" },
+    { id: 625, titleAr: "كورس مايكروسوفت وورد الكامل", titleEn: "The Complete Microsoft Word Course: Learn Word Step by Step", desc: "احتراف برنامج الوورد.", cat: "business", img: "images/c625.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/the-complete-microsoft-word-course-learn-word-step-by-step/?couponCode=33E707C6313EE35AB588" },
+    { id: 626, titleAr: "تحليل البيانات بـ Excel", titleEn: "Microsoft Excel - The Complete Excel Data Analysis Course", desc: "استخدام إكسل في تحليل البيانات.", cat: "business", img: "images/c626.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/microsoft-excel-the-complete-excel-data-analysis-course/?couponCode=BISMILLAH-23" },
+    { id: 627, titleAr: "لوحات تحكم وتصور بيانات التسويق", titleEn: "Master Marketing Data Visualization & Insights Dashboard", desc: "تصميم داشبورد للتسويق.", cat: "marketing", img: "images/c627.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/data-visualization-for-marketing-insights-digital-marketing/?couponCode=AKS-DEV-1205" },
+    { id: 628, titleAr: "تعلم بايثون 3 في 2025", titleEn: "Learn Python Programming Masterclass: Python 3 in 2025", desc: "دورة حديثة لتعلم بايثون.", cat: "programming", img: "images/c628.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/learn-python-programming-quick-beginner/?couponCode=TIDINGS2025" },
+    { id: 629, titleAr: "التجميع والتعلم غير الخاضع للإشراف ببايثون", titleEn: "Clustering & Unsupervised Learning in Python", desc: "تقنيات الذكاء الاصطناعي المتقدمة.", cat: "ai", img: "images/c629.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/clustering-unsupervised-learning-in-python/?couponCode=JINGLE-CODE-1205" },
+    { id: 630, titleAr: "نشر نماذج ML بـ FastAPI و Docker", titleEn: "Deploy ML Model in Production with FastAPI and Docker", desc: "كيفية نشر نماذج الذكاء الاصطناعي.", cat: "ai", img: "images/c630.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/deploy-ml-model-in-production-with-fastapi-and-docker/?couponCode=WINTER-WONDER-25" },
+    { id: 631, titleAr: "أدوبي بريمير برو: من الصفر", titleEn: "Adobe Premiere Pro CC Essential Video Editing Zero To Hero", desc: "مونتاج الفيديو ببريمير.", cat: "graphic", img: "images/c631.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/adobe-premiere-pro-cc-essential-video-editing-zero-to-hero/?couponCode=D85B851D6461F0461C20" },
+    { id: 632, titleAr: "فوتوشوب ماستر كلاس", titleEn: "Ultimate Adobe Photoshop CC Masterclass Basics To Advanced", desc: "احتراف الفوتوشوب.", cat: "graphic", img: "images/c632.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/ultimate-adobe-photoshop-cc-masterclass-basics-to-advanced/?couponCode=9DDD48709735E77DF525" },
+    { id: 633, titleAr: "دليل المبتدئين لأدوبي بريمير", titleEn: "The Beginner's Guide to Adobe Premiere Pro: Edit Like a Pro", desc: "مونتاج فيديو احترافي.", cat: "graphic", img: "images/c633.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/the-beginners-guide-to-adobe-premiere-pro-edit-like-a-pro/?couponCode=4695C90BF96186938EFC" },
+    { id: 634, titleAr: "تحرير الفيديو الاحترافي (برتغالي)", titleEn: "Adobe Premiere Pro: Edição de Vídeo Profissional Completa", desc: "كورس مونتاج شامل.", cat: "graphic", img: "images/c634.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/adobe-premiere-edicao-de-video/?couponCode=KEEPLEARNING" },
+    { id: 635, titleAr: "كورس فوتوشوب الاحترافي", titleEn: "Professional Adobe Photoshop CC Course With Advance Training", desc: "تدريب متقدم في الفوتوشوب.", cat: "graphic", img: "images/c635.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/professional-adobe-photoshop-cc-course-with-advance-training/?couponCode=12031C0AF9C94B7B88F0" },
+    { id: 636, titleAr: "أساسيات أدوبي فوتوشوب", titleEn: "Adobe Photoshop CC Fundamentals and Essentials Training", desc: "أدوات الفوتوشوب الأساسية.", cat: "graphic", img: "images/c636.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/adobe-photoshop-cc-principal-essential-course-for-beginners/?couponCode=8DFC8543D3547DE5FE52" },
+    { id: 637, titleAr: "مشاريع إليستريتور", titleEn: "Mastering Adobe Illustrator Projects: Build Your Portfolio", desc: "مشاريع عملية في التصميم.", cat: "graphic", img: "images/c637.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/mastering-adobe-illustrator-projects-build-your-portfolio/?couponCode=84EF4DCF5685ECDEE062" },
+    { id: 638, titleAr: "كورس فيجما الكامل", titleEn: "Complete Figma Course: Web & Mobile Projects from Scratch", desc: "تصميم واجهات المستخدم بفيجما.", cat: "graphic", img: "images/c638.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/figma-practical-design/?couponCode=05DECEMBER2025" },
+    { id: 639, titleAr: "Perplexity AI: للبحث والكتابة", titleEn: "Perplexity AI: Transform Your Research and Writing Workflow", desc: "استخدام Perplexity AI في البحث العلمي.", cat: "ai", img: "images/c639.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/perplexity-ai-transform-your-research-and-writing-workflow/?couponCode=2FF334C5992867A2BC9F" },
+    
+    // --- دفعة 2 ---
+    { id: 640, titleAr: "احتراف Power Automate Desktop (ج2)", titleEn: "Microsoft Power Automate Desktop - Zero to Expert : Part 2", desc: "أتمتة سطح المكتب المتقدمة.", cat: "tech", img: "images/c640.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/microsoft-power-automate-desktop-course-zero-to-expert-2/?couponCode=DEC2025" },
+    { id: 641, titleAr: "الإدارة المالية للقادة", titleEn: "Financial Stewardship for Decision Makers and Leaders", desc: "الإدارة المالية لصناع القرار.", cat: "business", img: "images/c641.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/financial-stewardship-for-decision-makers-and-leaders/?couponCode=2NDDEC" },
+    { id: 642, titleAr: "دورة Java و C++ و PHP", titleEn: "Java And C++ And PHP Crash Course All in One For Beginners", desc: "تعلم 3 لغات برمجة في كورس واحد.", cat: "programming", img: "images/c642.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/java-and-c-and-php-crash-course-for-beginners/?couponCode=77B2AC89A5EBBD8DD7D4" },
+    { id: 643, titleAr: "RPA المتقدم: Power Automate و AI Builder", titleEn: "Advanced RPA - Microsoft Power Automate With AI Builder", desc: "الذكاء الاصطناعي في الأتمتة.", cat: "tech", img: "images/c643.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/microsoft-power-automate-with-ai-builder/?couponCode=DEC2025" },
+    { id: 644, titleAr: "دليل هندسة حلول RPA", titleEn: "Complete Guide to RPA Solution Architecture", desc: "تصميم حلول الأتمتة.", cat: "tech", img: "images/c644.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/become-rpa-solution-architect-in-30-days/?couponCode=DEC2025" },
+    { id: 645, titleAr: "ماجستير تصميم الويب بالذكاء الاصطناعي 2025", titleEn: "Máster en Diseño Web con Inteligencia Artificial 2025", desc: "تصميم المواقع باستخدام AI.", cat: "graphic", img: "images/c645.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/master-en-diseno-web-con-inteligencia-artificial/?couponCode=MASTER-DIA77" },
+    { id: 646, titleAr: "الخدمات المالية والمصرفية للشركات", titleEn: "Financial Services - Basics of Business & Corporate Banking", desc: "أساسيات الخدمات البنكية للشركات.", cat: "business", img: "images/c646.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/financial-services-basics-of-business-corporate-banking/?couponCode=2NDDEC" },
+    { id: 647, titleAr: "نظرة عامة على البنوك المركزية", titleEn: "Financial Services - Overview of Central Banks", desc: "فهم عمل البنوك المركزية.", cat: "business", img: "images/c647.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/financial-services-overview-of-central-banks/?couponCode=2NDDEC" },
+    { id: 648, titleAr: "الأتمتة الذكية Power Automate Desktop", titleEn: "RPA:Microsoft Power Automate Desktop:Intelligent Automation", desc: "احتراف الأتمتة المكتبية.", cat: "tech", img: "images/c648.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/power-automate-desktop-course-intelligent-automation/?couponCode=DEC2025" },
+    { id: 649, titleAr: "دبلومة استشارات الاكتئاب", titleEn: "Advanced Diploma in Depression Counselling", desc: "إرشاد الصحة النفسية.", cat: "development", img: "images/c649.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/depressioncounselling/?couponCode=3710CC5EC576685A2424" },
+    { id: 650, titleAr: "بناء مصادر دخل متعددة", titleEn: "Learn How to Build Multiple Income Streams", desc: "تحقيق دخل إضافي.", cat: "business", img: "images/c650.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/build-multiple-income-streams-to-10000-usd-per-month/?couponCode=DEC_FREE_AI" },
+    { id: 651, titleAr: "الدبلومة المهنية في الإعلانات", titleEn: "Professional Diploma in Advertising & Advertising Management", desc: "إدارة الحملات الإعلانية.", cat: "marketing", img: "images/c651.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/professional-diploma-in-advertising-management/?couponCode=C862CD87D9D9EAF92BE4" },
+    { id: 652, titleAr: "تخلص من إدمان الهاتف للأطفال", titleEn: "Smartphone Detox for Kids: A 7-Day Family Challenge", desc: "تحدي 7 أيام لتقليل استخدام الهاتف.", cat: "development", img: "images/c652.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/smartphone-detox-for-kids/?couponCode=5541A41D907BB9488B06" },
+    { id: 653, titleAr: "كورس برمجة C الكامل", titleEn: "The Complete C Programming Course for Basic to Expert", desc: "تعلم لغة C.", cat: "programming", img: "images/c653.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/the-complete-c-programming-course-for-basic-to-expert/?couponCode=DD404303F8428F793744" },
+    { id: 654, titleAr: "مشاريع PHP و MySQL", titleEn: "PHP with MySQL: Build 7 PHP and MySQL Projects", desc: "بناء مشاريع ويب عملية.", cat: "programming", img: "images/c654.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/php-with-mysql-2023-build-7-php-and-mysql-projects/?couponCode=PHP7PROJECTS68" },
+    { id: 655, titleAr: "تحليل البيانات بـ Excel: خطوة بخطوة", titleEn: "The Complete Excel Data Analysis Course: Step by Step Guide", desc: "دليل تحليل البيانات.", cat: "business", img: "images/c655.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/the-complete-excel-data-analysis-course-step-by-step-guide/?couponCode=1B9848E9F06694CAE37A" },
+    { id: 656, titleAr: "رؤى بيانات إكسل: Power Query", titleEn: "Excel Data Insights: Power Query Pivot Analysis and Visuals", desc: "أدوات إكسل المتقدمة.", cat: "business", img: "images/c656.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/excel-data-insights-power-query-pivot-analysis-and-visuals/?couponCode=8A71273150E20F8E7830" },
+    { id: 657, titleAr: "ماجستير علوم البيانات والذكاء الاصطناعي", titleEn: "Data Science & AI Masters 2025 - From Python To Gen AI", desc: "من بايثون إلى الذكاء الاصطناعي التوليدي.", cat: "ai", img: "images/c657.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/data-science-ai-masters-from-python-to-gen-ai/?couponCode=KEEPLEARNING" },
+    { id: 658, titleAr: "تعلم JavaScript APIs بمرح", titleEn: "GIFs, Jokes & More – Learn JavaScript APIs the Fun Way!", desc: "طريقة ممتعة لتعلم البرمجة.", cat: "programming", img: "images/c658.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/gifs-jokes-more-learn-javascript-apis-the-fun-way/?couponCode=1AE68E69F6A063E27A64" },
+    { id: 659, titleAr: "إكسل وجوجل شيتس مع AI", titleEn: "Modern Excel MasterClass and Google Sheets with AI ChatGPT", desc: "استخدام الذكاء الاصطناعي في الجداول.", cat: "business", img: "images/c659.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/modern-microsoft-excel-masterclass-and-google-sheets-with-ai-chatgpt/?couponCode=KEEPLEARNING" },
+    { id: 660, titleAr: "ابدأ بيزنس أونلاين في 30 يوم", titleEn: "How To Start An Online Business And Win Clients In 30 Days", desc: "خطة لبدء العمل الحر.", cat: "freelance", img: "images/c660.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/howtostartmyownbusiness/?couponCode=NEWFOUNDER14" },
+    { id: 661, titleAr: "دبلومة الإنجليزية للأعمال", titleEn: "Professional Diploma in Business English and Communications", desc: "الإنجليزية في بيئة العمل.", cat: "languages", img: "images/c661.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/professional-diploma-in-business-english-and-communications/?couponCode=B0910A67B52B3AFE7CCB" },
+    { id: 662, titleAr: "GCP DevOps: Terraform و Azure", titleEn: "GCP DevOps: Terraform IaC & Azure DevOps CI/CD Masterclass", desc: "عمليات التطوير على السحابة.", cat: "tech", img: "images/c662.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/gcp-devops-terraform-iac-azure-devops-cicd-masterclass/?couponCode=KEEPLEARNING" },
+    { id: 663, titleAr: "احتراف أوفيس وجوجل دوكس", titleEn: "Master MS Word Excel PowerPoint and Google Doc Google Sheets", desc: "دورة شاملة للبرامج المكتبية.", cat: "business", img: "images/c663.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/master-ms-word-excel-powerpoint-and-google-doc-google-sheets/?couponCode=6159E361972E78F8F05C" },
+    { id: 664, titleAr: "تحليل البيانات بـ Excel المتقدم", titleEn: "The Complete Microsoft Excel Data Analysis Basic to Advanced", desc: "احتراف تحليل البيانات.", cat: "business", img: "images/c664.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/the-complete-microsoft-excel-data-analysis-basic-to-advanced/?couponCode=F660890AD2F451928D95" },
+    { id: 665, titleAr: "الرقابة الداخلية وإدارة المخاطر", titleEn: "Internal Controls Masterclass: Design & Risk-Based Testing", desc: "تصميم أنظمة الرقابة.", cat: "business", img: "images/c665.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/internal-controls-masterclass-design-risk-based-testing/?couponCode=EE1987517B8065DEB16B" },
+    { id: 666, titleAr: "تحليل البيانات بـ Excel (نسخة ثانية)", titleEn: "The Complete Microsoft Excel Data Analysis Basic to Advanced", desc: "دورة إضافية لتحليل البيانات.", cat: "business", img: "images/c666.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/the-complete-microsoft-excel-data-analysis-basic-to-advanced/?couponCode=F660890AD2F451928D95" },
+    { id: 667, titleAr: "مكافحة غسيل الأموال في التجارة", titleEn: "Mastering Trade-Based Money Laundering (TBML)", desc: "كشف الجرائم المالية.", cat: "business", img: "images/c667.jpg", date: "09 ديسمبر 2025", url: "https://www.udemy.com/course/mastering-trade-based-money-laundering-tbml/?couponCode=D22C7691C70A9F421FC8" }
 ];
 
 // --- المكونات ---
@@ -1017,11 +505,13 @@ function initGalleryPage() {
 
     const loadMoreBtn = document.getElementById('load-more-gallery');
     if(loadMoreBtn) {
+        // نستخدم onclick لمنع التكرار ومنع الريفريش
         loadMoreBtn.onclick = function(e) {
-            e.preventDefault(); 
+            e.preventDefault(); // منع الريفريش
             window.visibleGalleryCount += GALLERY_INCREMENT;
             renderGallery();
         };
+        // تأكيد نوع الزرار عشان ميعملش submit
         loadMoreBtn.type = 'button';
     }
 }
@@ -1033,10 +523,15 @@ function renderGallery() {
 
     let html = '';
     const cacheBuster = new Date().getTime(); 
+    
+    // تعريف 3 مقاسات مختلفة للصور (placeholder) عشان الشكل يبقى متنوع
+    // 600x400 (مستطيل عرضي), 600x800 (طويل/بوستر), 600x600 (مربع)
     const placeHolders = ['600x400', '600x800', '600x600'];
 
     for(let i=1; i <= window.visibleGalleryCount; i++) {
+        // اختيار مقاس بالدور (0, 1, 2, 0, 1, 2...)
         const dim = placeHolders[i % 3];
+
         html += `
         <div class="glass-panel rounded-2xl overflow-hidden break-inside-avoid mb-6 group relative fade-in border-0 shadow-sm" id="img-container-${i}">
             <div class="relative cursor-pointer" onclick="openLightbox('images/${i}.jpg')">
