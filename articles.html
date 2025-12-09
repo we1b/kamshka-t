@@ -1,62 +1,91 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-482MR7LT23"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-482MR7LT23');
-    </script>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- SEO Meta Tags -->
-    <title>كمشكاة | المقالات - قريباً</title>
-    <meta name="description" content="انتظروا قريباً مدونة كمشكاة. مقالات حصرية ومحتوى تعليمي في الجرافيك ديزاين، البرمجة، وتطوير الذات.">
-    <meta name="keywords" content="مدونة كمشكاة, مقالات تعليمية, جرافيك ديزاين, برمجة, تطوير ذات, قريبا">
-    <meta name="robots" content="index, follow">
-
-    <!-- Open Graph -->
-    <meta property="og:title" content="كمشكاة | المقالات - قريباً">
-    <meta property="og:description" content="جاري العمل على تجهيز محتوى قوي يفيدك. انتظرونا!">
-    <meta property="og:image" content="https://kameshkah.com/images/logo.png">
-    <meta property="og:type" content="website">
-    
-    <link rel="icon" type="image/png" href="images/logo.png?v=2">
+    <title>كمشكاة | المدونة</title>
+    <link rel="icon" type="image/png" href="images/ui/logo.png">
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="js/main.js"></script>
 </head>
 <body data-page="articles">
-    <div class="fixed-bg"><img src="images/bg.jpg" alt="خلفية"></div>
+    <div class="fixed-bg"><img src="images/ui/bg.jpg"></div>
     <div id="header-ph"></div>
 
-    <main class="pt-32 px-4 container mx-auto min-h-screen flex items-center justify-center pb-20">
-        <div class="glass-panel p-12 rounded-3xl text-center max-w-2xl mx-auto bg-white/60 border-emerald-100 fade-in">
-            <div class="bg-emerald-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner">
-                <i data-lucide="pen-tool" class="w-12 h-12 text-emerald-600"></i>
-            </div>
-            <h1 class="text-4xl md:text-5xl font-black text-emerald-900 mb-4" data-i18n="articles_title">مدونة كمشكاة</h1>
-            <div class="h-1 w-32 bg-emerald-500 mx-auto rounded-full mb-8"></div>
-            
-            <h2 class="text-2xl font-bold text-slate-700 mb-4" data-i18n="articles_soon_title">قريباً جداً... 🔥</h2>
-            <p class="text-slate-600 text-lg leading-relaxed mb-8 font-medium" data-i18n="articles_soon_desc">
-                شغالين دلوقتي على تجهيز مقالات دسمة، نسأل الله التوفيق.
-                <br>
-                المحتوى اللي جاي هيفرق معاك جداً، خليك متابع!
-            </p>
+    <main class="pt-32 px-4 container mx-auto min-h-screen pb-12">
+        <div class="text-center mb-8 fade-in">
+            <h1 class="text-4xl font-black text-emerald-900 mb-2">مدونة كمشكاة</h1>
+            <p class="text-slate-600 font-bold">خواطر . تجارب . تطوير</p>
+        </div>
 
-            <a href="index.html" class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-3 rounded-xl font-bold transition shadow-lg shadow-emerald-200">
-                <i data-lucide="home"></i> <span data-i18n="btn_back_home">رجوع للرئيسية</span>
-            </a>
+        <!-- Search Bar -->
+        <div class="max-w-md mx-auto mb-10 fade-in group relative">
+            <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                <i data-lucide="search" class="w-5 h-5 text-slate-400 group-focus-within:text-emerald-600 transition"></i>
+            </div>
+            <input type="text" id="article-search" class="block w-full p-4 pr-10 text-sm text-slate-900 border border-emerald-100 rounded-full bg-white/80 focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 focus:bg-white transition-all shadow-sm" placeholder="ابحث في المقالات...">
+        </div>
+
+        <!-- شبكة المقالات -->
+        <div id="articles-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 fade-in delay-100">
+            <!-- المقالات هتنزل هنا -->
         </div>
     </main>
-
+    
     <div id="footer-ph"></div>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics-compat.js"></script>
-    <script src="js/script.js"></script>
+
+    <script>
+        const articles = [
+            {
+                id: 1,
+                title: "ازاي تبدأ فريلانسينج وأنت طالب؟",
+                desc: "خطوات عملية من واقع تجربتي الشخصية للبدء في العمل الحر بجانب دراستك.",
+                img: "images/articles/freelance-tips.webp",
+                date: "10 ديسمبر 2025"
+            },
+            {
+                id: 2,
+                title: "أهمية البراندينج الشخصي للمصممين",
+                desc: "ليه لازم يكون عندك هوية بصرية قوية لو عايز تنافس في سوق العمل العالمي.",
+                img: "images/articles/branding.webp",
+                date: "05 ديسمبر 2025"
+            }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderArticles(articles);
+
+            document.getElementById('article-search').addEventListener('keyup', (e) => {
+                const term = e.target.value.toLowerCase();
+                const filtered = articles.filter(a => a.title.toLowerCase().includes(term) || a.desc.toLowerCase().includes(term));
+                renderArticles(filtered);
+            });
+        });
+
+        function renderArticles(data) {
+            const grid = document.getElementById('articles-grid');
+            if(data.length > 0){
+                grid.innerHTML = data.map(art => `
+                    <article class="glass-panel rounded-2xl overflow-hidden hover:-translate-y-2 transition duration-300 flex flex-col h-full bg-white/70">
+                        <img src="${art.img}" class="w-full h-48 object-cover" onerror="this.src='https://placehold.co/600x400/10b981/ffffff?text=Article'">
+                        <div class="p-6 flex-1 flex flex-col">
+                            <div class="text-xs text-slate-500 font-bold mb-2 flex items-center gap-1">
+                                <i data-lucide="calendar" class="w-3 h-3"></i> ${art.date}
+                            </div>
+                            <h2 class="text-xl font-black text-emerald-900 mb-3 leading-snug">${art.title}</h2>
+                            <p class="text-slate-600 text-sm line-clamp-3 mb-4 flex-1">${art.desc}</p>
+                            <a href="article-view.html?id=${art.id}" class="text-emerald-600 font-bold hover:text-emerald-800 transition flex items-center gap-1 mt-auto">
+                                اقرأ المزيد <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                    </article>
+                `).join('');
+                lucide.createIcons();
+            } else {
+                grid.innerHTML = `<div class="col-span-full text-center text-slate-500 font-bold py-10">مفيش مقالات بالاسم ده 🤷‍♂️</div>`;
+            }
+        }
+    </script>
 </body>
 </html>

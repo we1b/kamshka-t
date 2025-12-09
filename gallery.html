@@ -1,41 +1,30 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-482MR7LT23"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-482MR7LT23');
-    </script>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- SEO Meta Tags -->
-    <title>كمشكاة | معرض التصميمات والإبداع</title>
-    <meta name="description" content="تصفح معرض أعمال مصطفى كمشكاة في الجرافيك ديزاين. تصميمات سوشيال ميديا، هويات بصرية، ودمج (Manipulation) بإبداع ولمسة فنية.">
-    <meta name="keywords" content="معرض أعمال جرافيك, بورتفوليو مصمم, تصميمات سوشيال ميديا, Graphic Design Portfolio, Manipulation, Behance">
-    
-    <!-- Open Graph -->
-    <meta property="og:title" content="كمشكاة | معرض التصميمات">
-    <meta property="og:description" content="شوف الإبداع في معرض تصميمات كمشكاة.">
-    <meta property="og:image" content="https://kameshkah.com/images/1.jpg">
-    <meta property="og:type" content="website">
-
-    <link rel="icon" type="image/png" href="images/logo.png?v=2">
+    <title>كمشكاة | المعرض</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
 </head>
 <body data-page="gallery">
-    <div class="fixed-bg"><img src="images/bg.jpg" alt="خلفية"></div>
-    <div id="header-ph"></div>
+    <div class="fixed-bg"><img src="images/ui/bg.jpg"></div>
+    <div id="header-ph"></div> 
 
+    <!-- Lightbox -->
     <div id="lightbox" onclick="closeLightbox()">
-        <button class="absolute top-5 right-5 text-slate-800 bg-white p-2 rounded-full hover:bg-red-100 hover:text-red-500 transition z-50 shadow-lg"><i data-lucide="x"></i></button>
-        <img id="lightbox-img" src="" alt="عرض التصميم" onclick="event.stopPropagation()">
-        <a id="lightbox-download" href="#" download class="absolute bottom-8 bg-white text-emerald-800 px-8 py-3 rounded-full font-bold shadow-2xl flex gap-2 hover:bg-emerald-50 transition" onclick="event.stopPropagation()">
-            <i data-lucide="download"></i> <span data-i18n="btn_download">تحميل الصورة</span>
+        <button class="absolute top-5 right-5 bg-white text-red-500 p-2 rounded-full shadow-lg z-50 hover:bg-red-50 transition">
+            <i data-lucide="x"></i>
+        </button>
+        <img id="lightbox-img" src="" onclick="event.stopPropagation()">
+        <a id="lightbox-download" href="#" download class="absolute bottom-10 bg-emerald-600 text-white px-8 py-3 rounded-full font-bold shadow-2xl flex gap-2 hover:bg-emerald-700 transition transform hover:scale-105" onclick="event.stopPropagation()">
+            <i data-lucide="download"></i> <span data-i18n="btn_download">تحميل</span>
         </a>
     </div>
 
@@ -45,20 +34,16 @@
             <p class="text-slate-600 font-bold text-lg" data-i18n="gallery_subtitle">إبداع متجدد . لمسة فنية</p>
         </div>
 
+        <!-- الجريد فاضي وهيتملي بالـ JS -->
         <div id="gallery-grid" class="masonry-grid fade-in delay-100"></div>
 
         <div class="text-center mt-12 fade-in">
             <button id="load-more-gallery" class="bg-white text-emerald-800 px-8 py-3 rounded-full font-bold hover:bg-emerald-50 transition border border-emerald-200 shadow-md inline-flex items-center gap-2">
-                <span data-i18n="btn_load_more_gallery">عرض المزيد من التصميمات</span> <i data-lucide="arrow-down" class="w-5 h-5"></i>
+                <span data-i18n="btn_load_more">عرض المزيد</span> <i data-lucide="arrow-down" class="w-5 h-5"></i>
             </button>
         </div>
     </main>
 
     <div id="footer-ph"></div>
-    
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics-compat.js"></script>
-    <script src="js/script.js"></script>
 </body>
 </html>
