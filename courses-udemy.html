@@ -2,6 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- ده مهم جداً للموبايل -->
     <title>كمشكاة | يوديمي</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -14,7 +15,7 @@
     <div id="header-ph"></div>
 
     <main class="pt-32 px-4 container mx-auto min-h-screen pb-12">
-        <h1 class="text-3xl font-black text-purple-900 mb-8 border-r-4 border-purple-500 pr-4">كورسات يوديمي (كوبونات)</h1>
+        <h1 class="text-2xl md:text-3xl font-black text-purple-900 mb-8 border-r-4 border-purple-500 pr-4">كورسات يوديمي (كوبونات)</h1>
         
         <!-- Search & Filter Section -->
         <div class="mb-10 fade-in space-y-6">
@@ -25,17 +26,17 @@
                 </div>
                 <input type="text" id="search-input" 
                     class="block w-full p-4 pr-10 text-sm text-slate-900 border border-slate-200 rounded-full bg-white/80 focus:ring-4 focus:ring-purple-200 focus:border-purple-500 focus:bg-white transition-all duration-300 shadow-sm focus:w-full" 
-                    placeholder="ابحث عن كورس (فوتوشوب، بايثون، تسويق...)">
+                    placeholder="ابحث عن كورس (فوتوشوب، بايثون...)">
             </div>
 
-            <!-- Category Filters -->
+            <!-- Category Filters (Scrollable on mobile if needed, or wrapped) -->
             <div class="flex flex-wrap justify-center gap-2" id="category-filters">
-                <button class="filter-btn active px-6 py-2 rounded-full font-bold text-sm bg-purple-600 text-white shadow-md transition hover:scale-105" data-cat="all">الكل</button>
-                <button class="filter-btn px-6 py-2 rounded-full font-bold text-sm bg-white text-slate-600 hover:bg-purple-50 transition border border-slate-200" data-cat="graphic">جرافيك</button>
-                <button class="filter-btn px-6 py-2 rounded-full font-bold text-sm bg-white text-slate-600 hover:bg-purple-50 transition border border-slate-200" data-cat="programming">برمجة</button>
-                <button class="filter-btn px-6 py-2 rounded-full font-bold text-sm bg-white text-slate-600 hover:bg-purple-50 transition border border-slate-200" data-cat="business">بيزنس</button>
-                <button class="filter-btn px-6 py-2 rounded-full font-bold text-sm bg-white text-slate-600 hover:bg-purple-50 transition border border-slate-200" data-cat="marketing">تسويق</button>
-                <button class="filter-btn px-6 py-2 rounded-full font-bold text-sm bg-white text-slate-600 hover:bg-purple-50 transition border border-slate-200" data-cat="tech">تكنولوجيا</button>
+                <button class="filter-btn active px-4 md:px-6 py-2 rounded-full font-bold text-xs md:text-sm bg-purple-600 text-white shadow-md transition hover:scale-105" data-cat="all">الكل</button>
+                <button class="filter-btn px-4 md:px-6 py-2 rounded-full font-bold text-xs md:text-sm bg-white text-slate-600 hover:bg-purple-50 transition border border-slate-200" data-cat="graphic">جرافيك</button>
+                <button class="filter-btn px-4 md:px-6 py-2 rounded-full font-bold text-xs md:text-sm bg-white text-slate-600 hover:bg-purple-50 transition border border-slate-200" data-cat="programming">برمجة</button>
+                <button class="filter-btn px-4 md:px-6 py-2 rounded-full font-bold text-xs md:text-sm bg-white text-slate-600 hover:bg-purple-50 transition border border-slate-200" data-cat="business">بيزنس</button>
+                <button class="filter-btn px-4 md:px-6 py-2 rounded-full font-bold text-xs md:text-sm bg-white text-slate-600 hover:bg-purple-50 transition border border-slate-200" data-cat="marketing">تسويق</button>
+                <button class="filter-btn px-4 md:px-6 py-2 rounded-full font-bold text-xs md:text-sm bg-white text-slate-600 hover:bg-purple-50 transition border border-slate-200" data-cat="tech">تكنولوجيا</button>
             </div>
         </div>
 
@@ -63,17 +64,14 @@
             // تهيئة الفلترة والبحث
             filterData(); 
             
-            // أحداث البحث
             document.getElementById('search-input').addEventListener('keyup', (e) => {
                 searchQuery = e.target.value.toLowerCase();
-                currentUdemyCount = 0; // تصفير العداد عند البحث الجديد
+                currentUdemyCount = 0;
                 filterData();
             });
 
-            // أحداث الفلاتر
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
-                    // تحديث الستايل
                     document.querySelectorAll('.filter-btn').forEach(b => {
                         b.classList.remove('bg-purple-600', 'text-white');
                         b.classList.add('bg-white', 'text-slate-600');
@@ -81,7 +79,6 @@
                     e.target.classList.remove('bg-white', 'text-slate-600');
                     e.target.classList.add('bg-purple-600', 'text-white');
 
-                    // تحديث اللوجيك
                     activeCategory = e.target.dataset.cat;
                     currentUdemyCount = 0;
                     filterData();
@@ -95,7 +92,7 @@
 
         function filterData() {
             const grid = document.getElementById('udemy-grid');
-            grid.innerHTML = ''; // مسح المحتوى القديم
+            grid.innerHTML = '';
 
             if(!window.udemyData) return;
 
@@ -179,7 +176,7 @@
                 navigator.share({ title: title, text: `كوبون مجاني: ${title}`, url: url }).catch(console.error);
             } else {
                 navigator.clipboard.writeText(url);
-                alert('تم نسخ الرابط! 😉');
+                alert('تم نسخ رابط الكورس! 😉');
             }
         }
     </script>

@@ -16,21 +16,11 @@ const translations = {
         footer_rights: "جميع الحقوق محفوظة © مصطفى كمشكاة 2025",
         
         home_welcome: "كمشكاة",
-        home_slogan: "\"استعن بالله ولا تعجز\"",
         btn_start_learning: "ابدأ رحلة التعلم",
         btn_view_gallery: "شوف الإبداع",
         stat_followers: "زائر للموقع",
         stat_courses: "كورس متاح",
         stat_ambition: "طموح بلا حدود",
-
-        courses_title: "ماذا تريد أن تتعلم اليوم؟",
-        courses_subtitle: "اختار الطريقة اللي تناسبك في التعلم",
-        courses_academy: "أكاديمية كمشكاة",
-        courses_academy_desc: "كورسات ومنح مخصصة للشباب لتعليمهم وتطوير مهاراتهم. المحتوى مجاني 100% حالياً.",
-        btn_academy: "تصفح الأكاديمية 🏫",
-        courses_udemy: "كوبونات Udemy",
-        courses_udemy_desc: "كوبونات حصرية للحصول على كورسات مدفوعة بشكل مجاني تماماً.",
-        btn_udemy: "تصفح الكوبونات ▶️",
 
         gallery_title: "معرض التصميمات",
         gallery_subtitle: "إبداع متجدد . لمسة فنية",
@@ -40,8 +30,6 @@ const translations = {
         btn_load_more: "عرض المزيد",
         
         share_msg: "تم نسخ الرابط! شاركه مع أصحابك.",
-        login_welcome: "أهلاً بيك تاني! 👋",
-        login_subtitle: "جاهز تكمل رحلة التعلم؟",
     },
     en: {
         nav_home: "Home",
@@ -55,21 +43,11 @@ const translations = {
         footer_rights: "All Rights Reserved © Mostafa Kamshkat 2025",
 
         home_welcome: "Kamshkat",
-        home_slogan: "\"Seek help from Allah and do not lose heart\"",
         btn_start_learning: "Start Learning",
         btn_view_gallery: "View Gallery",
         stat_followers: "Visitors",
         stat_courses: "Courses Available",
         stat_ambition: "Limitless Ambition",
-
-        courses_title: "What do you want to learn?",
-        courses_subtitle: "Choose the learning path that suits you",
-        courses_academy: "Kamshkat Academy",
-        courses_academy_desc: "Courses and scholarships dedicated to youth skills development. Content is 100% Free currently.",
-        btn_academy: "Explore Academy 🏫",
-        courses_udemy: "Udemy Coupons",
-        courses_udemy_desc: "Exclusive coupons to get paid courses for absolutely free.",
-        btn_udemy: "Explore Coupons ▶️",
 
         gallery_title: "Design Gallery",
         gallery_subtitle: "Renewed Creativity . Artistic Touch",
@@ -79,8 +57,6 @@ const translations = {
         btn_load_more: "Load More",
 
         share_msg: "Link copied! Share it with friends.",
-        login_welcome: "Welcome Back! 👋",
-        login_subtitle: "Ready to continue learning?",
     }
 };
 
@@ -95,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initProtection();         
     lucide.createIcons();     
     initChatbot(); 
-    initCounters(); // ✅ تشغيل عداد الأرقام
+    initCounters(); 
 
     if(document.body.dataset.page === 'gallery') {
         initGalleryPage();
@@ -128,18 +104,21 @@ function setLanguage(lang) {
 function t(key) { return translations[currentLang][key] || key; }
 
 // -------------------------------------------------------------------------
-// 4. بناء القائمة
+// 4. بناء القائمة (تم إصلاح الموبايل هنا) 📱
 // -------------------------------------------------------------------------
 function loadNavbarFooter() {
     const langBtnText = currentLang === 'ar' ? 'En' : 'عربي';
     
     const navbarHTML = `
-    <nav class="fixed top-0 w-full glass-panel z-50 !bg-white/80 backdrop-blur-md border-b border-white/50 h-20 flex items-center">
+    <nav class="fixed top-0 w-full glass-panel z-50 !bg-white/90 backdrop-blur-md border-b border-white/50 h-20 flex items-center shadow-sm">
         <div class="container mx-auto px-4 flex justify-between items-center">
+            <!-- اللوجو -->
             <a href="index.html" class="flex items-center gap-2 font-black text-2xl text-emerald-800 hover:scale-105 transition">
-                <img src="images/ui/logo.png" class="w-10 h-10 drop-shadow-sm" alt="Logo"> <span data-i18n="home_welcome">${t('home_welcome')}</span>
+                <img src="images/ui/logo.png" class="w-10 h-10 drop-shadow-sm object-contain" alt="Logo" onerror="this.style.display='none'"> 
+                <span data-i18n="home_welcome">${t('home_welcome')}</span>
             </a>
             
+            <!-- قائمة الكمبيوتر (مخفية في الموبايل) -->
             <div class="hidden md:flex items-center gap-1 bg-slate-100/50 p-1 rounded-full border border-slate-200">
                 <a href="index.html" class="nav-link px-4 py-2 rounded-full text-slate-600 font-bold text-sm hover:bg-white hover:text-emerald-600 transition" data-i18n="nav_home">${t('nav_home')}</a>
                 <a href="courses.html" class="nav-link px-4 py-2 rounded-full text-slate-600 font-bold text-sm hover:bg-white hover:text-emerald-600 transition" data-i18n="nav_courses">${t('nav_courses')}</a>
@@ -149,20 +128,39 @@ function loadNavbarFooter() {
                 <a href="contact.html" class="nav-link px-4 py-2 rounded-full text-slate-600 font-bold text-sm hover:bg-white hover:text-emerald-600 transition" data-i18n="nav_contact">${t('nav_contact')}</a>
             </div>
 
-            <div class="flex items-center gap-3">
+            <!-- أزرار الجانب (لغة + دخول + زرار الموبايل) -->
+            <div class="flex items-center gap-2">
                 <button onclick="toggleLanguage()" class="px-3 py-1.5 rounded-lg bg-emerald-50 text-emerald-800 font-bold text-xs hover:bg-emerald-100 transition border border-emerald-200">
                     ${langBtnText}
                 </button>
-                <div id="auth-area">
+                
+                <div id="auth-area" class="hidden md:block">
                     <a href="login.html" class="bg-emerald-600 text-white px-5 py-2 rounded-xl font-bold hover:bg-emerald-700 transition shadow-lg shadow-emerald-200 text-sm" data-i18n="nav_login">${t('nav_login')}</a>
                 </div>
+
+                <!-- زرار الموبايل (بيظهر بس في الشاشات الصغيرة) -->
+                <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="md:hidden p-2 rounded-lg bg-slate-100 text-emerald-800 hover:bg-emerald-100 transition">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
             </div>
+        </div>
+
+        <!-- قائمة الموبايل المنسدلة -->
+        <div id="mobile-menu" class="hidden absolute top-20 left-0 w-full bg-white/95 backdrop-blur-xl border-t border-slate-100 p-4 shadow-xl flex flex-col gap-2 md:hidden animate-fade-in-down">
+            <a href="index.html" class="p-3 rounded-xl hover:bg-emerald-50 text-slate-700 font-bold flex items-center gap-3"><i data-lucide="home" class="w-5 h-5 text-emerald-600"></i> ${t('nav_home')}</a>
+            <a href="courses.html" class="p-3 rounded-xl hover:bg-emerald-50 text-slate-700 font-bold flex items-center gap-3"><i data-lucide="zap" class="w-5 h-5 text-emerald-600"></i> ${t('nav_courses')}</a>
+            <a href="gallery.html" class="p-3 rounded-xl hover:bg-emerald-50 text-slate-700 font-bold flex items-center gap-3"><i data-lucide="image" class="w-5 h-5 text-emerald-600"></i> ${t('nav_gallery')}</a>
+            <a href="articles.html" class="p-3 rounded-xl hover:bg-emerald-50 text-slate-700 font-bold flex items-center gap-3"><i data-lucide="pen-tool" class="w-5 h-5 text-emerald-600"></i> ${t('nav_articles')}</a>
+            <a href="library.html" class="p-3 rounded-xl hover:bg-emerald-50 text-slate-700 font-bold flex items-center gap-3"><i data-lucide="library" class="w-5 h-5 text-emerald-600"></i> ${t('nav_library')}</a>
+            <a href="contact.html" class="p-3 rounded-xl hover:bg-emerald-50 text-slate-700 font-bold flex items-center gap-3"><i data-lucide="phone" class="w-5 h-5 text-emerald-600"></i> ${t('nav_contact')}</a>
+            <div class="h-px bg-slate-100 my-1"></div>
+            <a href="login.html" class="p-3 rounded-xl bg-emerald-600 text-white font-bold text-center shadow-lg">${t('nav_login')}</a>
         </div>
     </nav>`;
 
     const footerHTML = `
     <footer class="text-center py-8 mt-auto relative z-10">
-        <div class="glass-panel inline-block px-8 py-4 rounded-full">
+        <div class="glass-panel inline-block px-8 py-4 rounded-full bg-white/50 backdrop-blur-md">
             <p class="text-emerald-800 font-bold text-sm" data-i18n="footer_rights">${t('footer_rights')}</p>
         </div>
     </footer>`;
@@ -195,14 +193,18 @@ function loadGalleryImages() {
     
     let html = '';
     // في الحقيقة المفروض يكون عندك array للصور، هنا بنعمل محاكاة
+    // تأكد من وجود الصور في images/gallery/1.jpg ...
     for(let i=1; i<=visibleGalleryCount; i++) {
         if(i > 20) break; 
 
+        // رابط الصورة المباشر بناءً على هيكل الفولدرات بتاعك
+        const imgSrc = `images/gallery/${i}.jpg`;
+
         html += `
         <div class="break-inside-avoid mb-6 glass-panel rounded-2xl overflow-hidden group relative cursor-pointer" 
-             onclick="openLightbox('images/gallery/${i}.jpg')">
-            <img src="images/gallery/${i}.jpg" loading="lazy" class="w-full h-auto group-hover:scale-105 transition duration-500"
-                 onerror="this.src='https://placehold.co/600x800/dcfce7/065f46?text=Design+${i}'">
+             onclick="openLightbox('${imgSrc}')">
+            <img src="${imgSrc}" loading="lazy" class="w-full h-auto group-hover:scale-105 transition duration-500"
+                 onerror="this.parentElement.parentElement.style.display='none'"> <!-- يخفي الصورة لو مش موجودة -->
             
             <div class="absolute inset-0 bg-emerald-900/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
                 <div class="bg-white text-emerald-800 px-4 py-2 rounded-full font-bold flex gap-2 shadow-xl transform translate-y-4 group-hover:translate-y-0 transition">
@@ -216,7 +218,7 @@ function loadGalleryImages() {
                     <span id="likes-count-${i}" class="text-xs font-bold text-slate-700">0</span>
                 </button>
 
-                <button onclick="shareImage('images/gallery/${i}.jpg')" class="bg-emerald-600 hover:bg-emerald-700 text-white p-2 px-3 rounded-full shadow-lg transition flex items-center gap-2 backdrop-blur-sm border border-white/20">
+                <button onclick="shareImage('${imgSrc}')" class="bg-emerald-600 hover:bg-emerald-700 text-white p-2 px-3 rounded-full shadow-lg transition flex items-center gap-2 backdrop-blur-sm border border-white/20">
                     <span class="text-xs font-bold" data-i18n="btn_share_img">${t('btn_share_img')}</span>
                     <i data-lucide="share-2" class="w-4 h-4"></i>
                 </button>
@@ -357,7 +359,7 @@ function initChatbot() {
 }
 
 // -------------------------------------------------------------------------
-// 8. العدادات (تشغيل الأرقام في الرئيسية) 🔥
+// 8. العدادات
 // -------------------------------------------------------------------------
 function initCounters() {
     const counters = document.querySelectorAll('.counter-number');
@@ -368,7 +370,7 @@ function initCounters() {
             if(entry.isIntersecting) {
                 const el = entry.target;
                 const target = +el.dataset.target || 0;
-                animateValue(el, 0, target, 2500); // مدة 2.5 ثانية
+                animateValue(el, 0, target, 2500); 
                 observer.unobserve(el);
             }
         });
