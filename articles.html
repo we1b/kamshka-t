@@ -29,6 +29,7 @@
         </div>
 
         <!-- شبكة المقالات (Grid) -->
+        <!-- grid-cols-1 يعني عمود واحد للموبايل -->
         <div id="articles-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 fade-in delay-100">
             <!-- المقالات هتنزل هنا -->
         </div>
@@ -72,7 +73,8 @@
                 grid.innerHTML = data.map(art => `
                     <article class="glass-panel rounded-2xl overflow-hidden hover:-translate-y-2 transition duration-300 flex flex-col h-full bg-white/70 border border-white">
                         <div class="h-48 overflow-hidden relative">
-                            <img src="${art.img}" class="w-full h-full object-cover transform hover:scale-110 transition duration-700" onerror="this.src='https://placehold.co/600x400/10b981/ffffff?text=Article'">
+                            <!-- التعديل هنا: لو الصورة مش موجودة هيعرض صورة الخلفية مؤقتاً -->
+                            <img src="${art.img}" class="w-full h-full object-cover transform hover:scale-110 transition duration-700" onerror="this.src='images/ui/bg.jpg'">
                         </div>
                         <div class="p-6 flex-1 flex flex-col">
                             <div class="text-xs text-slate-500 font-bold mb-2 flex items-center gap-1">
