@@ -35,17 +35,17 @@
     </div>
 
     <main class="pt-32 px-4 container mx-auto min-h-screen pb-12">
-        <div class="text-center mb-12 fade-in">
+        <div class="text-center mb-12">
             <h1 class="text-3xl md:text-5xl font-black text-emerald-900 mb-2">معرض التصميمات</h1>
             <p class="text-slate-600 font-bold text-lg">إبداع متجدد . لمسة فنية</p>
         </div>
 
         <!-- شبكة الصور -->
-        <div id="gallery-grid" class="masonry-grid fade-in delay-100">
+        <div id="gallery-grid" class="masonry-grid">
             <!-- الصور هتنزل هنا -->
         </div>
 
-        <div class="text-center mt-12 fade-in">
+        <div class="text-center mt-12">
             <button id="load-more-gallery" class="bg-white text-emerald-800 px-8 py-3 rounded-full font-bold hover:bg-emerald-50 transition border border-emerald-200 shadow-md inline-flex items-center gap-2">
                 عرض المزيد <i data-lucide="arrow-down" class="w-5 h-5"></i>
             </button>
@@ -56,10 +56,14 @@
 
     <script>
         let visibleGalleryCount = 0;
-        const GALLERY_INCREMENT = 8; 
-        const MAX_IMAGES = 100; // زود الرقم ده براحتك
+        const GALLERY_INCREMENT = 10; // نعرض 10 صور
+        const MAX_IMAGES = 100;
 
         document.addEventListener('DOMContentLoaded', () => {
+            // تنظيف الجريد الأول عشان نمنع التكرار او الاخطاء من main.js
+            const grid = document.getElementById('gallery-grid');
+            if(grid) grid.innerHTML = '';
+            
             loadGalleryBatch();
 
             document.getElementById('load-more-gallery').addEventListener('click', () => {
@@ -81,15 +85,15 @@
 
             let html = '';
             for(let i=start; i<=end; i++) {
-                // 👇 عدلت المسار هنا ليطابق ملفاتك في ui
+                // 👇 المسار بناءً على صورة الفولدرات اللي بعتها
                 const imgSrc = `images/ui/${i}.jpg`; 
 
                 html += `
-                <div class="break-inside-avoid mb-6 glass-panel rounded-2xl overflow-hidden group relative fade-in bg-white/40 border border-white hover:shadow-xl transition duration-300">
+                <div class="break-inside-avoid mb-6 glass-panel rounded-2xl overflow-hidden group relative bg-white/40 border border-white hover:shadow-xl transition duration-300">
                     <div class="cursor-pointer relative" onclick="openGalleryLightbox('${imgSrc}')">
-                        <!-- 👇 شلت كود الإخفاء وحطيت صورة بديلة عشان لو الصورة فيها مشكلة تظهر -->
+                        <!-- 👇 التغيير: لو الصورة مش موجودة، اعرض صورة الخلفية مكانها عشان منتوهش -->
                         <img src="${imgSrc}" loading="lazy" class="w-full h-auto block" 
-                             onerror="this.src='https://placehold.co/600x800/dcfce7/065f46?text=Image+${i}'">
+                             onerror="this.src='images/ui/bg.jpg'">
                         
                         <div class="absolute inset-0 bg-emerald-900/20 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
                             <div class="bg-white/90 text-emerald-900 p-3 rounded-full shadow-lg transform scale-75 group-hover:scale-100 transition">
