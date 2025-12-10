@@ -4,6 +4,197 @@
 const udemyCourses = [
     // --- دفعة 10 ديسمبر 2025 ---
     {
+        id: 763,
+        titleAr: "إتقان الإكسل من البداية للاحتراف",
+        titleEn: "Microsoft Excel Basic to Advanced: Ultimate Excel Mastery",
+        desc: "دليل شامل لاحتراف مايكروسوفت إكسل من الأساسيات للمعادلات المتقدمة.",
+        cat: "business",
+        date: "10 ديسمبر 2025 | 18 جمادى الآخرة 1447",
+        img: "images/courses-covers/udemy/c763.jpg",
+        url: "https://www.udemy.com/course/microsoft-excel-basic-to-advanced-ultimate-excel-mastery/?couponCode=796D40AF0930FDD70E9E"
+    },
+    {
+        id: 764,
+        titleAr: "تعلم محرر GNU Nano في 30 دقيقة",
+        titleEn: "Learn GNU Nano in 30 minutes | Linux Terminal Productivity",
+        desc: "احترف التعامل مع محرر النصوص Nano في بيئة لينكس.",
+        cat: "programming",
+        date: "10 ديسمبر 2025 | 18 جمادى الآخرة 1447",
+        img: "images/courses-covers/udemy/c764.jpg",
+        url: "https://www.udemy.com/course/learn-gnu-nano/?couponCode=BDA3BA78AB3916B6D5CA"
+    },
+    {
+        id: 765,
+        titleAr: "جافاسكريبت الحديثة وبناء مواقع تفاعلية",
+        titleEn: "The Modern JavaScript Course: Build Interactive Websites",
+        desc: "تعلم الجافاسكريبت الحديثة لبناء واجهات ويب قوية.",
+        cat: "programming",
+        date: "10 ديسمبر 2025 | 18 جمادى الآخرة 1447",
+        img: "images/courses-covers/udemy/c765.jpg",
+        url: "https://www.udemy.com/course/the-modern-javascript-course-build-interactive-websites/?couponCode=75653BD3C99F158BF98F"
+    },
+    {
+        id: 766,
+        titleAr: "بناء مدونة كاملة بـ PHP و MySQL",
+        titleEn: "Build Complete CMS Blog in PHP MySQL Bootstrap & PDO",
+        desc: "إنشاء نظام إدارة محتوى (CMS) كامل من الصفر.",
+        cat: "programming",
+        date: "10 ديسمبر 2025 | 18 جمادى الآخرة 1447",
+        img: "images/courses-covers/udemy/c766.jpg",
+        url: "https://www.udemy.com/course/build-complete-2022-cms-blog-in-php-mysql-bootstrap-pdo/?couponCode=PHPBLOG75"
+    },
+    {
+        id: 767,
+        titleAr: "احتراف الكتابة للأعمال",
+        titleEn: "The Business Writing Mastery Course",
+        desc: "تحسين مهارات الكتابة المهنية والتقارير ورسائل البريد الإلكتروني.",
+        cat: "business",
+        date: "10 ديسمبر 2025 | 18 جمادى الآخرة 1447",
+        img: "images/courses-covers/udemy/c767.jpg",
+        url: "https://www.udemy.com/course/the-business-writing-mastery-course/?couponCode=KEEPLEARNING"
+    },
+    {
+        id: 768,
+        titleAr: "Recon Ninja: جمع المعلومات للاختراق الأخلاقي",
+        titleEn: "Recon Ninja: Advanced Info Gathering for Ethical Hackers",
+        desc: "تقنيات متقدمة في جمع المعلومات والاستطلاع للأمن السيبراني.",
+        cat: "tech",
+        date: "10 ديسمبر 2025 | 18 جمادى الآخرة 1447",
+        img: "images/courses-covers/udemy/c768.jpg",
+        url: "https://www.udemy.com/course/recon-ninja-advanced-info-gathering-for-ethical-hackers/?couponCode=LEARNINDEC2"
+    },
+    {
+        id: 769,
+        titleAr: "بنية Azure التحتية وقوالب ARM",
+        titleEn: "Azure Infrastructure: Azure Resources Using ARM Templates",
+        desc: "إدارة موارد Azure السحابية باستخدام قوالب ARM.",
+        cat: "tech",
+        date: "10 ديسمبر 2025 | 18 جمادى الآخرة 1447",
+        img: "images/courses-covers/udemy/c769.jpg",
+        url: "https://www.udemy.com/course/azure-infrastructure-azure-resources-using-arm-templates/?couponCode=90D9599CFA3F8648A924"
+    },
+    {
+        id: 770,
+        titleAr: "مهارات العرض والتقديم للفريق",
+        titleEn: "Presentation Skills: Give a Great Team Presentation",
+        desc: "كيف تقدم عروض تقديمية مقنعة ومؤثرة مع فريق العمل.",
+        cat: "development",
+        date: "10 ديسمبر 2025 | 18 جمادى الآخرة 1447",
+        img: "images/courses-covers/udemy/c770.jpg",
+        url: "https://www.udemy.com/course/how-to-give-a-team-presentation/?couponCode=CA5438C16DA487FA92C7"
+    },
+    {
+        id: 771,
+        titleAr: "المونتاج السينمائي باستخدام CapCut",
+        titleEn: "CapCut for Cinematography Motion Graphics and Social Media",
+        desc: "تحرير فيديو احترافي وموشن جرافيك للموبايل والسوشيال ميديا.",
+        cat: "graphic",
+        date: "10 ديسمبر 2025 | 18 جمادى الآخرة 1447",
+        img: "images/courses-covers/udemy/c771.jpg",
+        url: "https://www.udemy.com/course/capcut-for-cinematography-motion-graphics-and-social-media/?couponCode=D1B49C198CD39F93DFB1"
+    },
+    {
+        id: 772,
+        titleAr: "بناء أدوات بالذكاء الاصطناعي و ChatGPT",
+        titleEn: "Hands-On ChatGPT AI: Build AI Powered Tools and Workflows",
+        desc: "تطبيقات عملية لبناء أدوات ذكية باستخدام ChatGPT API.",
+        cat: "ai",
+        date: "10 ديسمبر 2025 | 18 جمادى الآخرة 1447",
+        img: "images/courses-covers/udemy/c772.jpg",
+        url: "https://www.udemy.com/course/hands-on-chatgpt-ai-build-ai-powered-tools-and-workflows/?couponCode=0D93881DA9DC498BD982"
+    },
+    {
+        id: 773,
+        titleAr: "دليل مايكروسوفت Copilot و Designer",
+        titleEn: "Microsoft Copilot and Microsoft Designer: The Complete Guide",
+        desc: "احتراف أدوات مايكروسوفت للذكاء الاصطناعي والتصميم.",
+        cat: "ai",
+        date: "10 ديسمبر 2025 | 18 جمادى الآخرة 1447",
+        img: "images/courses-covers/udemy/c773.jpg",
+        url: "https://www.udemy.com/course/microsoft-copilot-and-microsoft-designer-the-complete-guide/?couponCode=09DECEMBER2025"
+    },
+    {
+        id: 774,
+        titleAr: "Angular v19 وSignals التفاعلية",
+        titleEn: "Reactivity with Signals in Angular v19+",
+        desc: "أحدث تقنيات أنجولار لإدارة الحالة والتفاعلية.",
+        cat: "programming",
+        date: "10 ديسمبر 2025 | 18 جمادى الآخرة 1447",
+        img: "images/courses-covers/udemy/c774.jpg",
+        url: "https://www.udemy.com/course/signals-in-angular-v19/?couponCode=9D71B0A7420CA33349E3"
+    },
+    {
+        id: 775,
+        titleAr: "تعلم UI/UX ببرنامج Adobe XD",
+        titleEn: "Learn UI/UX Design Adobe XD : Learn User Experience Design",
+        desc: "تصميم واجهات وتجربة مستخدم احترافية.",
+        cat: "graphic",
+        date: "10 ديسمبر 2025 | 18 جمادى الآخرة 1447",
+        img: "images/courses-covers/udemy/c775.jpg",
+        url: "https://www.udemy.com/course/learn-ui-ux-design-adobe-xd-figma-uiuxdesign/?couponCode=491BA5F9CE85A5159806"
+    },
+    {
+        id: 776,
+        titleAr: "ChatGPT للمبرمجين: كورس مكثف",
+        titleEn: "ChatGPT for Developers: AI Coding Crash Course",
+        desc: "كيف تستخدم الذكاء الاصطناعي لتسريع وتطوير كودك البرمجي.",
+        cat: "ai",
+        date: "10 ديسمبر 2025 | 18 جمادى الآخرة 1447",
+        img: "images/courses-covers/udemy/c776.jpg",
+        url: "https://www.udemy.com/course/chatgpt-for-developers-ai-coding-crash-course/?couponCode=09DECEMBER2025"
+    },
+    {
+        id: 777,
+        titleAr: "فوتوشوب للجرافيك: من الأساسي للمتقدم",
+        titleEn: "Adobe Photoshop Course from Basic to Advanced",
+        desc: "احتراف أدوات الفوتوشوب للتصميم والجرافيك.",
+        cat: "graphic",
+        date: "10 ديسمبر 2025 | 18 جمادى الآخرة 1447",
+        img: "images/courses-covers/udemy/c777.jpg",
+        url: "https://www.udemy.com/course/adobe-photoshop-course-from-basic-to-advacned-for-graphics/?couponCode=4BEC73F9D2805CEC011F"
+    },
+    {
+        id: 778,
+        titleAr: "تصميم التيشيرتات بـ Adobe Illustrator",
+        titleEn: "Learn T-Shirt Design with Adobe Illustrator",
+        desc: "تصميم تيشيرتات احترافية للطباعة والبيع.",
+        cat: "graphic",
+        date: "10 ديسمبر 2025 | 18 جمادى الآخرة 1447",
+        img: "images/courses-covers/udemy/c778.jpg",
+        url: "https://www.udemy.com/course/learn-t-shirt-design-with-adobe-photoshop-and-illustrator/?couponCode=F4E8F3F9B3ECF290D7E8"
+    },
+    {
+        id: 779,
+        titleAr: "مشاريع فوتوشوب إبداعية احترافية",
+        titleEn: "Creative Brilliance Project Based Professional Photoshop",
+        desc: "تطبيق عملي على مشاريع فنية وتصاميم إبداعية.",
+        cat: "graphic",
+        date: "10 ديسمبر 2025 | 18 جمادى الآخرة 1447",
+        img: "images/courses-covers/udemy/c779.jpg",
+        url: "https://www.udemy.com/course/project-based-professional-photoshop/?couponCode=9A83260A36AFE1559A45"
+    },
+    {
+        id: 780,
+        titleAr: "بايثون من الصفر للبطولة (مستوى مبتدئ)",
+        titleEn: "Python from Zero-to-Hero (Beginner Level)",
+        desc: "بداية قوية لتعلم لغة بايثون من الأساسيات.",
+        cat: "programming",
+        date: "10 ديسمبر 2025 | 18 جمادى الآخرة 1447",
+        img: "images/courses-covers/udemy/c780.jpg",
+        url: "https://www.udemy.com/course/python-from-zero-to-hero-beginner-level/?couponCode=D289CACC65A649349A25"
+    },
+    {
+        id: 781,
+        titleAr: "جافاسكريبت من الصفر (الجزء 1)",
+        titleEn: "JavaScript From Scratch (Part 1 - Beginner Level)",
+        desc: "أساسيات لغة الجافاسكريبت للمبتدئين.",
+        cat: "programming",
+        date: "10 ديسمبر 2025 | 18 جمادى الآخرة 1447",
+        img: "images/courses-covers/udemy/c781.jpg",
+        url: "https://www.udemy.com/course/javascript-from-scratch-beginner-level/?couponCode=0B87A9F83DE4F2FBF696"
+    },
+    // --- دفعة 10 ديسمبر (السابقة) ---
+    {
         id: 727,
         titleAr: "بناء أدوات بالذكاء الاصطناعي و ChatGPT",
         titleEn: "Hands-On ChatGPT AI: Build AI Powered Tools and Workflows",
