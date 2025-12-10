@@ -35,17 +35,15 @@
     </div>
 
     <main class="pt-32 px-4 container mx-auto min-h-screen pb-12">
-        <div class="text-center mb-12">
+        <div class="text-center mb-12 fade-in">
             <h1 class="text-3xl md:text-5xl font-black text-emerald-900 mb-2">معرض التصميمات</h1>
             <p class="text-slate-600 font-bold text-lg">إبداع متجدد . لمسة فنية</p>
         </div>
 
         <!-- شبكة الصور -->
-        <div id="gallery-grid" class="masonry-grid">
-            <!-- الصور هتنزل هنا -->
-        </div>
+        <div id="gallery-grid" class="masonry-grid fade-in delay-100"></div>
 
-        <div class="text-center mt-12">
+        <div class="text-center mt-12 fade-in">
             <button id="load-more-gallery" class="bg-white text-emerald-800 px-8 py-3 rounded-full font-bold hover:bg-emerald-50 transition border border-emerald-200 shadow-md inline-flex items-center gap-2">
                 عرض المزيد <i data-lucide="arrow-down" class="w-5 h-5"></i>
             </button>
@@ -56,11 +54,10 @@
 
     <script>
         let visibleGalleryCount = 0;
-        const GALLERY_INCREMENT = 10; // نعرض 10 صور
+        const GALLERY_INCREMENT = 10;
         const MAX_IMAGES = 100;
 
         document.addEventListener('DOMContentLoaded', () => {
-            // تنظيف الجريد الأول عشان نمنع التكرار او الاخطاء من main.js
             const grid = document.getElementById('gallery-grid');
             if(grid) grid.innerHTML = '';
             
@@ -85,15 +82,18 @@
 
             let html = '';
             for(let i=start; i<=end; i++) {
-                // 👇 المسار بناءً على صورة الفولدرات اللي بعتها
-                const imgSrc = `images/ui/${i}.jpg`; 
+                // المحاولة الأولى: images/gallery/
+                const primarySrc = `images/gallery/${i}.jpg`;
+                // المحاولة الثانية (الاحتياطية): images/ui/
+                const backupSrc = `images/ui/${i}.jpg`; 
 
                 html += `
                 <div class="break-inside-avoid mb-6 glass-panel rounded-2xl overflow-hidden group relative bg-white/40 border border-white hover:shadow-xl transition duration-300">
-                    <div class="cursor-pointer relative" onclick="openGalleryLightbox('${imgSrc}')">
-                        <!-- 👇 التغيير: لو الصورة مش موجودة، اعرض صورة الخلفية مكانها عشان منتوهش -->
-                        <img src="${imgSrc}" loading="lazy" class="w-full h-auto block" 
-                             onerror="this.src='images/ui/bg.jpg'">
+                    <div class="cursor-pointer relative" onclick="openGalleryLightbox(this.querySelector('img').src)">
+                        
+                        <!-- اللوجيك الذكي: جرب المصدر الأول، لو فشل جرب التاني، لو فشل اعرض البديل -->
+                        <img src="${primarySrc}" loading="lazy" class="w-full h-auto block" 
+                             onerror="this.onerror=null; this.src='${backupSrc}'; this.onerror=function(){this.src='https://placehold.co/600x800/dcfce7/065f46?text=Image+${i}'}">
                         
                         <div class="absolute inset-0 bg-emerald-900/20 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
                             <div class="bg-white/90 text-emerald-900 p-3 rounded-full shadow-lg transform scale-75 group-hover:scale-100 transition">
@@ -108,7 +108,7 @@
                             <span id="likes-count-${i}" class="text-xs font-bold font-sans mt-0.5">0</span>
                         </button>
 
-                        <button onclick="shareGalleryImage('${imgSrc}')" class="text-emerald-600 hover:bg-emerald-50 p-2 rounded-lg transition" title="مشاركة">
+                        <button onclick="shareGalleryImage(this.closest('.break-inside-avoid').querySelector('img').src)" class="text-emerald-600 hover:bg-emerald-50 p-2 rounded-lg transition" title="مشاركة">
                             <i data-lucide="share-2" class="w-5 h-5"></i>
                         </button>
                     </div>
@@ -140,16 +140,15 @@
             lb.classList.remove('flex');
         }
 
-        function shareGalleryImage(imgSrc) {
-            const fullUrl = window.location.origin + window.location.pathname.replace('gallery.html', '') + imgSrc;
+        function shareGalleryImage(src) {
             if (navigator.share) {
                 navigator.share({
                     title: 'تصميم من كمشكاة',
                     text: 'شوف الإبداع ده!',
-                    url: fullUrl
+                    url: src // مشاركة رابط الصورة المباشر
                 }).catch(console.error);
             } else {
-                navigator.clipboard.writeText(fullUrl);
+                navigator.clipboard.writeText(src);
                 alert('تم نسخ رابط الصورة! 📸');
             }
         }

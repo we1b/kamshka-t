@@ -30,6 +30,8 @@ const translations = {
         btn_load_more: "عرض المزيد",
         
         share_msg: "تم نسخ الرابط! شاركه مع أصحابك.",
+        login_welcome: "أهلاً بيك تاني! 👋",
+        login_subtitle: "جاهز تكمل رحلة التعلم؟",
     },
     en: {
         nav_home: "Home",
@@ -57,6 +59,8 @@ const translations = {
         btn_load_more: "Load More",
 
         share_msg: "Link copied! Share it with friends.",
+        login_welcome: "Welcome Back! 👋",
+        login_subtitle: "Ready to continue learning?",
     }
 };
 
@@ -171,7 +175,7 @@ function loadNavbarFooter() {
 }
 
 // -------------------------------------------------------------------------
-// 5. وظائف المعرض (تحديث المسار إلى images/ui) 🖼️
+// 5. وظائف المعرض (تحديث المسار إلى images/gallery) 🖼️
 // -------------------------------------------------------------------------
 let visibleGalleryCount = 6;
 const GALLERY_INCREMENT = 6;
@@ -192,11 +196,12 @@ function loadGalleryImages() {
     if(!grid) return;
     
     let html = '';
-    // الصور 1.jpg ... 10.jpg موجودة في images/ui حسب ملف list.txt
+    
+    // ⚠️ تم التحديث لقراءة الصور من فولدر gallery
     for(let i=1; i<=visibleGalleryCount; i++) {
-        if(i > 10) break; // لأنك رافع 10 صور بس في ui
+        if(i > 2000) break; // حد أقصى للصور
 
-        const imgSrc = `images/ui/${i}.jpg`; // 👈 تم تعديل المسار هنا
+        const imgSrc = `images/gallery/${i}.jpg`; // 👈 المسار الصحيح الآن
 
         html += `
         <div class="break-inside-avoid mb-6 glass-panel rounded-2xl overflow-hidden group relative cursor-pointer" 
