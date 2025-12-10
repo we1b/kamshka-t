@@ -104,7 +104,7 @@ function setLanguage(lang) {
 function t(key) { return translations[currentLang][key] || key; }
 
 // -------------------------------------------------------------------------
-// 4. بناء القائمة (تم إصلاح الموبايل هنا) 📱
+// 4. بناء القائمة (متجاوبة للموبايل)
 // -------------------------------------------------------------------------
 function loadNavbarFooter() {
     const langBtnText = currentLang === 'ar' ? 'En' : 'عربي';
@@ -114,11 +114,11 @@ function loadNavbarFooter() {
         <div class="container mx-auto px-4 flex justify-between items-center">
             <!-- اللوجو -->
             <a href="index.html" class="flex items-center gap-2 font-black text-2xl text-emerald-800 hover:scale-105 transition">
-                <img src="images/ui/logo.png" class="w-10 h-10 drop-shadow-sm object-contain" alt="Logo" onerror="this.style.display='none'"> 
+                <img src="images/ui/logo.png" class="w-10 h-10 drop-shadow-sm object-contain" alt="Logo"> 
                 <span data-i18n="home_welcome">${t('home_welcome')}</span>
             </a>
             
-            <!-- قائمة الكمبيوتر (مخفية في الموبايل) -->
+            <!-- قائمة الكمبيوتر -->
             <div class="hidden md:flex items-center gap-1 bg-slate-100/50 p-1 rounded-full border border-slate-200">
                 <a href="index.html" class="nav-link px-4 py-2 rounded-full text-slate-600 font-bold text-sm hover:bg-white hover:text-emerald-600 transition" data-i18n="nav_home">${t('nav_home')}</a>
                 <a href="courses.html" class="nav-link px-4 py-2 rounded-full text-slate-600 font-bold text-sm hover:bg-white hover:text-emerald-600 transition" data-i18n="nav_courses">${t('nav_courses')}</a>
@@ -128,7 +128,7 @@ function loadNavbarFooter() {
                 <a href="contact.html" class="nav-link px-4 py-2 rounded-full text-slate-600 font-bold text-sm hover:bg-white hover:text-emerald-600 transition" data-i18n="nav_contact">${t('nav_contact')}</a>
             </div>
 
-            <!-- أزرار الجانب (لغة + دخول + زرار الموبايل) -->
+            <!-- أزرار الجانب وزر الموبايل -->
             <div class="flex items-center gap-2">
                 <button onclick="toggleLanguage()" class="px-3 py-1.5 rounded-lg bg-emerald-50 text-emerald-800 font-bold text-xs hover:bg-emerald-100 transition border border-emerald-200">
                     ${langBtnText}
@@ -138,7 +138,7 @@ function loadNavbarFooter() {
                     <a href="login.html" class="bg-emerald-600 text-white px-5 py-2 rounded-xl font-bold hover:bg-emerald-700 transition shadow-lg shadow-emerald-200 text-sm" data-i18n="nav_login">${t('nav_login')}</a>
                 </div>
 
-                <!-- زرار الموبايل (بيظهر بس في الشاشات الصغيرة) -->
+                <!-- زرار الموبايل (Menu Icon) -->
                 <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="md:hidden p-2 rounded-lg bg-slate-100 text-emerald-800 hover:bg-emerald-100 transition">
                     <i data-lucide="menu" class="w-6 h-6"></i>
                 </button>
@@ -171,7 +171,7 @@ function loadNavbarFooter() {
 }
 
 // -------------------------------------------------------------------------
-// 5. وظائف المعرض (اللايكات واللايت بوكس)
+// 5. وظائف المعرض (تحديث المسار إلى images/ui) 🖼️
 // -------------------------------------------------------------------------
 let visibleGalleryCount = 6;
 const GALLERY_INCREMENT = 6;
@@ -192,19 +192,17 @@ function loadGalleryImages() {
     if(!grid) return;
     
     let html = '';
-    // في الحقيقة المفروض يكون عندك array للصور، هنا بنعمل محاكاة
-    // تأكد من وجود الصور في images/gallery/1.jpg ...
+    // الصور 1.jpg ... 10.jpg موجودة في images/ui حسب ملف list.txt
     for(let i=1; i<=visibleGalleryCount; i++) {
-        if(i > 20) break; 
+        if(i > 10) break; // لأنك رافع 10 صور بس في ui
 
-        // رابط الصورة المباشر بناءً على هيكل الفولدرات بتاعك
-        const imgSrc = `images/gallery/${i}.jpg`;
+        const imgSrc = `images/ui/${i}.jpg`; // 👈 تم تعديل المسار هنا
 
         html += `
         <div class="break-inside-avoid mb-6 glass-panel rounded-2xl overflow-hidden group relative cursor-pointer" 
              onclick="openLightbox('${imgSrc}')">
             <img src="${imgSrc}" loading="lazy" class="w-full h-auto group-hover:scale-105 transition duration-500"
-                 onerror="this.parentElement.parentElement.style.display='none'"> <!-- يخفي الصورة لو مش موجودة -->
+                 onerror="this.parentElement.parentElement.style.display='none'">
             
             <div class="absolute inset-0 bg-emerald-900/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
                 <div class="bg-white text-emerald-800 px-4 py-2 rounded-full font-bold flex gap-2 shadow-xl transform translate-y-4 group-hover:translate-y-0 transition">
