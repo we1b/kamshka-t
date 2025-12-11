@@ -168,7 +168,7 @@ function loadNavbarFooter() {
 }
 
 // -------------------------------------------------------------------------
-// 5. وظائف المعرض (تحديث: زر التحميل)
+// 5. وظائف المعرض (تحديث: قارئ الصور الذكي)
 // -------------------------------------------------------------------------
 let visibleGalleryCount = 0;
 const GALLERY_INCREMENT = 10;
@@ -201,13 +201,17 @@ function loadGalleryImages() {
 
     let html = '';
     for(let i=start; i<=end; i++) {
-        const imgSrc = `images/gallery/${i}.jpg`; 
+        // المسار الأساسي (UI folder)
+        const imgSrc = `images/ui/${i}.jpg`; 
+        
+        // كود الطوارئ: لو الصورة مش في UI، دور في Gallery، لو لا دور على Webp، لو لا اعرض الخلفية
+        const fallbackLogic = `this.onerror=null; this.src='images/gallery/${i}.jpg'; this.onerror=function(){ this.src='images/${i}.webp'; this.onerror=function(){ this.src='images/ui/bg.jpg'; } }`;
 
         html += `
         <div class="break-inside-avoid mb-6 glass-panel rounded-2xl overflow-hidden group relative bg-white/40 border border-white hover:shadow-xl transition duration-300">
-            <div class="cursor-pointer relative" onclick="openLightbox('${imgSrc}', this.querySelector('img'))">
+            <div class="cursor-pointer relative" onclick="openLightbox(this.querySelector('img').src, this.querySelector('img'))">
                 <img src="${imgSrc}" loading="lazy" class="w-full h-auto block transform transition duration-500 group-hover:scale-105" 
-                     onerror="this.src='images/ui/bg.jpg'">
+                     onerror="${fallbackLogic}">
                 
                 <div class="absolute inset-0 bg-emerald-900/20 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
                     <div class="bg-white/90 text-emerald-900 p-3 rounded-full shadow-lg transform scale-75 group-hover:scale-100 transition">
@@ -225,12 +229,10 @@ function loadGalleryImages() {
                 </div>
 
                 <div class="flex gap-2">
-                    <!-- زرار التحميل الجديد -->
-                    <button onclick="downloadImage('${imgSrc}')" class="text-emerald-600 hover:bg-emerald-50 p-2 rounded-lg transition" title="${t('btn_download')}">
+                    <button onclick="downloadImage(this.closest('.break-inside-avoid').querySelector('img').src)" class="text-emerald-600 hover:bg-emerald-50 p-2 rounded-lg transition" title="${t('btn_download')}">
                         <i data-lucide="download" class="w-5 h-5"></i>
                     </button>
-                    <!-- زرار المشاركة -->
-                    <button onclick="shareImage('${imgSrc}')" class="text-emerald-600 hover:bg-emerald-50 p-2 rounded-lg transition" title="${t('btn_share_img')}">
+                    <button onclick="shareImage(this.closest('.break-inside-avoid').querySelector('img').src)" class="text-emerald-600 hover:bg-emerald-50 p-2 rounded-lg transition" title="${t('btn_share_img')}">
                         <i data-lucide="share-2" class="w-5 h-5"></i>
                     </button>
                 </div>
@@ -244,29 +246,27 @@ function loadGalleryImages() {
     if(typeof firebase !== 'undefined') listenToLikes(visibleGalleryCount);
 }
 
-// دالة التحميل الجديدة
+// دالة التحميل
 window.downloadImage = function(src) {
     const link = document.createElement('a');
     link.href = src;
-    // استخراج اسم الملف من الرابط (مثلاً 1.jpg)
-    link.download = src.substring(src.lastIndexOf('/') + 1);
+    link.download = src.substring(src.lastIndexOf('/') + 1) || 'image.jpg';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
 }
 
-// دالة فتح اللايت بوكس مع زرار التحميل
+// دالة فتح اللايت بوكس
 window.openLightbox = function(src, thumbnailEl) {
     const lb = document.getElementById('lightbox');
     const img = document.getElementById('lightbox-img');
-    const dl = document.getElementById('lightbox-download'); // زرار التحميل في اللايت بوكس
+    const dl = document.getElementById('lightbox-download');
     
     if(!lb || !img) return;
 
     activeSourceImage = thumbnailEl;
     img.src = src;
     
-    // تفعيل زرار التحميل في اللايت بوكس
     if(dl) {
         dl.onclick = function(e) {
             e.stopPropagation();
@@ -386,6 +386,7 @@ window.shareCourse = function(title, url) {
 }
 
 window.shareImage = function(imgSrc) {
+    // إصلاح رابط المشاركة ليكون كاملاً
     const fullUrl = imgSrc.startsWith('http') ? imgSrc : window.location.origin + window.location.pathname.replace('gallery.html', '') + imgSrc;
     if (navigator.share) {
         navigator.share({
