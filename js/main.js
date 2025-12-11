@@ -73,9 +73,8 @@ document.addEventListener('DOMContentLoaded', () => {
     lucide.createIcons();     
     initChatbot(); 
     initCounters();
-    injectLightboxStyles(); // إضافة ستايلات الأنيميشن
+    injectLightboxStyles(); 
 
-    // تشغيل المعرض إذا كنا في صفحة المعرض
     if(document.body.dataset.page === 'gallery') {
         initGalleryPage();
     }
@@ -88,7 +87,7 @@ function toggleLanguage() {
     currentLang = currentLang === 'ar' ? 'en' : 'ar';
     localStorage.setItem('kamshkat_lang', currentLang);
     setLanguage(currentLang);
-    // إعادة تحميل الصفحة لتطبيق الترجمة على المحتوى الديناميكي
+    loadNavbarFooter();
     location.reload(); 
 }
 
@@ -107,7 +106,7 @@ function setLanguage(lang) {
 function t(key) { return translations[currentLang][key] || key; }
 
 // -------------------------------------------------------------------------
-// 4. بناء القائمة (كاملة ومتجاوبة)
+// 4. بناء القائمة
 // -------------------------------------------------------------------------
 function loadNavbarFooter() {
     const langBtnText = currentLang === 'ar' ? 'En' : 'عربي';
@@ -169,16 +168,16 @@ function loadNavbarFooter() {
 }
 
 // -------------------------------------------------------------------------
-// 5. وظائف المعرض واللايت بوكس (بأنيميشن الزوم)
+// 5. وظائف المعرض (تحديث: زر التحميل)
 // -------------------------------------------------------------------------
 let visibleGalleryCount = 0;
 const GALLERY_INCREMENT = 10;
 const MAX_IMAGES = 100;
-let activeSourceImage = null; // لتتبع الصورة التي تم تكبيرها
+let activeSourceImage = null;
 
 function initGalleryPage() {
     const grid = document.getElementById('gallery-grid');
-    if(grid) grid.innerHTML = ''; // تنظيف
+    if(grid) grid.innerHTML = '';
     
     loadGalleryImages();
     const btn = document.getElementById('load-more-gallery');
@@ -204,7 +203,6 @@ function loadGalleryImages() {
     for(let i=start; i<=end; i++) {
         const imgSrc = `images/gallery/${i}.jpg`; 
 
-        // هنا بنستخدم الترجمة t() عشان النصوص تتغير حسب اللغة
         html += `
         <div class="break-inside-avoid mb-6 glass-panel rounded-2xl overflow-hidden group relative bg-white/40 border border-white hover:shadow-xl transition duration-300">
             <div class="cursor-pointer relative" onclick="openLightbox('${imgSrc}', this.querySelector('img'))">
@@ -219,14 +217,23 @@ function loadGalleryImages() {
             </div>
             
             <div class="p-3 flex justify-between items-center bg-white/80 backdrop-blur-md border-t border-white/50">
-                <button onclick="toggleLike(${i})" class="flex items-center gap-1.5 text-slate-500 hover:text-red-500 transition group/like">
-                    <i data-lucide="heart" class="w-5 h-5 transition transform group-active/like:scale-125" id="heart-${i}"></i>
-                    <span id="likes-count-${i}" class="text-xs font-bold font-sans mt-0.5">0</span>
-                </button>
+                <div class="flex gap-2">
+                    <button onclick="toggleLike(${i})" class="flex items-center gap-1.5 text-slate-500 hover:text-red-500 transition group/like">
+                        <i data-lucide="heart" class="w-5 h-5 transition transform group-active/like:scale-125" id="heart-${i}"></i>
+                        <span id="likes-count-${i}" class="text-xs font-bold font-sans mt-0.5">0</span>
+                    </button>
+                </div>
 
-                <button onclick="shareImage('${imgSrc}')" class="text-emerald-600 hover:bg-emerald-50 p-2 rounded-lg transition" title="${t('btn_share_img')}">
-                    <i data-lucide="share-2" class="w-5 h-5"></i>
-                </button>
+                <div class="flex gap-2">
+                    <!-- زرار التحميل الجديد -->
+                    <button onclick="downloadImage('${imgSrc}')" class="text-emerald-600 hover:bg-emerald-50 p-2 rounded-lg transition" title="${t('btn_download')}">
+                        <i data-lucide="download" class="w-5 h-5"></i>
+                    </button>
+                    <!-- زرار المشاركة -->
+                    <button onclick="shareImage('${imgSrc}')" class="text-emerald-600 hover:bg-emerald-50 p-2 rounded-lg transition" title="${t('btn_share_img')}">
+                        <i data-lucide="share-2" class="w-5 h-5"></i>
+                    </button>
+                </div>
             </div>
         </div>`;
     }
@@ -237,39 +244,46 @@ function loadGalleryImages() {
     if(typeof firebase !== 'undefined') listenToLikes(visibleGalleryCount);
 }
 
-// دالة فتح اللايت بوكس مع أنيميشن الزوم
+// دالة التحميل الجديدة
+window.downloadImage = function(src) {
+    const link = document.createElement('a');
+    link.href = src;
+    // استخراج اسم الملف من الرابط (مثلاً 1.jpg)
+    link.download = src.substring(src.lastIndexOf('/') + 1);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+// دالة فتح اللايت بوكس مع زرار التحميل
 window.openLightbox = function(src, thumbnailEl) {
     const lb = document.getElementById('lightbox');
     const img = document.getElementById('lightbox-img');
-    const dl = document.getElementById('lightbox-download');
+    const dl = document.getElementById('lightbox-download'); // زرار التحميل في اللايت بوكس
     
     if(!lb || !img) return;
 
     activeSourceImage = thumbnailEl;
     img.src = src;
+    
+    // تفعيل زرار التحميل في اللايت بوكس
     if(dl) {
-        dl.href = src;
+        dl.onclick = function(e) {
+            e.stopPropagation();
+            downloadImage(src);
+        };
         dl.innerHTML = `<i data-lucide="download" class="w-5 h-5"></i> ${t('btn_download')}`;
     }
 
-    // إظهار اللايت بوكس
     lb.classList.remove('hidden');
     lb.classList.add('flex');
     
-    // حساب موقع الصورة المصغرة للبدء منه (Zoom Effect)
     if (thumbnailEl) {
-        const rect = thumbnailEl.getBoundingClientRect();
-        // نحدد مكان البدء ليكون فوق الصورة المصغرة
         img.style.transition = 'none';
-        img.style.transformOrigin = 'top left'; // عشان الحسابات تبقى أسهل
-        
-        // حساب الفرق بين مكان الصورة في الشاشة ومكانها في اللايت بوكس (اللي هو السنتر)
-        // الطريقة الأسهل: نخليها تبدأ صغيرة في مكانها ونكبرها
-        // بس هنا هنستخدم scale وتغيير opacity
+        img.style.transformOrigin = 'top left';
         img.style.transform = 'scale(0.5)';
         img.style.opacity = '0';
         
-        // تفعيل الأنيميشن
         requestAnimationFrame(() => {
             img.style.transition = 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease';
             img.style.transform = 'scale(1)';
@@ -286,7 +300,6 @@ window.closeLightbox = function() {
     
     if(!lb || !img) return;
 
-    // أنيميشن الخروج
     img.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
     img.style.transform = 'scale(0.8)';
     img.style.opacity = '0';
@@ -294,12 +307,11 @@ window.closeLightbox = function() {
     setTimeout(() => {
         lb.classList.add('hidden');
         lb.classList.remove('flex');
-        img.style.transform = ''; // Reset
+        img.style.transform = ''; 
         img.style.opacity = '';
     }, 300);
 }
 
-// حقن ستايلات خاصة للأنيميشن
 function injectLightboxStyles() {
     const style = document.createElement('style');
     style.innerHTML = `
@@ -312,7 +324,7 @@ function injectLightboxStyles() {
 }
 
 // -------------------------------------------------------------------------
-// 6. باقي الوظائف (زي ما هي)
+// 6. باقي الوظائف
 // -------------------------------------------------------------------------
 window.toggleLike = function(id) {
     if(typeof firebase === 'undefined') return;
