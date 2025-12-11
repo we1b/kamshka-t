@@ -2,16 +2,16 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 👈 ده السطر اللي بيظبط الموبايل -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>كمشكاة | المدونة</title>
-    <link rel="icon" type="image/png" href="images/ui/logo.png">
+    <link rel="icon" type="image/png" href="images/logo.png">
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="js/main.js"></script>
 </head>
 <body data-page="articles">
-    <div class="fixed-bg"><img src="images/ui/bg.jpg"></div>
+    <div class="fixed-bg"><img src="images/bg.jpg"></div>
     <div id="header-ph"></div>
 
     <main class="pt-32 px-4 container mx-auto min-h-screen pb-12">
@@ -20,7 +20,6 @@
             <p class="text-slate-600 font-bold text-lg">خواطر . تجارب . تطوير</p>
         </div>
 
-        <!-- شريط البحث (متجاوب) -->
         <div class="max-w-md mx-auto mb-10 fade-in group relative px-2 md:px-0">
             <div class="absolute inset-y-0 right-0 flex items-center pr-5 md:pr-3 pointer-events-none">
                 <i data-lucide="search" class="w-5 h-5 text-slate-400 group-focus-within:text-emerald-600 transition"></i>
@@ -28,30 +27,23 @@
             <input type="text" id="article-search" class="block w-full p-4 pr-12 md:pr-10 text-sm text-slate-900 border border-emerald-100 rounded-full bg-white/80 focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 focus:bg-white transition-all shadow-sm font-medium" placeholder="ابحث في المقالات...">
         </div>
 
-        <!-- شبكة المقالات (Grid) -->
-        <!-- grid-cols-1 يعني عمود واحد للموبايل -->
-        <div id="articles-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 fade-in delay-100">
-            <!-- المقالات هتنزل هنا -->
-        </div>
+        <div id="articles-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 fade-in delay-100"></div>
     </main>
     
     <div id="footer-ph"></div>
 
     <script>
-        // بيانات المقالات (مثال)
         const articles = [
             {
                 id: 1,
                 title: "ازاي تبدأ فريلانسينج وأنت طالب؟",
                 desc: "خطوات عملية من واقع تجربتي الشخصية للبدء في العمل الحر بجانب دراستك.",
-                img: "images/articles/freelance-tips.webp",
                 date: "10 ديسمبر 2025"
             },
             {
                 id: 2,
                 title: "أهمية البراندينج الشخصي للمصممين",
                 desc: "ليه لازم يكون عندك هوية بصرية قوية لو عايز تنافس في سوق العمل العالمي.",
-                img: "images/articles/branding.webp",
                 date: "05 ديسمبر 2025"
             }
         ];
@@ -59,7 +51,6 @@
         document.addEventListener('DOMContentLoaded', () => {
             renderArticles(articles);
 
-            // تشغيل البحث
             document.getElementById('article-search').addEventListener('keyup', (e) => {
                 const term = e.target.value.toLowerCase();
                 const filtered = articles.filter(a => a.title.toLowerCase().includes(term) || a.desc.toLowerCase().includes(term));
@@ -70,11 +61,15 @@
         function renderArticles(data) {
             const grid = document.getElementById('articles-grid');
             if(data.length > 0){
-                grid.innerHTML = data.map(art => `
+                grid.innerHTML = data.map(art => {
+                    // 👇 السيستم الجديد: 1article.webp في فولدر images مباشرة
+                    const imgSrc = `images/${art.id}article.webp`;
+                    
+                    return `
                     <article class="glass-panel rounded-2xl overflow-hidden hover:-translate-y-2 transition duration-300 flex flex-col h-full bg-white/70 border border-white">
                         <div class="h-48 overflow-hidden relative">
-                            <!-- التعديل هنا: لو الصورة مش موجودة هيعرض صورة الخلفية مؤقتاً -->
-                            <img src="${art.img}" class="w-full h-full object-cover transform hover:scale-110 transition duration-700" onerror="this.src='images/ui/bg.jpg'">
+                            <img src="${imgSrc}" class="w-full h-full object-cover transform hover:scale-110 transition duration-700" 
+                                 onerror="this.src='images/bg.jpg'"> <!-- لو الصورة مش موجودة اعرض الخلفية -->
                         </div>
                         <div class="p-6 flex-1 flex flex-col">
                             <div class="text-xs text-slate-500 font-bold mb-2 flex items-center gap-1">
@@ -87,17 +82,10 @@
                             </a>
                         </div>
                     </article>
-                `).join('');
+                `}).join('');
                 lucide.createIcons();
             } else {
-                grid.innerHTML = `
-                    <div class="col-span-full text-center py-12">
-                        <div class="bg-slate-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <i data-lucide="search-x" class="w-8 h-8 text-slate-400"></i>
-                        </div>
-                        <p class="text-slate-500 font-bold">مفيش مقالات بالاسم ده 🤷‍♂️</p>
-                    </div>`;
-                lucide.createIcons();
+                grid.innerHTML = `<div class="col-span-full text-center text-slate-500 font-bold py-10">مفيش مقالات بالاسم ده 🤷‍♂️</div>`;
             }
         }
     </script>

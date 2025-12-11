@@ -4,12 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>كمشكاة | معرض التصميمات</title>
-    <link rel="icon" type="image/png" href="images/ui/logo.png">
+    <link rel="icon" type="image/png" href="images/logo.png"> <!-- تأكد إن اللوجو برده في images -->
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     
-    <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
@@ -18,7 +17,8 @@
     <script src="js/main.js"></script>
 </head>
 <body data-page="gallery">
-    <div class="fixed-bg"><img src="images/ui/bg.jpg"></div>
+    <!-- الخلفية من images مباشرة -->
+    <div class="fixed-bg"><img src="images/bg.jpg" onerror="this.style.display='none'"></div>
     <div id="header-ph"></div> 
 
     <!-- Lightbox -->
@@ -26,9 +26,7 @@
         <button class="absolute top-5 right-5 bg-white/10 text-white p-3 rounded-full hover:bg-white/20 transition z-50">
             <i data-lucide="x" class="w-6 h-6"></i>
         </button>
-        
         <img id="lightbox-img" src="" class="max-h-[90vh] max-w-full rounded-lg shadow-2xl object-contain" onclick="event.stopPropagation()">
-        
         <a id="lightbox-download" href="#" download class="absolute bottom-8 bg-emerald-600 text-white px-8 py-3 rounded-full font-bold shadow-2xl flex items-center gap-2 hover:bg-emerald-700 transition transform hover:scale-105" onclick="event.stopPropagation()">
             <i data-lucide="download" class="w-5 h-5"></i> تحميل
         </a>
@@ -40,10 +38,9 @@
             <p class="text-slate-600 font-bold text-lg">إبداع متجدد . لمسة فنية</p>
         </div>
 
-        <!-- شبكة الصور -->
-        <div id="gallery-grid" class="masonry-grid fade-in delay-100"></div>
+        <div id="gallery-grid" class="masonry-grid"></div>
 
-        <div class="text-center mt-12 fade-in">
+        <div class="text-center mt-12">
             <button id="load-more-gallery" class="bg-white text-emerald-800 px-8 py-3 rounded-full font-bold hover:bg-emerald-50 transition border border-emerald-200 shadow-md inline-flex items-center gap-2">
                 عرض المزيد <i data-lucide="arrow-down" class="w-5 h-5"></i>
             </button>
@@ -54,13 +51,12 @@
 
     <script>
         let visibleGalleryCount = 0;
-        const GALLERY_INCREMENT = 10;
-        const MAX_IMAGES = 100;
+        const GALLERY_INCREMENT = 10; // عدد الصور في كل ضغطة
+        const MAX_IMAGES = 2000; // حد أقصى للصور
 
         document.addEventListener('DOMContentLoaded', () => {
             const grid = document.getElementById('gallery-grid');
             if(grid) grid.innerHTML = '';
-            
             loadGalleryBatch();
 
             document.getElementById('load-more-gallery').addEventListener('click', () => {
@@ -82,18 +78,17 @@
 
             let html = '';
             for(let i=start; i<=end; i++) {
-                // المحاولة الأولى: images/gallery/
-                const primarySrc = `images/gallery/${i}.jpg`;
-                // المحاولة الثانية (الاحتياطية): images/ui/
-                const backupSrc = `images/ui/${i}.jpg`; 
+                // 👇 السيستم الجديد: 1.webp, 2.webp في فولدر images مباشرة
+                const imgSrcWebp = `images/${i}.webp`;
+                const imgSrcJpg = `images/${i}.jpg`; // احتياطي
 
                 html += `
                 <div class="break-inside-avoid mb-6 glass-panel rounded-2xl overflow-hidden group relative bg-white/40 border border-white hover:shadow-xl transition duration-300">
                     <div class="cursor-pointer relative" onclick="openGalleryLightbox(this.querySelector('img').src)">
                         
-                        <!-- اللوجيك الذكي: جرب المصدر الأول، لو فشل جرب التاني، لو فشل اعرض البديل -->
-                        <img src="${primarySrc}" loading="lazy" class="w-full h-auto block" 
-                             onerror="this.onerror=null; this.src='${backupSrc}'; this.onerror=function(){this.src='https://placehold.co/600x800/dcfce7/065f46?text=Image+${i}'}">
+                        <!-- بيحاول يحمل الـ webp الأول، لو مش موجود بيحمل jpg، لو مش موجود بيحط صورة وهمية -->
+                        <img src="${imgSrcWebp}" loading="lazy" class="w-full h-auto block" 
+                             onerror="this.onerror=null; this.src='${imgSrcJpg}'; this.onerror=function(){this.src='https://placehold.co/600x800/dcfce7/065f46?text=Image+${i}'}">
                         
                         <div class="absolute inset-0 bg-emerald-900/20 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
                             <div class="bg-white/90 text-emerald-900 p-3 rounded-full shadow-lg transform scale-75 group-hover:scale-100 transition">
@@ -142,14 +137,10 @@
 
         function shareGalleryImage(src) {
             if (navigator.share) {
-                navigator.share({
-                    title: 'تصميم من كمشكاة',
-                    text: 'شوف الإبداع ده!',
-                    url: src // مشاركة رابط الصورة المباشر
-                }).catch(console.error);
+                navigator.share({ title: 'تصميم من كمشكاة', url: src }).catch(console.error);
             } else {
                 navigator.clipboard.writeText(src);
-                alert('تم نسخ رابط الصورة! 📸');
+                alert('تم نسخ رابط الصورة!');
             }
         }
     </script>
