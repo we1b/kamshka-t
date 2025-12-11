@@ -24,7 +24,7 @@ const translations = {
 
         gallery_title: "معرض التصميمات",
         gallery_subtitle: "إبداع متجدد . لمسة فنية",
-        btn_download: "تحميل بجودة عالية",
+        btn_download: "تحميل",
         btn_share_img: "مشاركة",
         btn_zoom: "تكبير",
         btn_load_more: "عرض المزيد",
@@ -52,7 +52,7 @@ const translations = {
 
         gallery_title: "Design Gallery",
         gallery_subtitle: "Renewed Creativity . Artistic Touch",
-        btn_download: "Download HD",
+        btn_download: "Download",
         btn_share_img: "Share",
         btn_zoom: "Zoom",
         btn_load_more: "Load More",
@@ -72,10 +72,13 @@ document.addEventListener('DOMContentLoaded', () => {
     initProtection();         
     lucide.createIcons();     
     initChatbot(); 
-    initCounters(); 
+    initCounters();
+    injectLightboxStyles(); // إضافة ستايلات الأنيميشن
 
-    // لو إحنا في صفحة المعرض، الوظيفة الخاصة بيها في gallery.html هتشتغل
-    // هنا ممكن نضيف لوجيك عام لو احتاجناه
+    // تشغيل المعرض إذا كنا في صفحة المعرض
+    if(document.body.dataset.page === 'gallery') {
+        initGalleryPage();
+    }
 });
 
 // -------------------------------------------------------------------------
@@ -85,7 +88,7 @@ function toggleLanguage() {
     currentLang = currentLang === 'ar' ? 'en' : 'ar';
     localStorage.setItem('kamshkat_lang', currentLang);
     setLanguage(currentLang);
-    loadNavbarFooter();
+    // إعادة تحميل الصفحة لتطبيق الترجمة على المحتوى الديناميكي
     location.reload(); 
 }
 
@@ -109,17 +112,14 @@ function t(key) { return translations[currentLang][key] || key; }
 function loadNavbarFooter() {
     const langBtnText = currentLang === 'ar' ? 'En' : 'عربي';
     
-    // تم استرجاع القائمة كاملة هنا بدل الاختصار
     const navbarHTML = `
     <nav class="fixed top-0 w-full glass-panel z-50 !bg-white/90 backdrop-blur-md border-b border-white/50 h-20 flex items-center shadow-sm">
         <div class="container mx-auto px-4 flex justify-between items-center">
-            <!-- اللوجو -->
             <a href="index.html" class="flex items-center gap-2 font-black text-2xl text-emerald-800 hover:scale-105 transition">
                 <img src="images/logo.png" class="w-10 h-10 drop-shadow-sm object-contain" alt="Logo" onerror="this.style.display='none'"> 
                 <span data-i18n="home_welcome">${t('home_welcome')}</span>
             </a>
             
-            <!-- قائمة الكمبيوتر -->
             <div class="hidden md:flex items-center gap-1 bg-slate-100/50 p-1 rounded-full border border-slate-200">
                 <a href="index.html" class="nav-link px-4 py-2 rounded-full text-slate-600 font-bold text-sm hover:bg-white hover:text-emerald-600 transition" data-i18n="nav_home">${t('nav_home')}</a>
                 <a href="courses.html" class="nav-link px-4 py-2 rounded-full text-slate-600 font-bold text-sm hover:bg-white hover:text-emerald-600 transition" data-i18n="nav_courses">${t('nav_courses')}</a>
@@ -129,7 +129,6 @@ function loadNavbarFooter() {
                 <a href="contact.html" class="nav-link px-4 py-2 rounded-full text-slate-600 font-bold text-sm hover:bg-white hover:text-emerald-600 transition" data-i18n="nav_contact">${t('nav_contact')}</a>
             </div>
 
-            <!-- أزرار الجانب وزر الموبايل -->
             <div class="flex items-center gap-2">
                 <button onclick="toggleLanguage()" class="px-3 py-1.5 rounded-lg bg-emerald-50 text-emerald-800 font-bold text-xs hover:bg-emerald-100 transition border border-emerald-200">
                     ${langBtnText}
@@ -139,14 +138,12 @@ function loadNavbarFooter() {
                     <a href="login.html" class="bg-emerald-600 text-white px-5 py-2 rounded-xl font-bold hover:bg-emerald-700 transition shadow-lg shadow-emerald-200 text-sm" data-i18n="nav_login">${t('nav_login')}</a>
                 </div>
 
-                <!-- زرار الموبايل (Menu Icon) -->
                 <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="md:hidden p-2 rounded-lg bg-slate-100 text-emerald-800 hover:bg-emerald-100 transition">
                     <i data-lucide="menu" class="w-6 h-6"></i>
                 </button>
             </div>
         </div>
 
-        <!-- قائمة الموبايل المنسدلة -->
         <div id="mobile-menu" class="hidden absolute top-20 left-0 w-full bg-white/95 backdrop-blur-xl border-t border-slate-100 p-4 shadow-xl flex flex-col gap-2 md:hidden animate-fade-in-down">
             <a href="index.html" class="p-3 rounded-xl hover:bg-emerald-50 text-slate-700 font-bold flex items-center gap-3"><i data-lucide="home" class="w-5 h-5 text-emerald-600"></i> ${t('nav_home')}</a>
             <a href="courses.html" class="p-3 rounded-xl hover:bg-emerald-50 text-slate-700 font-bold flex items-center gap-3"><i data-lucide="zap" class="w-5 h-5 text-emerald-600"></i> ${t('nav_courses')}</a>
@@ -172,31 +169,151 @@ function loadNavbarFooter() {
 }
 
 // -------------------------------------------------------------------------
-// 5. وظائف المعرض (اللايكات واللايت بوكس)
+// 5. وظائف المعرض واللايت بوكس (بأنيميشن الزوم)
 // -------------------------------------------------------------------------
-// تم نقل لوجيك تحميل الصور لملف gallery.html نفسه للتحكم الأفضل
-// الدوال هنا هي دوال مساعدة عامة (Helpers)
+let visibleGalleryCount = 0;
+const GALLERY_INCREMENT = 10;
+const MAX_IMAGES = 100;
+let activeSourceImage = null; // لتتبع الصورة التي تم تكبيرها
 
-window.openLightbox = function(src) {
+function initGalleryPage() {
+    const grid = document.getElementById('gallery-grid');
+    if(grid) grid.innerHTML = ''; // تنظيف
+    
+    loadGalleryImages();
+    const btn = document.getElementById('load-more-gallery');
+    if(btn) {
+        btn.addEventListener('click', loadGalleryImages);
+    }
+}
+
+function loadGalleryImages() {
+    const grid = document.getElementById('gallery-grid');
+    const btn = document.getElementById('load-more-gallery');
+    if(!grid) return;
+    
+    let start = visibleGalleryCount + 1;
+    let end = start + GALLERY_INCREMENT - 1;
+
+    if (start > MAX_IMAGES) {
+        if(btn) btn.style.display = 'none';
+        return;
+    }
+
+    let html = '';
+    for(let i=start; i<=end; i++) {
+        const imgSrc = `images/gallery/${i}.jpg`; 
+
+        // هنا بنستخدم الترجمة t() عشان النصوص تتغير حسب اللغة
+        html += `
+        <div class="break-inside-avoid mb-6 glass-panel rounded-2xl overflow-hidden group relative bg-white/40 border border-white hover:shadow-xl transition duration-300">
+            <div class="cursor-pointer relative" onclick="openLightbox('${imgSrc}', this.querySelector('img'))">
+                <img src="${imgSrc}" loading="lazy" class="w-full h-auto block transform transition duration-500 group-hover:scale-105" 
+                     onerror="this.src='images/ui/bg.jpg'">
+                
+                <div class="absolute inset-0 bg-emerald-900/20 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                    <div class="bg-white/90 text-emerald-900 p-3 rounded-full shadow-lg transform scale-75 group-hover:scale-100 transition">
+                        <i data-lucide="zoom-in" class="w-6 h-6"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="p-3 flex justify-between items-center bg-white/80 backdrop-blur-md border-t border-white/50">
+                <button onclick="toggleLike(${i})" class="flex items-center gap-1.5 text-slate-500 hover:text-red-500 transition group/like">
+                    <i data-lucide="heart" class="w-5 h-5 transition transform group-active/like:scale-125" id="heart-${i}"></i>
+                    <span id="likes-count-${i}" class="text-xs font-bold font-sans mt-0.5">0</span>
+                </button>
+
+                <button onclick="shareImage('${imgSrc}')" class="text-emerald-600 hover:bg-emerald-50 p-2 rounded-lg transition" title="${t('btn_share_img')}">
+                    <i data-lucide="share-2" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>`;
+    }
+
+    grid.insertAdjacentHTML('beforeend', html);
+    visibleGalleryCount = end;
+    lucide.createIcons();
+    if(typeof firebase !== 'undefined') listenToLikes(visibleGalleryCount);
+}
+
+// دالة فتح اللايت بوكس مع أنيميشن الزوم
+window.openLightbox = function(src, thumbnailEl) {
     const lb = document.getElementById('lightbox');
     const img = document.getElementById('lightbox-img');
     const dl = document.getElementById('lightbox-download');
     
-    if(lb && img) {
-        img.src = src;
-        if(dl) {
-            dl.href = src;
-            dl.innerHTML = `<i data-lucide="download"></i> ${t('btn_download')}`;
-        }
-        lb.classList.add('active');
+    if(!lb || !img) return;
+
+    activeSourceImage = thumbnailEl;
+    img.src = src;
+    if(dl) {
+        dl.href = src;
+        dl.innerHTML = `<i data-lucide="download" class="w-5 h-5"></i> ${t('btn_download')}`;
     }
+
+    // إظهار اللايت بوكس
+    lb.classList.remove('hidden');
+    lb.classList.add('flex');
+    
+    // حساب موقع الصورة المصغرة للبدء منه (Zoom Effect)
+    if (thumbnailEl) {
+        const rect = thumbnailEl.getBoundingClientRect();
+        // نحدد مكان البدء ليكون فوق الصورة المصغرة
+        img.style.transition = 'none';
+        img.style.transformOrigin = 'top left'; // عشان الحسابات تبقى أسهل
+        
+        // حساب الفرق بين مكان الصورة في الشاشة ومكانها في اللايت بوكس (اللي هو السنتر)
+        // الطريقة الأسهل: نخليها تبدأ صغيرة في مكانها ونكبرها
+        // بس هنا هنستخدم scale وتغيير opacity
+        img.style.transform = 'scale(0.5)';
+        img.style.opacity = '0';
+        
+        // تفعيل الأنيميشن
+        requestAnimationFrame(() => {
+            img.style.transition = 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease';
+            img.style.transform = 'scale(1)';
+            img.style.opacity = '1';
+        });
+    }
+    
     lucide.createIcons();
 }
 
 window.closeLightbox = function() {
-    document.getElementById('lightbox')?.classList.remove('active');
+    const lb = document.getElementById('lightbox');
+    const img = document.getElementById('lightbox-img');
+    
+    if(!lb || !img) return;
+
+    // أنيميشن الخروج
+    img.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+    img.style.transform = 'scale(0.8)';
+    img.style.opacity = '0';
+
+    setTimeout(() => {
+        lb.classList.add('hidden');
+        lb.classList.remove('flex');
+        img.style.transform = ''; // Reset
+        img.style.opacity = '';
+    }, 300);
 }
 
+// حقن ستايلات خاصة للأنيميشن
+function injectLightboxStyles() {
+    const style = document.createElement('style');
+    style.innerHTML = `
+        #lightbox-img { max-height: 85vh; max-width: 90vw; border-radius: 12px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }
+        .masonry-grid { column-count: 1; column-gap: 1.5rem; }
+        @media (min-width: 640px) { .masonry-grid { column-count: 2; } }
+        @media (min-width: 1024px) { .masonry-grid { column-count: 3; } }
+    `;
+    document.head.appendChild(style);
+}
+
+// -------------------------------------------------------------------------
+// 6. باقي الوظائف (زي ما هي)
+// -------------------------------------------------------------------------
 window.toggleLike = function(id) {
     if(typeof firebase === 'undefined') return;
     const db = firebase.database();
@@ -218,7 +335,6 @@ window.toggleLike = function(id) {
     });
 }
 
-// هذه الدالة مهمة جداً لـ gallery.html عشان تعرض عدد اللايكات
 window.listenToLikes = function(limit) {
     if(typeof firebase === 'undefined') return;
     const db = firebase.database();
@@ -244,9 +360,6 @@ function updateHeartUI(id, isLiked) {
     }
 }
 
-// -------------------------------------------------------------------------
-// 6. وظيفة المشاركة
-// -------------------------------------------------------------------------
 window.shareCourse = function(title, url) {
     if (navigator.share) {
         navigator.share({
@@ -261,7 +374,6 @@ window.shareCourse = function(title, url) {
 }
 
 window.shareImage = function(imgSrc) {
-    // دالة مشاركة الصور العامة
     const fullUrl = imgSrc.startsWith('http') ? imgSrc : window.location.origin + window.location.pathname.replace('gallery.html', '') + imgSrc;
     if (navigator.share) {
         navigator.share({
@@ -275,9 +387,6 @@ window.shareImage = function(imgSrc) {
     }
 }
 
-// -------------------------------------------------------------------------
-// 7. الشات بوت
-// -------------------------------------------------------------------------
 function initChatbot() {
     (function(){
         if(!window.chatbase || window.chatbase("getState") !== "initialized"){
@@ -304,9 +413,6 @@ function initChatbot() {
     })();
 }
 
-// -------------------------------------------------------------------------
-// 8. العدادات
-// -------------------------------------------------------------------------
 function initCounters() {
     const counters = document.querySelectorAll('.counter-number');
     if(counters.length === 0) return;
@@ -336,9 +442,6 @@ function animateValue(obj, start, end, duration) {
     window.requestAnimationFrame(step);
 }
 
-// -------------------------------------------------------------------------
-// 9. الحماية
-// -------------------------------------------------------------------------
 function initProtection() {
     document.addEventListener('contextmenu', event => event.preventDefault());
     document.onkeydown = function(e) {
