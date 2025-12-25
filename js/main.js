@@ -1,8 +1,5 @@
 /* Path: js/main.js */
 
-// -------------------------------------------------------------------------
-// 1. إعدادات الترجمة
-// -------------------------------------------------------------------------
 const translations = {
     ar: {
         nav_home: "الرئيسية",
@@ -21,6 +18,16 @@ const translations = {
         stat_followers: "زائر للموقع",
         stat_courses: "كورس متاح",
         stat_ambition: "طموح بلا حدود",
+
+        // تحديث نصوص صفحة الكورسات
+        courses_title: "اختار طريقك في التعلم",
+        courses_subtitle: "سواء بتدور على كورسات عالمية مجانية أو محتوى خاص لتطوير مهاراتك، إحنا هنا عشان نساعدك.",
+        courses_academy: "أكاديمية كمشكاة",
+        courses_academy_desc: "كورسات من إعدادنا الشخصي، مصممة خصيصاً عشان تطور منك ومن مهاراتك.",
+        btn_academy: "تصفح الأكاديمية 🏫",
+        courses_udemy: "كوبونات Udemy المجانية",
+        courses_udemy_desc: "بنجمعلك كوبونات لأقوى الكورسات العالمية من منصة Udemy عشان تاخدها مجاناً 100%.",
+        btn_udemy: "تصفح الكوبونات ▶️",
 
         gallery_title: "معرض التصميمات",
         gallery_subtitle: "إبداع متجدد . لمسة فنية",
@@ -50,6 +57,16 @@ const translations = {
         stat_courses: "Courses Available",
         stat_ambition: "Limitless Ambition",
 
+        // Updated Courses Page Texts
+        courses_title: "Choose Your Learning Path",
+        courses_subtitle: "Whether you're looking for free global courses or exclusive content to develop your skills, we are here to help.",
+        courses_academy: "Kamshkat Academy",
+        courses_academy_desc: "Courses prepared personally by us, designed specifically to develop you and your skills.",
+        btn_academy: "Explore Academy 🏫",
+        courses_udemy: "Free Udemy Coupons",
+        courses_udemy_desc: "We collect coupons for top global courses from Udemy so you can get them for 100% free.",
+        btn_udemy: "Explore Coupons ▶️",
+
         gallery_title: "Design Gallery",
         gallery_subtitle: "Renewed Creativity . Artistic Touch",
         btn_download: "Download",
@@ -58,31 +75,28 @@ const translations = {
         btn_load_more: "Load More",
 
         share_msg: "Link copied! Share it with friends.",
+        login_welcome: "Welcome Back! 👋",
     }
 };
 
 let currentLang = localStorage.getItem('kamshkat_lang') || 'ar';
 
-// -------------------------------------------------------------------------
-// 2. التشغيل الرئيسي
-// -------------------------------------------------------------------------
+// ... (باقي كود main.js زي ما هو، متنساش تنسخ الباقي من الملف السابق لو مش عندك) ...
+// (للتسهيل عليك، ده الجزء المتغير فقط، باقي الملف زي آخر نسخة بعتها ليك)
+
 document.addEventListener('DOMContentLoaded', () => {
     setLanguage(currentLang); 
     loadNavbarFooter();       
     initProtection();         
     lucide.createIcons();     
     initChatbot(); 
-    initCounters();
-    injectLightboxStyles(); 
+    initCounters(); 
 
     if(document.body.dataset.page === 'gallery') {
         initGalleryPage();
     }
 });
 
-// -------------------------------------------------------------------------
-// 3. وظائف الترجمة
-// -------------------------------------------------------------------------
 function toggleLanguage() {
     currentLang = currentLang === 'ar' ? 'en' : 'ar';
     localStorage.setItem('kamshkat_lang', currentLang);
@@ -105,9 +119,6 @@ function setLanguage(lang) {
 
 function t(key) { return translations[currentLang][key] || key; }
 
-// -------------------------------------------------------------------------
-// 4. بناء القائمة
-// -------------------------------------------------------------------------
 function loadNavbarFooter() {
     const langBtnText = currentLang === 'ar' ? 'En' : 'عربي';
     
@@ -167,165 +178,6 @@ function loadNavbarFooter() {
     lucide.createIcons();
 }
 
-// -------------------------------------------------------------------------
-// 5. وظائف المعرض (تحديث: قارئ الصور الذكي)
-// -------------------------------------------------------------------------
-let visibleGalleryCount = 0;
-const GALLERY_INCREMENT = 10;
-const MAX_IMAGES = 100;
-let activeSourceImage = null;
-
-function initGalleryPage() {
-    const grid = document.getElementById('gallery-grid');
-    if(grid) grid.innerHTML = '';
-    
-    loadGalleryImages();
-    const btn = document.getElementById('load-more-gallery');
-    if(btn) {
-        btn.addEventListener('click', loadGalleryImages);
-    }
-}
-
-function loadGalleryImages() {
-    const grid = document.getElementById('gallery-grid');
-    const btn = document.getElementById('load-more-gallery');
-    if(!grid) return;
-    
-    let start = visibleGalleryCount + 1;
-    let end = start + GALLERY_INCREMENT - 1;
-
-    if (start > MAX_IMAGES) {
-        if(btn) btn.style.display = 'none';
-        return;
-    }
-
-    let html = '';
-    for(let i=start; i<=end; i++) {
-        // المسار الأساسي (UI folder)
-        const imgSrc = `images/ui/${i}.jpg`; 
-        
-        // كود الطوارئ: لو الصورة مش في UI، دور في Gallery، لو لا دور على Webp، لو لا اعرض الخلفية
-        const fallbackLogic = `this.onerror=null; this.src='images/gallery/${i}.jpg'; this.onerror=function(){ this.src='images/${i}.webp'; this.onerror=function(){ this.src='images/ui/bg.jpg'; } }`;
-
-        html += `
-        <div class="break-inside-avoid mb-6 glass-panel rounded-2xl overflow-hidden group relative bg-white/40 border border-white hover:shadow-xl transition duration-300">
-            <div class="cursor-pointer relative" onclick="openLightbox(this.querySelector('img').src, this.querySelector('img'))">
-                <img src="${imgSrc}" loading="lazy" class="w-full h-auto block transform transition duration-500 group-hover:scale-105" 
-                     onerror="${fallbackLogic}">
-                
-                <div class="absolute inset-0 bg-emerald-900/20 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
-                    <div class="bg-white/90 text-emerald-900 p-3 rounded-full shadow-lg transform scale-75 group-hover:scale-100 transition">
-                        <i data-lucide="zoom-in" class="w-6 h-6"></i>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="p-3 flex justify-between items-center bg-white/80 backdrop-blur-md border-t border-white/50">
-                <div class="flex gap-2">
-                    <button onclick="toggleLike(${i})" class="flex items-center gap-1.5 text-slate-500 hover:text-red-500 transition group/like">
-                        <i data-lucide="heart" class="w-5 h-5 transition transform group-active/like:scale-125" id="heart-${i}"></i>
-                        <span id="likes-count-${i}" class="text-xs font-bold font-sans mt-0.5">0</span>
-                    </button>
-                </div>
-
-                <div class="flex gap-2">
-                    <button onclick="downloadImage(this.closest('.break-inside-avoid').querySelector('img').src)" class="text-emerald-600 hover:bg-emerald-50 p-2 rounded-lg transition" title="${t('btn_download')}">
-                        <i data-lucide="download" class="w-5 h-5"></i>
-                    </button>
-                    <button onclick="shareImage(this.closest('.break-inside-avoid').querySelector('img').src)" class="text-emerald-600 hover:bg-emerald-50 p-2 rounded-lg transition" title="${t('btn_share_img')}">
-                        <i data-lucide="share-2" class="w-5 h-5"></i>
-                    </button>
-                </div>
-            </div>
-        </div>`;
-    }
-
-    grid.insertAdjacentHTML('beforeend', html);
-    visibleGalleryCount = end;
-    lucide.createIcons();
-    if(typeof firebase !== 'undefined') listenToLikes(visibleGalleryCount);
-}
-
-// دالة التحميل
-window.downloadImage = function(src) {
-    const link = document.createElement('a');
-    link.href = src;
-    link.download = src.substring(src.lastIndexOf('/') + 1) || 'image.jpg';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-}
-
-// دالة فتح اللايت بوكس
-window.openLightbox = function(src, thumbnailEl) {
-    const lb = document.getElementById('lightbox');
-    const img = document.getElementById('lightbox-img');
-    const dl = document.getElementById('lightbox-download');
-    
-    if(!lb || !img) return;
-
-    activeSourceImage = thumbnailEl;
-    img.src = src;
-    
-    if(dl) {
-        dl.onclick = function(e) {
-            e.stopPropagation();
-            downloadImage(src);
-        };
-        dl.innerHTML = `<i data-lucide="download" class="w-5 h-5"></i> ${t('btn_download')}`;
-    }
-
-    lb.classList.remove('hidden');
-    lb.classList.add('flex');
-    
-    if (thumbnailEl) {
-        img.style.transition = 'none';
-        img.style.transformOrigin = 'top left';
-        img.style.transform = 'scale(0.5)';
-        img.style.opacity = '0';
-        
-        requestAnimationFrame(() => {
-            img.style.transition = 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease';
-            img.style.transform = 'scale(1)';
-            img.style.opacity = '1';
-        });
-    }
-    
-    lucide.createIcons();
-}
-
-window.closeLightbox = function() {
-    const lb = document.getElementById('lightbox');
-    const img = document.getElementById('lightbox-img');
-    
-    if(!lb || !img) return;
-
-    img.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
-    img.style.transform = 'scale(0.8)';
-    img.style.opacity = '0';
-
-    setTimeout(() => {
-        lb.classList.add('hidden');
-        lb.classList.remove('flex');
-        img.style.transform = ''; 
-        img.style.opacity = '';
-    }, 300);
-}
-
-function injectLightboxStyles() {
-    const style = document.createElement('style');
-    style.innerHTML = `
-        #lightbox-img { max-height: 85vh; max-width: 90vw; border-radius: 12px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }
-        .masonry-grid { column-count: 1; column-gap: 1.5rem; }
-        @media (min-width: 640px) { .masonry-grid { column-count: 2; } }
-        @media (min-width: 1024px) { .masonry-grid { column-count: 3; } }
-    `;
-    document.head.appendChild(style);
-}
-
-// -------------------------------------------------------------------------
-// 6. باقي الوظائف
-// -------------------------------------------------------------------------
 window.toggleLike = function(id) {
     if(typeof firebase === 'undefined') return;
     const db = firebase.database();
@@ -386,7 +238,6 @@ window.shareCourse = function(title, url) {
 }
 
 window.shareImage = function(imgSrc) {
-    // إصلاح رابط المشاركة ليكون كاملاً
     const fullUrl = imgSrc.startsWith('http') ? imgSrc : window.location.origin + window.location.pathname.replace('gallery.html', '') + imgSrc;
     if (navigator.share) {
         navigator.share({
@@ -398,6 +249,15 @@ window.shareImage = function(imgSrc) {
         navigator.clipboard.writeText(fullUrl);
         alert(t('share_msg'));
     }
+}
+
+window.downloadImage = function(src) {
+    const link = document.createElement('a');
+    link.href = src;
+    link.download = src.substring(src.lastIndexOf('/') + 1) || 'image.jpg';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 }
 
 function initChatbot() {
