@@ -1,9 +1,12 @@
 /* Path: js/main.js */
 
+<<<<<<< HEAD
 // ... (نفس الجزء الأول من الكود السابق الخاص بالترجمة والقائمة) ...
 // -------------------------------------------------------------------------
 // 1. إعدادات الترجمة
 // -------------------------------------------------------------------------
+=======
+>>>>>>> 67269dce9a5c7f615b59dc66a2f16b5f41451dbc
 const translations = {
     ar: {
         nav_home: "الرئيسية",
@@ -22,6 +25,16 @@ const translations = {
         stat_followers: "زائر للموقع",
         stat_courses: "كورس متاح",
         stat_ambition: "طموح بلا حدود",
+
+        // تحديث نصوص صفحة الكورسات
+        courses_title: "اختار طريقك في التعلم",
+        courses_subtitle: "سواء بتدور على كورسات عالمية مجانية أو محتوى خاص لتطوير مهاراتك، إحنا هنا عشان نساعدك.",
+        courses_academy: "أكاديمية كمشكاة",
+        courses_academy_desc: "كورسات من إعدادنا الشخصي، مصممة خصيصاً عشان تطور منك ومن مهاراتك.",
+        btn_academy: "تصفح الأكاديمية 🏫",
+        courses_udemy: "كوبونات Udemy المجانية",
+        courses_udemy_desc: "بنجمعلك كوبونات لأقوى الكورسات العالمية من منصة Udemy عشان تاخدها مجاناً 100%.",
+        btn_udemy: "تصفح الكوبونات ▶️",
 
         gallery_title: "معرض التصميمات",
         gallery_subtitle: "إبداع متجدد . لمسة فنية",
@@ -51,6 +64,16 @@ const translations = {
         stat_courses: "Courses Available",
         stat_ambition: "Limitless Ambition",
 
+        // Updated Courses Page Texts
+        courses_title: "Choose Your Learning Path",
+        courses_subtitle: "Whether you're looking for free global courses or exclusive content to develop your skills, we are here to help.",
+        courses_academy: "Kamshkat Academy",
+        courses_academy_desc: "Courses prepared personally by us, designed specifically to develop you and your skills.",
+        btn_academy: "Explore Academy 🏫",
+        courses_udemy: "Free Udemy Coupons",
+        courses_udemy_desc: "We collect coupons for top global courses from Udemy so you can get them for 100% free.",
+        btn_udemy: "Explore Coupons ▶️",
+
         gallery_title: "Design Gallery",
         gallery_subtitle: "Renewed Creativity . Artistic Touch",
         btn_download: "Download",
@@ -59,19 +82,25 @@ const translations = {
         btn_load_more: "Load More",
 
         share_msg: "Link copied! Share it with friends.",
+        login_welcome: "Welcome Back! 👋",
     }
 };
 
 let currentLang = localStorage.getItem('kamshkat_lang') || 'ar';
 
+<<<<<<< HEAD
+=======
+// ... (باقي كود main.js زي ما هو، متنساش تنسخ الباقي من الملف السابق لو مش عندك) ...
+// (للتسهيل عليك، ده الجزء المتغير فقط، باقي الملف زي آخر نسخة بعتها ليك)
+
+>>>>>>> 67269dce9a5c7f615b59dc66a2f16b5f41451dbc
 document.addEventListener('DOMContentLoaded', () => {
     setLanguage(currentLang); 
     loadNavbarFooter();       
     initProtection();         
     lucide.createIcons();     
     initChatbot(); 
-    initCounters();
-    injectLightboxStyles(); 
+    initCounters(); 
 
     if(document.body.dataset.page === 'gallery') {
         initGalleryPage();
@@ -159,6 +188,7 @@ function loadNavbarFooter() {
     lucide.createIcons();
 }
 
+<<<<<<< HEAD
 // -------------------------------------------------------------------------
 // 5. وظيفة الاشتراك في الكورس (محدثة للمشاهدة الداخلية 🔥)
 // -------------------------------------------------------------------------
@@ -179,6 +209,10 @@ window.enrollInCourse = function(courseId, courseType) {
 
     if (!course) { alert("حصل خطأ في بيانات الكورس!"); return; }
 
+=======
+window.toggleLike = function(id) {
+    if(typeof firebase === 'undefined') return;
+>>>>>>> 67269dce9a5c7f615b59dc66a2f16b5f41451dbc
     const db = firebase.database();
     const enrollmentRef = db.ref('users/' + user.uid + '/enrolledCourses/' + courseId);
 
@@ -287,6 +321,7 @@ window.downloadImage = function(src) {
     const link = document.createElement('a'); link.href = src; link.download = src.substring(src.lastIndexOf('/') + 1) || 'image.jpg';
     document.body.appendChild(link); link.click(); document.body.removeChild(link);
 }
+<<<<<<< HEAD
 window.openLightbox = function(src, thumbnailEl) {
     const lb = document.getElementById('lightbox'); const img = document.getElementById('lightbox-img');
     if(!lb || !img) return; img.src = src; lb.classList.remove('hidden'); lb.classList.add('flex');
@@ -296,6 +331,56 @@ window.closeLightbox = function() {
     const lb = document.getElementById('lightbox'); const img = document.getElementById('lightbox-img');
     if(!lb || !img) return; img.style.transform = 'scale(0.8)'; img.style.opacity = '0';
     setTimeout(() => { lb.classList.add('hidden'); lb.classList.remove('flex'); img.style.transform = ''; img.style.opacity = ''; }, 300);
+=======
+
+window.shareImage = function(imgSrc) {
+    const fullUrl = imgSrc.startsWith('http') ? imgSrc : window.location.origin + window.location.pathname.replace('gallery.html', '') + imgSrc;
+    if (navigator.share) {
+        navigator.share({
+            title: 'تصميم من كمشكاة',
+            text: 'شوف الإبداع ده!',
+            url: fullUrl
+        }).catch(console.error);
+    } else {
+        navigator.clipboard.writeText(fullUrl);
+        alert(t('share_msg'));
+    }
+}
+
+window.downloadImage = function(src) {
+    const link = document.createElement('a');
+    link.href = src;
+    link.download = src.substring(src.lastIndexOf('/') + 1) || 'image.jpg';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+function initChatbot() {
+    (function(){
+        if(!window.chatbase || window.chatbase("getState") !== "initialized"){
+            window.chatbase = (...arguments) => {
+                if(!window.chatbase.q){ window.chatbase.q = [] }
+                window.chatbase.q.push(arguments)
+            };
+            window.chatbase = new Proxy(window.chatbase, {
+                get(target, prop){
+                    if(prop === "q"){ return target.q }
+                    return (...args) => target(prop, ...args)
+                }
+            })
+        }
+        const onLoad = function(){
+            const script = document.createElement("script");
+            script.src = "https://www.chatbase.co/embed.min.js";
+            script.id = "pzJqEYo1jgjQMK7rX1iuu";
+            script.domain = "www.chatbase.co";
+            document.body.appendChild(script)
+        };
+        if(document.readyState === "complete"){ onLoad() }
+        else { window.addEventListener("load", onLoad) }
+    })();
+>>>>>>> 67269dce9a5c7f615b59dc66a2f16b5f41451dbc
 }
 window.toggleLike = function(id) {
     if(typeof firebase === 'undefined') return; const db = firebase.database(); const likeRef = db.ref('likes/' + id); const storageKey = `liked_${id}`; const isLiked = localStorage.getItem(storageKey);
