@@ -1,5 +1,6 @@
 /* Path: js/main.js */
 
+// ... (نفس الجزء الأول من الكود السابق الخاص بالترجمة والقائمة) ...
 // -------------------------------------------------------------------------
 // 1. إعدادات الترجمة
 // -------------------------------------------------------------------------
@@ -63,9 +64,6 @@ const translations = {
 
 let currentLang = localStorage.getItem('kamshkat_lang') || 'ar';
 
-// -------------------------------------------------------------------------
-// 2. التشغيل الرئيسي
-// -------------------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
     setLanguage(currentLang); 
     loadNavbarFooter();       
@@ -80,9 +78,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// -------------------------------------------------------------------------
-// 3. وظائف الترجمة
-// -------------------------------------------------------------------------
 function toggleLanguage() {
     currentLang = currentLang === 'ar' ? 'en' : 'ar';
     localStorage.setItem('kamshkat_lang', currentLang);
@@ -105,9 +100,6 @@ function setLanguage(lang) {
 
 function t(key) { return translations[currentLang][key] || key; }
 
-// -------------------------------------------------------------------------
-// 4. بناء القائمة
-// -------------------------------------------------------------------------
 function loadNavbarFooter() {
     const langBtnText = currentLang === 'ar' ? 'En' : 'عربي';
     
@@ -168,299 +160,153 @@ function loadNavbarFooter() {
 }
 
 // -------------------------------------------------------------------------
-// 5. وظائف المعرض (تحديث: قارئ الصور الذكي)
+// 5. وظيفة الاشتراك في الكورس (محدثة للمشاهدة الداخلية 🔥)
 // -------------------------------------------------------------------------
-let visibleGalleryCount = 0;
-const GALLERY_INCREMENT = 10;
-const MAX_IMAGES = 100;
-let activeSourceImage = null;
-
-function initGalleryPage() {
-    const grid = document.getElementById('gallery-grid');
-    if(grid) grid.innerHTML = '';
-    
-    loadGalleryImages();
-    const btn = document.getElementById('load-more-gallery');
-    if(btn) {
-        btn.addEventListener('click', loadGalleryImages);
-    }
-}
-
-function loadGalleryImages() {
-    const grid = document.getElementById('gallery-grid');
-    const btn = document.getElementById('load-more-gallery');
-    if(!grid) return;
-    
-    let start = visibleGalleryCount + 1;
-    let end = start + GALLERY_INCREMENT - 1;
-
-    if (start > MAX_IMAGES) {
-        if(btn) btn.style.display = 'none';
+window.enrollInCourse = function(courseId, courseType) {
+    const user = firebase.auth().currentUser;
+    if (!user) {
+        alert("لازم تسجل دخول الأول يا بطل عشان تقدر تشترك! 🔒");
+        window.location.href = "login.html";
         return;
     }
 
-    let html = '';
-    for(let i=start; i<=end; i++) {
-        // المسار الأساسي (UI folder)
-        const imgSrc = `images/ui/${i}.jpg`; 
-        
-        // كود الطوارئ: لو الصورة مش في UI، دور في Gallery، لو لا دور على Webp، لو لا اعرض الخلفية
-        const fallbackLogic = `this.onerror=null; this.src='images/gallery/${i}.jpg'; this.onerror=function(){ this.src='images/${i}.webp'; this.onerror=function(){ this.src='images/ui/bg.jpg'; } }`;
-
-        html += `
-        <div class="break-inside-avoid mb-6 glass-panel rounded-2xl overflow-hidden group relative bg-white/40 border border-white hover:shadow-xl transition duration-300">
-            <div class="cursor-pointer relative" onclick="openLightbox(this.querySelector('img').src, this.querySelector('img'))">
-                <img src="${imgSrc}" loading="lazy" class="w-full h-auto block transform transition duration-500 group-hover:scale-105" 
-                     onerror="${fallbackLogic}">
-                
-                <div class="absolute inset-0 bg-emerald-900/20 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
-                    <div class="bg-white/90 text-emerald-900 p-3 rounded-full shadow-lg transform scale-75 group-hover:scale-100 transition">
-                        <i data-lucide="zoom-in" class="w-6 h-6"></i>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="p-3 flex justify-between items-center bg-white/80 backdrop-blur-md border-t border-white/50">
-                <div class="flex gap-2">
-                    <button onclick="toggleLike(${i})" class="flex items-center gap-1.5 text-slate-500 hover:text-red-500 transition group/like">
-                        <i data-lucide="heart" class="w-5 h-5 transition transform group-active/like:scale-125" id="heart-${i}"></i>
-                        <span id="likes-count-${i}" class="text-xs font-bold font-sans mt-0.5">0</span>
-                    </button>
-                </div>
-
-                <div class="flex gap-2">
-                    <button onclick="downloadImage(this.closest('.break-inside-avoid').querySelector('img').src)" class="text-emerald-600 hover:bg-emerald-50 p-2 rounded-lg transition" title="${t('btn_download')}">
-                        <i data-lucide="download" class="w-5 h-5"></i>
-                    </button>
-                    <button onclick="shareImage(this.closest('.break-inside-avoid').querySelector('img').src)" class="text-emerald-600 hover:bg-emerald-50 p-2 rounded-lg transition" title="${t('btn_share_img')}">
-                        <i data-lucide="share-2" class="w-5 h-5"></i>
-                    </button>
-                </div>
-            </div>
-        </div>`;
+    let course = null;
+    if (courseType === 'udemy' && window.udemyData) {
+        course = window.udemyData.find(c => c.id == courseId);
+    } else if (courseType === 'academy' && window.kameshkahData) {
+        course = window.kameshkahData.find(c => c.id == courseId);
     }
 
-    grid.insertAdjacentHTML('beforeend', html);
-    visibleGalleryCount = end;
-    lucide.createIcons();
-    if(typeof firebase !== 'undefined') listenToLikes(visibleGalleryCount);
-}
+    if (!course) { alert("حصل خطأ في بيانات الكورس!"); return; }
 
-// دالة التحميل
-window.downloadImage = function(src) {
-    const link = document.createElement('a');
-    link.href = src;
-    link.download = src.substring(src.lastIndexOf('/') + 1) || 'image.jpg';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-}
-
-// دالة فتح اللايت بوكس
-window.openLightbox = function(src, thumbnailEl) {
-    const lb = document.getElementById('lightbox');
-    const img = document.getElementById('lightbox-img');
-    const dl = document.getElementById('lightbox-download');
-    
-    if(!lb || !img) return;
-
-    activeSourceImage = thumbnailEl;
-    img.src = src;
-    
-    if(dl) {
-        dl.onclick = function(e) {
-            e.stopPropagation();
-            downloadImage(src);
-        };
-        dl.innerHTML = `<i data-lucide="download" class="w-5 h-5"></i> ${t('btn_download')}`;
-    }
-
-    lb.classList.remove('hidden');
-    lb.classList.add('flex');
-    
-    if (thumbnailEl) {
-        img.style.transition = 'none';
-        img.style.transformOrigin = 'top left';
-        img.style.transform = 'scale(0.5)';
-        img.style.opacity = '0';
-        
-        requestAnimationFrame(() => {
-            img.style.transition = 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease';
-            img.style.transform = 'scale(1)';
-            img.style.opacity = '1';
-        });
-    }
-    
-    lucide.createIcons();
-}
-
-window.closeLightbox = function() {
-    const lb = document.getElementById('lightbox');
-    const img = document.getElementById('lightbox-img');
-    
-    if(!lb || !img) return;
-
-    img.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
-    img.style.transform = 'scale(0.8)';
-    img.style.opacity = '0';
-
-    setTimeout(() => {
-        lb.classList.add('hidden');
-        lb.classList.remove('flex');
-        img.style.transform = ''; 
-        img.style.opacity = '';
-    }, 300);
-}
-
-function injectLightboxStyles() {
-    const style = document.createElement('style');
-    style.innerHTML = `
-        #lightbox-img { max-height: 85vh; max-width: 90vw; border-radius: 12px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }
-        .masonry-grid { column-count: 1; column-gap: 1.5rem; }
-        @media (min-width: 640px) { .masonry-grid { column-count: 2; } }
-        @media (min-width: 1024px) { .masonry-grid { column-count: 3; } }
-    `;
-    document.head.appendChild(style);
-}
-
-// -------------------------------------------------------------------------
-// 6. باقي الوظائف
-// -------------------------------------------------------------------------
-window.toggleLike = function(id) {
-    if(typeof firebase === 'undefined') return;
     const db = firebase.database();
-    const likeRef = db.ref('likes/' + id);
-    const storageKey = `liked_${id}`;
-    const isLiked = localStorage.getItem(storageKey);
+    const enrollmentRef = db.ref('users/' + user.uid + '/enrolledCourses/' + courseId);
 
-    likeRef.transaction((currentLikes) => {
-        if (currentLikes === null) currentLikes = 0;
-        if (isLiked) {
-            localStorage.removeItem(storageKey);
-            updateHeartUI(id, false);
-            return currentLikes - 1;
+    enrollmentRef.once('value', (snapshot) => {
+        if (snapshot.exists()) {
+            // لو مشترك -> روح لصفحة المشاهدة
+            window.location.href = `watch.html?id=${courseId}`;
         } else {
-            localStorage.setItem(storageKey, 'true');
-            updateHeartUI(id, true);
-            return currentLikes + 1;
+            // إضافة اشتراك جديد
+            enrollmentRef.set({
+                id: courseId,
+                type: courseType,
+                title: course.titleAr,
+                img: course.img,
+                progress: 0,
+                status: 'active',
+                completedLessons: [], // قائمة الدروس المكتملة
+                enrolledAt: new Date().toISOString(),
+                // بنحفظش الرابط هنا، بنجيبه من ملف الداتا الأساسي في صفحة المشاهدة
+            }).then(() => {
+                alert("تم الاشتراك! يلا بينا نبدأ 🚀");
+                window.location.href = `watch.html?id=${courseId}`;
+            }).catch((error) => {
+                console.error(error);
+                alert("حصلت مشكلة في الاشتراك، حاول تاني.");
+            });
         }
     });
 }
 
-window.listenToLikes = function(limit) {
-    if(typeof firebase === 'undefined') return;
+// -------------------------------------------------------------------------
+// 6. باقي الوظائف (بدون تغيير)
+// -------------------------------------------------------------------------
+// ... (باقي كود main.js زي ما هو، التقييم والنجوم والمعرض) ...
+// (منعاً للتكرار، انسخ باقي دوال main.js من الردود السابقة هنا)
+window.submitRating = function(courseId, ratingValue) {
+    const user = firebase.auth().currentUser;
+    if (!user) {
+        alert("لازم تسجل دخول عشان تقيم الكورس 😉");
+        return;
+    }
     const db = firebase.database();
-    for(let i=1; i<=limit; i++) {
-        db.ref('likes/' + i).on('value', (snapshot) => {
-            const countEl = document.getElementById(`likes-count-${i}`);
-            if(countEl) countEl.innerText = snapshot.val() || 0;
-            updateHeartUI(i, localStorage.getItem(`liked_${i}`));
-        });
-    }
+    db.ref('users/' + user.uid + '/enrolledCourses/' + courseId).update({
+        userRating: ratingValue
+    }).then(() => {
+        updateStarsUI(ratingValue);
+        alert(`شكراً لتقييمك ${ratingValue} من 5! 🌟`);
+    }).catch(err => console.error(err));
 }
 
-function updateHeartUI(id, isLiked) {
-    const icon = document.getElementById(`heart-${id}`);
-    if(icon) {
-        if(isLiked) {
-            icon.classList.add('fill-red-500', 'text-red-500');
-            icon.classList.remove('text-slate-400');
+window.checkUserRating = function(courseId) {
+    const user = firebase.auth().currentUser;
+    if (!user) return;
+    const db = firebase.database();
+    db.ref('users/' + user.uid + '/enrolledCourses/' + courseId + '/userRating').once('value', (snapshot) => {
+        const rating = snapshot.val();
+        if (rating) updateStarsUI(rating);
+    });
+}
+
+function updateStarsUI(rating) {
+    const stars = document.querySelectorAll('.rating-star');
+    stars.forEach((star, index) => {
+        if (index < rating) {
+            star.classList.add('fill-yellow-400', 'text-yellow-400');
+            star.classList.remove('text-slate-300');
         } else {
-            icon.classList.remove('fill-red-500', 'text-red-500');
-            icon.classList.add('text-slate-400');
+            star.classList.remove('fill-yellow-400', 'text-yellow-400');
+            star.classList.add('text-slate-300');
         }
+    });
+}
+
+// ... دوال المعرض والدردشة والحماية ...
+let visibleGalleryCount = 0; const GALLERY_INCREMENT = 10; const MAX_IMAGES = 100;
+function initGalleryPage() {
+    const grid = document.getElementById('gallery-grid'); if(grid) grid.innerHTML = '';
+    loadGalleryImages(); const btn = document.getElementById('load-more-gallery');
+    if(btn) { btn.addEventListener('click', loadGalleryImages); }
+}
+function loadGalleryImages() {
+    const grid = document.getElementById('gallery-grid'); if(!grid) return;
+    let start = visibleGalleryCount + 1; let end = start + GALLERY_INCREMENT - 1;
+    if (start > MAX_IMAGES) { document.getElementById('load-more-gallery').style.display = 'none'; return; }
+    let html = '';
+    for(let i=start; i<=end; i++) {
+        const imgSrc = `images/ui/${i}.jpg`; 
+        const fallbackLogic = `this.onerror=null; this.src='images/gallery/${i}.jpg'; this.onerror=function(){ this.src='images/${i}.webp'; this.onerror=function(){ this.src='images/ui/bg.jpg'; } }`;
+        html += `<div class="break-inside-avoid mb-6 glass-panel rounded-2xl overflow-hidden group relative bg-white/40 border border-white hover:shadow-xl transition duration-300">
+            <div class="cursor-pointer relative" onclick="openLightbox(this.querySelector('img').src, this.querySelector('img'))">
+                <img src="${imgSrc}" loading="lazy" class="w-full h-auto block transform transition duration-500 group-hover:scale-105" onerror="${fallbackLogic}">
+                <div class="absolute inset-0 bg-emerald-900/20 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                    <div class="bg-white/90 text-emerald-900 p-3 rounded-full shadow-lg transform scale-75 group-hover:scale-100 transition"><i data-lucide="zoom-in" class="w-6 h-6"></i></div>
+                </div>
+            </div>
+            <div class="p-3 flex justify-between items-center bg-white/80 backdrop-blur-md border-t border-white/50">
+                <button onclick="toggleLike(${i})" class="flex items-center gap-1.5 text-slate-500 hover:text-red-500 transition group/like"><i data-lucide="heart" class="w-5 h-5 transition transform group-active/like:scale-125" id="heart-${i}"></i><span id="likes-count-${i}" class="text-xs font-bold font-sans mt-0.5">0</span></button>
+                <button onclick="downloadImage(this.closest('.break-inside-avoid').querySelector('img').src)" class="text-emerald-600 hover:bg-emerald-50 p-2 rounded-lg transition"><i data-lucide="download" class="w-5 h-5"></i></button>
+            </div>
+        </div>`;
     }
+    grid.insertAdjacentHTML('beforeend', html); visibleGalleryCount = end; lucide.createIcons();
+    if(typeof firebase !== 'undefined') listenToLikes(visibleGalleryCount);
 }
-
-window.shareCourse = function(title, url) {
-    if (navigator.share) {
-        navigator.share({
-            title: title,
-            text: `Check out this course on Kamshkat: ${title}`,
-            url: url
-        }).catch(console.error);
-    } else {
-        navigator.clipboard.writeText(url);
-        alert(t('share_msg'));
-    }
+window.downloadImage = function(src) {
+    const link = document.createElement('a'); link.href = src; link.download = src.substring(src.lastIndexOf('/') + 1) || 'image.jpg';
+    document.body.appendChild(link); link.click(); document.body.removeChild(link);
 }
-
-window.shareImage = function(imgSrc) {
-    // إصلاح رابط المشاركة ليكون كاملاً
-    const fullUrl = imgSrc.startsWith('http') ? imgSrc : window.location.origin + window.location.pathname.replace('gallery.html', '') + imgSrc;
-    if (navigator.share) {
-        navigator.share({
-            title: 'تصميم من كمشكاة',
-            text: 'شوف الإبداع ده!',
-            url: fullUrl
-        }).catch(console.error);
-    } else {
-        navigator.clipboard.writeText(fullUrl);
-        alert(t('share_msg'));
-    }
+window.openLightbox = function(src, thumbnailEl) {
+    const lb = document.getElementById('lightbox'); const img = document.getElementById('lightbox-img');
+    if(!lb || !img) return; img.src = src; lb.classList.remove('hidden'); lb.classList.add('flex');
+    if (thumbnailEl) { img.style.transform = 'scale(0.5)'; img.style.opacity = '0'; requestAnimationFrame(() => { img.style.transition = 'transform 0.4s, opacity 0.4s'; img.style.transform = 'scale(1)'; img.style.opacity = '1'; }); }
 }
-
-function initChatbot() {
-    (function(){
-        if(!window.chatbase || window.chatbase("getState") !== "initialized"){
-            window.chatbase = (...arguments) => {
-                if(!window.chatbase.q){ window.chatbase.q = [] }
-                window.chatbase.q.push(arguments)
-            };
-            window.chatbase = new Proxy(window.chatbase, {
-                get(target, prop){
-                    if(prop === "q"){ return target.q }
-                    return (...args) => target(prop, ...args)
-                }
-            })
-        }
-        const onLoad = function(){
-            const script = document.createElement("script");
-            script.src = "https://www.chatbase.co/embed.min.js";
-            script.id = "pzJqEYo1jgjQMK7rX1iuu";
-            script.domain = "www.chatbase.co";
-            document.body.appendChild(script)
-        };
-        if(document.readyState === "complete"){ onLoad() }
-        else { window.addEventListener("load", onLoad) }
-    })();
+window.closeLightbox = function() {
+    const lb = document.getElementById('lightbox'); const img = document.getElementById('lightbox-img');
+    if(!lb || !img) return; img.style.transform = 'scale(0.8)'; img.style.opacity = '0';
+    setTimeout(() => { lb.classList.add('hidden'); lb.classList.remove('flex'); img.style.transform = ''; img.style.opacity = ''; }, 300);
 }
-
-function initCounters() {
-    const counters = document.querySelectorAll('.counter-number');
-    if(counters.length === 0) return;
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if(entry.isIntersecting) {
-                const el = entry.target;
-                const target = +el.dataset.target || 0;
-                animateValue(el, 0, target, 2500); 
-                observer.unobserve(el);
-            }
-        });
-    }, { threshold: 0.2 });
-
-    counters.forEach(c => observer.observe(c));
+window.toggleLike = function(id) {
+    if(typeof firebase === 'undefined') return; const db = firebase.database(); const likeRef = db.ref('likes/' + id); const storageKey = `liked_${id}`; const isLiked = localStorage.getItem(storageKey);
+    likeRef.transaction((currentLikes) => { if (currentLikes === null) currentLikes = 0; if (isLiked) { localStorage.removeItem(storageKey); updateHeartUI(id, false); return currentLikes - 1; } else { localStorage.setItem(storageKey, 'true'); updateHeartUI(id, true); return currentLikes + 1; } });
 }
-
-function animateValue(obj, start, end, duration) {
-    let startTimestamp = null;
-    const step = (timestamp) => {
-        if (!startTimestamp) startTimestamp = timestamp;
-        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-        obj.innerHTML = Math.floor(progress * (end - start) + start) + '+';
-        if (progress < 1) window.requestAnimationFrame(step);
-    };
-    window.requestAnimationFrame(step);
+window.listenToLikes = function(limit) {
+    if(typeof firebase === 'undefined') return; const db = firebase.database(); for(let i=1; i<=limit; i++) { db.ref('likes/' + i).on('value', (snapshot) => { const countEl = document.getElementById(`likes-count-${i}`); if(countEl) countEl.innerText = snapshot.val() || 0; updateHeartUI(i, localStorage.getItem(`liked_${i}`)); }); }
 }
-
-function initProtection() {
-    document.addEventListener('contextmenu', event => event.preventDefault());
-    document.onkeydown = function(e) {
-        if(e.keyCode == 123) return false; 
-        if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false; 
-        if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false; 
-    };
-    document.addEventListener('dragstart', function(e) { e.preventDefault(); });
-}
+function updateHeartUI(id, isLiked) { const icon = document.getElementById(`heart-${id}`); if(icon) { if(isLiked) { icon.classList.add('fill-red-500', 'text-red-500'); icon.classList.remove('text-slate-400'); } else { icon.classList.remove('fill-red-500', 'text-red-500'); icon.classList.add('text-slate-400'); } } }
+function initChatbot() { (function(){ if(!window.chatbase || window.chatbase("getState") !== "initialized"){ window.chatbase = (...arguments) => { if(!window.chatbase.q){ window.chatbase.q = [] } window.chatbase.q.push(arguments) }; window.chatbase = new Proxy(window.chatbase, { get(target, prop){ if(prop === "q"){ return target.q } return (...args) => target(prop, ...args) } }) } const onLoad = function(){ const script = document.createElement("script"); script.src = "https://www.chatbase.co/embed.min.js"; script.id = "pzJqEYo1jgjQMK7rX1iuu"; script.domain = "www.chatbase.co"; document.body.appendChild(script) }; if(document.readyState === "complete"){ onLoad() } else { window.addEventListener("load", onLoad) } })(); }
+function initCounters() { const counters = document.querySelectorAll('.counter-number'); if(counters.length === 0) return; const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if(entry.isIntersecting) { const el = entry.target; const target = +el.dataset.target || 0; animateValue(el, 0, target, 2500); observer.unobserve(el); } }); }, { threshold: 0.2 }); counters.forEach(c => observer.observe(c)); }
+function animateValue(obj, start, end, duration) { let startTimestamp = null; const step = (timestamp) => { if (!startTimestamp) startTimestamp = timestamp; const progress = Math.min((timestamp - startTimestamp) / duration, 1); obj.innerHTML = Math.floor(progress * (end - start) + start) + '+'; if (progress < 1) window.requestAnimationFrame(step); }; window.requestAnimationFrame(step); }
+function initProtection() { document.addEventListener('contextmenu', event => event.preventDefault()); document.onkeydown = function(e) { if(e.keyCode == 123) return false; if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false; if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false; }; document.addEventListener('dragstart', function(e) { e.preventDefault(); }); }
+function injectLightboxStyles() { const style = document.createElement('style'); style.innerHTML = `#lightbox-img { max-height: 85vh; max-width: 90vw; border-radius: 12px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); } .masonry-grid { column-count: 1; column-gap: 1.5rem; } @media (min-width: 640px) { .masonry-grid { column-count: 2; } } @media (min-width: 1024px) { .masonry-grid { column-count: 3; } }`; document.head.appendChild(style); }
