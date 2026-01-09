@@ -1,8 +1,8 @@
 /* Path: js/main.js */
 
-// ... (الجزء الأول من الكود: الترجمة والقائمة والاشتراك - زي ما هو) ...
-// (سأضع الجزء الخاص بالمعرض فقط لتوفير المساحة، تأكد من وجود باقي الكود)
-
+// -------------------------------------------------------------------------
+// 1. إعدادات الترجمة والنصوص
+// -------------------------------------------------------------------------
 const translations = {
     ar: {
         nav_home: "الرئيسية",
@@ -51,31 +51,213 @@ const translations = {
 
 let currentLang = localStorage.getItem('kamshkat_lang') || 'ar';
 
+// -------------------------------------------------------------------------
+// 2. التشغيل الرئيسي (عند تحميل الصفحة)
+// -------------------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
     setLanguage(currentLang); 
-    loadNavbarFooter();       
+    loadNavbarFooter(); // تحميل القائمة
     initProtection();         
+    
+    // تشغيل الأيقونات بشكل آمن
     safeCreateIcons();
+
     initCounters();
     injectLightboxStyles(); 
 
+    // لو احنا في صفحة المعرض، شغل المعرض
     if(document.body.dataset.page === 'gallery') {
         initGalleryPage();
     }
 });
 
-// ... (دوال الترجمة والقائمة والاشتراك showSuccessMessage و enrollInCourse كما هي) ...
-
-function toggleLanguage() { /* ... */ }
-function setLanguage(lang) { /* ... */ }
-function t(key) { /* ... */ }
-function loadNavbarFooter() { /* ... */ }
-function safeCreateIcons() { /* ... */ }
-window.enrollInCourse = function(courseId, courseType) { /* ... */ }
-function showSuccessMessage(msg) { /* ... */ }
+// دالة أمان للأيقونات
+function safeCreateIcons() {
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    } else {
+        setTimeout(() => { if (typeof lucide !== 'undefined') lucide.createIcons(); }, 500);
+        setTimeout(() => { if (typeof lucide !== 'undefined') lucide.createIcons(); }, 1500);
+    }
+}
 
 // -------------------------------------------------------------------------
-// 6. وظائف المعرض (تحديث جذري لمسارات الصور)
+// 3. دوال اللغة والترجمة
+// -------------------------------------------------------------------------
+function toggleLanguage() {
+    currentLang = currentLang === 'ar' ? 'en' : 'ar';
+    localStorage.setItem('kamshkat_lang', currentLang);
+    setLanguage(currentLang);
+    loadNavbarFooter(); 
+    location.reload(); 
+}
+
+function setLanguage(lang) {
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        if(translations[lang][key]) {
+            if(el.tagName === 'INPUT') el.placeholder = translations[lang][key];
+            else el.innerText = translations[lang][key];
+        }
+    });
+}
+
+function t(key) { return translations[currentLang][key] || key; }
+
+// -------------------------------------------------------------------------
+// 4. بناء القائمة (Navbar) والفوتر - هنا المشكلة كانت بتحصل
+// -------------------------------------------------------------------------
+function loadNavbarFooter() {
+    const langBtnText = currentLang === 'ar' ? 'En' : 'عربي';
+    
+    const navbarHTML = `
+    <nav class="fixed top-0 w-full glass-panel z-50 !bg-white/90 backdrop-blur-md border-b border-white/50 h-20 flex items-center shadow-sm transition-all duration-300">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2 font-black text-2xl text-emerald-800 hover:scale-105 transition">
+                <img src="images/ui/logo.png" class="w-10 h-10 drop-shadow-sm object-contain" alt="Logo" onerror="this.style.display='none'"> 
+                <span data-i18n="home_welcome">${t('home_welcome')}</span>
+            </a>
+            
+            <div class="hidden md:flex items-center gap-1 bg-slate-100/50 p-1 rounded-full border border-slate-200">
+                <a href="index.html" class="nav-link px-4 py-2 rounded-full text-slate-600 font-bold text-sm hover:bg-white hover:text-emerald-600 transition" data-i18n="nav_home">${t('nav_home')}</a>
+                <a href="courses.html" class="nav-link px-4 py-2 rounded-full text-slate-600 font-bold text-sm hover:bg-white hover:text-emerald-600 transition" data-i18n="nav_courses">${t('nav_courses')}</a>
+                <a href="gallery.html" class="nav-link px-4 py-2 rounded-full text-slate-600 font-bold text-sm hover:bg-white hover:text-emerald-600 transition" data-i18n="nav_gallery">${t('nav_gallery')}</a>
+                <a href="articles.html" class="nav-link px-4 py-2 rounded-full text-slate-600 font-bold text-sm hover:bg-white hover:text-emerald-600 transition" data-i18n="nav_articles">${t('nav_articles')}</a>
+                <a href="library.html" class="nav-link px-4 py-2 rounded-full text-slate-600 font-bold text-sm hover:bg-white hover:text-emerald-600 transition" data-i18n="nav_library">${t('nav_library')}</a>
+                <a href="contact.html" class="nav-link px-4 py-2 rounded-full text-slate-600 font-bold text-sm hover:bg-white hover:text-emerald-600 transition" data-i18n="nav_contact">${t('nav_contact')}</a>
+            </div>
+
+            <div class="flex items-center gap-2">
+                <button onclick="toggleLanguage()" class="px-3 py-1.5 rounded-lg bg-emerald-50 text-emerald-800 font-bold text-xs hover:bg-emerald-100 transition border border-emerald-200">
+                    ${langBtnText}
+                </button>
+                
+                <div id="auth-area" class="hidden md:block">
+                    <a href="login.html" class="bg-emerald-600 text-white px-5 py-2 rounded-xl font-bold hover:bg-emerald-700 transition shadow-lg shadow-emerald-200 text-sm" data-i18n="nav_login">${t('nav_login')}</a>
+                </div>
+
+                <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-lg bg-slate-100 text-emerald-800 hover:bg-emerald-100 transition border border-slate-200">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden absolute top-20 left-0 w-full bg-white/95 backdrop-blur-xl border-t border-slate-100 p-4 shadow-xl flex flex-col gap-2 md:hidden animate-fade-in-down origin-top">
+            <a href="index.html" class="p-3 rounded-xl hover:bg-emerald-50 text-slate-700 font-bold flex items-center gap-3"><i data-lucide="home" class="w-5 h-5 text-emerald-600"></i> ${t('nav_home')}</a>
+            <a href="courses.html" class="p-3 rounded-xl hover:bg-emerald-50 text-slate-700 font-bold flex items-center gap-3"><i data-lucide="zap" class="w-5 h-5 text-emerald-600"></i> ${t('nav_courses')}</a>
+            <a href="gallery.html" class="p-3 rounded-xl hover:bg-emerald-50 text-slate-700 font-bold flex items-center gap-3"><i data-lucide="image" class="w-5 h-5 text-emerald-600"></i> ${t('nav_gallery')}</a>
+            <a href="articles.html" class="p-3 rounded-xl hover:bg-emerald-50 text-slate-700 font-bold flex items-center gap-3"><i data-lucide="pen-tool" class="w-5 h-5 text-emerald-600"></i> ${t('nav_articles')}</a>
+            <a href="library.html" class="p-3 rounded-xl hover:bg-emerald-50 text-slate-700 font-bold flex items-center gap-3"><i data-lucide="library" class="w-5 h-5 text-emerald-600"></i> ${t('nav_library')}</a>
+            <a href="contact.html" class="p-3 rounded-xl hover:bg-emerald-50 text-slate-700 font-bold flex items-center gap-3"><i data-lucide="phone" class="w-5 h-5 text-emerald-600"></i> ${t('nav_contact')}</a>
+            <div class="h-px bg-slate-100 my-1"></div>
+            <a href="login.html" class="p-3 rounded-xl bg-emerald-600 text-white font-bold text-center shadow-lg" id="mobile-auth-btn">${t('nav_login')}</a>
+        </div>
+    </nav>`;
+
+    const footerHTML = `
+    <footer class="text-center py-8 mt-auto relative z-10">
+        <div class="glass-panel inline-block px-8 py-4 rounded-full bg-white/50 backdrop-blur-md border border-white">
+            <p class="text-emerald-800 font-bold text-sm" data-i18n="footer_rights">${t('footer_rights')}</p>
+        </div>
+    </footer>`;
+
+    // حقن الكود في الصفحة
+    const headerEl = document.getElementById('header-ph');
+    const footerEl = document.getElementById('footer-ph');
+    
+    if(headerEl) headerEl.innerHTML = navbarHTML;
+    if(footerEl) footerEl.innerHTML = footerHTML;
+    
+    // إعادة تفعيل الأيقونات
+    safeCreateIcons();
+}
+
+window.toggleMobileMenu = function() {
+    const menu = document.getElementById('mobile-menu');
+    if (menu) {
+        menu.classList.toggle('hidden');
+    }
+}
+
+// -------------------------------------------------------------------------
+// 5. وظيفة الاشتراك في الكورس (محدثة)
+// -------------------------------------------------------------------------
+window.enrollInCourse = function(courseId, courseType) {
+    const user = firebase.auth().currentUser;
+    if (!user) {
+        alert("🔒 لازم تسجل دخول الأول يا بطل عشان تقدر تشترك!");
+        window.location.href = "login.html";
+        return;
+    }
+
+    const sCourseId = String(courseId);
+    let course = null;
+    if (courseType === 'udemy' && typeof window.udemyData !== 'undefined') {
+        course = window.udemyData.find(c => String(c.id) === sCourseId);
+    } else if (courseType === 'academy' && typeof window.kameshkahData !== 'undefined') {
+        course = window.kameshkahData.find(c => String(c.id) === sCourseId);
+    }
+
+    if (!course) { 
+        alert("بيانات الكورس غير متاحة حالياً."); 
+        return; 
+    }
+
+    const btn = document.getElementById('c-action-btn');
+    if(btn) {
+        btn.innerHTML = `<i class="animate-spin" data-lucide="loader-2"></i> جاري التسجيل...`;
+        safeCreateIcons();
+        btn.disabled = true;
+    }
+
+    const db = firebase.database();
+    const enrollmentRef = db.ref('users/' + user.uid + '/enrolledCourses/' + sCourseId);
+
+    enrollmentRef.once('value', (snapshot) => {
+        if (snapshot.exists()) {
+            showSuccessMessage("أنت مشترك بالفعل! 🎓\nجاري تحويلك...");
+            setTimeout(() => { window.location.href = "dashboard.html"; }, 1500);
+        } else {
+            enrollmentRef.set({
+                id: sCourseId,
+                type: courseType,
+                title: course.titleAr,
+                img: course.img,
+                progress: 0,
+                status: 'active',
+                completedLessons: [],
+                enrolledAt: new Date().toISOString()
+            }).then(() => {
+                showSuccessMessage("تم الاشتراك بنجاح! 🎉");
+                setTimeout(() => { window.location.href = "dashboard.html"; }, 2000);
+            }).catch((error) => {
+                console.error(error);
+                alert("حصلت مشكلة في الاشتراك.");
+                if(btn) { btn.innerText = "اشترك وابدأ التعلم"; btn.disabled = false; }
+            });
+        }
+    });
+}
+
+function showSuccessMessage(msg) {
+    const toast = document.createElement('div');
+    toast.className = "fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-emerald-600 text-white px-8 py-4 rounded-full shadow-2xl z-[100] flex items-center gap-3 animate-bounce-slow font-bold border-2 border-white/20";
+    toast.innerHTML = `<i data-lucide="check-circle" class="w-6 h-6"></i> <span>${msg.replace('\n', '<br>')}</span>`;
+    document.body.appendChild(toast);
+    
+    safeCreateIcons();
+    
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.5s';
+        setTimeout(() => toast.remove(), 500);
+    }, 3000);
+}
+
+// -------------------------------------------------------------------------
+// 6. وظائف المعرض (الصور + القلب + المشاركة)
 // -------------------------------------------------------------------------
 let visibleGalleryCount = 0;
 const GALLERY_INCREMENT = 12;
@@ -105,27 +287,13 @@ function loadGalleryImages() {
     let html = '';
     for(let i=start; i<=end; i++) {
         const imgSrc = `images/${i}.webp`; 
-        
-        // كود الطوارئ المحسن: يجرب jpg و png و مسار فرعي
-        const fallbackLogic = `
-            this.onerror=null; 
-            this.src='images/${i}.jpg'; 
-            this.onerror=function(){ 
-                this.src='images/${i}.png'; 
-                this.onerror=function(){ 
-                    this.src='images/gallery/${i}.webp'; 
-                    this.onerror=function(){
-                        this.src='https://placehold.co/600x800/dcfce7/065f46?text=Image+${i}'; 
-                    }
-                } 
-            }
-        `;
+        const fallbackLogic = `this.onerror=null; this.src='images/${i}.jpg'; this.onerror=function(){ this.src='images/${i}.png'; this.onerror=function(){ this.src='https://placehold.co/600x800/dcfce7/065f46?text=صورة+${i}'; } }`;
 
+        // هنا الجزء المسؤول عن إظهار الأزرار
         html += `
         <div class="break-inside-avoid mb-6 glass-panel rounded-2xl overflow-hidden group relative bg-white/40 border border-white hover:shadow-xl transition duration-300">
             <div class="cursor-pointer relative" onclick="openLightbox(this.querySelector('img').src)">
-                <img src="${imgSrc}" loading="lazy" class="w-full h-auto block transform transition duration-500 group-hover:scale-105" 
-                     onerror="${fallbackLogic}">
+                <img src="${imgSrc}" loading="lazy" class="w-full h-auto block transform transition duration-500 group-hover:scale-105" onerror="${fallbackLogic}">
                 
                 <div class="absolute inset-0 bg-emerald-900/20 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
                     <div class="bg-white/90 text-emerald-900 p-3 rounded-full shadow-lg transform scale-75 group-hover:scale-100 transition">
@@ -141,9 +309,13 @@ function loadGalleryImages() {
                         <span id="likes-count-${i}" class="text-xs font-bold font-sans mt-0.5">0</span>
                     </button>
                 </div>
+
                 <div class="flex gap-2">
                     <button onclick="downloadImage(this.closest('.break-inside-avoid').querySelector('img').src)" class="text-emerald-600 hover:bg-emerald-50 p-2 rounded-lg transition" title="تحميل">
                         <i data-lucide="download" class="w-5 h-5"></i>
+                    </button>
+                    <button onclick="shareImage(this.closest('.break-inside-avoid').querySelector('img').src)" class="text-emerald-600 hover:bg-emerald-50 p-2 rounded-lg transition" title="مشاركة">
+                        <i data-lucide="share-2" class="w-5 h-5"></i>
                     </button>
                 </div>
             </div>
@@ -158,7 +330,7 @@ function loadGalleryImages() {
     if(typeof firebase !== 'undefined') listenToLikes(visibleGalleryCount);
 }
 
-// دالة التحميل
+// باقي الدوال (تحميل، لايت بوكس، لايكات)
 window.downloadImage = function(src) {
     const link = document.createElement('a');
     link.href = src;
@@ -168,7 +340,6 @@ window.downloadImage = function(src) {
     document.body.removeChild(link);
 }
 
-// دالة فتح اللايت بوكس
 window.openLightbox = function(src) {
     const lb = document.getElementById('lightbox');
     const img = document.getElementById('lightbox-img');
@@ -184,7 +355,6 @@ window.closeLightbox = function() {
     lb.classList.remove('flex');
 }
 
-// التفاعل مع اللايكات
 window.toggleLike = function(id) {
     if(typeof firebase === 'undefined') return;
     const db = firebase.database();
@@ -234,20 +404,45 @@ function updateHeartUI(id, isLiked) {
 window.shareImage = function(imgSrc) {
     const fullUrl = imgSrc.startsWith('http') ? imgSrc : window.location.origin + window.location.pathname.replace('gallery.html', '') + imgSrc;
     if (navigator.share) {
-        navigator.share({
-            title: 'تصميم من كمشكاة',
-            text: 'شوف الإبداع ده!',
-            url: fullUrl
-        }).catch(console.error);
+        navigator.share({ title: 'تصميم من كمشكاة', url: fullUrl }).catch(console.error);
     } else {
         navigator.clipboard.writeText(fullUrl);
         alert(t('share_msg'));
     }
 }
 
-function initCounters() { /* ... */ }
-function animateValue(obj, start, end, duration) { /* ... */ }
-function initProtection() { document.addEventListener('contextmenu', event => event.preventDefault()); }
+function initCounters() {
+    const counters = document.querySelectorAll('.counter-number');
+    if(counters.length === 0) return;
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if(entry.isIntersecting) {
+                const el = entry.target;
+                const target = +el.dataset.target || 0;
+                animateValue(el, 0, target, 2500); 
+                observer.unobserve(el);
+            }
+        });
+    }, { threshold: 0.2 });
+    counters.forEach(c => observer.observe(c));
+}
+
+function animateValue(obj, start, end, duration) {
+    let startTimestamp = null;
+    const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        obj.innerHTML = Math.floor(progress * (end - start) + start) + '+';
+        if (progress < 1) window.requestAnimationFrame(step);
+    };
+    window.requestAnimationFrame(step);
+}
+
+function initProtection() {
+    document.addEventListener('contextmenu', event => event.preventDefault());
+    document.addEventListener('dragstart', function(e) { e.preventDefault(); });
+}
+
 function injectLightboxStyles() {
     const style = document.createElement('style');
     style.innerHTML = `
