@@ -50,10 +50,10 @@
     <div id="footer-ph"></div>
 
     <script>
-        // 👇 التعديل هنا: نظام الترقيم (1.webp, 2.webp...)
+        // إعدادات المعرض
         let visibleGalleryCount = 0;
-        const GALLERY_INCREMENT = 12; // عدد الصور في كل دفعة
-        const MAX_IMAGES = 50; // 👈 غير الرقم ده لعدد الصور الإجمالي اللي عندك في الفولدر
+        const GALLERY_INCREMENT = 12; // عدد الصور اللي بتظهر في كل مرة
+        const MAX_IMAGES = 50; // 👈 غير الرقم ده لعدد الصور الكلي اللي عندك (مثلاً لو عندك 100 صورة خليها 100)
 
         document.addEventListener('DOMContentLoaded', () => {
             const grid = document.getElementById('gallery-grid');
@@ -71,31 +71,35 @@
             const grid = document.getElementById('gallery-grid');
             const btn = document.getElementById('load-more-gallery');
             
-            let start = visibleGalleryCount + 1; // نبدأ من صورة رقم 1
+            // حساب بداية ونهاية الدفعة الحالية
+            let start = visibleGalleryCount + 1; 
             let end = start + GALLERY_INCREMENT - 1;
 
+            // لو وصلنا لآخر الصور، نخفي زرار "المزيد"
             if (start > MAX_IMAGES) {
                 if(btn) btn.style.display = 'none';
                 return;
             }
+            // لو الدفعة هتعدي الحد الأقصى، نوقف عند الحد الأقصى
+            if (end > MAX_IMAGES) {
+                end = MAX_IMAGES;
+                if(btn) btn.style.display = 'none';
+            }
 
             let html = '';
             for(let i=start; i<=end; i++) {
-                if (i > MAX_IMAGES) break; // وقف لو عدينا العدد الأقصى
-
-                // 👇 اسم الصورة بيبقى رقم + .webp (تأكد إن الصور في فولدر images مباشرة)
+                // 👇 المسار البسيط: images/1.webp
                 const imgSrc = `images/${i}.webp`;
                 
-                // صورة بديلة لو الصورة الأصلية مش موجودة
-                const fallbackImg = `https://placehold.co/600x800/dcfce7/065f46?text=صورة+${i}`;
+                // كود الطوارئ: لو ملقاش .webp يجرب .jpg، ولو ملقاش يحط صورة ملونة
+                const fallbackLogic = `this.onerror=null; this.src='images/${i}.jpg'; this.onerror=function(){ this.src='https://placehold.co/600x800/dcfce7/065f46?text=Image+${i}'; }`;
 
                 html += `
                 <div class="break-inside-avoid mb-6 glass-panel rounded-2xl overflow-hidden group relative bg-white/40 border border-white hover:shadow-xl transition duration-300">
                     <div class="cursor-pointer relative" onclick="openGalleryLightbox('${imgSrc}')">
                         
-                        <!-- بنجرب نحمل webp الأول، لو مش موجودة نحط الـ fallback -->
                         <img src="${imgSrc}" loading="lazy" class="w-full h-auto block transform transition duration-500 group-hover:scale-105" 
-                             onerror="this.onerror=null; this.src='${fallbackImg}'">
+                             onerror="${fallbackLogic}">
                         
                         <div class="absolute inset-0 bg-emerald-900/20 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
                             <div class="bg-white/90 text-emerald-900 p-3 rounded-full shadow-lg transform scale-75 group-hover:scale-100 transition">
