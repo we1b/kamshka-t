@@ -54,11 +54,12 @@ document.addEventListener('DOMContentLoaded', () => {
     loadNavbarFooter();       
     initProtection();         
     
-    if (typeof lucide !== 'undefined') {
-        lucide.createIcons();
-    } else {
-        setTimeout(() => { if (typeof lucide !== 'undefined') lucide.createIcons(); }, 1000);
-    }
+    // تشغيل الأيقونات فوراً
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+    
+    // إعادة محاولة تشغيل الأيقونات للتأكيد
+    setTimeout(() => { if (typeof lucide !== 'undefined') lucide.createIcons(); }, 500);
+    setTimeout(() => { if (typeof lucide !== 'undefined') lucide.createIcons(); }, 1500);
 
     initCounters();
     injectLightboxStyles(); 
@@ -157,9 +158,6 @@ window.toggleMobileMenu = function() {
     }
 }
 
-// -------------------------------------------------------------------------
-// 🔥 دالة الاشتراك الذكية (الجديدة) 🔥
-// -------------------------------------------------------------------------
 window.enrollInCourse = function(courseId, courseType) {
     const user = firebase.auth().currentUser;
     if (!user) {
@@ -168,42 +166,40 @@ window.enrollInCourse = function(courseId, courseType) {
         return;
     }
 
-    // البحث عن بيانات الكورس
+    const sCourseId = String(courseId);
     let course = null;
     if (courseType === 'udemy' && typeof window.udemyData !== 'undefined') {
-        course = window.udemyData.find(c => c.id == courseId);
+        course = window.udemyData.find(c => String(c.id) === sCourseId);
     } else if (courseType === 'academy' && typeof window.kameshkahData !== 'undefined') {
-        course = window.kameshkahData.find(c => c.id == courseId);
+        course = window.kameshkahData.find(c => String(c.id) === sCourseId);
     }
 
     if (!course) { 
-        alert("عذراً، بيانات الكورس غير متوفرة."); 
+        alert("بيانات الكورس غير متاحة حالياً."); 
         return; 
     }
 
-    const db = firebase.database();
-    const enrollmentRef = db.ref('users/' + user.uid + '/enrolledCourses/' + courseId);
+    const btn = document.getElementById('c-action-btn');
+    if(btn) {
+        btn.innerHTML = `<i class="animate-spin" data-lucide="loader-2"></i> جاري التسجيل...`;
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+        btn.disabled = true;
+    }
 
-    // 1. التحقق هل هو مشترك أصلاً؟
+    const db = firebase.database();
+    const enrollmentRef = db.ref('users/' + user.uid + '/enrolledCourses/' + sCourseId);
+
     enrollmentRef.once('value', (snapshot) => {
         if (snapshot.exists()) {
-            // ✅ حالة 1: مشترك بالفعل وناسي
-            alert(`أنت مشترك بالفعل في كورس: "${course.titleAr}" 🎓\nسيتم نقلك للمشاهدة فوراً!`);
-            window.location.href = `watch.html?id=${courseId}`;
+            if(confirm("أنت مشترك بالفعل في هذا الكورس! هل تريد الذهاب للمشاهدة؟")) {
+                 window.location.href = `watch.html?id=${sCourseId}`;
+            } else {
+                if(btn) { btn.innerHTML = "أنت مشترك بالفعل"; btn.disabled = false; }
+            }
         } else {
-            // 🆕 حالة 2: مش مشترك
-            // نسأله لو عايز يشترك
-            if (confirm(`هل تود الاشتراك في كورس: "${course.titleAr}"؟`)) {
-                
-                // تغيير زرار "اشترك" لـ "جاري التحميل" لو موجود قدامه
-                const btn = document.getElementById('c-action-btn');
-                if(btn) {
-                    btn.innerHTML = 'جاري التسجيل... ⏳';
-                    btn.disabled = true;
-                }
-
+            if(confirm("هل تريد الاشتراك في هذا الكورس وإضافته للوحة التحكم؟")) {
                 enrollmentRef.set({
-                    id: courseId,
+                    id: sCourseId,
                     type: courseType,
                     title: course.titleAr,
                     img: course.img,
@@ -212,22 +208,166 @@ window.enrollInCourse = function(courseId, courseType) {
                     completedLessons: [],
                     enrolledAt: new Date().toISOString()
                 }).then(() => {
-                    alert("تم الاشتراك بنجاح! 🎉\nتمت إضافة الكورس للوحة التحكم الخاصة بك.");
-                    window.location.href = "dashboard.html"; // وديه لوحة التحكم يشوف كورسه
+                    alert("تم الاشتراك بنجاح! 🎉\nتمت إضافة الكورس للوحة التحكم.");
+                    window.location.href = "dashboard.html";
                 }).catch((error) => {
                     console.error(error);
-                    alert("حدث خطأ أثناء التسجيل، حاول مرة أخرى.");
-                    if(btn) {
-                        btn.innerText = "اشترك وابدأ التعلم";
-                        btn.disabled = false;
-                    }
+                    alert("حصلت مشكلة في الاشتراك، حاول تاني.");
+                    if(btn) { btn.innerText = "اشترك وابدأ التعلم"; btn.disabled = false; }
                 });
+            } else {
+                if(btn) { btn.innerText = "اشترك وابدأ التعلم"; btn.disabled = false; }
             }
         }
     });
 }
 
-// ... (باقي الدوال: initCounters, animateValue, initProtection, injectLightboxStyles ...)
+// -------------------------------------------------------------------------
+// 6. وظائف المعرض (تحديث هام جداً للصور)
+// -------------------------------------------------------------------------
+let visibleGalleryCount = 0;
+const GALLERY_INCREMENT = 10;
+const MAX_IMAGES = 100;
+
+function initGalleryPage() {
+    const grid = document.getElementById('gallery-grid');
+    if(grid) grid.innerHTML = '';
+    loadGalleryImages();
+    const btn = document.getElementById('load-more-gallery');
+    if(btn) { btn.addEventListener('click', loadGalleryImages); }
+}
+
+function loadGalleryImages() {
+    const grid = document.getElementById('gallery-grid');
+    const btn = document.getElementById('load-more-gallery');
+    if(!grid) return;
+    
+    let start = visibleGalleryCount + 1;
+    let end = start + GALLERY_INCREMENT - 1;
+
+    if (start > MAX_IMAGES) {
+        if(btn) btn.style.display = 'none';
+        return;
+    }
+
+    let html = '';
+    for(let i=start; i<=end; i++) {
+        // محاولة تحميل الصورة من المسار الصحيح
+        const imgSrc = `images/gallery/${i}.jpg`; 
+        // صورة احتياطية (Placeholder) تظهر لو صورتك الأصلية مش موجودة
+        const fallbackLogic = `this.onerror=null; this.src='https://placehold.co/600x800/dcfce7/065f46?text=صورة+${i}';`;
+
+        html += `
+        <div class="break-inside-avoid mb-6 glass-panel rounded-2xl overflow-hidden group relative bg-white/40 border border-white hover:shadow-xl transition duration-300">
+            <div class="cursor-pointer relative" onclick="openLightbox(this.querySelector('img').src)">
+                <img src="${imgSrc}" loading="lazy" class="w-full h-auto block transform transition duration-500 group-hover:scale-105" onerror="${fallbackLogic}">
+                
+                <div class="absolute inset-0 bg-emerald-900/20 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                    <div class="bg-white/90 text-emerald-900 p-3 rounded-full shadow-lg transform scale-75 group-hover:scale-100 transition">
+                        <i data-lucide="zoom-in" class="w-6 h-6"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="p-3 flex justify-between items-center bg-white/80 backdrop-blur-md border-t border-white/50">
+                <div class="flex gap-2">
+                    <button onclick="toggleLike(${i})" class="flex items-center gap-1.5 text-slate-500 hover:text-red-500 transition group/like">
+                        <i data-lucide="heart" class="w-5 h-5 transition transform group-active/like:scale-125" id="heart-${i}"></i>
+                        <span id="likes-count-${i}" class="text-xs font-bold font-sans mt-0.5">0</span>
+                    </button>
+                </div>
+
+                <div class="flex gap-2">
+                    <button onclick="downloadImage(this.closest('.break-inside-avoid').querySelector('img').src)" class="text-emerald-600 hover:bg-emerald-50 p-2 rounded-lg transition" title="تحميل">
+                        <i data-lucide="download" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+        </div>`;
+    }
+
+    grid.insertAdjacentHTML('beforeend', html);
+    visibleGalleryCount = end;
+    
+    // تشغيل الأيقونات فوراً للعناصر الجديدة
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+    
+    if(typeof firebase !== 'undefined') listenToLikes(visibleGalleryCount);
+}
+
+// دالة التحميل
+window.downloadImage = function(src) {
+    const link = document.createElement('a');
+    link.href = src;
+    link.download = src.substring(src.lastIndexOf('/') + 1) || 'image.jpg';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+// دالة فتح اللايت بوكس
+window.openLightbox = function(src) {
+    const lb = document.getElementById('lightbox');
+    const img = document.getElementById('lightbox-img');
+    if(!lb || !img) return;
+    img.src = src;
+    lb.classList.remove('hidden');
+    lb.classList.add('flex');
+}
+
+window.closeLightbox = function() {
+    const lb = document.getElementById('lightbox');
+    lb.classList.add('hidden');
+    lb.classList.remove('flex');
+}
+
+// التفاعل مع اللايكات
+window.toggleLike = function(id) {
+    if(typeof firebase === 'undefined') return;
+    const db = firebase.database();
+    const likeRef = db.ref('likes/' + id);
+    const storageKey = `liked_${id}`;
+    const isLiked = localStorage.getItem(storageKey);
+
+    likeRef.transaction((currentLikes) => {
+        if (currentLikes === null) currentLikes = 0;
+        if (isLiked) {
+            localStorage.removeItem(storageKey);
+            updateHeartUI(id, false);
+            return currentLikes - 1;
+        } else {
+            localStorage.setItem(storageKey, 'true');
+            updateHeartUI(id, true);
+            return currentLikes + 1;
+        }
+    });
+}
+
+window.listenToLikes = function(limit) {
+    if(typeof firebase === 'undefined') return;
+    const db = firebase.database();
+    for(let i=1; i<=limit; i++) {
+        db.ref('likes/' + i).on('value', (snapshot) => {
+            const countEl = document.getElementById(`likes-count-${i}`);
+            if(countEl) countEl.innerText = snapshot.val() || 0;
+            updateHeartUI(i, localStorage.getItem(`liked_${i}`));
+        });
+    }
+}
+
+function updateHeartUI(id, isLiked) {
+    const icon = document.getElementById(`heart-${id}`);
+    if(icon) {
+        if(isLiked) {
+            icon.classList.add('fill-red-500', 'text-red-500');
+            icon.classList.remove('text-slate-400');
+        } else {
+            icon.classList.remove('fill-red-500', 'text-red-500');
+            icon.classList.add('text-slate-400');
+        }
+    }
+}
+
 function initCounters() {
     const counters = document.querySelectorAll('.counter-number');
     if(counters.length === 0) return;
@@ -272,16 +412,3 @@ function injectLightboxStyles() {
     `;
     document.head.appendChild(style);
 }
-// باقي دوال المعرض واللايكات... (موجودة في الملفات السابقة)
-let visibleGalleryCount = 0;
-const GALLERY_INCREMENT = 10;
-const MAX_IMAGES = 100;
-function initGalleryPage() { /* ... */ }
-function loadGalleryImages() { /* ... */ }
-window.downloadImage = function(src) { /* ... */ }
-window.openLightbox = function(src) { /* ... */ }
-window.closeLightbox = function() { /* ... */ }
-window.toggleLike = function(id) { /* ... */ }
-window.listenToLikes = function(limit) { /* ... */ }
-function updateHeartUI(id, isLiked) { /* ... */ }
-window.shareImage = function(imgSrc) { /* ... */ }
