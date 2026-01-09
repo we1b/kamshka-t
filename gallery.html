@@ -48,5 +48,120 @@
     </main>
 
     <div id="footer-ph"></div>
+
+    <script>
+        // 👇 قائمة بأسماء الصور الحقيقية التي رفعتها
+        const galleryImages = [
+            "image_78d31a.png", "image_79433b.png", "image_79afde.png", "image_7a28f7.png",
+            "image_7a2893.png", "image_7a3b5a.png", "image_8442aa.png", "image_849998.png",
+            "image_858637.png", "image_86140a.png", "image_8613e6.png", "image_861429.png",
+            "image_867239.png", "image_868be7.png", "image_868c2b.png", "image_868c0b.png",
+            "image_be6765.png", "image_0ecbe7.png", "image_1b09ae.png", "image_1b0d91.png"
+        ];
+
+        let visibleGalleryCount = 0;
+        const GALLERY_INCREMENT = 8; // عرض 8 صور في كل مرة
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const grid = document.getElementById('gallery-grid');
+            if(grid) grid.innerHTML = '';
+            loadGalleryBatch();
+
+            document.getElementById('load-more-gallery').addEventListener('click', () => {
+                loadGalleryBatch();
+            });
+            
+            // التأكد من تشغيل الأيقونات
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        });
+
+        function loadGalleryBatch() {
+            const grid = document.getElementById('gallery-grid');
+            const btn = document.getElementById('load-more-gallery');
+            
+            let start = visibleGalleryCount;
+            let end = start + GALLERY_INCREMENT;
+
+            // إخفاء الزر لو الصور خلصت
+            if (start >= galleryImages.length) {
+                if(btn) btn.style.display = 'none';
+                return;
+            }
+            if (end >= galleryImages.length) {
+                end = galleryImages.length;
+                if(btn) btn.style.display = 'none';
+            }
+
+            let html = '';
+            for(let i=start; i<end; i++) {
+                const imgName = galleryImages[i];
+                // المسار: images/اسم_الصورة
+                const imgSrc = `images/${imgName}`;
+                // صورة بديلة لو الصورة الأصلية مش موجودة
+                const fallbackImg = `https://placehold.co/600x800/dcfce7/065f46?text=تصميم+${i+1}`;
+
+                html += `
+                <div class="break-inside-avoid mb-6 glass-panel rounded-2xl overflow-hidden group relative bg-white/40 border border-white hover:shadow-xl transition duration-300">
+                    <div class="cursor-pointer relative" onclick="openGalleryLightbox('${imgSrc}')">
+                        
+                        <img src="${imgSrc}" loading="lazy" class="w-full h-auto block transform transition duration-500 group-hover:scale-105" 
+                             onerror="this.onerror=null; this.src='${fallbackImg}'">
+                        
+                        <div class="absolute inset-0 bg-emerald-900/20 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                            <div class="bg-white/90 text-emerald-900 p-3 rounded-full shadow-lg transform scale-75 group-hover:scale-100 transition">
+                                <i data-lucide="zoom-in" class="w-6 h-6"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-3 flex justify-between items-center bg-white/80 backdrop-blur-md border-t border-white/50">
+                        <button onclick="toggleLike(${i})" class="flex items-center gap-1.5 text-slate-500 hover:text-red-500 transition group/like">
+                            <i data-lucide="heart" class="w-5 h-5 transition transform group-active/like:scale-125" id="heart-${i}"></i>
+                            <span id="likes-count-${i}" class="text-xs font-bold font-sans mt-0.5">0</span>
+                        </button>
+
+                        <button onclick="shareGalleryImage('${imgSrc}')" class="text-emerald-600 hover:bg-emerald-50 p-2 rounded-lg transition" title="مشاركة">
+                            <i data-lucide="share-2" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                </div>`;
+            }
+
+            grid.insertAdjacentHTML('beforeend', html);
+            visibleGalleryCount = end;
+            
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+            
+            if(typeof listenToLikes === 'function') {
+                listenToLikes(visibleGalleryCount);
+            }
+        }
+
+        function openGalleryLightbox(src) {
+            const lb = document.getElementById('lightbox');
+            const img = document.getElementById('lightbox-img');
+            const dl = document.getElementById('lightbox-download');
+            img.src = src;
+            dl.href = src;
+            lb.classList.remove('hidden');
+            lb.classList.add('flex');
+        }
+
+        function closeLightbox() {
+            const lb = document.getElementById('lightbox');
+            lb.classList.add('hidden');
+            lb.classList.remove('flex');
+        }
+
+        function shareGalleryImage(src) {
+            const fullUrl = src.startsWith('http') ? src : window.location.origin + window.location.pathname.replace('gallery.html', '') + src;
+            if (navigator.share) {
+                navigator.share({ title: 'تصميم من كمشكاة', url: fullUrl }).catch(console.error);
+            } else {
+                navigator.clipboard.writeText(fullUrl);
+                alert('تم نسخ رابط الصورة!');
+            }
+        }
+    </script>
 </body>
 </html>
