@@ -1,12 +1,6 @@
 /* Path: js/main.js */
 
-<<<<<<< HEAD
-// ... (نفس الجزء الأول من الكود السابق الخاص بالترجمة والقائمة) ...
-// -------------------------------------------------------------------------
 // 1. إعدادات الترجمة
-// -------------------------------------------------------------------------
-=======
->>>>>>> 67269dce9a5c7f615b59dc66a2f16b5f41451dbc
 const translations = {
     ar: {
         nav_home: "الرئيسية",
@@ -18,31 +12,15 @@ const translations = {
         nav_login: "دخول",
         nav_account: "حسابي",
         footer_rights: "جميع الحقوق محفوظة © مصطفى كمشكاة 2025",
-        
         home_welcome: "كمشكاة",
         btn_start_learning: "ابدأ رحلة التعلم",
         btn_view_gallery: "شوف الإبداع",
         stat_followers: "زائر للموقع",
         stat_courses: "كورس متاح",
         stat_ambition: "طموح بلا حدود",
-
-        // تحديث نصوص صفحة الكورسات
-        courses_title: "اختار طريقك في التعلم",
-        courses_subtitle: "سواء بتدور على كورسات عالمية مجانية أو محتوى خاص لتطوير مهاراتك، إحنا هنا عشان نساعدك.",
-        courses_academy: "أكاديمية كمشكاة",
-        courses_academy_desc: "كورسات من إعدادنا الشخصي، مصممة خصيصاً عشان تطور منك ومن مهاراتك.",
-        btn_academy: "تصفح الأكاديمية 🏫",
-        courses_udemy: "كوبونات Udemy المجانية",
-        courses_udemy_desc: "بنجمعلك كوبونات لأقوى الكورسات العالمية من منصة Udemy عشان تاخدها مجاناً 100%.",
-        btn_udemy: "تصفح الكوبونات ▶️",
-
         gallery_title: "معرض التصميمات",
-        gallery_subtitle: "إبداع متجدد . لمسة فنية",
         btn_download: "تحميل",
         btn_share_img: "مشاركة",
-        btn_zoom: "تكبير",
-        btn_load_more: "عرض المزيد",
-        
         share_msg: "تم نسخ الرابط! شاركه مع أصحابك.",
         login_welcome: "أهلاً بيك تاني! 👋",
     },
@@ -56,51 +34,34 @@ const translations = {
         nav_login: "Login",
         nav_account: "My Account",
         footer_rights: "All Rights Reserved © Mostafa Kamshkat 2025",
-
         home_welcome: "Kamshkat",
         btn_start_learning: "Start Learning",
         btn_view_gallery: "View Gallery",
         stat_followers: "Visitors",
         stat_courses: "Courses Available",
         stat_ambition: "Limitless Ambition",
-
-        // Updated Courses Page Texts
-        courses_title: "Choose Your Learning Path",
-        courses_subtitle: "Whether you're looking for free global courses or exclusive content to develop your skills, we are here to help.",
-        courses_academy: "Kamshkat Academy",
-        courses_academy_desc: "Courses prepared personally by us, designed specifically to develop you and your skills.",
-        btn_academy: "Explore Academy 🏫",
-        courses_udemy: "Free Udemy Coupons",
-        courses_udemy_desc: "We collect coupons for top global courses from Udemy so you can get them for 100% free.",
-        btn_udemy: "Explore Coupons ▶️",
-
         gallery_title: "Design Gallery",
-        gallery_subtitle: "Renewed Creativity . Artistic Touch",
         btn_download: "Download",
         btn_share_img: "Share",
-        btn_zoom: "Zoom",
-        btn_load_more: "Load More",
-
         share_msg: "Link copied! Share it with friends.",
-        login_welcome: "Welcome Back! 👋",
     }
 };
 
 let currentLang = localStorage.getItem('kamshkat_lang') || 'ar';
 
-<<<<<<< HEAD
-=======
-// ... (باقي كود main.js زي ما هو، متنساش تنسخ الباقي من الملف السابق لو مش عندك) ...
-// (للتسهيل عليك، ده الجزء المتغير فقط، باقي الملف زي آخر نسخة بعتها ليك)
-
->>>>>>> 67269dce9a5c7f615b59dc66a2f16b5f41451dbc
 document.addEventListener('DOMContentLoaded', () => {
     setLanguage(currentLang); 
     loadNavbarFooter();       
     initProtection();         
-    lucide.createIcons();     
-    initChatbot(); 
-    initCounters(); 
+    
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    } else {
+        setTimeout(() => { if (typeof lucide !== 'undefined') lucide.createIcons(); }, 1000);
+    }
+
+    initCounters();
+    injectLightboxStyles(); 
 
     if(document.body.dataset.page === 'gallery') {
         initGalleryPage();
@@ -111,7 +72,7 @@ function toggleLanguage() {
     currentLang = currentLang === 'ar' ? 'en' : 'ar';
     localStorage.setItem('kamshkat_lang', currentLang);
     setLanguage(currentLang);
-    loadNavbarFooter();
+    loadNavbarFooter(); 
     location.reload(); 
 }
 
@@ -133,10 +94,10 @@ function loadNavbarFooter() {
     const langBtnText = currentLang === 'ar' ? 'En' : 'عربي';
     
     const navbarHTML = `
-    <nav class="fixed top-0 w-full glass-panel z-50 !bg-white/90 backdrop-blur-md border-b border-white/50 h-20 flex items-center shadow-sm">
+    <nav class="fixed top-0 w-full glass-panel z-50 !bg-white/90 backdrop-blur-md border-b border-white/50 h-20 flex items-center shadow-sm transition-all duration-300">
         <div class="container mx-auto px-4 flex justify-between items-center">
             <a href="index.html" class="flex items-center gap-2 font-black text-2xl text-emerald-800 hover:scale-105 transition">
-                <img src="images/logo.png" class="w-10 h-10 drop-shadow-sm object-contain" alt="Logo" onerror="this.style.display='none'"> 
+                <img src="images/ui/logo.png" class="w-10 h-10 drop-shadow-sm object-contain" alt="Logo" onerror="this.style.display='none'"> 
                 <span data-i18n="home_welcome">${t('home_welcome')}</span>
             </a>
             
@@ -158,13 +119,13 @@ function loadNavbarFooter() {
                     <a href="login.html" class="bg-emerald-600 text-white px-5 py-2 rounded-xl font-bold hover:bg-emerald-700 transition shadow-lg shadow-emerald-200 text-sm" data-i18n="nav_login">${t('nav_login')}</a>
                 </div>
 
-                <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="md:hidden p-2 rounded-lg bg-slate-100 text-emerald-800 hover:bg-emerald-100 transition">
+                <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-lg bg-slate-100 text-emerald-800 hover:bg-emerald-100 transition border border-slate-200">
                     <i data-lucide="menu" class="w-6 h-6"></i>
                 </button>
             </div>
         </div>
 
-        <div id="mobile-menu" class="hidden absolute top-20 left-0 w-full bg-white/95 backdrop-blur-xl border-t border-slate-100 p-4 shadow-xl flex flex-col gap-2 md:hidden animate-fade-in-down">
+        <div id="mobile-menu" class="hidden absolute top-20 left-0 w-full bg-white/95 backdrop-blur-xl border-t border-slate-100 p-4 shadow-xl flex flex-col gap-2 md:hidden animate-fade-in-down origin-top">
             <a href="index.html" class="p-3 rounded-xl hover:bg-emerald-50 text-slate-700 font-bold flex items-center gap-3"><i data-lucide="home" class="w-5 h-5 text-emerald-600"></i> ${t('nav_home')}</a>
             <a href="courses.html" class="p-3 rounded-xl hover:bg-emerald-50 text-slate-700 font-bold flex items-center gap-3"><i data-lucide="zap" class="w-5 h-5 text-emerald-600"></i> ${t('nav_courses')}</a>
             <a href="gallery.html" class="p-3 rounded-xl hover:bg-emerald-50 text-slate-700 font-bold flex items-center gap-3"><i data-lucide="image" class="w-5 h-5 text-emerald-600"></i> ${t('nav_gallery')}</a>
@@ -172,25 +133,32 @@ function loadNavbarFooter() {
             <a href="library.html" class="p-3 rounded-xl hover:bg-emerald-50 text-slate-700 font-bold flex items-center gap-3"><i data-lucide="library" class="w-5 h-5 text-emerald-600"></i> ${t('nav_library')}</a>
             <a href="contact.html" class="p-3 rounded-xl hover:bg-emerald-50 text-slate-700 font-bold flex items-center gap-3"><i data-lucide="phone" class="w-5 h-5 text-emerald-600"></i> ${t('nav_contact')}</a>
             <div class="h-px bg-slate-100 my-1"></div>
-            <a href="login.html" class="p-3 rounded-xl bg-emerald-600 text-white font-bold text-center shadow-lg">${t('nav_login')}</a>
+            <a href="login.html" class="p-3 rounded-xl bg-emerald-600 text-white font-bold text-center shadow-lg" id="mobile-auth-btn">${t('nav_login')}</a>
         </div>
     </nav>`;
 
     const footerHTML = `
     <footer class="text-center py-8 mt-auto relative z-10">
-        <div class="glass-panel inline-block px-8 py-4 rounded-full bg-white/50 backdrop-blur-md">
+        <div class="glass-panel inline-block px-8 py-4 rounded-full bg-white/50 backdrop-blur-md border border-white">
             <p class="text-emerald-800 font-bold text-sm" data-i18n="footer_rights">${t('footer_rights')}</p>
         </div>
     </footer>`;
 
     if(document.getElementById('header-ph')) document.getElementById('header-ph').innerHTML = navbarHTML;
     if(document.getElementById('footer-ph')) document.getElementById('footer-ph').innerHTML = footerHTML;
-    lucide.createIcons();
+    
+    if (typeof lucide !== 'undefined') lucide.createIcons();
 }
 
-<<<<<<< HEAD
+window.toggleMobileMenu = function() {
+    const menu = document.getElementById('mobile-menu');
+    if (menu) {
+        menu.classList.toggle('hidden');
+    }
+}
+
 // -------------------------------------------------------------------------
-// 5. وظيفة الاشتراك في الكورس (محدثة للمشاهدة الداخلية 🔥)
+// 5. وظيفة الاشتراك في الكورس (محدثة: رسالة وتوجيه للداشبورد) 🔥
 // -------------------------------------------------------------------------
 window.enrollInCourse = function(courseId, courseType) {
     const user = firebase.auth().currentUser;
@@ -201,27 +169,29 @@ window.enrollInCourse = function(courseId, courseType) {
     }
 
     let course = null;
-    if (courseType === 'udemy' && window.udemyData) {
+    if (courseType === 'udemy' && typeof window.udemyData !== 'undefined') {
         course = window.udemyData.find(c => c.id == courseId);
-    } else if (courseType === 'academy' && window.kameshkahData) {
+    } else if (courseType === 'academy' && typeof window.kameshkahData !== 'undefined') {
         course = window.kameshkahData.find(c => c.id == courseId);
     }
 
-    if (!course) { alert("حصل خطأ في بيانات الكورس!"); return; }
+    if (!course) { 
+        console.error("Course data not found", courseId, courseType);
+        alert("حصل خطأ في تحميل بيانات الكورس! تأكد من تحميل الصفحة بشكل صحيح."); 
+        return; 
+    }
 
-=======
-window.toggleLike = function(id) {
-    if(typeof firebase === 'undefined') return;
->>>>>>> 67269dce9a5c7f615b59dc66a2f16b5f41451dbc
     const db = firebase.database();
     const enrollmentRef = db.ref('users/' + user.uid + '/enrolledCourses/' + courseId);
 
+    // التحقق المباشر بدون تعقيد
     enrollmentRef.once('value', (snapshot) => {
         if (snapshot.exists()) {
-            // لو مشترك -> روح لصفحة المشاهدة
-            window.location.href = `watch.html?id=${courseId}`;
+            // لو مشترك، نوديه الداشبورد علطول
+            alert("أنت مشترك بالفعل! جاري نقلك لكورساتك...");
+            window.location.href = "dashboard.html";
         } else {
-            // إضافة اشتراك جديد
+            // اشتراك جديد
             enrollmentRef.set({
                 id: courseId,
                 type: courseType,
@@ -229,12 +199,15 @@ window.toggleLike = function(id) {
                 img: course.img,
                 progress: 0,
                 status: 'active',
-                completedLessons: [], // قائمة الدروس المكتملة
-                enrolledAt: new Date().toISOString(),
-                // بنحفظش الرابط هنا، بنجيبه من ملف الداتا الأساسي في صفحة المشاهدة
+                completedLessons: [],
+                enrolledAt: new Date().toISOString()
             }).then(() => {
-                alert("تم الاشتراك! يلا بينا نبدأ 🚀");
-                window.location.href = `watch.html?id=${courseId}`;
+                // إظهار رسالة نجاح مخصصة (Toast) لو موجودة في الصفحة، أو Alert عادي
+                showSuccessMessage("تم الاشتراك بنجاح! 🎉\nتمت إضافة الكورس للوحة التحكم.");
+                // تأخير بسيط قبل التحويل عشان يلحق يشوف الرسالة
+                setTimeout(() => {
+                    window.location.href = "dashboard.html";
+                }, 2000);
             }).catch((error) => {
                 console.error(error);
                 alert("حصلت مشكلة في الاشتراك، حاول تاني.");
@@ -243,155 +216,68 @@ window.toggleLike = function(id) {
     });
 }
 
-// -------------------------------------------------------------------------
-// 6. باقي الوظائف (بدون تغيير)
-// -------------------------------------------------------------------------
-// ... (باقي كود main.js زي ما هو، التقييم والنجوم والمعرض) ...
-// (منعاً للتكرار، انسخ باقي دوال main.js من الردود السابقة هنا)
-window.submitRating = function(courseId, ratingValue) {
-    const user = firebase.auth().currentUser;
-    if (!user) {
-        alert("لازم تسجل دخول عشان تقيم الكورس 😉");
-        return;
-    }
-    const db = firebase.database();
-    db.ref('users/' + user.uid + '/enrolledCourses/' + courseId).update({
-        userRating: ratingValue
-    }).then(() => {
-        updateStarsUI(ratingValue);
-        alert(`شكراً لتقييمك ${ratingValue} من 5! 🌟`);
-    }).catch(err => console.error(err));
+// دالة مساعدة لإظهار رسالة جميلة
+function showSuccessMessage(msg) {
+    // لو مفيش عنصر رسالة، نستخدم alert
+    const toast = document.createElement('div');
+    toast.className = "fixed bottom-5 left-1/2 transform -translate-x-1/2 bg-emerald-600 text-white px-6 py-3 rounded-full shadow-2xl z-50 flex items-center gap-2 animate-bounce-slow font-bold";
+    toast.innerHTML = `<i data-lucide="check-circle" class="w-5 h-5"></i> ${msg.replace('\n', ' ')}`;
+    document.body.appendChild(toast);
+    if(typeof lucide !== 'undefined') lucide.createIcons();
+    
+    // تختفي بعد 3 ثواني
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
 }
 
-window.checkUserRating = function(courseId) {
-    const user = firebase.auth().currentUser;
-    if (!user) return;
-    const db = firebase.database();
-    db.ref('users/' + user.uid + '/enrolledCourses/' + courseId + '/userRating').once('value', (snapshot) => {
-        const rating = snapshot.val();
-        if (rating) updateStarsUI(rating);
-    });
+// ... (باقي الدوال: initCounters, animateValue, initProtection, injectLightboxStyles ...)
+function initCounters() {
+    const counters = document.querySelectorAll('.counter-number');
+    if(counters.length === 0) return;
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if(entry.isIntersecting) {
+                const el = entry.target;
+                const target = +el.dataset.target || 0;
+                animateValue(el, 0, target, 2500); 
+                observer.unobserve(el);
+            }
+        });
+    }, { threshold: 0.2 });
+    counters.forEach(c => observer.observe(c));
 }
 
-function updateStarsUI(rating) {
-    const stars = document.querySelectorAll('.rating-star');
-    stars.forEach((star, index) => {
-        if (index < rating) {
-            star.classList.add('fill-yellow-400', 'text-yellow-400');
-            star.classList.remove('text-slate-300');
-        } else {
-            star.classList.remove('fill-yellow-400', 'text-yellow-400');
-            star.classList.add('text-slate-300');
-        }
-    });
+function animateValue(obj, start, end, duration) {
+    let startTimestamp = null;
+    const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        obj.innerHTML = Math.floor(progress * (end - start) + start) + '+';
+        if (progress < 1) window.requestAnimationFrame(step);
+    };
+    window.requestAnimationFrame(step);
 }
 
-// ... دوال المعرض والدردشة والحماية ...
-let visibleGalleryCount = 0; const GALLERY_INCREMENT = 10; const MAX_IMAGES = 100;
-function initGalleryPage() {
-    const grid = document.getElementById('gallery-grid'); if(grid) grid.innerHTML = '';
-    loadGalleryImages(); const btn = document.getElementById('load-more-gallery');
-    if(btn) { btn.addEventListener('click', loadGalleryImages); }
-}
-function loadGalleryImages() {
-    const grid = document.getElementById('gallery-grid'); if(!grid) return;
-    let start = visibleGalleryCount + 1; let end = start + GALLERY_INCREMENT - 1;
-    if (start > MAX_IMAGES) { document.getElementById('load-more-gallery').style.display = 'none'; return; }
-    let html = '';
-    for(let i=start; i<=end; i++) {
-        const imgSrc = `images/ui/${i}.jpg`; 
-        const fallbackLogic = `this.onerror=null; this.src='images/gallery/${i}.jpg'; this.onerror=function(){ this.src='images/${i}.webp'; this.onerror=function(){ this.src='images/ui/bg.jpg'; } }`;
-        html += `<div class="break-inside-avoid mb-6 glass-panel rounded-2xl overflow-hidden group relative bg-white/40 border border-white hover:shadow-xl transition duration-300">
-            <div class="cursor-pointer relative" onclick="openLightbox(this.querySelector('img').src, this.querySelector('img'))">
-                <img src="${imgSrc}" loading="lazy" class="w-full h-auto block transform transition duration-500 group-hover:scale-105" onerror="${fallbackLogic}">
-                <div class="absolute inset-0 bg-emerald-900/20 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
-                    <div class="bg-white/90 text-emerald-900 p-3 rounded-full shadow-lg transform scale-75 group-hover:scale-100 transition"><i data-lucide="zoom-in" class="w-6 h-6"></i></div>
-                </div>
-            </div>
-            <div class="p-3 flex justify-between items-center bg-white/80 backdrop-blur-md border-t border-white/50">
-                <button onclick="toggleLike(${i})" class="flex items-center gap-1.5 text-slate-500 hover:text-red-500 transition group/like"><i data-lucide="heart" class="w-5 h-5 transition transform group-active/like:scale-125" id="heart-${i}"></i><span id="likes-count-${i}" class="text-xs font-bold font-sans mt-0.5">0</span></button>
-                <button onclick="downloadImage(this.closest('.break-inside-avoid').querySelector('img').src)" class="text-emerald-600 hover:bg-emerald-50 p-2 rounded-lg transition"><i data-lucide="download" class="w-5 h-5"></i></button>
-            </div>
-        </div>`;
-    }
-    grid.insertAdjacentHTML('beforeend', html); visibleGalleryCount = end; lucide.createIcons();
-    if(typeof firebase !== 'undefined') listenToLikes(visibleGalleryCount);
-}
-window.downloadImage = function(src) {
-    const link = document.createElement('a'); link.href = src; link.download = src.substring(src.lastIndexOf('/') + 1) || 'image.jpg';
-    document.body.appendChild(link); link.click(); document.body.removeChild(link);
-}
-<<<<<<< HEAD
-window.openLightbox = function(src, thumbnailEl) {
-    const lb = document.getElementById('lightbox'); const img = document.getElementById('lightbox-img');
-    if(!lb || !img) return; img.src = src; lb.classList.remove('hidden'); lb.classList.add('flex');
-    if (thumbnailEl) { img.style.transform = 'scale(0.5)'; img.style.opacity = '0'; requestAnimationFrame(() => { img.style.transition = 'transform 0.4s, opacity 0.4s'; img.style.transform = 'scale(1)'; img.style.opacity = '1'; }); }
-}
-window.closeLightbox = function() {
-    const lb = document.getElementById('lightbox'); const img = document.getElementById('lightbox-img');
-    if(!lb || !img) return; img.style.transform = 'scale(0.8)'; img.style.opacity = '0';
-    setTimeout(() => { lb.classList.add('hidden'); lb.classList.remove('flex'); img.style.transform = ''; img.style.opacity = ''; }, 300);
-=======
-
-window.shareImage = function(imgSrc) {
-    const fullUrl = imgSrc.startsWith('http') ? imgSrc : window.location.origin + window.location.pathname.replace('gallery.html', '') + imgSrc;
-    if (navigator.share) {
-        navigator.share({
-            title: 'تصميم من كمشكاة',
-            text: 'شوف الإبداع ده!',
-            url: fullUrl
-        }).catch(console.error);
-    } else {
-        navigator.clipboard.writeText(fullUrl);
-        alert(t('share_msg'));
-    }
+function initProtection() {
+    document.addEventListener('contextmenu', event => event.preventDefault());
+    document.onkeydown = function(e) {
+        if(e.keyCode == 123) return false; 
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false; 
+        if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false; 
+    };
+    document.addEventListener('dragstart', function(e) { e.preventDefault(); });
 }
 
-window.downloadImage = function(src) {
-    const link = document.createElement('a');
-    link.href = src;
-    link.download = src.substring(src.lastIndexOf('/') + 1) || 'image.jpg';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+function injectLightboxStyles() {
+    const style = document.createElement('style');
+    style.innerHTML = `
+        #lightbox-img { max-height: 85vh; max-width: 90vw; border-radius: 12px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }
+        .masonry-grid { column-count: 1; column-gap: 1.5rem; }
+        @media (min-width: 640px) { .masonry-grid { column-count: 2; } }
+        @media (min-width: 1024px) { .masonry-grid { column-count: 3; } }
+        .animate-fade-in-down { animation: fadeInDown 0.3s ease-out forwards; }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+    `;
+    document.head.appendChild(style);
 }
-
-function initChatbot() {
-    (function(){
-        if(!window.chatbase || window.chatbase("getState") !== "initialized"){
-            window.chatbase = (...arguments) => {
-                if(!window.chatbase.q){ window.chatbase.q = [] }
-                window.chatbase.q.push(arguments)
-            };
-            window.chatbase = new Proxy(window.chatbase, {
-                get(target, prop){
-                    if(prop === "q"){ return target.q }
-                    return (...args) => target(prop, ...args)
-                }
-            })
-        }
-        const onLoad = function(){
-            const script = document.createElement("script");
-            script.src = "https://www.chatbase.co/embed.min.js";
-            script.id = "pzJqEYo1jgjQMK7rX1iuu";
-            script.domain = "www.chatbase.co";
-            document.body.appendChild(script)
-        };
-        if(document.readyState === "complete"){ onLoad() }
-        else { window.addEventListener("load", onLoad) }
-    })();
->>>>>>> 67269dce9a5c7f615b59dc66a2f16b5f41451dbc
-}
-window.toggleLike = function(id) {
-    if(typeof firebase === 'undefined') return; const db = firebase.database(); const likeRef = db.ref('likes/' + id); const storageKey = `liked_${id}`; const isLiked = localStorage.getItem(storageKey);
-    likeRef.transaction((currentLikes) => { if (currentLikes === null) currentLikes = 0; if (isLiked) { localStorage.removeItem(storageKey); updateHeartUI(id, false); return currentLikes - 1; } else { localStorage.setItem(storageKey, 'true'); updateHeartUI(id, true); return currentLikes + 1; } });
-}
-window.listenToLikes = function(limit) {
-    if(typeof firebase === 'undefined') return; const db = firebase.database(); for(let i=1; i<=limit; i++) { db.ref('likes/' + i).on('value', (snapshot) => { const countEl = document.getElementById(`likes-count-${i}`); if(countEl) countEl.innerText = snapshot.val() || 0; updateHeartUI(i, localStorage.getItem(`liked_${i}`)); }); }
-}
-function updateHeartUI(id, isLiked) { const icon = document.getElementById(`heart-${id}`); if(icon) { if(isLiked) { icon.classList.add('fill-red-500', 'text-red-500'); icon.classList.remove('text-slate-400'); } else { icon.classList.remove('fill-red-500', 'text-red-500'); icon.classList.add('text-slate-400'); } } }
-function initChatbot() { (function(){ if(!window.chatbase || window.chatbase("getState") !== "initialized"){ window.chatbase = (...arguments) => { if(!window.chatbase.q){ window.chatbase.q = [] } window.chatbase.q.push(arguments) }; window.chatbase = new Proxy(window.chatbase, { get(target, prop){ if(prop === "q"){ return target.q } return (...args) => target(prop, ...args) } }) } const onLoad = function(){ const script = document.createElement("script"); script.src = "https://www.chatbase.co/embed.min.js"; script.id = "pzJqEYo1jgjQMK7rX1iuu"; script.domain = "www.chatbase.co"; document.body.appendChild(script) }; if(document.readyState === "complete"){ onLoad() } else { window.addEventListener("load", onLoad) } })(); }
-function initCounters() { const counters = document.querySelectorAll('.counter-number'); if(counters.length === 0) return; const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if(entry.isIntersecting) { const el = entry.target; const target = +el.dataset.target || 0; animateValue(el, 0, target, 2500); observer.unobserve(el); } }); }, { threshold: 0.2 }); counters.forEach(c => observer.observe(c)); }
-function animateValue(obj, start, end, duration) { let startTimestamp = null; const step = (timestamp) => { if (!startTimestamp) startTimestamp = timestamp; const progress = Math.min((timestamp - startTimestamp) / duration, 1); obj.innerHTML = Math.floor(progress * (end - start) + start) + '+'; if (progress < 1) window.requestAnimationFrame(step); }; window.requestAnimationFrame(step); }
-function initProtection() { document.addEventListener('contextmenu', event => event.preventDefault()); document.onkeydown = function(e) { if(e.keyCode == 123) return false; if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false; if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false; }; document.addEventListener('dragstart', function(e) { e.preventDefault(); }); }
-function injectLightboxStyles() { const style = document.createElement('style'); style.innerHTML = `#lightbox-img { max-height: 85vh; max-width: 90vw; border-radius: 12px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); } .masonry-grid { column-count: 1; column-gap: 1.5rem; } @media (min-width: 640px) { .masonry-grid { column-count: 2; } } @media (min-width: 1024px) { .masonry-grid { column-count: 3; } }`; document.head.appendChild(style); }
