@@ -50,17 +50,10 @@
     <div id="footer-ph"></div>
 
     <script>
-        // 👇 قائمة بأسماء الصور الحقيقية التي رفعتها
-        const galleryImages = [
-            "image_78d31a.png", "image_79433b.png", "image_79afde.png", "image_7a28f7.png",
-            "image_7a2893.png", "image_7a3b5a.png", "image_8442aa.png", "image_849998.png",
-            "image_858637.png", "image_86140a.png", "image_8613e6.png", "image_861429.png",
-            "image_867239.png", "image_868be7.png", "image_868c2b.png", "image_868c0b.png",
-            "image_be6765.png", "image_0ecbe7.png", "image_1b09ae.png", "image_1b0d91.png"
-        ];
-
+        // 👇 التعديل هنا: نظام الترقيم (1.webp, 2.webp...)
         let visibleGalleryCount = 0;
-        const GALLERY_INCREMENT = 8; // عرض 8 صور في كل مرة
+        const GALLERY_INCREMENT = 12; // عدد الصور في كل دفعة
+        const MAX_IMAGES = 50; // 👈 غير الرقم ده لعدد الصور الإجمالي اللي عندك في الفولدر
 
         document.addEventListener('DOMContentLoaded', () => {
             const grid = document.getElementById('gallery-grid');
@@ -71,7 +64,6 @@
                 loadGalleryBatch();
             });
             
-            // التأكد من تشغيل الأيقونات
             if (typeof lucide !== 'undefined') lucide.createIcons();
         });
 
@@ -79,31 +71,29 @@
             const grid = document.getElementById('gallery-grid');
             const btn = document.getElementById('load-more-gallery');
             
-            let start = visibleGalleryCount;
-            let end = start + GALLERY_INCREMENT;
+            let start = visibleGalleryCount + 1; // نبدأ من صورة رقم 1
+            let end = start + GALLERY_INCREMENT - 1;
 
-            // إخفاء الزر لو الصور خلصت
-            if (start >= galleryImages.length) {
+            if (start > MAX_IMAGES) {
                 if(btn) btn.style.display = 'none';
                 return;
             }
-            if (end >= galleryImages.length) {
-                end = galleryImages.length;
-                if(btn) btn.style.display = 'none';
-            }
 
             let html = '';
-            for(let i=start; i<end; i++) {
-                const imgName = galleryImages[i];
-                // المسار: images/اسم_الصورة
-                const imgSrc = `images/${imgName}`;
+            for(let i=start; i<=end; i++) {
+                if (i > MAX_IMAGES) break; // وقف لو عدينا العدد الأقصى
+
+                // 👇 اسم الصورة بيبقى رقم + .webp (تأكد إن الصور في فولدر images مباشرة)
+                const imgSrc = `images/${i}.webp`;
+                
                 // صورة بديلة لو الصورة الأصلية مش موجودة
-                const fallbackImg = `https://placehold.co/600x800/dcfce7/065f46?text=تصميم+${i+1}`;
+                const fallbackImg = `https://placehold.co/600x800/dcfce7/065f46?text=صورة+${i}`;
 
                 html += `
                 <div class="break-inside-avoid mb-6 glass-panel rounded-2xl overflow-hidden group relative bg-white/40 border border-white hover:shadow-xl transition duration-300">
                     <div class="cursor-pointer relative" onclick="openGalleryLightbox('${imgSrc}')">
                         
+                        <!-- بنجرب نحمل webp الأول، لو مش موجودة نحط الـ fallback -->
                         <img src="${imgSrc}" loading="lazy" class="w-full h-auto block transform transition duration-500 group-hover:scale-105" 
                              onerror="this.onerror=null; this.src='${fallbackImg}'">
                         
