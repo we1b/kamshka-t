@@ -2,12 +2,13 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- ده مهم جداً للموبايل -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>كمشكاة | يوديمي</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="js/main.js"></script>
+    <!-- لازم الملف ده يتحمل عشان فيه التصنيفات -->
     <script src="js/udemy-data.js"></script>
 </head>
 <body data-page="courses">
@@ -19,7 +20,7 @@
         
         <!-- Search & Filter Section -->
         <div class="mb-10 fade-in space-y-6">
-            <!-- Animated Search Bar -->
+            <!-- Search Bar -->
             <div class="relative max-w-xl mx-auto group">
                 <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                     <i data-lucide="search" class="w-5 h-5 text-slate-400 group-focus-within:text-purple-600 transition"></i>
@@ -29,17 +30,22 @@
                     placeholder="ابحث عن كورس (فوتوشوب، بايثون...)">
             </div>
 
-            <!-- Category Filters (Scrollable on mobile if needed, or wrapped) -->
-            <div class="flex flex-wrap justify-center gap-2" id="category-filters">
-                <button class="filter-btn active px-4 md:px-6 py-2 rounded-full font-bold text-xs md:text-sm bg-purple-600 text-white shadow-md transition hover:scale-105" data-cat="all">الكل</button>
-                <button class="filter-btn px-4 md:px-6 py-2 rounded-full font-bold text-xs md:text-sm bg-white text-slate-600 hover:bg-purple-50 transition border border-slate-200" data-cat="graphic">جرافيك</button>
-                <button class="filter-btn px-4 md:px-6 py-2 rounded-full font-bold text-xs md:text-sm bg-white text-slate-600 hover:bg-purple-50 transition border border-slate-200" data-cat="programming">برمجة</button>
-                <button class="filter-btn px-4 md:px-6 py-2 rounded-full font-bold text-xs md:text-sm bg-white text-slate-600 hover:bg-purple-50 transition border border-slate-200" data-cat="business">بيزنس</button>
-                <button class="filter-btn px-4 md:px-6 py-2 rounded-full font-bold text-xs md:text-sm bg-white text-slate-600 hover:bg-purple-50 transition border border-slate-200" data-cat="marketing">تسويق</button>
-                <button class="filter-btn px-4 md:px-6 py-2 rounded-full font-bold text-xs md:text-sm bg-white text-slate-600 hover:bg-purple-50 transition border border-slate-200" data-cat="tech">تكنولوجيا</button>
+            <!-- Categories Container (Dynamic) -->
+            <div class="space-y-4">
+                <!-- Main Categories -->
+                <div class="flex flex-wrap justify-center gap-2" id="main-cats-container">
+                    <!-- هيتم رسم الزراير هنا بالجافاسكريبت -->
+                </div>
+                
+                <!-- Sub Categories (Hidden by default) -->
+                <div id="sub-cats-wrapper" class="hidden bg-purple-50/50 p-4 rounded-2xl border border-purple-100">
+                    <p class="text-xs font-bold text-purple-800 mb-2 text-center">تصفية دقيقة:</p>
+                    <div class="flex flex-wrap justify-center gap-2" id="sub-cats-container"></div>
+                </div>
             </div>
         </div>
 
+        <!-- Grid -->
         <div id="udemy-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 fade-in">
             <!-- الكورسات هتنزل هنا -->
         </div>
@@ -55,14 +61,15 @@
 
     <script>
         let currentUdemyCount = 0;
-        const UDEMY_BATCH_SIZE = 6;
-        let activeCategory = 'all';
+        const UDEMY_BATCH_SIZE = 9;
+        let activeMainCat = 'all';
+        let activeSubCat = 'all';
         let searchQuery = '';
         let filteredData = [];
 
         document.addEventListener('DOMContentLoaded', () => {
-            // تهيئة الفلترة والبحث
-            filterData(); 
+            renderCategories(); // رسم التصنيفات الأول
+            filterData(); // تحميل الكورسات
             
             document.getElementById('search-input').addEventListener('keyup', (e) => {
                 searchQuery = e.target.value.toLowerCase();
@@ -70,26 +77,106 @@
                 filterData();
             });
 
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    document.querySelectorAll('.filter-btn').forEach(b => {
-                        b.classList.remove('bg-purple-600', 'text-white');
-                        b.classList.add('bg-white', 'text-slate-600');
-                    });
-                    e.target.classList.remove('bg-white', 'text-slate-600');
-                    e.target.classList.add('bg-purple-600', 'text-white');
-
-                    activeCategory = e.target.dataset.cat;
-                    currentUdemyCount = 0;
-                    filterData();
-                });
-            });
-
             document.getElementById('load-more-udemy').addEventListener('click', () => {
                 renderBatch();
             });
         });
 
+        // 1. دالة رسم التصنيفات ديناميكياً
+        function renderCategories() {
+            const mainContainer = document.getElementById('main-cats-container');
+            const categories = window.udemyCategories || [];
+
+            // زرار "الكل"
+            let html = `
+                <button onclick="selectCategory('all', this)" class="cat-btn active px-4 py-2 rounded-full font-bold text-xs md:text-sm bg-purple-600 text-white shadow-md transition hover:scale-105 border border-transparent">
+                    الكل
+                </button>
+            `;
+
+            // رسم باقي التصنيفات من الملف
+            categories.forEach(cat => {
+                html += `
+                <button onclick="selectCategory('${cat.id}', this)" class="cat-btn px-4 py-2 rounded-full font-bold text-xs md:text-sm bg-white text-slate-600 hover:bg-purple-50 transition border border-slate-200 flex items-center gap-2">
+                    <i data-lucide="${cat.icon}" class="w-4 h-4"></i> ${cat.title}
+                </button>
+                `;
+            });
+
+            mainContainer.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        // 2. دالة اختيار التصنيف الرئيسي
+        window.selectCategory = function(catId, btn) {
+            // تحديث الستايل
+            document.querySelectorAll('.cat-btn').forEach(b => {
+                b.classList.remove('bg-purple-600', 'text-white', 'active');
+                b.classList.add('bg-white', 'text-slate-600');
+            });
+            btn.classList.remove('bg-white', 'text-slate-600');
+            btn.classList.add('bg-purple-600', 'text-white', 'active');
+
+            activeMainCat = catId;
+            activeSubCat = 'all'; // تصفير الفرعي
+            currentUdemyCount = 0;
+
+            // إظهار/إخفاء الأقسام الفرعية
+            renderSubCategories(catId);
+            filterData();
+        }
+
+        // 3. رسم الأقسام الفرعية
+        function renderSubCategories(catId) {
+            const subWrapper = document.getElementById('sub-cats-wrapper');
+            const subContainer = document.getElementById('sub-cats-container');
+            
+            if (catId === 'all') {
+                subWrapper.classList.add('hidden');
+                return;
+            }
+
+            // هات بيانات القسم المختار
+            const selectedCatData = window.udemyCategories.find(c => c.id === catId);
+            
+            if (selectedCatData && selectedCatData.sub) {
+                let html = `
+                    <button onclick="selectSubCategory('all', this)" class="sub-cat-btn active px-3 py-1 rounded-lg text-xs font-bold bg-purple-200 text-purple-800 border border-purple-300">
+                        الكل
+                    </button>
+                `;
+                
+                selectedCatData.sub.forEach(sub => {
+                    html += `
+                    <button onclick="selectSubCategory('${sub}', this)" class="sub-cat-btn px-3 py-1 rounded-lg text-xs font-bold bg-white text-slate-500 border border-purple-100 hover:bg-purple-100 transition">
+                        ${sub}
+                    </button>
+                    `;
+                });
+
+                subContainer.innerHTML = html;
+                subWrapper.classList.remove('hidden');
+                subWrapper.classList.add('animate-fade-in-down'); // أنيميشن بسيط
+            } else {
+                subWrapper.classList.add('hidden');
+            }
+        }
+
+        // 4. اختيار القسم الفرعي
+        window.selectSubCategory = function(subName, btn) {
+            document.querySelectorAll('.sub-cat-btn').forEach(b => {
+                b.classList.remove('bg-purple-200', 'text-purple-800', 'border-purple-300');
+                b.classList.add('bg-white', 'text-slate-500', 'border-purple-100');
+            });
+            btn.classList.remove('bg-white', 'text-slate-500', 'border-purple-100');
+            btn.classList.add('bg-purple-200', 'text-purple-800', 'border-purple-300');
+
+            activeSubCat = subName;
+            currentUdemyCount = 0;
+            filterData();
+        }
+
+        // 5. الفلترة الرئيسية
         function filterData() {
             const grid = document.getElementById('udemy-grid');
             grid.innerHTML = '';
@@ -97,14 +184,43 @@
             if(!window.udemyData) return;
 
             filteredData = window.udemyData.filter(c => {
-                const matchCat = activeCategory === 'all' || c.cat === activeCategory;
+                // فلتر البحث
                 const matchSearch = c.titleAr.toLowerCase().includes(searchQuery) || c.titleEn.toLowerCase().includes(searchQuery);
-                return matchCat && matchSearch;
+                
+                // فلتر التصنيف الرئيسي
+                let matchMain = true;
+                if (activeMainCat !== 'all') {
+                    // بنجيب الاسم الحقيقي للتصنيف (Development, Business...)
+                    const catObj = window.udemyCategories.find(x => x.id === activeMainCat);
+                    if (catObj) {
+                        // مقارنة مرنة (لو الداتا فيها Development و الـ ID development)
+                        matchMain = c.cat && c.cat.toLowerCase() === catObj.title.toLowerCase();
+                    }
+                }
+
+                // فلتر التصنيف الفرعي
+                let matchSub = true;
+                if (activeSubCat !== 'all') {
+                    matchSub = c.subCat && c.subCat === activeSubCat;
+                }
+
+                return matchSearch && matchMain && matchSub;
             });
 
-            if(filteredData.length === 0) {
-                grid.innerHTML = `<div class="col-span-full text-center py-10 text-slate-500 font-bold">مفيش كورسات بالاسم ده 🤷‍♂️</div>`;
+            // لو مفيش نتايج
+            if (filteredData.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-16 bg-white/50 rounded-3xl border border-dashed border-slate-300">
+                        <div class="bg-slate-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse">
+                            <i data-lucide="search-x" class="w-10 h-10 text-slate-400"></i>
+                        </div>
+                        <p class="text-slate-600 font-bold text-lg mb-2">مفيش كوبونات متاحة حالياً في القسم ده 😔</p>
+                        <p class="text-slate-500 text-sm">جرب قسم تاني أو ارجع وقت تاني، الكوبونات بتتجدد!</p>
+                        <button onclick="selectCategory('all', document.querySelector('.cat-btn'))" class="mt-4 text-purple-600 font-bold hover:underline">عرض كل الكورسات</button>
+                    </div>
+                `;
                 document.getElementById('load-more-container').style.display = 'none';
+                lucide.createIcons();
             } else {
                 document.getElementById('load-more-container').style.display = 'block';
                 renderBatch();
@@ -126,39 +242,26 @@
             }
 
             const html = batch.map(c => {
-                let catName = "عام";
-                let badgeColor = "bg-slate-500";
-                switch(c.cat) {
-                    case "tech": catName = "تكنولوجيا"; badgeColor = "bg-blue-500"; break;
-                    case "business": catName = "بيزنس"; badgeColor = "bg-emerald-500"; break;
-                    case "graphic": catName = "جرافيك"; badgeColor = "bg-pink-500"; break;
-                    case "programming": catName = "برمجة"; badgeColor = "bg-indigo-500"; break;
-                    case "marketing": catName = "تسويق"; badgeColor = "bg-orange-500"; break;
-                    case "development": catName = "تطوير ذات"; badgeColor = "bg-teal-500"; break;
-                }
-
                 return `
-                <div class="glass-panel rounded-2xl overflow-hidden group flex flex-col h-full hover:-translate-y-2 transition duration-300 fade-in">
+                <div class="glass-panel rounded-2xl overflow-hidden group flex flex-col h-full hover:-translate-y-2 transition duration-300 fade-in border border-white/50">
                     <div class="relative h-48 overflow-hidden">
                         <img src="${c.img}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/600x400/8b5cf6/ffffff?text=Udemy'">
-                        <span class="absolute top-3 left-3 ${badgeColor} text-white text-xs font-bold px-3 py-1 rounded-full shadow-md z-10">
-                            ${catName}
+                        <span class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-purple-700 text-xs font-bold px-3 py-1 rounded-full shadow-sm z-10">
+                            ${c.cat}
                         </span>
                     </div>
                     <div class="p-5 flex-1 flex flex-col">
                         <div class="flex items-center gap-1 text-xs text-slate-500 font-bold mb-2">
-                            <i data-lucide="calendar" class="w-3 h-3"></i> ${c.date || 'جديد'}
+                            <i data-lucide="clock" class="w-3 h-3"></i> ${c.date || 'لفترة محدودة'}
                         </div>
-                        <h3 class="font-bold text-lg mb-2 text-slate-900 leading-snug">${c.titleAr}</h3>
+                        <h3 class="font-bold text-lg mb-2 text-slate-900 leading-snug line-clamp-2" title="${c.titleEn}">${c.titleAr}</h3>
                         <p class="text-slate-500 text-sm mb-4 line-clamp-2">${c.desc}</p>
+                        
                         <div class="mt-auto flex gap-2">
-                            <a href="${c.url}" target="_blank" class="flex-1 bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-lg text-center font-bold transition text-sm flex items-center justify-center gap-1 shadow-md shadow-purple-200">
-                                احصل عليه <i data-lucide="external-link" class="w-3 h-3"></i>
+                            <a href="${c.url}" target="_blank" class="flex-1 bg-purple-600 hover:bg-purple-700 text-white py-2.5 rounded-xl text-center font-bold transition text-sm flex items-center justify-center gap-2 shadow-md shadow-purple-200">
+                                احصل عليه <i data-lucide="external-link" class="w-4 h-4"></i>
                             </a>
-                            <a href="course-details.html?id=${c.id}&type=udemy" class="px-3 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg flex items-center justify-center transition border border-slate-200">
-                                <i data-lucide="info" class="w-5 h-5"></i>
-                            </a>
-                            <button onclick="shareLink('${c.titleAr}', '${c.url}')" class="px-3 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center transition border border-blue-200">
+                            <button onclick="shareLink('${c.titleAr}', '${c.url}')" class="px-3 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center transition border border-blue-200">
                                 <i data-lucide="share-2" class="w-5 h-5"></i>
                             </button>
                         </div>
