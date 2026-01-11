@@ -4,11 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>كمشكاة | لوحة التحكم</title>
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-482MR7LT23"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-482MR7LT23');
+    </script>
+
     <link rel="icon" type="image/png" href="images/ui/logo.png">
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
@@ -17,7 +29,6 @@
     <script src="js/main.js"></script>
     <script src="js/dashboard.js"></script>
 
-    <!-- ستايلات خاصة بتحدي رمضان -->
     <style>
         .custom-checkbox { appearance: none; -webkit-appearance: none; background-color: #fff; margin: 0; width: 1.5em; height: 1.5em; border: 2px solid #D1D5DB; border-radius: 0.5em; display: grid; place-content: center; cursor: pointer; transition: all 0.2s ease-in-out; }
         .custom-checkbox::before { content: ""; width: 0.8em; height: 0.8em; transform: scale(0); transition: 120ms transform ease-in-out; box-shadow: inset 1em 1em white; transform-origin: center; clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%); }
@@ -42,9 +53,7 @@
     <main class="pt-32 px-4 container mx-auto min-h-screen pb-12 fade-in">
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
             
-            <!-- القائمة الجانبية -->
             <div class="lg:col-span-1 space-y-6">
-                <!-- كارت البروفايل -->
                 <div class="glass-panel p-6 rounded-3xl text-center relative overflow-hidden bg-white/80 backdrop-blur-md">
                     <div class="relative w-24 h-24 mx-auto mb-3 group">
                         <img id="user-avatar" src="images/ui/logo.png" class="w-full h-full rounded-full object-cover border-4 border-white/50 shadow-md transition duration-300">
@@ -75,12 +84,9 @@
                 </div>
             </div>
 
-            <!-- المحتوى -->
             <div class="lg:col-span-3 space-y-6">
                 
-                <!-- 1. قسم لوحتي -->
                 <div id="section-dashboard" class="content-section space-y-6">
-                    <!-- بانر رمضان -->
                     <div class="bg-gradient-to-r from-emerald-600 to-teal-700 text-white p-6 rounded-3xl shadow-lg relative overflow-hidden group cursor-pointer" onclick="showSection('ramadan')">
                         <div class="absolute top-0 left-0 p-4 opacity-10"><i data-lucide="moon" class="w-32 h-32"></i></div>
                         <div class="relative z-10 flex justify-between items-center">
@@ -94,7 +100,6 @@
                         </div>
                     </div>
 
-                    <!-- الكورسات -->
                     <div>
                         <h3 class="font-bold text-emerald-900 mb-4 flex items-center gap-2 text-lg">
                             <i data-lucide="play-circle" class="text-emerald-600"></i> كورساتي الحالية
@@ -105,9 +110,7 @@
                     </div>
                 </div>
 
-                <!-- 2. قسم تحدي رمضان (التصميم الجديد) -->
                 <div id="section-ramadan" class="content-section hidden space-y-6">
-                    <!-- ملخص الإنجاز -->
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
                         <div class="flex justify-between items-end mb-2">
                             <div>
@@ -120,64 +123,77 @@
                             <div class="bg-[#047857] h-3 rounded-full transition-all duration-700 ease-out" id="progress-bar" style="width: 0%"></div>
                         </div>
                         
-                        <!-- شريط الأيام -->
                         <div class="flex gap-2 overflow-x-auto pb-2 mt-6" id="ramadan-days-scroller">
                             <!-- الأيام هتتولد هنا -->
                         </div>
                     </div>
 
-                    <!-- الأساسيات -->
-                    <div class="flex items-center gap-2 mb-2">
-                        <div class="w-1 h-6 bg-[#047857] rounded-full"></div>
-                        <h3 class="text-xl font-bold text-gray-800">الأساسيات (الثوابت) 🕌</h3>
-                    </div>
+                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div class="lg:col-span-1 space-y-6">
+                            <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+                                <h3 class="font-bold text-gray-700 mb-4">أداؤك اليوم 📊</h3>
+                                <canvas id="dailyChart" width="200" height="200"></canvas>
+                            </div>
+                             <div class="bg-blue-50 p-5 rounded-2xl border border-blue-100">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <i data-lucide="lightbulb" class="text-blue-600 w-5 h-5"></i>
+                                    <h3 class="font-bold text-blue-800">نصيحة اليوم</h3>
+                                </div>
+                                <p class="text-sm text-blue-700 leading-relaxed" id="daily-advice">
+                                    ابدأ بتسجيل عباداتك عشان نقدر نساعدك!
+                                </p>
+                            </div>
+                        </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        <!-- الصلوات -->
-                        <div id="prayers-container" class="contents"></div>
-                        
-                        <!-- ورد القرآن -->
-                        <div class="stat-card quran-card p-5 rounded-xl shadow-sm flex flex-col justify-between relative group cursor-pointer" onclick="toggleQuran()">
-                            <div class="relative z-10">
-                                <div class="flex justify-between items-start">
-                                    <div>
-                                        <h4 class="font-bold text-lg text-white">ورد القرآن</h4>
-                                        <p class="text-emerald-100 text-sm mt-1" id="quran-status-text">اضغط لتسجيل الورد 📖</p>
+                        <div class="lg:col-span-2 space-y-6">
+                            <div class="flex items-center gap-2 mb-2">
+                                <div class="w-1 h-6 bg-[#047857] rounded-full"></div>
+                                <h3 class="text-xl font-bold text-gray-800">الأساسيات (الثوابت) 🕌</h3>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div id="prayers-container" class="contents"></div>
+                                <div class="stat-card quran-card p-5 rounded-xl shadow-sm flex flex-col justify-between relative group cursor-pointer" onclick="toggleQuran()">
+                                    <div class="relative z-10">
+                                        <div class="flex justify-between items-start">
+                                            <div>
+                                                <h4 class="font-bold text-lg text-white">ورد القرآن</h4>
+                                                <p class="text-emerald-100 text-sm mt-1" id="quran-status-text">اضغط لتسجيل الورد 📖</p>
+                                            </div>
+                                            <div class="p-2 bg-white/20 rounded-lg backdrop-blur-sm">
+                                                <i data-lucide="book-open" class="text-white"></i>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="p-2 bg-white/20 rounded-lg backdrop-blur-sm">
-                                        <i data-lucide="book-open" class="text-white"></i>
+                                    <div class="mt-4 flex items-center gap-3 relative z-10">
+                                        <div id="quran-check-circle" class="w-8 h-8 rounded-full border-2 border-white/50 flex items-center justify-center transition-all">
+                                            <i data-lucide="check" class="w-5 h-5 text-white opacity-0 transition-opacity"></i>
+                                        </div>
+                                        <span class="text-sm font-semibold text-white" id="quran-action-text">لم يتم بعد</span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="mt-4 flex items-center gap-3 relative z-10">
-                                <div id="quran-check-circle" class="w-8 h-8 rounded-full border-2 border-white/50 flex items-center justify-center transition-all">
-                                    <i data-lucide="check" class="w-5 h-5 text-white opacity-0 transition-opacity"></i>
+
+                            <div class="flex justify-between items-center mb-2 mt-8">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-1 h-6 bg-[#D4AF37] rounded-full"></div>
+                                    <h3 class="text-xl font-bold text-gray-800">النوافل (زيادة خير) 🌱</h3>
                                 </div>
-                                <span class="text-sm font-semibold text-white" id="quran-action-text">لم يتم بعد</span>
+                                <button onclick="toggleSettingsModal()" class="text-sm text-[#047857] hover:bg-[#ECFDF5] px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1">
+                                    <i data-lucide="sliders-horizontal" class="w-4 h-4"></i> تعديل
+                                </button>
+                            </div>
+
+                            <div id="flexible-habits-container" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+                            <div id="empty-habits-msg" class="hidden text-center p-8 bg-gray-50 rounded-xl border border-dashed border-gray-300">
+                                <p class="text-gray-500">مش مفعل أي سنن.. ركز في الأساسي وممتاز عليك! 👌</p>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- النوافل -->
-                    <div class="flex justify-between items-center mb-2 mt-8">
-                        <div class="flex items-center gap-2">
-                            <div class="w-1 h-6 bg-[#D4AF37] rounded-full"></div>
-                            <h3 class="text-xl font-bold text-gray-800">النوافل (زيادة خير) 🌱</h3>
-                        </div>
-                        <button onclick="toggleSettingsModal()" class="text-sm text-[#047857] hover:bg-[#ECFDF5] px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1">
-                            <i data-lucide="sliders-horizontal" class="w-4 h-4"></i> تعديل
-                        </button>
-                    </div>
-
-                    <div id="flexible-habits-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
-                    <div id="empty-habits-msg" class="hidden text-center p-8 bg-gray-50 rounded-xl border border-dashed border-gray-300">
-                        <p class="text-gray-500">مش مفعل أي سنن.. ركز في الأساسي وممتاز عليك! 👌</p>
                     </div>
                 </div>
 
-                <!-- 3. قسم الإعدادات -->
                 <div id="section-settings" class="content-section hidden">
-                    <div class="glass-panel p-8 rounded-3xl">
+                    <div class="glass-panel p-8 rounded-3xl max-w-lg mx-auto bg-white">
                         <h2 class="text-xl font-black text-emerald-900 mb-6">تعديل البيانات</h2>
                         <form id="profile-form" class="space-y-4">
                             <div><label class="block text-slate-700 font-bold mb-2 text-sm">الاسم</label><input type="text" id="edit-name" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 outline-none"></div>
@@ -189,7 +205,6 @@
         </div>
     </main>
 
-    <!-- نافذة إعدادات النوافل -->
     <div id="settings-modal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center backdrop-blur-sm">
         <div class="bg-white rounded-2xl w-full max-w-md mx-4 shadow-2xl overflow-hidden animate-[fadeIn_0.2s_ease-out]">
             <div class="p-5 border-b border-gray-100 flex justify-between items-center bg-[#ECFDF5]">
@@ -202,7 +217,7 @@
             </div>
         </div>
     </div>
-
+    
     <div id="footer-ph"></div>
 </body>
 </html>

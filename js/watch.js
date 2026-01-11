@@ -6,7 +6,6 @@ let currentLessonId = null;
 
 document.addEventListener('DOMContentLoaded', () => {
     if (typeof lucide !== 'undefined') lucide.createIcons();
-    
     const params = new URLSearchParams(window.location.search);
     const courseId = params.get('id');
 
@@ -26,20 +25,13 @@ function checkEnrollment(userId, courseId) {
             window.location.href = `course-details.html?id=${courseId}&type=academy`;
         } else {
             const enrollmentData = snapshot.val();
-            // تأكد من تحميل kameshkahData قبل استخدامه
-            if (typeof window.kameshkahData === 'undefined') {
-                console.error('Kameshkah data not loaded');
-                return;
-            }
+            if (typeof window.kameshkahData === 'undefined') { console.error('Data not loaded'); return; }
             
             const staticData = window.kameshkahData.find(c => c.id == courseId);
             if(staticData) {
                 currentCourse = { ...staticData, ...enrollmentData };
                 completedLessons = enrollmentData.completedLessons || []; 
                 initPlayerUI();
-            } else {
-                alert('عذراً، بيانات الكورس غير متوفرة حالياً.');
-                window.location.href = 'courses.html';
             }
         }
     });
@@ -49,13 +41,6 @@ function initPlayerUI() {
     document.getElementById('course-title-nav').innerText = currentCourse.titleAr;
     document.getElementById('lessons-count').innerText = `${currentCourse.lessons.length} درس`;
     
-    // تحديث رابط زر الاختبار في الناف بار
-    const quizBtnNav = document.getElementById('quiz-btn-nav');
-    if (quizBtnNav) {
-        quizBtnNav.href = `quiz.html?courseId=${currentCourse.id}`;
-        quizBtnNav.classList.remove('hidden');
-    }
-
     renderPlaylist();
     renderAttachments();
     updateProgress();
@@ -86,20 +71,9 @@ function renderPlaylist() {
                 <span class="text-xs text-slate-400 font-medium">${lesson.duration}</span>
             </div>
             <i data-lucide="${icon}" class="w-5 h-5 text-slate-300 group-hover:text-emerald-500"></i>
-        </button>`;
+        </button>
+        `;
     }).join('');
-
-    // زرار الاختبار (في آخر القائمة - اختياري)
-    html += `
-        <div class="mt-6 pt-4 border-t border-slate-200">
-            <a href="quiz.html?courseId=${currentCourse.id}" class="block w-full bg-gradient-to-r from-yellow-400 to-yellow-500 text-white p-4 rounded-xl flex items-center justify-between gap-3 shadow-md hover:shadow-lg transition transform hover:-translate-y-1 group cursor-pointer">
-                <div class="flex items-center gap-3">
-                    <div class="bg-white/20 p-2 rounded-lg"><i data-lucide="award" class="w-6 h-6 text-white"></i></div>
-                    <div class="text-right"><h4 class="font-black text-base">الاختبار النهائي</h4><span class="text-xs text-yellow-50 opacity-90">متاح الآن</span></div>
-                </div>
-                <i data-lucide="chevron-left" class="w-5 h-5 text-white"></i>
-            </a>
-        </div>`;
 
     list.innerHTML = html;
     if (typeof lucide !== 'undefined') lucide.createIcons();
@@ -130,13 +104,15 @@ function playLesson(index) {
         document.getElementById('text-lesson-content').innerHTML = lesson.content;
         document.querySelector('.flex-1').scrollTop = 0; 
         markLessonComplete(lesson.id);
-    } else if (lesson.type === 'audio') {
+    } 
+    else if (lesson.type === 'audio') {
         audioContainer.classList.remove('hidden');
         document.getElementById('audio-title').innerText = lesson.title;
         audioPlayer.src = lesson.url;
         audioPlayer.play();
         markLessonComplete(lesson.id);
-    } else {
+    } 
+    else {
         videoContainer.classList.remove('hidden');
         if (!videoPlayer.src.includes(lesson.url)) {
             videoPlayer.src = lesson.url;
@@ -152,7 +128,9 @@ window.finishCurrentLesson = function() {
         if (currentIndex < currentCourse.lessons.length - 1) {
             playLesson(currentIndex + 1);
         } else {
-            alert("خلصت كل الدروس! عاش يا بطل 🎉");
+            // آخر درس: إنهاء الكورس مباشرة
+            alert("ألف مبروك! أتممت الكورس بالكامل 🎉");
+            finishCourse();
         }
     }
 }
@@ -161,14 +139,12 @@ function markLessonComplete(lessonId) {
     if (!completedLessons.includes(lessonId)) {
         completedLessons.push(lessonId);
         const progress = Math.round((completedLessons.length / currentCourse.lessons.length) * 100);
-        
         const user = firebase.auth().currentUser;
         const db = firebase.database();
         db.ref(`users/${user.uid}/enrolledCourses/${currentCourse.id}`).update({
             completedLessons: completedLessons,
             progress: progress
         });
-
         renderPlaylist();
         updateProgress();
     }

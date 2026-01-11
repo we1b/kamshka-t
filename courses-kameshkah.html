@@ -2,12 +2,26 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 👈 ده السطر اللي بيحل المشكلة -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>أكاديمية كمشكاة | تعليم تفاعلي</title>
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-482MR7LT23"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-482MR7LT23');
+    </script>
+
     <link rel="icon" type="image/png" href="images/ui/logo.png">
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
     
     <script src="js/auth.js"></script>
     <script src="js/main.js"></script>
@@ -27,7 +41,7 @@
         </div>
 
         <div id="academy-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6 fade-in delay-100">
-            <!-- الكارت ده بيظهر لو مفيش كورسات (الداتا فاضية) -->
+            <!-- الكارت ده بيظهر لو مفيش كورسات -->
             <div id="empty-state" class="col-span-full hidden text-center py-16 md:py-20 bg-white/60 rounded-3xl border-2 border-dashed border-emerald-200 backdrop-blur-sm shadow-sm mx-2 md:mx-0">
                 <div class="bg-emerald-100 w-20 h-20 md:w-24 md:h-24 rounded-full flex items-center justify-center mx-auto mb-6 animate-pulse">
                     <i data-lucide="hourglass" class="w-10 h-10 md:w-12 md:h-12 text-emerald-600"></i>
@@ -35,7 +49,6 @@
                 <h2 class="text-2xl md:text-3xl font-black text-emerald-900 mb-3">انتظرونا قريباً 🔥</h2>
                 <div class="max-w-md mx-auto px-4">
                     <p class="text-slate-700 font-bold text-base md:text-lg mb-2">بنجز حالياً مجموعة كورسات ومنح قوية جداً وهتكون مجانية بالكامل للشباب.</p>
-                    <p class="text-slate-500 text-sm font-medium">تابعنا عشان يوصلك إشعار أول ما نفتح التسجيل!</p>
                 </div>
             </div>
         </div>
@@ -48,19 +61,15 @@
             const grid = document.getElementById('academy-grid');
             const emptyState = document.getElementById('empty-state');
 
-            // التحقق من وجود بيانات الكورسات
             if (typeof window.kameshkahData === 'undefined' || window.kameshkahData.length === 0) {
-                // إظهار رسالة الانتظار
                 emptyState.classList.remove('hidden');
-                lucide.createIcons();
+                if (typeof lucide !== 'undefined') lucide.createIcons();
                 return;
             }
 
-            // لو في داتا (مستقبلاً)، اعرضها هنا
             const coursesHTML = window.kameshkahData.map(c => {
                 let statusBadge = '';
                 if(c.status === 'open') statusBadge = '<span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold border border-green-200">متاح للتسجيل ✅</span>';
-                else if(c.status === 'closed') statusBadge = '<span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-xs font-bold border border-red-200">العدد اكتمل 🚫</span>';
                 else statusBadge = '<span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-xs font-bold border border-yellow-200">قريباً ⏳</span>';
 
                 return `
@@ -75,7 +84,6 @@
                             <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wide">${c.titleEn}</h3>
                         </div>
                         <p class="text-slate-600 mb-6 text-sm leading-relaxed line-clamp-3">${c.desc}</p>
-                        
                         <div class="mt-auto flex items-center justify-between border-t border-emerald-50 pt-4">
                             <span class="text-emerald-700 font-bold text-lg">${c.price || 'مجاني'}</span>
                             <a href="course-details.html?id=${c.id}&type=academy" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2.5 rounded-xl font-bold transition shadow-lg shadow-emerald-100 text-sm flex items-center gap-2">
@@ -83,13 +91,11 @@
                             </a>
                         </div>
                     </div>
-                </div>
-                `;
+                </div>`;
             }).join('');
 
-            // إضافة الكورسات للجريد (قبل رسالة الانتظار)
             grid.insertAdjacentHTML('afterbegin', coursesHTML);
-            lucide.createIcons();
+            if (typeof lucide !== 'undefined') lucide.createIcons();
         });
     </script>
 </body>
