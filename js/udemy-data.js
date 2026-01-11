@@ -1,5 +1,5 @@
 /* Path: js/udemy-data.js */
-// تحديث: 11 يناير 2026 - دفعة الكورسات الجديدة
+// تحديث: 11 يناير 2026 - القائمة الشاملة (صباحاً + مساءً)
 
 // 1. هيكلة التصنيفات (Categories Structure)
 const udemyCategories = [
@@ -75,8 +75,9 @@ const udemyCategories = [
     }
 ];
 
-// 2. قائمة الكورسات الجديدة
+// 2. قائمة الكورسات (المجموعة الأولى + المجموعة الثانية)
 const udemyCourses = [
+    // --- المجموعة الأولى (الصباحية) ---
     {
         id: 1301,
         titleAr: "بناء مدونة CMS كاملة بـ PHP و MySQL",
@@ -373,6 +374,283 @@ const udemyCourses = [
         date: "جديد 🔥",
         img: "https://placehold.co/600x400/f59e0b/ffffff?text=CV+Mastery",
         url: "https://www.udemy.com/course/interview-cv-mastery-from-cv-to-job-offer/?couponCode=927FCCEC1C3D2FEC6B8C"
+    },
+
+    // --- المجموعة الثانية (المسائية - الإضافة الجديدة) ---
+    {
+        id: 1331,
+        titleAr: "احتراف الهجوم السيبراني (Red Team)",
+        titleEn: "Red Team Mastery: Advanced Offensive Security",
+        desc: "دورة متقدمة في الأمن السيبراني الهجومي.",
+        cat: "IT & Software",
+        subCat: "Network & Security",
+        date: "جديد 🔥",
+        img: "https://placehold.co/600x400/ef4444/ffffff?text=Red+Team",
+        url: "https://www.udemy.com/course/red-team-mastery-advanced-offensive-security/?couponCode=8938A37FB6DE8D5AE61E"
+    },
+    {
+        id: 1332,
+        titleAr: "إدارة العقود خطوة بخطوة",
+        titleEn: "Contract Management Step by Step",
+        desc: "دليل شامل لإدارة العقود التجارية.",
+        cat: "Business",
+        subCat: "Management",
+        date: "جديد 🔥",
+        img: "https://placehold.co/600x400/64748b/ffffff?text=Contracts",
+        url: "https://www.udemy.com/course/contract-management-step-by-step/?couponCode=59B36A14F733AFFF4B52"
+    },
+    {
+        id: 1333,
+        titleAr: "إدارة تجربة العملاء (CX)",
+        titleEn: "Customer Experience Management (CX): Frameworks & Strategies",
+        desc: "استراتيجيات وأطر عمل لتحسين تجربة العملاء.",
+        cat: "Business",
+        subCat: "Management",
+        date: "جديد 🔥",
+        img: "https://placehold.co/600x400/10b981/ffffff?text=CX+Mgmt",
+        url: "https://www.udemy.com/course/customer-experience-management-cx-frameworks-strategies/?couponCode=FC8FF2158563C9EB39DB"
+    },
+    {
+        id: 1334,
+        titleAr: "شهادة احترافية في إدارة الأعمال",
+        titleEn: "Professional Business Management Certificate",
+        desc: "أساسيات إدارة الأعمال والشركات.",
+        cat: "Business",
+        subCat: "Management",
+        date: "جديد 🔥",
+        img: "https://placehold.co/600x400/f59e0b/ffffff?text=Business+Mgmt",
+        url: "https://www.udemy.com/course/professional-business-management-certificate/?couponCode=43AA6765BB73A33B5D0A"
+    },
+    {
+        id: 1335,
+        titleAr: "تعلم Git للتحكم في الإصدارات",
+        titleEn: "Learn Git Version Control | Git Essentials for Developers",
+        desc: "أساسيات Git و GitHub للمطورين.",
+        cat: "Development",
+        subCat: "Software Testing",
+        date: "جديد 🔥",
+        img: "https://placehold.co/600x400/f43f5e/ffffff?text=Git",
+        url: "https://www.udemy.com/course/git-vsc-essentials/?couponCode=80274642FAE48BBECCF8"
+    },
+    {
+        id: 1336,
+        titleAr: "التحول الرقمي الاستراتيجي",
+        titleEn: "Strategic Digital Transformation for Business Growth",
+        desc: "كيفية قيادة التحول الرقمي لنمو الأعمال.",
+        cat: "Business",
+        subCat: "Business Strategy",
+        date: "جديد 🔥",
+        img: "https://placehold.co/600x400/3b82f6/ffffff?text=Digital+Trans",
+        url: "https://www.udemy.com/course/strategic-digital-transformation-for-business-growth/?couponCode=95275111DD0FB52C83CF"
+    },
+    {
+        id: 1337,
+        titleAr: "شهادة مهنية في إدارة المخاطر (عربي)",
+        titleEn: "Professional Certificate in Risk Management (Arabic)",
+        desc: "دورة شاملة باللغة العربية لإدارة المخاطر.",
+        cat: "Business",
+        subCat: "Management",
+        date: "جديد 🔥",
+        img: "https://placehold.co/600x400/ef4444/ffffff?text=Risk+Mgmt",
+        url: "https://www.udemy.com/course/professional-certificate-in-risk-management-arabic-version/?couponCode=1F9DE747ACB58EC37C80"
+    },
+    {
+        id: 1338,
+        titleAr: "إدارة المبيعات واستراتيجياتها",
+        titleEn: "High-Impact Sales Management, Strategy and Sales Operations",
+        desc: "استراتيجيات متقدمة لإدارة المبيعات والعمليات.",
+        cat: "Business",
+        subCat: "Sales",
+        date: "جديد 🔥",
+        img: "https://placehold.co/600x400/10b981/ffffff?text=Sales",
+        url: "https://www.udemy.com/course/high-impact-sales-management-strategy-and-sales-operations/?couponCode=85378830984CF2A47B83"
+    },
+    {
+        id: 1339,
+        titleAr: "دبلومة إدارة المكاتب",
+        titleEn: "Professional Diploma in Office Administration Management",
+        desc: "مهارات السكرتارية وإدارة المكاتب.",
+        cat: "Office Productivity",
+        subCat: "Other Office Productivity",
+        date: "جديد 🔥",
+        img: "https://placehold.co/600x400/64748b/ffffff?text=Office+Admin",
+        url: "https://www.udemy.com/course/officeadministrationmanagement/?couponCode=1AE0EE9AD01101E3A8CF"
+    },
+    {
+        id: 1340,
+        titleAr: "أساسيات Tmux (لينكس)",
+        titleEn: "Tmux Fundamentals | Linux Terminal Productivity",
+        desc: "زيادة الإنتاجية في تيرمينال لينكس باستخدام Tmux.",
+        cat: "IT & Software",
+        subCat: "Operating Systems & Servers",
+        date: "جديد 🔥",
+        img: "https://placehold.co/600x400/0f172a/ffffff?text=Tmux",
+        url: "https://www.udemy.com/course/tmux-fundamentals/?couponCode=69A59BA85EE2E4B58533"
+    },
+    {
+        id: 1341,
+        titleAr: "أساسيات Vim للمطورين",
+        titleEn: "Vim Fundamentals: Vim for Devs, Linux Users and Sysadmins",
+        desc: "احترف محرر النصوص Vim.",
+        cat: "Development",
+        subCat: "Programming Languages",
+        date: "جديد 🔥",
+        img: "https://placehold.co/600x400/06b6d4/ffffff?text=Vim",
+        url: "https://www.udemy.com/course/vim-fundamentals/?couponCode=DCA306A78F00BAC5B5FD"
+    },
+    {
+        id: 1342,
+        titleAr: "Signals في Angular v19+",
+        titleEn: "Reactivity with Signals in Angular v19+",
+        desc: "تعلم أحدث ميزات Angular (Signals) للتفاعلية.",
+        cat: "Development",
+        subCat: "Web Development",
+        date: "جديد 🔥",
+        img: "https://placehold.co/600x400/dd0031/ffffff?text=Angular",
+        url: "https://www.udemy.com/course/signals-in-angular-v19/?couponCode=366038ED0AADE4C58745"
+    },
+    {
+        id: 1343,
+        titleAr: "كورس مطور ووردبريس الكامل",
+        titleEn: "Complete Wordpress Website Developer Course",
+        desc: "تعلم تطوير مواقع ووردبريس من الألف للياء.",
+        cat: "Development",
+        subCat: "Web Development",
+        date: "جديد 🔥",
+        img: "https://placehold.co/600x400/21759b/ffffff?text=WordPress",
+        url: "https://www.udemy.com/course/the-complete-wordpress-developer-course-w/?couponCode=3CC0BDAB3589913EE832"
+    },
+    {
+        id: 1344,
+        titleAr: "دورة دروبال للمبتدئين (Drupal)",
+        titleEn: "Drupal For Beginners - Master Drupal Quickly",
+        desc: "تعلم نظام إدارة المحتوى دروبال بسرعة.",
+        cat: "Development",
+        subCat: "Web Development",
+        date: "جديد 🔥",
+        img: "https://placehold.co/600x400/0678be/ffffff?text=Drupal",
+        url: "https://www.udemy.com/course/drupal-for-beginners-course/?couponCode=6118B7629E914891276A"
+    },
+    {
+        id: 1345,
+        titleAr: "دروبال للمبتدئين تماماً (2025)",
+        titleEn: "Drupal For Absolute Beginners (2025)",
+        desc: "كورس حديث لتعلم دروبال من الصفر.",
+        cat: "Development",
+        subCat: "Web Development",
+        date: "جديد 🔥",
+        img: "https://placehold.co/600x400/0678be/ffffff?text=Drupal+2025",
+        url: "https://www.udemy.com/course/drupal-masterclass/?couponCode=90C42ABEBBDBC78B42FB"
+    },
+    {
+        id: 1346,
+        titleAr: "تعلم جافاسكريبت بالهندية",
+        titleEn: "Learn JavaScript Programming In Hindi",
+        desc: "كورس جافاسكريبت شامل باللغة الهندية.",
+        cat: "Development",
+        subCat: "Programming Languages",
+        date: "جديد 🔥",
+        img: "https://placehold.co/600x400/f7df1e/ffffff?text=JS+Hindi",
+        url: "https://www.udemy.com/course/learn-javascript-step-by-step-in-hindi/?couponCode=2A25A857E871207136B4"
+    },
+    {
+        id: 1347,
+        titleAr: "احتراف الآيلتس (IELTS Pro)",
+        titleEn: "IELTS Pro: Reading | Writing | Listening | Speaking",
+        desc: "دليل شامل لاجتياز اختبار الآيلتس بمهاراته الأربعة.",
+        cat: "Business",
+        subCat: "Communication",
+        date: "جديد 🔥",
+        img: "https://placehold.co/600x400/dc2626/ffffff?text=IELTS",
+        url: "https://www.udemy.com/course/ielts-pro-reading-writing-listening-speaking/?couponCode=1FC52089DE3E83B10A19"
+    },
+    {
+        id: 1348,
+        titleAr: "كورس C++ و Java المكثف للمبتدئين",
+        titleEn: "C++ And Java Training Crash Course for Beginners",
+        desc: "تعلم لغتي البرمجة C++ و Java في كورس واحد.",
+        cat: "Development",
+        subCat: "Programming Languages",
+        date: "جديد 🔥",
+        img: "https://placehold.co/600x400/00599c/ffffff?text=C%2B%2B+%26+Java",
+        url: "https://www.udemy.com/course/c-and-java-training-crash-course-2022/?source=CourseFolder&medium=CourseFolderFreeTelegram&couponCode=29868BE7743E7FF5761E"
+    },
+    {
+        id: 1349,
+        titleAr: "الإكسل للمبتدئين (تأسيس)",
+        titleEn: "Microsoft Excel - Excel Course For Beginners",
+        desc: "دورة تأسيسية قوية في الإكسل.",
+        cat: "Office Productivity",
+        subCat: "Microsoft",
+        date: "جديد 🔥",
+        img: "https://placehold.co/600x400/16a34a/ffffff?text=Excel+Foundation",
+        url: "https://www.udemy.com/course/microsoft-excel-excel-only-for-beginners/?source=CourseFolder&medium=CourseFolderFreeTelegram&couponCode=ALHAMDULILLAH_011126"
+    },
+    {
+        id: 1350,
+        titleAr: "بايثون لتحليل البيانات",
+        titleEn: "Python for Data analysis",
+        desc: "استخدام بايثون في تحليل البيانات وعلوم البيانات.",
+        cat: "Development",
+        subCat: "Data Science",
+        date: "جديد 🔥",
+        img: "https://placehold.co/600x400/3776ab/ffffff?text=Python+Data",
+        url: "https://www.udemy.com/course/python-for-data-analysis-and-data-science/?source=CourseFolder&medium=CourseFolderFreeTelegram&couponCode=07176FC7E73CAE0FD3CA"
+    },
+    {
+        id: 1351,
+        titleAr: "شهادة إدارة التسويق الرقمي الأول",
+        titleEn: "Digital-First Marketing Management Professional Certificate",
+        desc: "إدارة التسويق في العصر الرقمي.",
+        cat: "Marketing",
+        subCat: "Digital Marketing",
+        date: "جديد 🔥",
+        img: "https://placehold.co/600x400/d946ef/ffffff?text=Marketing+Mgmt",
+        url: "https://www.udemy.com/course/digital-first-marketing-management-professional-certificate/?source=CourseFolder&medium=CourseFolderFreeTelegram&couponCode=CD2EA410DECD9A2B6BFC"
+    },
+    {
+        id: 1352,
+        titleAr: "ماستر كلاس أتمتة الأوفيس (Word, Excel, PPT)",
+        titleEn: "MS Office Automation MasterClass Word Excel PowerPoint",
+        desc: "أتمتة المهام في برامج الأوفيس.",
+        cat: "Office Productivity",
+        subCat: "Microsoft",
+        date: "جديد 🔥",
+        img: "https://placehold.co/600x400/ea580c/ffffff?text=Office+Automation",
+        url: "https://www.udemy.com/course/ms-office-automation-masterclass-word-excel-powerpoint/?couponCode=CP250105G2"
+    },
+    {
+        id: 1353,
+        titleAr: "التصنيع المستدام: مراجعة وتقدم",
+        titleEn: "Sustainable Manufacturing: Review & Emerging Advances",
+        desc: "أحدث التقنيات في التصنيع المستدام.",
+        cat: "Business",
+        subCat: "Business Strategy",
+        date: "جديد 🔥",
+        img: "https://placehold.co/600x400/10b981/ffffff?text=Manufacturing",
+        url: "https://www.udemy.com/course/sustainable-manufacturing/?couponCode=9CD8E4182069EDD85F57"
+    },
+    {
+        id: 1354,
+        titleAr: "دورة علوم البيانات المجانية (R & Python)",
+        titleEn: "Free Data Science Tutorial - R and Python coding with Prython",
+        desc: "مقدمة في علوم البيانات باستخدام R و Python.",
+        cat: "Development",
+        subCat: "Data Science",
+        date: "جديد 🔥",
+        img: "https://placehold.co/600x400/6366f1/ffffff?text=Data+Science+Free",
+        url: "https://www.udemy.com/course/r-and-python-coding-with-prython/"
+    },
+    {
+        id: 1355,
+        titleAr: "حل مشاكل SQL للمقابلات",
+        titleEn: "SQL problem solving for interviews",
+        desc: "تجهز لمقابلات العمل بأسئلة SQL وحلولها.",
+        cat: "Development",
+        subCat: "Database Design & Development",
+        date: "جديد 🔥",
+        img: "https://placehold.co/600x400/334155/ffffff?text=SQL+Interview",
+        url: "https://www.udemy.com/course/sql-problem-solving-for-interviews/?couponCode=E2D90AE8D2E455B395FA"
     }
 ];
 
