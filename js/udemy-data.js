@@ -1,7 +1,7 @@
 /* Path: js/udemy-data.js */
-// تحديث: 12 يناير 2026 - كورسات اليوم فقط
+// تحديث: 13 يناير 2026 - كورسات اليوم فقط
 
-// 1. هيكلة التصنيفات (ثابتة عشان الفلتر يشتغل)
+// 1. هيكلة التصنيفات (ثابتة)
 const udemyCategories = [
     {
         id: "development",
@@ -75,315 +75,286 @@ const udemyCategories = [
     }
 ];
 
+// التاريخ الحالي (للعرض)
+const todayDate = "الثلاثاء 13 يناير 2026 | 24 رجب 1447";
+const releaseTime = "11:00 صباحاً";
+
 // 2. قائمة الكورسات (كورسات اليوم فقط)
 const udemyCourses = [
     {
-        id: 1401,
-        titleAr: "الذكاء الاصطناعي الكامل للمحترفين",
-        titleEn: "The Complete Artificial Intelligence (AI) for Professionals",
-        desc: "دليل شامل للذكاء الاصطناعي وتطبيقاته العملية للمحترفين.",
-        cat: "Development",
-        subCat: "Data Science",
-        date: "جديد 🔥",
-        img: "https://placehold.co/600x400/2563eb/ffffff?text=AI+For+Pros",
-        url: "https://www.udemy.com/course/the-complete-artificial-intelligence-ai-for-professionals/?couponCode=JAN_26_26"
-    },
-    {
-        id: 1402,
-        titleAr: "تعلم Excel VLOOKUP من الصفر",
-        titleEn: "Learn Excel VLOOKUP from Scratch",
-        desc: "احترف دالة البحث الأكثر أهمية في الإكسل.",
-        cat: "Office Productivity",
-        subCat: "Microsoft",
-        date: "جديد 🔥",
-        img: "https://placehold.co/600x400/16a34a/ffffff?text=VLOOKUP",
-        url: "https://www.udemy.com/course/learn-excel-vlookup-from-scratch/?couponCode=BITTOBANSAL"
-    },
-    {
-        id: 1403,
-        titleAr: "كورس بايثون الكامل: من المبتدئ للمتقدم",
-        titleEn: "Complete Python Course: Learn From Beginner To Advanced",
-        desc: "تعلم البرمجة بلغة بايثون من الأساسيات حتى الاحتراف.",
-        cat: "Development",
-        subCat: "Programming Languages",
-        date: "جديد 🔥",
-        img: "https://placehold.co/600x400/3776ab/ffffff?text=Python+Complete",
-        url: "https://www.udemy.com/course/complete-python-course-learn-from-beginner-to-advanced/?couponCode=3381460255994D1B4E87"
-    },
-    {
-        id: 1404,
-        titleAr: "تعلم الرسم بالفوتوشوب - كورس كامل",
-        titleEn: "Learn to Draw with Photoshop - Complete Drawing Course",
-        desc: "احترف الرسم الرقمي والإليستريشن باستخدام فوتوشوب.",
-        cat: "Design",
-        subCat: "Graphic Design & Illustration",
-        date: "جديد 🔥",
-        img: "https://placehold.co/600x400/0284c7/ffffff?text=Photoshop+Art",
-        url: "https://www.udemy.com/course/learn-to-draw-complete-drawing-course/?couponCode=DRAWFREE1000-JAN26"
-    },
-    {
-        id: 1405,
-        titleAr: "إتقان المؤثرات البصرية في Adobe Animate",
-        titleEn: "Mastering Visual Effects in Adobe Animate-Intermediate Level",
-        desc: "تعلم صناعة المؤثرات البصرية والتحريك.",
-        cat: "Design",
-        subCat: "3D & Animation",
-        date: "جديد 🔥",
-        img: "https://placehold.co/600x400/9333ea/ffffff?text=Animate+VFX",
-        url: "https://www.udemy.com/course/visual-effects-with-adobe-animate/?couponCode=ANIMATE-VFX-JAN26"
-    },
-    {
-        id: 1406,
-        titleAr: "التحريك الاحترافي 2D في Animate (مبتدئ)",
-        titleEn: "Animate Like Pro - 2D Animation in Animate - Beginner Level",
-        desc: "أساسيات التحريك ثنائي الأبعاد.",
-        cat: "Design",
-        subCat: "3D & Animation",
-        date: "جديد 🔥",
-        img: "https://placehold.co/600x400/d946ef/ffffff?text=2D+Animation",
-        url: "https://www.udemy.com/course/2d-animation-in-animate-beginner-level/?couponCode=ANIMATEBEGIN-JAN26"
-    },
-    {
-        id: 1407,
-        titleAr: "بيئات العمل الهجين: ما ينجح فعلاً",
-        titleEn: "Hybrid Work Environments: What Actually Works",
-        desc: "كيفية إدارة العمل عن بعد وفي المكتب بفعالية.",
-        cat: "Business",
-        subCat: "Management",
-        date: "جديد 🔥",
-        img: "https://placehold.co/600x400/64748b/ffffff?text=Hybrid+Work",
-        url: "https://www.udemy.com/course/hybrid-work-environments-what-actually-works/?couponCode=4ACB5924F41BCD1FD13F"
-    },
-    {
-        id: 1408,
-        titleAr: "احتراف تصوير البيانات ببايثون",
-        titleEn: "Python Data Visualization Mastery: From Beginner to Expert",
-        desc: "تعلم Matplotlib و Seaborn لتحليل البيانات.",
-        cat: "Development",
-        subCat: "Data Science",
-        date: "جديد 🔥",
-        img: "https://placehold.co/600x400/f59e0b/ffffff?text=Data+Vis",
-        url: "https://www.udemy.com/course/python-data-visualization-mastery-from-beginner-to-expert/?couponCode=E2458D3D416593ED3B0D"
-    },
-    {
-        id: 1409,
-        titleAr: "معادلات ودوال إكسل: من الأساسي للخبير",
-        titleEn: "Microsoft Excel Formulas and Functions For Basic to Expert",
-        desc: "إتقان دوال الإكسل للمعالجة المتقدمة للبيانات.",
-        cat: "Office Productivity",
-        subCat: "Microsoft",
-        date: "جديد 🔥",
-        img: "https://placehold.co/600x400/10b981/ffffff?text=Excel+Expert",
-        url: "https://www.udemy.com/course/microsoft-excel-formulas-and-functions-for-basic-to-expert/?couponCode=CAF164D275050222F807"
-    },
-    {
-        id: 1410,
-        titleAr: "برمجة جافاسكريبت الكاملة",
-        titleEn: "Complete JavaScript Programming: From Novice to Expert",
-        desc: "تعلم لغة الويب الأولى من الصفر حتى الاحتراف.",
-        cat: "Development",
-        subCat: "Web Development",
-        date: "جديد 🔥",
-        img: "https://placehold.co/600x400/f7df1e/000000?text=JavaScript",
-        url: "https://www.udemy.com/course/complete-javascript-programming-from-novice-to-expert/?couponCode=2746C66E7CA6C54505B6"
-    },
-    {
-        id: 1411,
-        titleAr: "إتقان إنشاء المواقع: 15 منصة في كورس واحد",
-        titleEn: "Master Website Creation - 15 Website Platforms in 1 Course!",
-        desc: "تعلم إنشاء المواقع باستخدام ووردبريس، ويكس، شوبيفاي وغيرها.",
-        cat: "Development",
-        subCat: "Web Development",
-        date: "جديد 🔥",
-        img: "https://placehold.co/600x400/0ea5e9/ffffff?text=Web+Creation",
-        url: "https://www.udemy.com/course/master-website-creation-15-website-platforms-in-1-course-s/?couponCode=8C1823101008E8449EA7"
-    },
-    {
-        id: 1412,
-        titleAr: "التحضير لاختبار Github Copilot (GH-300)",
-        titleEn: "GH-300: Github Copilot – Complete Exam Preparation Guide",
-        desc: "دليل شامل لاجتياز اختبار شهادة Github Copilot.",
-        cat: "IT & Software",
-        subCat: "IT Certifications",
-        date: "جديد 🔥",
-        img: "https://placehold.co/600x400/1e293b/ffffff?text=GitHub+Cert",
-        url: "https://www.udemy.com/course/gh-300-github-copilot-exam-preparation/?couponCode=12JANUARY2026"
-    },
-    {
-        id: 1413,
-        titleAr: "دليل تصميم التيشيرتات بكانفا",
-        titleEn: "Ultimate Guide to Canva T-Shirt Design: Mastery in T-Shirt",
-        desc: "كيف تصمم وتبيع تيشيرتات باستخدام Canva.",
-        cat: "Design",
-        subCat: "Design Tools",
-        date: "جديد 🔥",
-        img: "https://placehold.co/600x400/06b6d4/ffffff?text=Canva+T-Shirt",
-        url: "https://www.udemy.com/course/ultimate-guide-to-canva-t-shirt-design-mastery-in-t-shirt/?couponCode=B890D8E543A05A0321B6"
-    },
-    {
-        id: 1414,
-        titleAr: "تحليل الأعمال للمدراء مع Copilot",
-        titleEn: "Business Analysis for Executives with Microsoft Copilot",
-        desc: "استخدام الذكاء الاصطناعي في تحليل القرارات الإدارية.",
-        cat: "Business",
-        subCat: "Business Strategy",
-        date: "جديد 🔥",
-        img: "https://placehold.co/600x400/4f46e5/ffffff?text=Biz+Copilot",
-        url: "https://www.udemy.com/course/business-analysis-for-executives-with-microsoft-copilot/?couponCode=12JANUARY2026"
-    },
-    {
-        id: 1415,
-        titleAr: "مشاريع أوفيس مع ChatGPT و Gemini",
-        titleEn: "Project Based Microsoft Office With ChatGPT And Gemini",
-        desc: "زيادة إنتاجية برامج الأوفيس باستخدام أدوات الـ AI.",
-        cat: "Office Productivity",
-        subCat: "Microsoft",
-        date: "جديد 🔥",
-        img: "https://placehold.co/600x400/ea580c/ffffff?text=Office+AI",
-        url: "https://www.udemy.com/course/project-based-microsoft-office-with-chatgpt-and-gemini/?couponCode=479B76EF4747292C403C"
-    },
-    {
-        id: 1416,
-        titleAr: "احتراف Runway: إنشاء الفيديو بالذكاء الاصطناعي",
-        titleEn: "Runway Masterclass: Gen-4, Aleph & Act-Two AI Video Creation",
-        desc: "تعلم صناعة الفيديوهات السينمائية باستخدام Runway AI.",
-        cat: "Design",
-        subCat: "3D & Animation",
-        date: "جديد 🔥",
-        img: "https://placehold.co/600x400/db2777/ffffff?text=Runway+Gen4",
-        url: "https://www.udemy.com/course/runway-masterclass-gen-4-aleph-act-two-ai-video-creation/?couponCode=12JANUARY2026"
-    },
-    {
-        id: 1417,
-        titleAr: "كورس فوتوشوب الأساسي: للمبتدئين والمحترفين",
-        titleEn: "Essential Photoshop Course for Beginner to Advanced",
-        desc: "دليل كامل لأدوات وتقنيات الفوتوشوب.",
-        cat: "Design",
-        subCat: "Graphic Design & Illustration",
-        date: "جديد 🔥",
-        img: "https://placehold.co/600x400/0369a1/ffffff?text=Ps+Essential",
-        url: "https://www.udemy.com/course/graphics-design-video-editing-for-beginner-to-advanced/?couponCode=62AE08B64BAB73C6ACFA"
-    },
-    {
-        id: 1418,
-        titleAr: "الدليل الشامل للباحث عن عمل",
-        titleEn: "Ultimate Job Seeker Course - Resume, Cover Letter, Interview",
-        desc: "كتابة السيرة الذاتية، خطاب التغطية، واجتياز المقابلات.",
+        id: 1501,
+        titleAr: "اكتب كل يوم: بناء عادة الكتابة المستمرة في 2026",
+        titleEn: "Write Every Day: Building a Consistent Writing Habit in 2026",
+        desc: "كيف تبني عادة الكتابة اليومية وتستمر فيها.",
         cat: "Business",
         subCat: "Communication",
-        date: "جديد 🔥",
-        img: "https://placehold.co/600x400/059669/ffffff?text=Job+Seeker",
-        url: "https://www.udemy.com/course/ultimate-job-seeker-course-resume-cover-letter-interview/?couponCode=4E5F5D6862E54DFCA457"
+        date: `${todayDate} - ${releaseTime}`,
+        img: "https://placehold.co/600x400/f59e0b/ffffff?text=Writing+Habit",
+        url: "https://www.udemy.com/course/write-every-day-building-a-consistent-writing-habit/?couponCode=3F263A3CFCDA9C5708AF"
     },
     {
-        id: 1419,
-        titleAr: "HTML و CSS: من الأساسي للمتقدم",
-        titleEn: "HTML and CSS for Beginners From Basic to Advance",
-        desc: "المدخل الأساسي لتعلم تصميم وتطوير المواقع.",
-        cat: "Development",
-        subCat: "Web Development",
-        date: "جديد 🔥",
-        img: "https://placehold.co/600x400/e34f26/ffffff?text=HTML+CSS",
-        url: "https://www.udemy.com/course/html-and-css-for-beginners-from-basic-to-advance/?couponCode=540D12C6B0CC03E8DAEC"
-    },
-    {
-        id: 1420,
-        titleAr: "ماستر كلاس إكسل وجوجل شيتس مع AI",
-        titleEn: "Modern Excel MasterClass and Google Sheets with AI ChatGPT",
-        desc: "دمج جداول البيانات مع الذكاء الاصطناعي لتحليل أسرع.",
-        cat: "Office Productivity",
-        subCat: "Microsoft",
-        date: "جديد 🔥",
-        img: "https://placehold.co/600x400/10b981/ffffff?text=Modern+Excel",
-        url: "https://www.udemy.com/course/modern-microsoft-excel-masterclass-and-google-sheets-with-ai-chatgpt/?couponCode=11AF7F12B244C1AC8CAD"
-    },
-    {
-        id: 1421,
-        titleAr: "التعلم والتطوير (L&D) مع Copilot",
-        titleEn: "The Ultimate Guide to Learning & Development with Copilot",
-        desc: "استخدام AI في تطوير المناهج والتدريب.",
-        cat: "Business",
-        subCat: "Management",
-        date: "جديد 🔥",
-        img: "https://placehold.co/600x400/6366f1/ffffff?text=L%26D+AI",
-        url: "https://www.udemy.com/course/the-ultimate-guide-to-learning-development-with-copilot/?couponCode=12JANUARY2026"
-    },
-    {
-        id: 1422,
-        titleAr: "مدخل سريع للجافاسكريبت",
-        titleEn: "JavaScript Fast Entry: Programming for Everyone",
-        desc: "تعلم أساسيات الجافاسكريبت بسرعة.",
-        cat: "Development",
-        subCat: "Web Development",
-        date: "جديد 🔥",
-        img: "https://placehold.co/600x400/facc15/000000?text=JS+Fast",
-        url: "https://www.udemy.com/course/javascript-fast-entry-programming-for-everyone/?couponCode=12JANUARY2026"
-    },
-    {
-        id: 1423,
-        titleAr: "مايكروسوفت كوبايلوت للعمل",
-        titleEn: "Microsoft Copilot for Work: Learn to Work Faster & Smarter",
-        desc: "زيادة الإنتاجية في بيئة العمل باستخدام Copilot.",
-        cat: "Office Productivity",
-        subCat: "Microsoft",
-        date: "جديد 🔥",
-        img: "https://placehold.co/600x400/0ea5e9/ffffff?text=Copilot+Work",
-        url: "https://www.udemy.com/course/microsoft-copilot-for-work-learn-to-work-faster-smarter/?couponCode=12JANUARY2026"
-    },
-    {
-        id: 1424,
-        titleAr: "محو أمية الذكاء الاصطناعي للموظفين",
-        titleEn: "AI Literacy for All Employees",
-        desc: "أساسيات الـ AI التي يجب أن يعرفها كل موظف.",
-        cat: "Business",
-        subCat: "Business Strategy",
-        date: "جديد 🔥",
-        img: "https://placehold.co/600x400/64748b/ffffff?text=AI+Literacy",
-        url: "https://www.udemy.com/course/ai-literacy-for-all-employees-v/?couponCode=12JANUARY2026"
-    },
-    {
-        id: 1425,
-        titleAr: "تعزيز معرفة إدارة المشاريع (PMP)",
-        titleEn: "PMP Knowledge Boost: Stay on Track with PMI Standards",
-        desc: "تحديث معلوماتك في إدارة المشاريع وفق معايير PMI.",
-        cat: "Business",
-        subCat: "Management",
-        date: "جديد 🔥",
-        img: "https://placehold.co/600x400/1d4ed8/ffffff?text=PMP+Boost",
-        url: "https://www.udemy.com/course/pmp-knowledge-boost-stay-on-track-with-pmi-standards/?couponCode=12JANUARY2026"
-    },
-    {
-        id: 1426,
-        titleAr: "تحريك الشخصيات 2D المتقدم (Animate)",
-        titleEn: "Master 2D Character Animation in Adobe Animate-Advance Level",
-        desc: "تقنيات متقدمة لتحريك الشخصيات.",
+        id: 1502,
+        titleAr: "معسكر المونتاج الكامل: من المبتدئ للمتقدم",
+        titleEn: "Complete Video Editing BootCamp Beginner to Advanced",
+        desc: "تعلم فنون المونتاج وتحرير الفيديو بشكل شامل.",
         cat: "Design",
         subCat: "3D & Animation",
-        date: "جديد 🔥",
-        img: "https://placehold.co/600x400/7c3aed/ffffff?text=Char+Anim",
-        url: "https://www.udemy.com/course/master-2d-character-animation-in-adobe-animate-advance-level/?couponCode=ANIMATEADVANCE-JAN26"
+        date: `${todayDate} - ${releaseTime}`,
+        img: "https://placehold.co/600x400/9333ea/ffffff?text=Video+Editing",
+        url: "https://www.udemy.com/course/complete-video-editing-bootcamp-beginner-to-advanced/?couponCode=3E8C179EA01BA0D9C07E"
     },
     {
-        id: 1427,
-        titleAr: "احتراف Freepik: من الأصول للذكاء الاصطناعي",
-        titleEn: "Freepik Pro: From Assets to AI Creation",
-        desc: "كيفية استخدام أدوات Freepik الجديدة.",
-        cat: "Design",
-        subCat: "Design Tools",
-        date: "جديد 🔥",
-        img: "https://placehold.co/600x400/2563eb/ffffff?text=Freepik+Pro",
-        url: "https://www.udemy.com/course/freepik-pro-from-assets-to-ai-creation/?couponCode=12JANUARY2026"
+        id: 1503,
+        titleAr: "ChatGPT لمالكي المنتجات (Product Owners)",
+        titleEn: "ChatGPT for Product Owners",
+        desc: "كيف تستخدم ChatGPT لتحسين إدارة المنتجات.",
+        cat: "Business",
+        subCat: "Management",
+        date: `${todayDate} - ${releaseTime}`,
+        img: "https://placehold.co/600x400/10b981/ffffff?text=ChatGPT+PO",
+        url: "https://www.udemy.com/course/chatgpt-for-product-managers/?couponCode=0868771DE83BB7971F67"
     },
     {
-        id: 1428,
-        titleAr: "تصميم منتجات الذكاء الاصطناعي",
-        titleEn: "Design AI Products",
-        desc: "كيفية تصميم تجربة المستخدم لمنتجات تعتمد على AI.",
+        id: 1504,
+        titleAr: "الذكاء الاصطناعي لمديري المنتجات",
+        titleEn: "AI for Product Managers",
+        desc: "استخدام أدوات الذكاء الاصطناعي في إدارة المنتجات.",
+        cat: "Business",
+        subCat: "Management",
+        date: `${todayDate} - ${releaseTime}`,
+        img: "https://placehold.co/600x400/2563eb/ffffff?text=AI+PM",
+        url: "https://www.udemy.com/course/product-management-using-chatgpt/?couponCode=292C3AF111577C9078F3"
+    },
+    {
+        id: 1505,
+        titleAr: "Apache Zeppelin: أداة تصوير البيانات الضخمة",
+        titleEn: "Apache Zeppelin - Big Data Visualization Tool",
+        desc: "تعلم استخدام Apache Zeppelin لتحليل وتصوير البيانات الضخمة.",
+        cat: "Development",
+        subCat: "Data Science",
+        date: `${todayDate} - ${releaseTime}`,
+        img: "https://placehold.co/600x400/ea580c/ffffff?text=Apache+Zeppelin",
+        url: "https://www.udemy.com/course/apache-zeppelin-big-data-visualization-tool/?couponCode=B3AC76F7150E71E6B080"
+    },
+    {
+        id: 1506,
+        titleAr: "ماستر كلاس كتابة وتخصيص السيرة الذاتية",
+        titleEn: "The Complete CV Writing & Tailoring Masterclass",
+        desc: "كيف تكتب سيرة ذاتية احترافية ومخصصة لكل وظيفة.",
+        cat: "Business",
+        subCat: "Communication",
+        date: `${todayDate} - ${releaseTime}`,
+        img: "https://placehold.co/600x400/64748b/ffffff?text=CV+Writing",
+        url: "https://www.udemy.com/course/the-complete-cv-writing-tailoring-masterclass/?couponCode=8F99C4E664B5B6B506A3"
+    },
+    {
+        id: 1507,
+        titleAr: "احتراف Grok: برمجة وذكاء اصطناعي وحل مشاكل",
+        titleEn: "Grok Mastery: Programming, AI and Problem Solving Skills",
+        desc: "تعلم البرمجة والذكاء الاصطناعي باستخدام Grok.",
+        cat: "Development",
+        subCat: "Programming Languages",
+        date: `${todayDate} - ${releaseTime}`,
+        img: "https://placehold.co/600x400/000000/ffffff?text=Grok+Mastery",
+        url: "https://www.udemy.com/course/grok-mastery-programming-ai-and-problem-solving-skills/?couponCode=09CF77787800A6B97081"
+    },
+    {
+        id: 1508,
+        titleAr: "احتراف Perplexity AI: بحث أذكى ونتائج أفضل",
+        titleEn: "Mastering Perplexity AI: Smarter Research, Better Results",
+        desc: "كيف تستخدم Perplexity AI للبحث المتقدم والفعال.",
+        cat: "Office Productivity",
+        subCat: "Google", 
+        date: `${todayDate} - ${releaseTime}`,
+        img: "https://placehold.co/600x400/0ea5e9/ffffff?text=Perplexity+AI",
+        url: "https://www.udemy.com/course/mastering-perplexity-ai-smarter-research-better-results/?couponCode=D24975AC2310F241E702"
+    },
+    {
+        id: 1509,
+        titleAr: "معادلات ودوال إكسل: نصائح وحيل واختصارات",
+        titleEn: "Excel Formulas and Functions: Tips, Tricks, and Shortcuts",
+        desc: "أسرار واختصارات الإكسل لزيادة الإنتاجية.",
+        cat: "Office Productivity",
+        subCat: "Microsoft",
+        date: `${todayDate} - ${releaseTime}`,
+        img: "https://placehold.co/600x400/16a34a/ffffff?text=Excel+Tricks",
+        url: "https://www.udemy.com/course/excel-formulas-and-functions-tips-tricks-and-shortcuts/?couponCode=81AEB82497751CA5B582"
+    },
+    {
+        id: 1510,
+        titleAr: "ماستر كلاس إكسل للباحثين عن عمل في المحاسبة",
+        titleEn: "MS Excel Masterclass for Job Seekers Accounting Success",
+        desc: "مهارات الإكسل الضرورية للمحاسبة والبحث عن عمل.",
+        cat: "Office Productivity",
+        subCat: "Microsoft",
+        date: `${todayDate} - ${releaseTime}`,
+        img: "https://placehold.co/600x400/16a34a/ffffff?text=Excel+Accounting",
+        url: "https://www.udemy.com/course/ms-excel-masterclass-for-job-seekers-accounting-success/?couponCode=B4EEF3A18C359CA95148"
+    },
+    {
+        id: 1511,
+        titleAr: "جافاسكريبت من الأساسي للمتقدم: Full Stack",
+        titleEn: "JavaScript Fundamentals to Advanced: Full Stack Development",
+        desc: "كورس شامل لتعلم جافاسكريبت وتطوير الويب المتكامل.",
+        cat: "Development",
+        subCat: "Web Development",
+        date: `${todayDate} - ${releaseTime}`,
+        img: "https://placehold.co/600x400/f7df1e/000000?text=JavaScript",
+        url: "https://www.udemy.com/course/javascript-fundamentals-to-advanced-full-stack-development/?couponCode=7276F6F173BE74745FA0"
+    },
+    {
+        id: 1512,
+        titleAr: "احتراف لغة C++: من المبتدئ للمتقدم",
+        titleEn: "Master of Essential C++ Programming Beginner to Advanced",
+        desc: "تعلم لغة C++ القوية من الصفر حتى الاحتراف.",
+        cat: "Development",
+        subCat: "Programming Languages",
+        date: `${todayDate} - ${releaseTime}`,
+        img: "https://placehold.co/600x400/00599c/ffffff?text=C%2B%2B",
+        url: "https://www.udemy.com/course/master-of-essential-c-programming-beginner-to-advanced/?couponCode=F3C5A6E0CBC10C1B1FDA"
+    },
+    {
+        id: 1513,
+        titleAr: "مايكروسوفت إكسل: تحليل البيانات وإدارتها",
+        titleEn: "Microsoft Excel: Data Analysis, Management and Visualization",
+        desc: "تحليل وتصوير البيانات باستخدام إكسل.",
+        cat: "Office Productivity",
+        subCat: "Microsoft",
+        date: `${todayDate} - ${releaseTime}`,
+        img: "https://placehold.co/600x400/16a34a/ffffff?text=Excel+Data",
+        url: "https://www.udemy.com/course/microsoft-excel-data-analysis-management-and-visualization/?couponCode=08EFD5B41D2CFF95686B"
+    },
+    {
+        id: 1514,
+        titleAr: "UI/UX مع Figma و Adobe XD",
+        titleEn: "UIUX with Figma and Adobe XD",
+        desc: "تعلم تصميم واجهات وتجربة المستخدم باستخدام أشهر الأدوات.",
         cat: "Design",
         subCat: "User Experience Design",
-        date: "جديد 🔥",
-        img: "https://placehold.co/600x400/ec4899/ffffff?text=Design+AI",
-        url: "https://www.udemy.com/course/design-ai-products/?couponCode=12JANUARY2026"
+        date: `${todayDate} - ${releaseTime}`,
+        img: "https://placehold.co/600x400/f24e1e/ffffff?text=Figma+XD",
+        url: "https://www.udemy.com/course/uiux-with-figma-and-adobe-xd/?couponCode=1CEF4C4ECC8412663CBD"
+    },
+    {
+        id: 1515,
+        titleAr: "أساسيات تصميم اللوجو: فوتوشوب وإليستريتور",
+        titleEn: "Logo Design Essentials: Photoshop & Illustrator",
+        desc: "كيفية تصميم شعارات احترافية.",
+        cat: "Design",
+        subCat: "Graphic Design & Illustration",
+        date: `${todayDate} - ${releaseTime}`,
+        img: "https://placehold.co/600x400/ff9a00/ffffff?text=Logo+Design",
+        url: "https://www.udemy.com/course/logo-design-essentials-photoshop-illustrator/?couponCode=7E9346A2ED4E52FB90E5"
+    },
+    {
+        id: 1516,
+        titleAr: "أساسيات أفتر إفكتس: تعلم الموشن جرافيك",
+        titleEn: "Adobe After Effect Essential: Learn Video Motion Animation",
+        desc: "بداية قوية في عالم الموشن جرافيك والتحريك.",
+        cat: "Design",
+        subCat: "3D & Animation",
+        date: `${todayDate} - ${releaseTime}`,
+        img: "https://placehold.co/600x400/9999ff/ffffff?text=After+Effects",
+        url: "https://www.udemy.com/course/adobe-after-effect-essential-learn-video-motion-animation/?couponCode=9179EE13110F88213511"
+    },
+    {
+        id: 1517,
+        titleAr: "تصميم التيشيرتات بالفوتوشوب: من المبتدئ للمتقدم",
+        titleEn: "T-Shirt Design for Beginner to Advanced with Adobe Photoshop",
+        desc: "احترف تصميم التيشيرتات للطباعة باستخدام فوتوشوب.",
+        cat: "Design",
+        subCat: "Graphic Design & Illustration",
+        date: `${todayDate} - ${releaseTime}`,
+        img: "https://placehold.co/600x400/31a8ff/ffffff?text=T-Shirt+Design",
+        url: "https://www.udemy.com/course/t-shirt-design-for-beginner-to-advanced-with-adobe-photoshop/?couponCode=88397DDF65A84D504710"
+    },
+    {
+        id: 1518,
+        titleAr: "معسكر تطوير الويب: HTML CSS PHP MySQL WP",
+        titleEn: "Web Development Bootcamp with HTML CSS PHP MySQL Wordpress",
+        desc: "كورس شامل لتطوير الويب والووردبريس.",
+        cat: "Development",
+        subCat: "Web Development",
+        date: `${todayDate} - ${releaseTime}`,
+        img: "https://placehold.co/600x400/e34f26/ffffff?text=Web+Dev+Bootcamp",
+        url: "https://www.udemy.com/course/web-development-bootcamp-with-html-css-php-mysql-wordpress/?couponCode=2DFA8CB056CB4FAFC101"
+    },
+    {
+        id: 1519,
+        titleAr: "ماستر كلاس يوتيوب: مونتاج وتصميم جرافيك",
+        titleEn: "Youtube Masterclass With Video Editing and Graphics Design",
+        desc: "كيف تبدأ قناة يوتيوب ناجحة مع تعلم المونتاج والتصميم.",
+        cat: "Design",
+        subCat: "3D & Animation",
+        date: `${todayDate} - ${releaseTime}`,
+        img: "https://placehold.co/600x400/ff0000/ffffff?text=YouTube+Masterclass",
+        url: "https://www.udemy.com/course/youtube-masterclass-with-video-editing-and-graphics-design/?couponCode=93CC5FBFD0454DE58142"
+    },
+    {
+        id: 1520,
+        titleAr: "إكسل الأساسي: من المبتدئ للمتقدم",
+        titleEn: "Essential Microsoft Excel from Beginner to Advance level",
+        desc: "تعلم كل ما تحتاجه في الإكسل.",
+        cat: "Office Productivity",
+        subCat: "Microsoft",
+        date: `${todayDate} - ${releaseTime}`,
+        img: "https://placehold.co/600x400/16a34a/ffffff?text=Essential+Excel",
+        url: "https://www.udemy.com/course/essential-excel-for-beginner-to-advanced/?couponCode=16D7FED9678090A0CA7F"
+    },
+    {
+        id: 1521,
+        titleAr: "كورس تصميم الويب: من المبتدئ للمتقدم",
+        titleEn: "Web Design Course For Beginner to Advanced",
+        desc: "تعلم أساسيات تصميم مواقع الويب الجذابة.",
+        cat: "Design",
+        subCat: "Web Design",
+        date: `${todayDate} - ${releaseTime}`,
+        img: "https://placehold.co/600x400/0ea5e9/ffffff?text=Web+Design",
+        url: "https://www.udemy.com/course/web-design-for-beginner-to-advanced/?couponCode=EEEB3EA3DCFDC9DDC6D8"
+    },
+    {
+        id: 1522,
+        titleAr: "إتقان الإنجليزية مع AI: تحدث بطلاقة مع ChatGPT",
+        titleEn: "Master English with AI: Improve Fluency Fast Using ChatGPT",
+        desc: "استخدم الذكاء الاصطناعي لتحسين لغتك الإنجليزية.",
+        cat: "Business",
+        subCat: "Communication",
+        date: `${todayDate} - ${releaseTime}`,
+        img: "https://placehold.co/600x400/10b981/ffffff?text=English+AI",
+        url: "https://www.udemy.com/course/master-english-with-ai-improve-fluency-fast-using-chatgpt/?couponCode=CP250105G2"
+    },
+    {
+        id: 1523,
+        titleAr: "التسويق القائم على الحسابات (ABM)",
+        titleEn: "Account-Based Marketing - ABM: Increase Your B2B Efficiency",
+        desc: "زيادة كفاءة التسويق للشركات (B2B).",
+        cat: "Marketing",
+        subCat: "Marketing Fundamentals",
+        date: `${todayDate} - ${releaseTime}`,
+        img: "https://placehold.co/600x400/d946ef/ffffff?text=ABM+Marketing",
+        url: "https://www.udemy.com/course/account-based-marketing-increase-your-b2b-efficiency/?source=CourseFolder&medium=CourseFolderFreeTelegram&couponCode=13JANUARY2026"
+    },
+    {
+        id: 1524,
+        titleAr: "شهادة محترف التسويق الرقمي",
+        titleEn: "Digital Marketing Professional Certification",
+        desc: "شهادة شاملة في مجال التسويق الرقمي.",
+        cat: "Marketing",
+        subCat: "Digital Marketing",
+        date: `${todayDate} - ${releaseTime}`,
+        img: "https://placehold.co/600x400/ec4899/ffffff?text=Digital+Marketing",
+        url: "https://www.udemy.com/course/digital-marketing-expert-assessment/?source=CourseFolder&medium=CourseFolderFreeTelegram&couponCode=4EE951AB68E4661E6C44"
+    },
+    {
+        id: 1525,
+        titleAr: "البناء مع Google AI: تطبيقات وفيديو",
+        titleEn: "Build with Google AI: Apps, Videos & Stunning Visuals",
+        desc: "استخدام أدوات جوجل للذكاء الاصطناعي في بناء التطبيقات والفيديو.",
+        cat: "Development",
+        subCat: "Data Science",
+        date: `${todayDate} - ${releaseTime}`,
+        img: "https://placehold.co/600x400/4285f4/ffffff?text=Google+AI",
+        url: "https://www.udemy.com/course/build-with-google-ai-apps-videos-stunning-visuals/?source=CourseFolder&medium=61A4040453247D580157&couponCode=3EFB4D055E670E598B3B"
     }
 ];
 
