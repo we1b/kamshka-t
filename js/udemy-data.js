@@ -1,5 +1,5 @@
 /* Path: js/udemy-data.js */
-// تحديث: 16 يناير 2026 - دفعة اليوم فقط
+// تحديث: 16 يناير 2026 - الكورسات الجديدة (صباحاً) + القديمة
 
 // 1. هيكلة التصنيفات (ثابتة)
 const udemyCategories = [
@@ -75,11 +75,136 @@ const udemyCategories = [
     }
 ];
 
-// التاريخ والوقت الحالي
-const dateStr = "الجمعة 16 يناير 2026 | 27 رجب 1447 - 07:00 م";
+// تواريخ العرض
+const dateMorning = "الجمعة 16 يناير 2026 | 27 رجب 1447 - 10:00 ص";
+const dateEvening = "الجمعة 16 يناير 2026 | 27 رجب 1447 - 07:00 م"; // القديم
 
-// 2. قائمة الكورسات (55 كورس)
+// 2. قائمة الكورسات (الجديد في الأول)
 const udemyCourses = [
+    // --- 🟢 الدفعة الجديدة (16 يناير - 10:00 ص) 🟢 ---
+    {
+        id: 2101,
+        titleAr: "تخصص التعلم العميق: ذكاء اصطناعي متقدم",
+        titleEn: "Deep Learning Specialization: Advanced AI, Hands on Lab",
+        desc: "تعلم معماريات الذكاء الاصطناعي المتقدمة والتطبيقات العملية.",
+        cat: "Development",
+        subCat: "Data Science",
+        date: dateMorning,
+        img: "https://placehold.co/600x400/2563eb/ffffff?text=Deep+Learning",
+        url: "https://www.udemy.com/course/deep-learning-specialization-advanced-ai-architectures/?couponCode=FF92E5E92DDC7E31C1D3"
+    },
+    {
+        id: 2102,
+        titleAr: "دورة أساسيات تعلم الآلة والذكاء الاصطناعي",
+        titleEn: "Machine Learning & AI Foundations Course",
+        desc: "مدخل شامل لفهم أساسيات الـ ML والـ AI.",
+        cat: "Development",
+        subCat: "Data Science",
+        date: dateMorning,
+        img: "https://placehold.co/600x400/10b981/ffffff?text=ML+Foundations",
+        url: "https://www.udemy.com/course/machine-learning-ai-foundations-course/?couponCode=33A5E592E172B996BF3E"
+    },
+    {
+        id: 2103,
+        titleAr: "دورة أساسيات محلل البيانات المعتمد",
+        titleEn: "Certified Data Analyst Foundations Course",
+        desc: "تأسيس قوي في مجال تحليل البيانات والشهادات المعتمدة.",
+        cat: "Development",
+        subCat: "Data Science",
+        date: dateMorning,
+        img: "https://placehold.co/600x400/f59e0b/ffffff?text=Data+Analyst",
+        url: "https://www.udemy.com/course/certified-data-analyst-foundations-course/?couponCode=C0CE6B1721AD276D541C"
+    },
+    {
+        id: 2104,
+        titleAr: "اصنع لعبة Flappy Bird من الصفر بـ Unity و C#",
+        titleEn: "Make a Flappy Bird Game From Scratch in Unity 6.3 & C#",
+        desc: "تطبيق عملي ممتع لتعلم تطوير الألعاب بمحرك Unity.",
+        cat: "Development",
+        subCat: "Game Development",
+        date: dateMorning,
+        img: "https://placehold.co/600x400/ec4899/ffffff?text=Unity+Game",
+        url: "https://www.udemy.com/course/flappy-bird-from-scratch-unity6/?couponCode=A947A1A98052297E4781"
+    },
+    {
+        id: 2105,
+        titleAr: "الدليل الشامل لـ Spring 6 و Spring Boot 3",
+        titleEn: "Ultimate Guide to Spring 6, Spring Boot 3 & Hibernate [NEW]",
+        desc: "احترف إطار عمل Spring لبناء تطبيقات جافا قوية.",
+        cat: "Development",
+        subCat: "Web Development",
+        date: dateMorning,
+        img: "https://placehold.co/600x400/16a34a/ffffff?text=Spring+Boot",
+        url: "https://www.udemy.com/course/learn-spring-framework-the-easy-and-fun-way/?couponCode=NEWYEAR2026"
+    },
+    {
+        id: 2106,
+        titleAr: "برمجة جافا للمبتدئين تماماً",
+        titleEn: "Java Programming for Complete Beginners",
+        desc: "تعلم لغة الجافا من الصفر حتى الاحتراف.",
+        cat: "Development",
+        subCat: "Programming Languages",
+        date: dateMorning,
+        img: "https://placehold.co/600x400/ea580c/ffffff?text=Java+Beginner",
+        url: "https://www.udemy.com/course/java-programming-complete-beginner-to-advanced/?couponCode=0A4F559DEC59BE93661D"
+    },
+    {
+        id: 2107,
+        titleAr: "مشاريع واقعية في تعلم الآلة باستخدام بايثون",
+        titleEn: "Machine Learning Real World projects in Python",
+        desc: "تطبيق عملي لمشاريع ML حقيقية باستخدام بايثون.",
+        cat: "Development",
+        subCat: "Data Science",
+        date: dateMorning,
+        img: "https://placehold.co/600x400/3776ab/ffffff?text=ML+Projects",
+        url: "https://www.udemy.com/course/machine-learning-real-world-projects-in-python/?couponCode=NEW_YEAR_2026_100OFF"
+    },
+    {
+        id: 2108,
+        titleAr: "تنظيف البيانات بـ SQL: مشاريع البورتفوليو",
+        titleEn: "VBM Portfolio Projects: SQL Data Cleaning (e-commerce data)",
+        desc: "مشروع قوي لبناء معرض أعمالك في تحليل البيانات.",
+        cat: "Development",
+        subCat: "Database Design & Development",
+        date: dateMorning,
+        img: "https://placehold.co/600x400/334155/ffffff?text=SQL+Cleaning",
+        url: "https://www.udemy.com/course/data-portfolio-builder-sql-data-cleaning-for-dashboard-kpis/?couponCode=4A8C26815FC01F792EDD"
+    },
+    {
+        id: 2109,
+        titleAr: "إدارة الأعمال (Micro MBA)",
+        titleEn: "Business Administration",
+        desc: "كورس مصغر وشامل في إدارة الأعمال.",
+        cat: "Business",
+        subCat: "Management",
+        date: dateMorning,
+        img: "https://placehold.co/600x400/4f46e5/ffffff?text=Micro+MBA",
+        url: "https://www.udemy.com/course/micro-mba-in-business-administration/?couponCode=6FCF8E652AB0D297B755"
+    },
+    {
+        id: 2110,
+        titleAr: "تحضير مقابلة سكروم ماستر (Scrum Master)",
+        titleEn: "Free Scrum Tutorial - Scrum Master Interview Prep",
+        desc: "أسئلة وسيناريوهات واستراتيجيات لمقابلة العمل.",
+        cat: "Business",
+        subCat: "Management",
+        date: dateMorning,
+        img: "https://placehold.co/600x400/ef4444/ffffff?text=Scrum+Prep",
+        url: "https://www.udemy.com/course/how-to-prepare-for-scrum-master-interviews/"
+    },
+    {
+        id: 2111,
+        titleAr: "تعلم 100 مفهوم في C# في 100 دقيقة",
+        titleEn: "Free C# Tutorial - 100 C# Concepts in 100 Minutes",
+        desc: "مراجعة سريعة ومكثفة لمفاهيم لغة السي شارب.",
+        cat: "Development",
+        subCat: "Programming Languages",
+        date: dateMorning,
+        img: "https://placehold.co/600x400/6f42c1/ffffff?text=C%23+Concepts",
+        url: "https://www.udemy.com/course/100-csharp-concepts-in-100-minutes/"
+    },
+
+    // --- 🔵 الكورسات الموجودة مسبقاً (16 يناير - 07:00 م) 🔵 ---
     {
         id: 2001,
         titleAr: "مدير نجاح العملاء: استراتيجيات المبيعات",
@@ -87,7 +212,7 @@ const udemyCourses = [
         desc: "كيف تتبنى استراتيجيات مبيعات للحفاظ على العملاء.",
         cat: "Business",
         subCat: "Sales",
-        date: dateStr,
+        date: dateEvening,
         img: "https://placehold.co/600x400/10b981/ffffff?text=Customer+Success",
         url: "https://www.udemy.com/course/csm-adopt-proven-sales-strategies-for-retention-and-growth/?couponCode=D70398DE886B4B153DFC"
     },
@@ -98,7 +223,7 @@ const udemyCourses = [
         desc: "الدليل الشامل لاجتياز اختبار Security+.",
         cat: "IT & Software",
         subCat: "IT Certifications",
-        date: dateStr,
+        date: dateEvening,
         img: "https://placehold.co/600x400/dc2626/ffffff?text=CompTIA+Sec%2B",
         url: "https://www.udemy.com/course/the-ultimate-guide-for-comptia-security-plus-exam/?couponCode=CYVFREE0126"
     },
@@ -109,7 +234,7 @@ const udemyCourses = [
         desc: "مهارات التأثير والقيادة في مجال الإمداد.",
         cat: "Business",
         subCat: "Management",
-        date: dateStr,
+        date: dateEvening,
         img: "https://placehold.co/600x400/6366f1/ffffff?text=Supply+Chain",
         url: "https://www.udemy.com/course/the-art-of-influence-in-supply-chain/?couponCode=D65E11579186610DEB4D"
     },
@@ -120,7 +245,7 @@ const udemyCourses = [
         desc: "تقنيات إدارية لتحليل البيانات بالإكسل.",
         cat: "Office Productivity",
         subCat: "Microsoft",
-        date: dateStr,
+        date: dateEvening,
         img: "https://placehold.co/600x400/16a34a/ffffff?text=Excel+Analysis",
         url: "https://www.udemy.com/course/microsoft-excel-data-visualization-with-management-technique/?couponCode=25BBPMXINACTIVE"
     },
@@ -131,7 +256,7 @@ const udemyCourses = [
         desc: "تعلم لغة YAML المستخدمة في الـ DevOps.",
         cat: "Development",
         subCat: "Programming Languages",
-        date: dateStr,
+        date: dateEvening,
         img: "https://placehold.co/600x400/000000/ffffff?text=YAML",
         url: "https://www.udemy.com/course/yaml-fundamentals-compete-course/?couponCode=B79D6FC468C5C31CE842"
     },
@@ -142,7 +267,7 @@ const udemyCourses = [
         desc: "تعلم لغة C# لبناء البرامج والألعاب.",
         cat: "Development",
         subCat: "Programming Languages",
-        date: dateStr,
+        date: dateEvening,
         img: "https://placehold.co/600x400/6f42c1/ffffff?text=C%23",
         url: "https://www.udemy.com/course/mastering-c-learn-building-games-application-softwares/?couponCode=5998B043FC00530F88AC"
     },
@@ -153,7 +278,7 @@ const udemyCourses = [
         desc: "احتراف الفوتوشوب وأدوات الذكاء الاصطناعي.",
         cat: "Design",
         subCat: "Graphic Design & Illustration",
-        date: dateStr,
+        date: dateEvening,
         img: "https://placehold.co/600x400/0284c7/ffffff?text=Photoshop+AI",
         url: "https://www.udemy.com/course/the-ultimate-adobe-photoshop-fundamental-course/?couponCode=EB08FF17C906AACFA25C"
     },
@@ -164,7 +289,7 @@ const udemyCourses = [
         desc: "كيفية برمجة روبوتات التداول.",
         cat: "Finance & Accounting",
         subCat: "Investing & Trading",
-        date: dateStr,
+        date: dateEvening,
         img: "https://placehold.co/600x400/10b981/ffffff?text=Auto+Trading",
         url: "https://www.udemy.com/course/automated-trading-on-mt5-step-by-step/?couponCode=2BFF881B64E7DAF69F8B"
     },
@@ -175,7 +300,7 @@ const udemyCourses = [
         desc: "مقدمة شاملة لتقنية الواقع المعزز.",
         cat: "IT & Software",
         subCat: "Other IT & Software",
-        date: dateStr,
+        date: dateEvening,
         img: "https://placehold.co/600x400/8b5cf6/ffffff?text=Augmented+Reality",
         url: "https://www.udemy.com/course/augmented-reality-in-depth-101-by-debayandey-thnewagetraveller/?couponCode=25BBPMXINACTIVE"
     },
@@ -186,7 +311,7 @@ const udemyCourses = [
         desc: "تعلم تقنيات الويب الحديثة.",
         cat: "Development",
         subCat: "Web Development",
-        date: dateStr,
+        date: dateEvening,
         img: "https://placehold.co/600x400/3178c6/ffffff?text=Modern+Web",
         url: "https://www.udemy.com/course/modern-web-development-with-javascript-jquery-typescript/?couponCode=25BBPMXINACTIVE"
     },
@@ -197,7 +322,7 @@ const udemyCourses = [
         desc: "شرح مبسط لعلوم البيانات ببايثون.",
         cat: "Development",
         subCat: "Data Science",
-        date: dateStr,
+        date: dateEvening,
         img: "https://placehold.co/600x400/3776ab/ffffff?text=Python+Data",
         url: "https://www.udemy.com/course/python-data-science-and-machine-learning-made-easy/?couponCode=25BBPMXINACTIVE"
     },
@@ -208,7 +333,7 @@ const udemyCourses = [
         desc: "استراتيجية قوية لتداول الفوركس.",
         cat: "Finance & Accounting",
         subCat: "Investing & Trading",
-        date: dateStr,
+        date: dateEvening,
         img: "https://placehold.co/600x400/0ea5e9/ffffff?text=Forex+Strategy",
         url: "https://www.udemy.com/course/divergence-bomber/?couponCode=E9FD82E112629CF1ADF9"
     },
@@ -219,7 +344,7 @@ const udemyCourses = [
         desc: "تعلم أساسيات التصميم بالبرنامجين.",
         cat: "Design",
         subCat: "Graphic Design & Illustration",
-        date: dateStr,
+        date: dateEvening,
         img: "https://placehold.co/600x400/db2777/ffffff?text=Ps+Ai",
         url: "https://www.udemy.com/course/designs-photoshop-adobe-illustrator-cc/?couponCode=7C65A94C3D7D029C8280"
     },
@@ -230,7 +355,7 @@ const udemyCourses = [
         desc: "احتراف الإكسل من الصفر.",
         cat: "Office Productivity",
         subCat: "Microsoft",
-        date: dateStr,
+        date: dateEvening,
         img: "https://placehold.co/600x400/16a34a/ffffff?text=Excel+Expert",
         url: "https://www.udemy.com/course/the-complete-microsoft-excel-course-beginner-to-expert/?couponCode=9889743C53F134176A11"
     },
@@ -241,7 +366,7 @@ const udemyCourses = [
         desc: "دليل شامل لاحتراف لغتي C و C++.",
         cat: "Development",
         subCat: "Programming Languages",
-        date: dateStr,
+        date: dateEvening,
         img: "https://placehold.co/600x400/00599c/ffffff?text=C%2B%2B",
         url: "https://www.udemy.com/course/master-programming-with-c-and-c-from-beginner-to-advanced/?couponCode=59D3B3A44BA5F9FA13C7"
     },
@@ -252,7 +377,7 @@ const udemyCourses = [
         desc: "تأسيس قوي في البرمجة.",
         cat: "Development",
         subCat: "Programming Languages",
-        date: dateStr,
+        date: dateEvening,
         img: "https://placehold.co/600x400/3776ab/ffffff?text=Python+Code",
         url: "https://www.udemy.com/course/python-programming-build-a-strong-foundation-in-coding/?couponCode=25BBPMXINACTIVE"
     },
@@ -263,7 +388,7 @@ const udemyCourses = [
         desc: "مونتاج احترافي ببرنامج CapCut.",
         cat: "Design",
         subCat: "3D & Animation",
-        date: dateStr,
+        date: dateEvening,
         img: "https://placehold.co/600x400/000000/ffffff?text=CapCut",
         url: "https://www.udemy.com/course/capcut-for-cinematography-motion-graphics-and-social-media/?couponCode=19A3D756D526970FFC37"
     },
@@ -274,7 +399,7 @@ const udemyCourses = [
         desc: "تعلم كل أدوات الفوتوشوب.",
         cat: "Design",
         subCat: "Graphic Design & Illustration",
-        date: dateStr,
+        date: dateEvening,
         img: "https://placehold.co/600x400/0284c7/ffffff?text=Photoshop+Master",
         url: "https://www.udemy.com/course/ultimate-adobe-photoshop-cc-masterclass-basics-to-advanced/?couponCode=9A46E31D6B7B4035151A"
     },
@@ -285,7 +410,7 @@ const udemyCourses = [
         desc: "تعلم الأساسيات في وقت قياسي.",
         cat: "Design",
         subCat: "Graphic Design & Illustration",
-        date: dateStr,
+        date: dateEvening,
         img: "https://placehold.co/600x400/0369a1/ffffff?text=Ps+Crash",
         url: "https://www.udemy.com/course/essential-adobe-photoshop-free-photoshop-crash-course/?couponCode=819EB9E61BD616F919A6"
     },
@@ -296,7 +421,7 @@ const udemyCourses = [
         desc: "تصميم واجهات المستخدم باحترافية.",
         cat: "Design",
         subCat: "User Experience Design",
-        date: dateStr,
+        date: dateEvening,
         img: "https://placehold.co/600x400/ff00ff/ffffff?text=Adobe+XD",
         url: "https://www.udemy.com/course/uiux-design-masterclass-with-adobe-xd-from-beginner-to-pro/?couponCode=03C0E3D9CFD814DEBD60"
     },
@@ -307,7 +432,7 @@ const udemyCourses = [
         desc: "دليل صناع المحتوى للمونتاج.",
         cat: "Design",
         subCat: "3D & Animation",
-        date: dateStr,
+        date: dateEvening,
         img: "https://placehold.co/600x400/000000/ffffff?text=CapCut+Bootcamp",
         url: "https://www.udemy.com/course/capcut-video-editing-bootcamp-for-social-media-and-creators/?couponCode=BB8A1C9B9299620503DD"
     },
@@ -318,7 +443,7 @@ const udemyCourses = [
         desc: "صناعة خدع سينمائية.",
         cat: "Design",
         subCat: "3D & Animation",
-        date: dateStr,
+        date: dateEvening,
         img: "https://placehold.co/600x400/9999ff/ffffff?text=Premiere+Pro",
         url: "https://www.udemy.com/course/advanced-adobe-premiere-pro-add-hollywood-level-effects/?couponCode=F3D7C71A6B4AF79133EB"
     },
@@ -329,7 +454,7 @@ const udemyCourses = [
         desc: "أساسيات تجربة المستخدم.",
         cat: "Design",
         subCat: "User Experience Design",
-        date: dateStr,
+        date: dateEvening,
         img: "https://placehold.co/600x400/ff00ff/ffffff?text=UI+UX",
         url: "https://www.udemy.com/course/learn-ui-ux-design-adobe-xd-figma-uiuxdesign/?couponCode=98FAA3254E2451E1C741"
     },
@@ -340,7 +465,7 @@ const udemyCourses = [
         desc: "بناء معرض أعمال قوي.",
         cat: "Design",
         subCat: "Graphic Design & Illustration",
-        date: dateStr,
+        date: dateEvening,
         img: "https://placehold.co/600x400/ea580c/ffffff?text=Illustrator",
         url: "https://www.udemy.com/course/mastering-adobe-illustrator-projects-build-your-portfolio/?couponCode=E8C615646E5A74459668"
     },
@@ -351,7 +476,7 @@ const udemyCourses = [
         desc: "تعلم كل شيء في Filmora.",
         cat: "Design",
         subCat: "3D & Animation",
-        date: dateStr,
+        date: dateEvening,
         img: "https://placehold.co/600x400/14b8a6/ffffff?text=Filmora",
         url: "https://www.udemy.com/course/master-filmora-editing-motion-graphics-and-color-grading/?couponCode=F4810DA18E0DD146377A"
     },
@@ -362,7 +487,7 @@ const udemyCourses = [
         desc: "برمجة وتصميم الويب.",
         cat: "Development",
         subCat: "Web Development",
-        date: dateStr,
+        date: dateEvening,
         img: "https://placehold.co/600x400/e34f26/ffffff?text=CSS+JS",
         url: "https://www.udemy.com/course/css-and-javascript-complete-course-for-beginners/?couponCode=5AEB9F099562F6865D15"
     },
@@ -373,7 +498,7 @@ const udemyCourses = [
         desc: "مقدمة شاملة في AI.",
         cat: "Development",
         subCat: "Data Science",
-        date: dateStr,
+        date: dateEvening,
         img: "https://placehold.co/600x400/2563eb/ffffff?text=AI+Essentials",
         url: "https://www.udemy.com/course/ai-essentials-introduction-to-artificial-intelligence/?couponCode=25E9985D705950A67D7B"
     },
@@ -384,7 +509,7 @@ const udemyCourses = [
         desc: "من الفكرة للنموذج الأولي.",
         cat: "Design",
         subCat: "User Experience Design",
-        date: dateStr,
+        date: dateEvening,
         img: "https://placehold.co/600x400/f24e1e/ffffff?text=Mobile+App",
         url: "https://www.udemy.com/course/mobile-app-design-in-figma-from-concept-to-prototype/?couponCode=15JANUARY2026"
     },
@@ -395,7 +520,7 @@ const udemyCourses = [
         desc: "دليل شامل لبرنامج Word.",
         cat: "Office Productivity",
         subCat: "Microsoft",
-        date: dateStr,
+        date: dateEvening,
         img: "https://placehold.co/600x400/2563eb/ffffff?text=Word",
         url: "https://www.udemy.com/course/mastering-microsoft-word-a-comprehensive-guide-to-boost-you/?couponCode=4927C33BA0E4DAC9879F"
     },
@@ -406,18 +531,18 @@ const udemyCourses = [
         desc: "تطبيقات عملية على خدمات AWS.",
         cat: "IT & Software",
         subCat: "Network & Security",
-        date: dateStr,
+        date: dateEvening,
         img: "https://placehold.co/600x400/f59e0b/ffffff?text=AWS",
         url: "https://www.udemy.com/course/mastering-aws-serverless-hands-on-with-core-aws-services/?couponCode=15JANUARY2026"
     },
     {
         id: 2031,
-        titleAr: "التسويق عبر الإيميل بالذكاء الاصطناعي",
+        titleAr: "التسويق عبر البريد الإلكتروني بالذكاء الاصطناعي",
         titleEn: "AI-Powered Email Marketing",
         desc: "استخدام AI في حملات البريد.",
         cat: "Marketing",
         subCat: "Digital Marketing",
-        date: dateStr,
+        date: dateEvening,
         img: "https://placehold.co/600x400/d946ef/ffffff?text=Email+Mkt",
         url: "https://www.udemy.com/course/ai-powered-email-marketing-a-complete-guide/?couponCode=15JANUARY2026"
     },
@@ -428,7 +553,7 @@ const udemyCourses = [
         desc: "دليل شامل للاستثمار.",
         cat: "Finance & Accounting",
         subCat: "Investing & Trading",
-        date: dateStr,
+        date: dateEvening,
         img: "https://placehold.co/600x400/10b981/ffffff?text=Investing",
         url: "https://www.udemy.com/course/investing-options-from-basics-to-mastery/?couponCode=15JANUARY2026"
     },
@@ -439,7 +564,7 @@ const udemyCourses = [
         desc: "مهارات أساسية للنجاح.",
         cat: "Office Productivity",
         subCat: "Microsoft",
-        date: dateStr,
+        date: dateEvening,
         img: "https://placehold.co/600x400/16a34a/ffffff?text=Excel+Power",
         url: "https://www.udemy.com/course/unlock-excels-power-essential-ms-excel-skills-for-success/?couponCode=176D679072855C23FBE7"
     },
@@ -450,7 +575,7 @@ const udemyCourses = [
         desc: "دمج مهارات المكتب والويب.",
         cat: "Development",
         subCat: "Web Development",
-        date: dateStr,
+        date: dateEvening,
         img: "https://placehold.co/600x400/ea580c/ffffff?text=Office+Web",
         url: "https://www.udemy.com/course/complete-ms-office-and-web-design-development-course/?couponCode=B20DC7AFD7A543240237"
     },
@@ -460,8 +585,8 @@ const udemyCourses = [
         titleEn: "Webflow for Beginners",
         desc: "إنشاء موقعك الأول بدون كود.",
         cat: "Design",
-        subCat: "Web Design",
-        date: dateStr,
+        subCat: "Web Development",
+        date: dateEvening,
         img: "https://placehold.co/600x400/3b82f6/ffffff?text=Webflow",
         url: "https://www.udemy.com/course/webflow-for-beginners-create-your-first-website/?couponCode=635786F33F32698E77E1"
     },
@@ -472,7 +597,7 @@ const udemyCourses = [
         desc: "تطوير تطبيقات الويب.",
         cat: "Development",
         subCat: "Web Development",
-        date: dateStr,
+        date: dateEvening,
         img: "https://placehold.co/600x400/4f46e5/ffffff?text=PHP",
         url: "https://www.udemy.com/course/learn-php-and-mysql-for-web-application-and-web-development/?couponCode=EC1A5E1C17DE357670F5"
     },
@@ -483,7 +608,7 @@ const udemyCourses = [
         desc: "تقنيات متقدمة في ووردبريس.",
         cat: "Development",
         subCat: "Web Development",
-        date: dateStr,
+        date: dateEvening,
         img: "https://placehold.co/600x400/21759b/ffffff?text=WordPress",
         url: "https://www.udemy.com/course/advanced-wordpress-course-for-professionals/?couponCode=AE61258FCE1DB8EF0C9C"
     },
@@ -494,7 +619,7 @@ const udemyCourses = [
         desc: "للكتب الصوتية والإعلانات.",
         cat: "Marketing",
         subCat: "Branding",
-        date: dateStr,
+        date: dateEvening,
         img: "https://placehold.co/600x400/ef4444/ffffff?text=Voice+Over",
         url: "https://www.udemy.com/course/voice-over-artist-training-for-audiobook-courses-and-promos/?couponCode=7ED96BE034FAD62C6138"
     },
@@ -505,7 +630,7 @@ const udemyCourses = [
         desc: "برمجة بالتلقين.",
         cat: "Development",
         subCat: "Mobile Development",
-        date: dateStr,
+        date: dateEvening,
         img: "https://placehold.co/600x400/8b5cf6/ffffff?text=Gemini+App",
         url: "https://www.udemy.com/course/prompt-engineering-crear-apps-android-con-ia-gemini/?couponCode=25BBPMXINACTIVE"
     },
@@ -516,7 +641,7 @@ const udemyCourses = [
         desc: "دليل كامل للمكتبات.",
         cat: "Development",
         subCat: "Data Science",
-        date: dateStr,
+        date: dateEvening,
         img: "https://placehold.co/600x400/3776ab/ffffff?text=Pandas",
         url: "https://www.udemy.com/course/numpy-pandas-python-for-data-analysis-a-complete-guide/?couponCode=4427876060BE504982D9"
     },
@@ -527,7 +652,7 @@ const udemyCourses = [
         desc: "كورس مكثف.",
         cat: "Development",
         subCat: "Web Development",
-        date: dateStr,
+        date: dateEvening,
         img: "https://placehold.co/600x400/e34f26/ffffff?text=Full+Stack",
         url: "https://www.udemy.com/course/html-css-java-javascript-full-stack-programming-course/?couponCode=F053F20F0E5AA6E2D4DC"
     },
@@ -538,7 +663,7 @@ const udemyCourses = [
         desc: "هندسة البيانات.",
         cat: "Development",
         subCat: "Data Science",
-        date: dateStr,
+        date: dateEvening,
         img: "https://placehold.co/600x400/4285f4/ffffff?text=Kafka",
         url: "https://www.udemy.com/course/streaming-data-pipeline-using-confluent-kafka-google-cloud/?couponCode=25BBPMXINACTIVE"
     }
